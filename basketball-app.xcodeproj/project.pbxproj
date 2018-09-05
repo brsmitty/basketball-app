@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD121403291006726C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FD021403291006726C3 /* ViewController.swift */; };
-		63C79FD421403292006726C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD221403292006726C3 /* Main.storyboard */; };
 		63C79FD621403292006726C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD521403292006726C3 /* Assets.xcassets */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
+		63C79FE121403303006726C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FE021403303006726C3 /* Main.storyboard */; };
+		63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FE2214033A8006726C3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		63C79FCB21403291006726C3 /* basketball-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basketball-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD021403291006726C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		63C79FD321403292006726C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63C79FD521403292006726C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63C79FD821403292006726C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63C79FDA21403292006726C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63C79FE021403303006726C3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../Downloads/Main.storyboard; sourceTree = "<group>"; };
+		63C79FE2214033A8006726C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.debug.xcconfig"; sourceTree = "<group>"; };
+		D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		000C9FD9583F679DDB3773CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		165C386DCD297A94D812A1E2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */,
+				D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
 				63C79FCD21403291006726C3 /* basketball-app */,
 				63C79FCC21403291006726C3 /* Products */,
+				165C386DCD297A94D812A1E2 /* Pods */,
+				000C9FD9583F679DDB3773CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,9 +80,10 @@
 		63C79FCD21403291006726C3 /* basketball-app */ = {
 			isa = PBXGroup;
 			children = (
+				63C79FE2214033A8006726C3 /* GoogleService-Info.plist */,
+				63C79FE021403303006726C3 /* Main.storyboard */,
 				63C79FCE21403291006726C3 /* AppDelegate.swift */,
 				63C79FD021403291006726C3 /* ViewController.swift */,
-				63C79FD221403292006726C3 /* Main.storyboard */,
 				63C79FD521403292006726C3 /* Assets.xcassets */,
 				63C79FD721403292006726C3 /* LaunchScreen.storyboard */,
 				63C79FDA21403292006726C3 /* Info.plist */,
@@ -71,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63C79FDD21403292006726C3 /* Build configuration list for PBXNativeTarget "basketball-app" */;
 			buildPhases = (
+				8BA2040971163FDCCD130DC7 /* [CP] Check Pods Manifest.lock */,
 				63C79FC721403291006726C3 /* Sources */,
 				63C79FC821403291006726C3 /* Frameworks */,
 				63C79FC921403291006726C3 /* Resources */,
+				AC2F520199D4ACEA1AE42AE8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,12 +152,62 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */,
+				63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */,
 				63C79FD621403292006726C3 /* Assets.xcassets in Resources */,
-				63C79FD421403292006726C3 /* Main.storyboard in Resources */,
+				63C79FE121403303006726C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8BA2040971163FDCCD130DC7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-basketball-app-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC2F520199D4ACEA1AE42AE8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63C79FC721403291006726C3 /* Sources */ = {
@@ -143,14 +222,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		63C79FD221403292006726C3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				63C79FD321403292006726C3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		63C79FD721403292006726C3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -278,6 +349,7 @@
 		};
 		63C79FDE21403292006726C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -289,12 +361,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.davidzucco.basketball-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
 		63C79FDF21403292006726C3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -306,7 +379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.davidzucco.basketball-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
