@@ -10,6 +10,7 @@
 		2786CCCE2144B571003539A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
 		2786CCD02144B8E0003539A2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCF2144B8E0003539A2 /* PlayerModel.swift */; };
 		2786CCD2214580B3003539A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
+		27F2F3572146192200439BF0 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F3562146192200439BF0 /* PlayerCollectionViewCell.swift */; };
 		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD121403291006726C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FD021403291006726C3 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 		2786CCCD2144B571003539A2 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		2786CCCF2144B8E0003539A2 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		2786CCD1214580B3003539A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		27F2F3562146192200439BF0 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		63C79FCB21403291006726C3 /* basketball-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basketball-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD021403291006726C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				63C79FDA21403292006726C3 /* Info.plist */,
 				2786CCCD2144B571003539A2 /* Player.swift */,
 				2786CCCF2144B8E0003539A2 /* PlayerModel.swift */,
+				27F2F3562146192200439BF0 /* PlayerCollectionViewCell.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				2786CCCE2144B571003539A2 /* Player.swift in Sources */,
 				2786CCD02144B8E0003539A2 /* PlayerModel.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,
+				27F2F3572146192200439BF0 /* PlayerCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
