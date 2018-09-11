@@ -16,32 +16,17 @@ class PlayerModel: NSObject {
       
       var players = [Player]()
       
-      let player1 = Player()
+      let player1 = Player(firstName: "Michael",lastName: "White", photo: nil, position: "point-guard", height: "5'11", weight: "180", rank: "senior")
       
-      player1.firstName = "Michael"
-      player1.lastName = "White"
-      player1.rank = "Senior"
-      player1.position = "point-guard"
+      players.append(player1!)
       
-      players.append(player1)
+      let player2 = Player(firstName: "David",lastName: "Zucco", photo: nil, position: "small-forward", height: "?", weight: "?", rank: "senior")
       
-      let player2 = Player()
+      players.append(player2!)
       
-      player2.firstName = "David"
-      player2.lastName = "Zucco"
-      player2.rank = "Senior"
-      player2.position = "small-forward"
+      let player3 = Player(firstName: "Yiwei",lastName: "Zhang", photo: nil, position: "shooting-guard", height: "?", weight: "?", rank: "senior")
       
-      players.append(player2)
-      
-      let player3 = Player()
-      
-      player3.firstName = "Yiwei"
-      player3.lastName = "zhang"
-      player3.rank = "Senior"
-      player3.position = "shooting-guard"
-      
-      players.append(player3)
+      players.append(player3!)
       
       return players
    }

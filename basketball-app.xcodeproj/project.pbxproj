@@ -10,7 +10,8 @@
 		2786CCCE2144B571003539A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
 		2786CCD02144B8E0003539A2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCF2144B8E0003539A2 /* PlayerModel.swift */; };
 		2786CCD2214580B3003539A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
-		27F2F3572146192200439BF0 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F3562146192200439BF0 /* PlayerCollectionViewCell.swift */; };
+		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
+		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
 		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD121403291006726C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FD021403291006726C3 /* ViewController.swift */; };
@@ -23,7 +24,8 @@
 		2786CCCD2144B571003539A2 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		2786CCCF2144B8E0003539A2 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		2786CCD1214580B3003539A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		27F2F3562146192200439BF0 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
+		27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerViewController.swift; sourceTree = "<group>"; };
+		27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		63C79FCB21403291006726C3 /* basketball-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basketball-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD021403291006726C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,14 +90,15 @@
 			children = (
 				63C79FCE21403291006726C3 /* AppDelegate.swift */,
 				63C79FD021403291006726C3 /* ViewController.swift */,
+				2786CCCD2144B571003539A2 /* Player.swift */,
+				2786CCCF2144B8E0003539A2 /* PlayerModel.swift */,
+				27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */,
+				27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */,
 				2786CCD1214580B3003539A2 /* Main.storyboard */,
 				63C79FE2214033A8006726C3 /* GoogleService-Info.plist */,
 				63C79FD521403292006726C3 /* Assets.xcassets */,
 				63C79FD721403292006726C3 /* LaunchScreen.storyboard */,
 				63C79FDA21403292006726C3 /* Info.plist */,
-				2786CCCD2144B571003539A2 /* Player.swift */,
-				2786CCCF2144B8E0003539A2 /* PlayerModel.swift */,
-				27F2F3562146192200439BF0 /* PlayerCollectionViewCell.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -215,11 +218,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */,
 				63C79FD121403291006726C3 /* ViewController.swift in Sources */,
 				2786CCCE2144B571003539A2 /* Player.swift in Sources */,
+				27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */,
 				2786CCD02144B8E0003539A2 /* PlayerModel.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,
-				27F2F3572146192200439BF0 /* PlayerCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
