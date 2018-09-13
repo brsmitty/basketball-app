@@ -14,10 +14,6 @@ struct FGMade {
    var twoPoint:Int = 0
 }
 
-public enum Position {
-   case SmallForward, Center, ShootingGuard, PointGuard
-}
-
 class Player: NSObject {
    
    // MARK: Properties
@@ -25,7 +21,7 @@ class Player: NSObject {
    var firstName:String
    var lastName:String
    var photo: UIImage?
-   var position:Position
+   var position:String
    var height:String
    var weight:String
    var rank:String
@@ -47,7 +43,7 @@ class Player: NSObject {
    
    // MARK: Initialization
    
-   init?(firstName: String, lastName: String, photo: UIImage?, position:Position, height: String, weight: String, rank: String){
+   init?(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String){
       
       // Fail init without name
       guard !firstName.isEmpty else{
