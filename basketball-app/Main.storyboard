@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--User Auth View Controller-->
         <scene sceneID="UUM-cS-CC7">
             <objects>
-                <viewController id="ANw-Rg-tjL" sceneMemberID="viewController">
+                <viewController id="ANw-Rg-tjL" customClass="UserAuthViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="at5-Za-Mtl">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,7 +27,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="7nf-nr-9D1" kind="show" id="TqX-Y8-HFJ"/>
+                                    <segue destination="7nf-nr-9D1" kind="show" id="Pcf-n4-fFm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7B-se-qaC">
@@ -56,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="-490.39999999999998" y="-102.09895052473765"/>
         </scene>
-        <!--View Controller-->
+        <!--User Auth View Controller-->
         <scene sceneID="8ka-rJ-bbR">
             <objects>
-                <viewController id="7nf-nr-9D1" sceneMemberID="viewController">
+                <viewController id="7nf-nr-9D1" customClass="UserAuthViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wjh-fT-mbf">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,6 +77,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ssz-zT-Axf" id="vpQ-vU-S1L"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKi-ay-HA3">
                                 <rect key="frame" x="367" y="332" width="79" height="21"/>
@@ -100,22 +103,27 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="E45-8C-LlX" kind="show" id="UvZ-ix-nEc"/>
+                                    <action selector="loginClicked:" destination="7nf-nr-9D1" eventType="touchDown" id="RVo-bl-9EN"/>
+                                    <segue destination="wie-Xy-O0x" kind="show" id="UvZ-ix-nEc"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tTw-6Q-4gf"/>
                     </view>
+                    <connections>
+                        <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
+                        <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="342" y="-482"/>
         </scene>
-        <!--View Controller-->
+        <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
             <objects>
-                <viewController id="KmK-hO-VMD" sceneMemberID="viewController">
+                <viewController id="KmK-hO-VMD" customClass="UserAuthViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tg6-hg-cIh">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,6 +163,9 @@
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerClicked:" destination="KmK-hO-VMD" eventType="touchDown" id="dfX-db-Fbq"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="7Mr-IT-YVC">
                                 <rect key="frame" x="368" y="423" width="291" height="30"/>
@@ -174,6 +185,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="d9i-Mk-iJR"/>
                     </view>
+                    <connections>
+                        <outlet property="registerEmail" destination="ZUN-Dl-FmG" id="oEL-eo-rve"/>
+                        <outlet property="registerPass" destination="7Mr-IT-YVC" id="x7b-ou-y7N"/>
+                        <outlet property="registerUser" destination="XDH-ab-Mzl" id="xKP-T7-d16"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
