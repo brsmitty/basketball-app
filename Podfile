@@ -7,5 +7,7 @@ target 'basketball-app' do
 
   # Pods for basketball-app
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 
 end
