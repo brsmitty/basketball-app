@@ -16,17 +16,24 @@ class PlayerModel: NSObject {
       
       var players = [Player]()
       
-      let player1 = Player(firstName: "Michael",lastName: "White", photo: nil, position: "point-guard", height: "5'11", weight: "180", rank: "senior")
+      guard let player1 = Player(firstName: "Michael",lastName: "White", photo: UIImage(named:"Kyrie"), position: .PointGuard, height: "5'11", weight: "180", rank: "senior")
+         else {
+            fatalError("Could not instantiate player1")
+      }
+      players.append(player1)
       
-      players.append(player1!)
+      guard let player2 = Player(firstName: "David",lastName: "Zucco", photo: UIImage(named:"Lebron"), position: .SmallForward, height: "?", weight: "?", rank: "senior")
+         else{
+            fatalError("Could not instantiate player2")
+      }
+      players.append(player2)
       
-      let player2 = Player(firstName: "David",lastName: "Zucco", photo: nil, position: "small-forward", height: "?", weight: "?", rank: "senior")
+      guard let player3 = Player(firstName: "Yiwei",lastName: "Zhang", photo: UIImage(named:"J.R."), position: .ShootingGuard, height: "?", weight: "?", rank: "senior")
+         else {
+            fatalError("Could not instantiate player3")
+      }
       
-      players.append(player2!)
-      
-      let player3 = Player(firstName: "Yiwei",lastName: "Zhang", photo: nil, position: "shooting-guard", height: "?", weight: "?", rank: "senior")
-      
-      players.append(player3!)
+      players.append(player3)
       
       return players
    }
