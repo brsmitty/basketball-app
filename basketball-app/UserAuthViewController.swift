@@ -30,7 +30,6 @@ class UserAuthViewController: UIViewController {
             print(value)
         })
         Auth.auth().signIn(withEmail: loginEmail.text!, password: loginPass.text!) { (user, error) in
-            
         }
     }
     
