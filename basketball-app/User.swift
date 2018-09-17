@@ -9,9 +9,9 @@
 import Foundation
 
 class User: NSObject {
-//    override init() {
-//        <#code#>
-//    }
-//    let uid: String!
-//    let
+
+    override init() {
+        
+    }
+    let uid: String!
 }
