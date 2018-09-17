@@ -39,5 +39,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allows you to add photos to your players.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows you to take photo of your players.</string>
 </dict>
 </plist>
