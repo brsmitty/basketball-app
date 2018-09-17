@@ -9,7 +9,9 @@
 import Foundation
 
 class User: NSObject {
+
     override init() {
+
         let uid: String!
     }
     
