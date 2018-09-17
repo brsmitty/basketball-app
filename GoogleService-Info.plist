@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>215468251043-r8hhdpenaad0gd0o5tkdmfqf713uqt09.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.215468251043-r8hhdpenaad0gd0o5tkdmfqf713uqt09</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCZJpNNPx7nVfnf37hh0BXv4-9vissrxl4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>215468251043</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.davidzucco.RealTimeStatistics</string>
+	<key>PROJECT_ID</key>
+	<string>capstone-project-rts</string>
+	<key>STORAGE_BUCKET</key>
+	<string>capstone-project-rts.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:215468251043:ios:311472881e66f346</string>
+	<key>DATABASE_URL</key>
+	<string>https://capstone-project-rts.firebaseio.com</string>
+</dict>
+</plist>
