@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E45-8C-LlX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ANw-Rg-tjL">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -47,9 +47,6 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <rect key="frame" x="392" y="203" width="240" height="152"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="MPt-WY-VgQ"/>
                     </view>
                     <toolbarItems/>
@@ -57,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koD-Sm-5sq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-490.42968749999994" y="-102.34375"/>
+            <point key="canvasLocation" x="-522" y="-301"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="8ka-rJ-bbR">
@@ -106,9 +103,8 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="wie-Xy-O0x" kind="show" id="zwg-xD-WcQ"/>
                                     <action selector="loginClicked:" destination="7nf-nr-9D1" eventType="touchDown" id="RVo-bl-9EN"/>
-                                    <segue destination="wie-Xy-O0x" kind="show" id="UvZ-ix-nEc"/>
+                                    <segue destination="E45-8C-LlX" kind="show" id="AzK-aS-vbG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -122,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="342" y="-482"/>
+            <point key="canvasLocation" x="1079" y="-833"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
@@ -197,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="341.60000000000002" y="309.89505247376314"/>
+            <point key="canvasLocation" x="1033" y="459"/>
         </scene>
         <!--Team Manager-->
         <scene sceneID="Ire-Lo-kJm">
@@ -246,13 +242,6 @@
                                     <outletCollection property="gestureRecognizers" destination="DeS-Ih-XAL" appends="YES" id="1fe-dG-TgH"/>
                                 </connections>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGY-tB-Qlf">
-                                <rect key="frame" x="20" y="77" width="84" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="First" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D9f-tI-PeV">
                                 <rect key="frame" x="798" y="111" width="84" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -505,12 +494,22 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGY-tB-Qlf">
+                                <rect key="frame" x="20" y="77" width="84" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TMd-NM-ULQ" firstAttribute="trailing" secondItem="0bl-vP-AAi" secondAttribute="trailing" constant="700" id="7yU-sS-C3a"/>
+                            <constraint firstItem="TMd-NM-ULQ" firstAttribute="trailing" secondItem="TGY-tB-Qlf" secondAttribute="trailing" constant="920" id="9H8-3B-TVW"/>
                             <constraint firstItem="0bl-vP-AAi" firstAttribute="top" secondItem="TMd-NM-ULQ" secondAttribute="top" constant="50" id="ERm-3l-VEb"/>
                             <constraint firstItem="0bl-vP-AAi" firstAttribute="leading" secondItem="TMd-NM-ULQ" secondAttribute="leading" id="Iip-BF-VWu"/>
+                            <constraint firstItem="0bl-vP-AAi" firstAttribute="top" secondItem="TGY-tB-Qlf" secondAttribute="bottom" constant="8" id="XVv-MD-W6t"/>
+                            <constraint firstItem="TGY-tB-Qlf" firstAttribute="leading" secondItem="TMd-NM-ULQ" secondAttribute="leading" constant="20" id="dhc-4B-xL7"/>
+                            <constraint firstItem="TGY-tB-Qlf" firstAttribute="top" secondItem="TMd-NM-ULQ" secondAttribute="top" constant="13" id="fMw-aO-RQR"/>
                             <constraint firstItem="TMd-NM-ULQ" firstAttribute="bottom" secondItem="0bl-vP-AAi" secondAttribute="bottom" id="xAE-EK-KSR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TMd-NM-ULQ"/>
@@ -578,7 +577,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1938.8671874999998" y="-482.03125"/>
+            <point key="canvasLocation" x="2683" y="-431"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="meH-id-wIt">
@@ -596,7 +595,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJa-17-U8B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1214.6484375" y="-482.03125"/>
+            <point key="canvasLocation" x="2683" y="-1511"/>
         </scene>
         <!--Add Event-->
         <scene sceneID="QP2-0B-l8a">
@@ -621,10 +620,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ysG-dq-WpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-490" y="692"/>
+            <point key="canvasLocation" x="-522" y="898"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Default" width="1524" height="976"/>
         <image name="basket" width="123" height="123"/>
     </resources>
 </document>
