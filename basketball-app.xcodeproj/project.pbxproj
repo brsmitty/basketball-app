@@ -22,8 +22,9 @@
 		63C79FD621403292006726C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD521403292006726C3 /* Assets.xcassets */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FE2214033A8006726C3 /* GoogleService-Info.plist */; };
-		9836960021478FA50047E0C5 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983695FF21478FA50047E0C5 /* ToastView.swift */; };
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
+		98806F1A2150C4ED000E443C /* ImportFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98806F192150C4ED000E443C /* ImportFileViewController.swift */; };
+		98806F1E215179D9000E443C /* Test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 98806F1D215179D9000E443C /* Test.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +46,8 @@
 		63C79FE2214033A8006726C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63E879732146D21600B1A458 /* UserAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		983695FF21478FA50047E0C5 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		98806F192150C4ED000E443C /* ImportFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileViewController.swift; sourceTree = "<group>"; };
+		98806F1D215179D9000E443C /* Test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test.csv; sourceTree = "<group>"; };
 		BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.debug.xcconfig"; sourceTree = "<group>"; };
 		D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,10 +102,9 @@
 		63C79FCD21403291006726C3 /* basketball-app */ = {
 			isa = PBXGroup;
 			children = (
+				98806F1D215179D9000E443C /* Test.csv */,
 				63C79FCE21403291006726C3 /* AppDelegate.swift */,
 				63C79FD021403291006726C3 /* ViewController.swift */,
-				2786CCCD2144B571003539A2 /* Player.swift */,
-				2786CCCF2144B8E0003539A2 /* PlayerModel.swift */,
 				27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */,
 				27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */,
 				2786CCD1214580B3003539A2 /* Main.storyboard */,
@@ -113,12 +114,12 @@
 				63C79FDA21403292006726C3 /* Info.plist */,
 				2786CCCD2144B571003539A2 /* Player.swift */,
 				2786CCCF2144B8E0003539A2 /* PlayerModel.swift */,
-				983695FF21478FA50047E0C5 /* ToastView.swift */,
 				63E879732146D21600B1A458 /* UserAuthViewController.swift */,
 				6346B80E214A720D000B0B6E /* User.swift */,
 				6346B810214AB765000B0B6E /* UserModel.swift */,
 				6346B812214AB76E000B0B6E /* TeamModel.swift */,
 				6346B814214AB779000B0B6E /* Team.swift */,
+				98806F192150C4ED000E443C /* ImportFileViewController.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -186,6 +187,7 @@
 				63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */,
 				63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */,
 				63C79FD621403292006726C3 /* Assets.xcassets in Resources */,
+				98806F1E215179D9000E443C /* Test.csv in Resources */,
 				2786CCD2214580B3003539A2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,8 +254,8 @@
 				6346B80F214A720D000B0B6E /* User.swift in Sources */,
 				2786CCD02144B8E0003539A2 /* PlayerModel.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,
-				9836960021478FA50047E0C5 /* ToastView.swift in Sources */,
 				63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */,
+				98806F1A2150C4ED000E443C /* ImportFileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
