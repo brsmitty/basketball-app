@@ -74,6 +74,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       setEditButton(to: false)
       createPositionPicker()
       creatToolbar()
+      self.navigationController?.setNavigationBarHidden(false, animated: false)
    }
    
    override func viewWillDisappear(_ animated: Bool) {
