@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -66,7 +68,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    override func viewWillAppear(_ animated: Bool) {
-      // load all the players from firebase
       self.players = PlayerModel().getPlayers()
       setEditPlayerFields(to: false)
       setSaveButton(to: false)
@@ -204,29 +205,37 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       tableView.reloadRows(at: [currentPath], with: .none)
    }
    
-   func createNewPlayer(){
-      let firstName = playerFirstNameText.text ?? "First"
-      let lastName = playerLastNameText.text ?? "Last"
-      let height = playerHeightText.text ?? "Height"
-      let weight = playerWeightText.text ?? "Weight"
-      let rank = playerClassText.text ?? "Rank"
-      let photo = UIImage(named: "Default")
-      let position = playerPositionText.text ?? "Position"
-      
-      guard let newPlayer = Player(firstName: firstName, lastName: lastName, photo: photo, position: position, height: height, weight: weight, rank: rank)
-         else{
-            fatalError("Creating new player Failed")
-      }
-      
-      currentPath = IndexPath(row:players.count, section: 0)
-      
-      players.append(newPlayer)
-      
-      tableView.beginUpdates()
-      tableView.insertRows(at: [currentPath], with: .automatic)
-      tableView.endUpdates()
-      
-      tableView.selectRow(at: currentPath, animated: false, scrollPosition: .none)
+    func createNewPlayer(){
+        let firstName = playerFirstNameText.text ?? "First"
+        let lastName = playerLastNameText.text ?? "Last"
+        let height = playerHeightText.text ?? "Height"
+        let weight = playerWeightText.text ?? "Weight"
+        let rank = playerClassText.text ?? "Rank"
+        let photo = UIImage(named: "Default")
+        let position = playerPositionText.text ?? "Position"
+    
+        guard let newPlayer = Player(firstName: firstName, lastName: lastName, photo: photo, position: position, height: height, weight: weight, rank: rank)
+        else { fatalError("Creating new player Failed") }
+    
+        currentPath = IndexPath(row:players.count, section: 0)
+    
+        players.append(newPlayer)
+
+        let ref = Database.database().reference(withPath: "players")
+        let pid = 3
+        let playerRef = ref.child(String(pid))
+        let playerData : [String: Any] = ["pid":  pid,
+                                          "fname": firstName,
+                                          "lname": lastName,
+                                          "height": height,
+                                          "weight": weight,
+                                          "rank": rank,
+                                          "position": position]
+        playerRef.setValue(playerData)
+    
+        tableView.beginUpdates()
+        tableView.insertRows(at: [currentPath], with: .automatic)
+        tableView.endUpdates()
    }
    
    func createPositionPicker(){
