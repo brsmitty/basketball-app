@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E45-8C-LlX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ANw-Rg-tjL">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -104,7 +104,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginClicked:" destination="7nf-nr-9D1" eventType="touchDown" id="RVo-bl-9EN"/>
-                                    <segue destination="E45-8C-LlX" kind="show" id="eOQ-In-beE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -114,6 +113,7 @@
                     <connections>
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
                         <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
+                        <segue destination="E45-8C-LlX" kind="show" identifier="loginSegue" id="gY6-vb-H0D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -188,7 +188,7 @@
                     <connections>
                         <outlet property="registerEmail" destination="ZUN-Dl-FmG" id="oEL-eo-rve"/>
                         <outlet property="registerPass" destination="7Mr-IT-YVC" id="x7b-ou-y7N"/>
-                        <outlet property="registerUser" destination="XDH-ab-Mzl" id="xKP-T7-d16"/>
+                        <segue destination="E45-8C-LlX" kind="show" identifier="registerSegue" id="mrU-1k-9Qt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -568,7 +568,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NpJ-cI-ICC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1938.8671874999998" y="-482.03125"/>
+            <point key="canvasLocation" x="1794" y="-102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="meH-id-wIt">
@@ -586,36 +586,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJa-17-U8B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1301" y="-1777"/>
-        </scene>
-        <!--Add Event-->
-        <scene sceneID="QP2-0B-l8a">
-            <objects>
-                <viewController title="Add Event" id="AAb-OT-bJw" customClass="ViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="b6m-87-K6S">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIV-hY-5W7">
-                                <rect key="frame" x="404" y="316" width="145" height="104"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="AddEvent:" destination="AAb-OT-bJw" eventType="touchUpInside" id="pqA-Q5-l7N"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="NMA-mr-FDM"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ysG-dq-WpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-490" y="692"/>
+            <point key="canvasLocation" x="1074" y="-102"/>
         </scene>
     </scenes>
     <resources>
         <image name="Default" width="1524" height="976"/>
         <image name="basket" width="123" height="123"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="gY6-vb-H0D"/>
+    </inferredMetricsTieBreakers>
 </document>
