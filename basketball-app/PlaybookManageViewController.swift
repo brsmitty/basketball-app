@@ -14,6 +14,7 @@ class PlaybookManageViewController: UIViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib
     }
+    @IBOutlet weak var FileName: UITextField!
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -21,13 +22,13 @@ class PlaybookManageViewController: UIViewController{
     }
     
     @IBAction func OpenPdfButton(_ sender: UIButton) {
-        let url = Bundle.main.url(forResource: "Playbook", withExtension: "pdf")
+        let fileName: String = FileName.text!
+        let url = Bundle.main.url(forResource: fileName, withExtension: "pdf")
         let webView = UIWebView(frame: self.view.frame)
         let urlRequest = URLRequest(url: url!)
         webView.loadRequest(urlRequest as URLRequest)
         self.view.addSubview(webView)
-        
-        
     }
+    
     
 }
