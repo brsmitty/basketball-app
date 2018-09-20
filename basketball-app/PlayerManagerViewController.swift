@@ -47,10 +47,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    var players:[Player] = [Player]()
    var myIndex = 0
    var selectedPosition: String?
+   var selectedHeight: String?
+   var selectedRank: String?
    
    let positionNames:[String] = [String] (arrayLiteral: "Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
    let heights:[String] = [String] (arrayLiteral: "5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"","5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","6'6\"","6'7\"","6'8\"","6'9\"","6'10\"","6'11\"","7'0\"","7'1\"","7'2\"")
    let cellNames:[String] = [String] (arrayLiteral: "points","assists","steals","2pg","fg","drebound","3pg","ft%","deflections","orebound","ftmade","blocks","pfoul","tfoul","charge")
+   let ranks:[String] = [String] (arrayLiteral: "Freshmen","Sophomore","Junior","Senior")
    
    // MARK: Functions
    override func viewDidLoad() {
@@ -74,7 +77,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       setCancelButton(to: false)
       setEditButton(to: false)
       createPositionPicker()
-      creatToolbar()
+      createHeightPicker()
+      createClassPicker()
+      createToolbar()
       self.navigationController?.setNavigationBarHidden(false, animated: false)
    }
    
@@ -126,6 +131,15 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }else{
          addButton.isEnabled = false
       }
+   }
+   
+   func resetButtonState(){
+      tableView.allowsSelection = true
+      setEditPlayerFields(to: false)
+      setAddButton(to: true)
+      setEditButton(to: false)
+      setSaveButton(to: false)
+      setCancelButton(to: false)
    }
    
    func numberOfSections(in tableView: UITableView) -> Int {
@@ -242,9 +256,24 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       let positionPicker = UIPickerView()
       positionPicker.delegate = self
       playerPositionText.inputView = positionPicker
+      positionPicker.tag = 0
    }
    
-   func creatToolbar(){
+   func createHeightPicker(){
+      let heightPicker = UIPickerView()
+      heightPicker.delegate = self
+      playerHeightText.inputView = heightPicker
+      heightPicker.tag = 1
+   }
+   
+   func createClassPicker(){
+      let classPicker = UIPickerView()
+      classPicker.delegate = self
+      playerClassText.inputView = classPicker
+      classPicker.tag = 2
+   }
+   
+   func createToolbar(){
       let toolbar = UIToolbar()
       toolbar.sizeToFit()
       let doneButton = UIBarButtonItem(title:"Done", style: .plain, target: self, action: #selector(PlayerManagerViewController.dismissKeyboard))
@@ -253,6 +282,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       toolbar.isUserInteractionEnabled = true
       
       playerPositionText.inputAccessoryView = toolbar
+      playerHeightText.inputAccessoryView = toolbar
+      playerClassText.inputAccessoryView = toolbar
    }
    
    @objc func dismissKeyboard(){
@@ -266,26 +297,61 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-      print(pickerView)
-      return positionNames.count
+      var nameCount = 0
+      switch pickerView.tag {
+      case 0:
+         nameCount = positionNames.count
+         break
+      case 1:
+         nameCount = heights.count
+         break
+      case 2:
+         nameCount = ranks.count
+         break
+      default:
+         break
+      }
+      return nameCount
    }
    
    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-      return positionNames[row]
+      var rowName = ""
+      
+      switch pickerView.tag {
+      case 0:
+         rowName = positionNames[row]
+         break
+      case 1:
+         rowName = heights[row]
+         break
+      case 2:
+         rowName = ranks[row]
+         break
+      default:
+         break
+      }
+      
+      return rowName
    }
    
    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-      selectedPosition = positionNames[row]
-      playerPositionText.text = selectedPosition
-   }
-   
-   func resetButtonState(){
-      tableView.allowsSelection = true
-      setEditPlayerFields(to: false)
-      setAddButton(to: true)
-      setEditButton(to: true)
-      setSaveButton(to: false)
-      setCancelButton(to: false)
+      switch pickerView.tag {
+      case 0:
+         selectedPosition = positionNames[row]
+         playerPositionText.text = selectedPosition
+         break
+      case 1:
+         selectedHeight = heights[row]
+         playerHeightText.text = selectedHeight
+         break
+      case 2:
+         selectedRank = ranks[row]
+         playerClassText.text = selectedRank
+         break
+      default:
+         break
+      }
+
    }
    
    // MARK: UITableViewDelegate
