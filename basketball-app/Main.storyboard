@@ -165,7 +165,7 @@
                                 </state>
                                 <connections>
                                     <action selector="registerClicked:" destination="KmK-hO-VMD" eventType="touchDown" id="dfX-db-Fbq"/>
-                                    <segue destination="AAb-OT-bJw" kind="show" id="sEh-Me-ta3"/>
+                                    <segue destination="18d-Gn-S3d" kind="show" id="0rL-GS-V3E"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="7Mr-IT-YVC">
@@ -195,6 +195,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1033" y="459"/>
+        </scene>
+        <!--Playbook Manage View Controller-->
+        <scene sceneID="QOR-zC-Bzg">
+            <objects>
+                <viewController id="18d-Gn-S3d" customClass="PlaybookManageViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QuD-Id-463">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uC9-4v-d7L">
+                                <rect key="frame" x="424" y="287" width="176" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Open PDF"/>
+                                <connections>
+                                    <action selector="OpenPdfButton:" destination="18d-Gn-S3d" eventType="touchUpInside" id="gJm-up-kJK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="h8S-fv-0Sx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xV7-YF-ATj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1737.890625" y="458.59375"/>
         </scene>
         <!--Team Manager-->
         <scene sceneID="Ire-Lo-kJm">

@@ -25,6 +25,8 @@
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
 		98806F1A2150C4ED000E443C /* ImportFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98806F192150C4ED000E443C /* ImportFileViewController.swift */; };
 		98806F1E215179D9000E443C /* Test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 98806F1D215179D9000E443C /* Test.csv */; };
+		98BB851921540A8E0051BFEB /* PlaybookManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BB851821540A8E0051BFEB /* PlaybookManageViewController.swift */; };
+		98BB851B215410AE0051BFEB /* Playbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 98BB851A215410AE0051BFEB /* Playbook.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98806F192150C4ED000E443C /* ImportFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileViewController.swift; sourceTree = "<group>"; };
 		98806F1D215179D9000E443C /* Test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test.csv; sourceTree = "<group>"; };
+		98BB851821540A8E0051BFEB /* PlaybookManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookManageViewController.swift; sourceTree = "<group>"; };
+		98BB851A215410AE0051BFEB /* Playbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Playbook.pdf; sourceTree = "<group>"; };
 		BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.debug.xcconfig"; sourceTree = "<group>"; };
 		D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +124,8 @@
 				6346B812214AB76E000B0B6E /* TeamModel.swift */,
 				6346B814214AB779000B0B6E /* Team.swift */,
 				98806F192150C4ED000E443C /* ImportFileViewController.swift */,
+				98BB851821540A8E0051BFEB /* PlaybookManageViewController.swift */,
+				98BB851A215410AE0051BFEB /* Playbook.pdf */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -189,6 +195,7 @@
 				63C79FD621403292006726C3 /* Assets.xcassets in Resources */,
 				98806F1E215179D9000E443C /* Test.csv in Resources */,
 				2786CCD2214580B3003539A2 /* Main.storyboard in Resources */,
+				98BB851B215410AE0051BFEB /* Playbook.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +263,7 @@
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,
 				63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */,
 				98806F1A2150C4ED000E443C /* ImportFileViewController.swift in Sources */,
+				98BB851921540A8E0051BFEB /* PlaybookManageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
