@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import FirebaseDatabase
 
 class UserAuthViewController: UIViewController {
@@ -15,7 +16,7 @@ class UserAuthViewController: UIViewController {
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
     @IBOutlet weak var registerEmail: UITextField!
-    @IBOutlet weak var registerPass: UITextField!
+   @IBOutlet weak var registerPass: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,10 @@ class UserAuthViewController: UIViewController {
             if user != nil {
 //                at this point, we know the user is authenticated, and can proceed to auth guarded app screens.
 //                self.performSegue(withIdentifier: self.viewController, sender: nil)
-                self.loginEmail.text = nil
-                self.loginPass.text = nil
-                self.registerEmail.text = nil
-                self.registerPass.text = nil
+//                self.loginEmail.text = nil
+//                self.loginPass.text = nil
+//                self.registerEmail.text = nil
+//                self.registerPass.text = nil
             }
         }
     }
