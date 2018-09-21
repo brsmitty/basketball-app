@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ANw-Rg-tjL">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -104,18 +104,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginClicked:" destination="7nf-nr-9D1" eventType="touchDown" id="RVo-bl-9EN"/>
-                                    <segue destination="E45-8C-LlX" kind="show" id="AzK-aS-vbG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Obe-pg-FHL" userLabel="RegisterButton">
-                                <rect key="frame" x="425" y="561" width="175" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.70260388569999999" blue="0.19097316040000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Register">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="KmK-hO-VMD" kind="show" id="NJl-Wt-Czf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -125,6 +113,7 @@
                     <connections>
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
                         <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
+                        <segue destination="E45-8C-LlX" kind="show" identifier="loginSegue" id="gY6-vb-H0D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -185,6 +174,7 @@
                     <connections>
                         <outlet property="registerEmail" destination="ZUN-Dl-FmG" id="oEL-eo-rve"/>
                         <outlet property="registerPass" destination="7Mr-IT-YVC" id="x7b-ou-y7N"/>
+                        <segue destination="E45-8C-LlX" kind="show" identifier="registerSegue" id="mrU-1k-9Qt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -574,7 +564,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2683" y="-431"/>
+            <point key="canvasLocation" x="1794" y="-102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="meH-id-wIt">
@@ -592,6 +582,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJa-17-U8B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1074" y="-102"/>
             <point key="canvasLocation" x="2683" y="-1511"/>
         </scene>
         <!--Add Event-->
@@ -625,6 +616,6 @@
         <image name="basket" width="123" height="123"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NJl-Wt-Czf"/>
+        <segue reference="gY6-vb-H0D"/>
     </inferredMetricsTieBreakers>
 </document>
