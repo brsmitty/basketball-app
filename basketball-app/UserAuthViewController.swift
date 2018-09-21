@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import FirebaseDatabase
 
 class UserAuthViewController: UIViewController {
@@ -15,7 +16,7 @@ class UserAuthViewController: UIViewController {
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
     @IBOutlet weak var registerEmail: UITextField!
-    @IBOutlet weak var registerPass: UITextField!
+   @IBOutlet weak var registerPass: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()

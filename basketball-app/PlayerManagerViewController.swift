@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
    // MARK: Properties
    @IBOutlet weak var tableView: UITableView!
@@ -46,9 +46,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // setup an array that holds all the players
    var players:[Player] = [Player]()
    var myIndex = 0
+   var selectedPosition: String?
+   var selectedHeight: String?
+   var selectedRank: String?
    
    let positionNames:[String] = [String] (arrayLiteral: "Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
+   let heights:[String] = [String] (arrayLiteral: "5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"","5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","6'6\"","6'7\"","6'8\"","6'9\"","6'10\"","6'11\"","7'0\"","7'1\"","7'2\"")
    let cellNames:[String] = [String] (arrayLiteral: "points","assists","steals","2pg","fg","drebound","3pg","ft%","deflections","orebound","ftmade","blocks","pfoul","tfoul","charge")
+   let ranks:[String] = [String] (arrayLiteral: "Freshmen","Sophomore","Junior","Senior")
    
    // MARK: Functions
    override func viewDidLoad() {
@@ -71,6 +76,11 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       setSaveButton(to: false)
       setCancelButton(to: false)
       setEditButton(to: false)
+      createPositionPicker()
+      createHeightPicker()
+      createClassPicker()
+      createToolbar()
+      self.navigationController?.setNavigationBarHidden(false, animated: false)
    }
    
    override func viewWillDisappear(_ animated: Bool) {
@@ -84,6 +94,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerHeightText.isUserInteractionEnabled = edit
       playerWeightText.isUserInteractionEnabled = edit
       playerClassText.isUserInteractionEnabled = edit
+      playerImage.isUserInteractionEnabled = edit
    }
    
    func setSaveButton(to on: Bool){
@@ -120,6 +131,15 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }else{
          addButton.isEnabled = false
       }
+   }
+   
+   func resetButtonState(){
+      tableView.allowsSelection = true
+      setEditPlayerFields(to: false)
+      setAddButton(to: true)
+      setEditButton(to: false)
+      setSaveButton(to: false)
+      setCancelButton(to: false)
    }
    
    func numberOfSections(in tableView: UITableView) -> Int {
@@ -193,7 +213,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       players[currentPath.row].height = playerHeightText.text ?? "Height"
       players[currentPath.row].weight = playerWeightText.text ?? "Weight"
       players[currentPath.row].rank = playerClassText.text ?? "Rank"
-      players[currentPath.row].rank = playerPositionText.text ?? "Position"
+      players[currentPath.row].position = playerPositionText.text ?? "Position"
+      players[currentPath.row].photo = playerImage.image ?? UIImage(named: "Default")
       
       tableView.reloadRows(at: [currentPath], with: .none)
    }
@@ -235,6 +256,38 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       let positionPicker = UIPickerView()
       positionPicker.delegate = self
       playerPositionText.inputView = positionPicker
+      positionPicker.tag = 0
+   }
+   
+   func createHeightPicker(){
+      let heightPicker = UIPickerView()
+      heightPicker.delegate = self
+      playerHeightText.inputView = heightPicker
+      heightPicker.tag = 1
+   }
+   
+   func createClassPicker(){
+      let classPicker = UIPickerView()
+      classPicker.delegate = self
+      playerClassText.inputView = classPicker
+      classPicker.tag = 2
+   }
+   
+   func createToolbar(){
+      let toolbar = UIToolbar()
+      toolbar.sizeToFit()
+      let doneButton = UIBarButtonItem(title:"Done", style: .plain, target: self, action: #selector(PlayerManagerViewController.dismissKeyboard))
+      
+      toolbar.setItems([doneButton], animated: false)
+      toolbar.isUserInteractionEnabled = true
+      
+      playerPositionText.inputAccessoryView = toolbar
+      playerHeightText.inputAccessoryView = toolbar
+      playerClassText.inputAccessoryView = toolbar
+   }
+   
+   @objc func dismissKeyboard(){
+      view.endEditing(true)
    }
    
    // MARK: UIPickerViewDelegate
@@ -244,11 +297,61 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-      return positionNames.count
+      var nameCount = 0
+      switch pickerView.tag {
+      case 0:
+         nameCount = positionNames.count
+         break
+      case 1:
+         nameCount = heights.count
+         break
+      case 2:
+         nameCount = ranks.count
+         break
+      default:
+         break
+      }
+      return nameCount
    }
    
    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-      return positionNames[row]
+      var rowName = ""
+      
+      switch pickerView.tag {
+      case 0:
+         rowName = positionNames[row]
+         break
+      case 1:
+         rowName = heights[row]
+         break
+      case 2:
+         rowName = ranks[row]
+         break
+      default:
+         break
+      }
+      
+      return rowName
+   }
+   
+   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+      switch pickerView.tag {
+      case 0:
+         selectedPosition = positionNames[row]
+         playerPositionText.text = selectedPosition
+         break
+      case 1:
+         selectedHeight = heights[row]
+         playerHeightText.text = selectedHeight
+         break
+      case 2:
+         selectedRank = ranks[row]
+         playerClassText.text = selectedRank
+         break
+      default:
+         break
+      }
+
    }
    
    // MARK: UITableViewDelegate
@@ -260,7 +363,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerHeightText.text = players[indexPath.row].height
       playerWeightText.text = players[indexPath.row].weight
       playerClassText.text = players[indexPath.row].rank
-      //playerPositionText.text = players[indexPath.row].position
+      playerPositionText.text = players[indexPath.row].position
       
       populateStats(with: players[indexPath.row])
       
@@ -301,6 +404,32 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   // MARK: UIImagePickerDelegate
+   
+   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      dismiss(animated: true, completion: nil)
+      resetButtonState()
+   }
+   
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+      
+      guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
+         fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+      }
+      
+      playerImage.image = selectedImage
+      
+      dismiss(animated: true, completion: nil)
+      
+      tableView.allowsSelection = false
+      setEditPlayerFields(to: true)
+      setAddButton(to: false)
+      setEditButton(to: false)
+      setSaveButton(to: true)
+      setCancelButton(to: true)
+      
+   }
+   
    // MARK: ButtonActions
    
    @IBAction func editPlayerInfo(_ sender: Any) {
@@ -337,17 +466,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerHeightText.text = "Height"
       playerWeightText.text = "Weight"
       playerClassText.text = "Rank"
+      playerPositionText.text = "Position"
       playerImage.image = UIImage(named: "Default")
       playerFirstNameText.becomeFirstResponder()
       
    }
    @IBAction func cancelManage(_ sender: Any) {
-      tableView.allowsSelection = true
-      setEditPlayerFields(to: false)
-      setAddButton(to: true)
-      setEditButton(to: true)
-      setSaveButton(to: false)
-      setCancelButton(to: false)
+      resetButtonState()
       
       if(currentPath.isEmpty){
          defaultAllFields()
@@ -363,12 +488,47 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }else{
          setOldPlayerFields()
       }
-      tableView.allowsSelection = true
-      setEditPlayerFields(to: false)
-      setAddButton(to: true)
-      setEditButton(to: true)
-      setSaveButton(to: false)
-      setCancelButton(to: false)
+      resetButtonState()
+   }
+
+   @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
+      playerPositionText.resignFirstResponder()
+      
+      let imagePickerController = UIImagePickerController()
+      
+      imagePickerController.delegate = self
+      
+      let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+      
+      actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action:UIAlertAction) in
+         if UIImagePickerController.isSourceTypeAvailable(.camera){
+            imagePickerController.sourceType = .camera
+            imagePickerController.allowsEditing = false
+            self.present(imagePickerController, animated: true)
+         }else{
+            print("No available camera")
+         }
+         
+      }))
+      
+      actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {(action:UIAlertAction) in
+         imagePickerController.sourceType = .photoLibrary
+         imagePickerController.allowsEditing = false
+         self.present(imagePickerController, animated: true)
+      }))
+      
+      actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+      
+      if let popoverController = actionSheet.popoverPresentationController {
+         popoverController.sourceView = self.view
+         popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+         popoverController.permittedArrowDirections = []
+      }
+      
+      self.present(actionSheet, animated: true, completion: nil)
+      
+      
+      
    }
    
 }
