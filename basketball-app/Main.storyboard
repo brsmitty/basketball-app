@@ -54,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koD-Sm-5sq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-522" y="-301"/>
+            <point key="canvasLocation" x="-858" y="74"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="8ka-rJ-bbR">
@@ -118,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1078.7109375" y="-833.59375"/>
+            <point key="canvasLocation" x="-134" y="-255"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
@@ -179,7 +179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="469" y="628"/>
+            <point key="canvasLocation" x="-134" y="446"/>
         </scene>
         <!--Team Manager-->
         <scene sceneID="Ire-Lo-kJm">
@@ -564,7 +564,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1794" y="-102"/>
+            <point key="canvasLocation" x="1291" y="73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="meH-id-wIt">
@@ -582,32 +582,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJa-17-U8B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1957" y="-741"/>
-        </scene>
-        <!--Add Event-->
-        <scene sceneID="QP2-0B-l8a">
-            <objects>
-                <viewController title="Add Event" id="AAb-OT-bJw" customClass="ViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="b6m-87-K6S">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIV-hY-5W7">
-                                <rect key="frame" x="404" y="316" width="145" height="104"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="AddEvent:" destination="AAb-OT-bJw" eventType="touchUpInside" id="pqA-Q5-l7N"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="NMA-mr-FDM"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ysG-dq-WpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-522" y="898"/>
+            <point key="canvasLocation" x="572" y="73"/>
         </scene>
     </scenes>
     <resources>
@@ -615,6 +590,6 @@
         <image name="basket" width="123" height="123"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mrU-1k-9Qt"/>
+        <segue reference="gY6-vb-H0D"/>
     </inferredMetricsTieBreakers>
 </document>
