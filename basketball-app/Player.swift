@@ -18,6 +18,7 @@ class Player: NSObject {
    
    // MARK: Properties
    
+   var playerId:String
    var firstName:String
    var lastName:String
    var photo: UIImage?
@@ -43,7 +44,7 @@ class Player: NSObject {
    
    // MARK: Initialization
    
-   init?(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String){
+   init?(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String){
       
       // Fail init without name
       guard !firstName.isEmpty else{
@@ -54,6 +55,7 @@ class Player: NSObject {
       }
 
       // Initialize stored parameters
+      self.playerId = playerId
       self.firstName = firstName
       self.lastName = lastName
       self.photo = photo

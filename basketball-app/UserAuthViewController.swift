@@ -23,7 +23,6 @@ class UserAuthViewController: UIViewController {
         
         Auth.auth().addStateDidChangeListener() { auth, user in
             if user != nil {
-                print("SUCCESSFULLY CHANGED AUTH STATE")
                 guard let uid = user?.uid else { return }
                 let ref = Database.database().reference(withPath: "users")
                 let userRef = ref.child(uid)
@@ -36,10 +35,8 @@ class UserAuthViewController: UIViewController {
     @IBAction func registerClicked(_ sender: Any) {
         
         Auth.auth().createUser(withEmail: registerEmail.text!, password: registerPass.text!) { user, error in
-            print("SUCCESSFULLY REGISTERED")
             if error == nil {
                 Auth.auth().signIn(withEmail: self.registerEmail.text!, password: self.registerPass.text!) { user, error in
-                    print("SUCCESSFULLY LOGGED IN")
                     if let error = error, user == nil {
                         let alert = UIAlertController(title: "Sign In Failed",
                                                       message: error.localizedDescription,
@@ -69,7 +66,7 @@ class UserAuthViewController: UIViewController {
             }
         
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
-            print("SUCCESSFULLY LOGGED IN")
+
             if let error = error, user == nil {
                 let alert = UIAlertController(title: "Sign In Failed",
                                               message: error.localizedDescription,
