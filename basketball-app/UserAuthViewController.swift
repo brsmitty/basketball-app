@@ -23,37 +23,62 @@ class UserAuthViewController: UIViewController {
         
         Auth.auth().addStateDidChangeListener() { auth, user in
             if user != nil {
-//                at this point, we know the user is authenticated, and can proceed to auth guarded app screens.
-//                self.performSegue(withIdentifier: self.viewController, sender: nil)
-//                self.loginEmail.text = nil
-//                self.loginPass.text = nil
-//                self.registerEmail.text = nil
-//                self.registerPass.text = nil
-            }
-        }
-    }
-    
-    @IBAction func registerClicked(_ sender: Any) {
-        Auth.auth().createUser(withEmail: registerEmail.text!, password: registerPass.text!) { (authResult, error) in
-            if error == nil {
-                guard let user = authResult?.user else { return }
+                guard let uid = user?.uid else { return }
                 let ref = Database.database().reference(withPath: "users")
-                let userRef = ref.child(user.uid)
-                let userData : [String: Any] = ["uid":  user.uid]
+                let userRef = ref.child(uid)
+                let userData : [String: Any] = ["uid":  uid]
                 userRef.setValue(userData)
             }
         }
     }
     
+    @IBAction func registerClicked(_ sender: Any) {
+        
+        Auth.auth().createUser(withEmail: registerEmail.text!, password: registerPass.text!) { user, error in
+            if error == nil {
+                Auth.auth().signIn(withEmail: self.registerEmail.text!, password: self.registerPass.text!) { user, error in
+                    if let error = error, user == nil {
+                        let alert = UIAlertController(title: "Sign In Failed",
+                                                      message: error.localizedDescription,
+                                                      preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else {
+                        self.performSegue(withIdentifier: "registerSegue", sender: nil)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
     @IBAction func loginClicked(_ sender: Any) {
-        Auth.auth().signIn(withEmail: loginEmail.text!, password: loginPass.text!) { (user, error) in
+        guard
+            let email = loginEmail.text,
+            let password = loginPass.text,
+            email.count > 0,
+            password.count > 0
+            else {
+                return
+            }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { user, error in
+
             if let error = error, user == nil {
                 let alert = UIAlertController(title: "Sign In Failed",
                                               message: error.localizedDescription,
                                               preferredStyle: .alert)
-
+                
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
+                
                 self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                
             }
         }
     }
