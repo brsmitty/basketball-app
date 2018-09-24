@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -41,18 +42,33 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBOutlet weak var blockCell: UILabel!
    @IBOutlet weak var chargeCell: UILabel!
    
+   // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
-   
    // setup an array that holds all the players
    var players:[Player] = [Player]()
-   var myIndex = 0
+   // holds the selected position for the pickerWheel
    var selectedPosition: String?
+   // holds the selected height for the pickerWheel
    var selectedHeight: String?
+   // holds the selected rank for the pickerWheel
    var selectedRank: String?
+   // holds the player reference to firebase
+   var playerRef:DatabaseReference?
+   // holds the database reference to firebase
+   var databaseHandle:DatabaseHandle?
+   // holds the users unique user ID
+   var uid: String = ""
+   // holds the deleted players num
+   var deletedPlayerNum: Int = 0
+   // holds if a player was recently deleted
+   var recentlyDeleted: Bool = false
    
+   // Array of all position names for the picker wheel
    let positionNames:[String] = [String] (arrayLiteral: "Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
+   // Array of all height names for the picker wheel
    let heights:[String] = [String] (arrayLiteral: "5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"","5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","6'6\"","6'7\"","6'8\"","6'9\"","6'10\"","6'11\"","7'0\"","7'1\"","7'2\"")
-   let cellNames:[String] = [String] (arrayLiteral: "points","assists","steals","2pg","fg","drebound","3pg","ft%","deflections","orebound","ftmade","blocks","pfoul","tfoul","charge")
+//   let cellNames:[String] = [String] (arrayLiteral: "points","assists","steals","2pg","fg","drebound","3pg","ft%","deflections","orebound","ftmade","blocks","pfoul","tfoul","charge")
+   // Array of all class rank names for the picker wheel
    let ranks:[String] = [String] (arrayLiteral: "Freshmen","Sophomore","Junior","Senior")
    
    // MARK: Functions
@@ -62,7 +78,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       // setup the tableView for the different players
       self.tableView.dataSource = self
       self.tableView.delegate = self
-
+      
    }
    
    override func didReceiveMemoryWarning() {
@@ -71,7 +87,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    override func viewWillAppear(_ animated: Bool) {
-      self.players = PlayerModel().getPlayers()
+      // Get the user id and set it to the user id global variable
+      Auth.auth().addStateDidChangeListener() { auth, user in
+         if user != nil {
+            guard let uId = user?.uid else {return}
+            self.uid = uId
+         }
+      }
+      getPlayers()
       setEditPlayerFields(to: false)
       setSaveButton(to: false)
       setCancelButton(to: false)
@@ -85,8 +108,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    override func viewWillDisappear(_ animated: Bool) {
       // Store the new players in firebase
+      playerRef?.removeObserver(withHandle: databaseHandle!)
    }
    
+   // Set user interaction with the fields
    func setEditPlayerFields(to edit: Bool){
       playerPositionText.isUserInteractionEnabled = edit
       playerFirstNameText.isUserInteractionEnabled = edit
@@ -97,6 +122,56 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerImage.isUserInteractionEnabled = edit
    }
    
+   // Will get player data from firebase
+   func getPlayers(){
+      // Set up the references
+      playerRef = Database.database().reference()
+      databaseHandle = playerRef?.child("players").observe(.childAdded, with: { (snapshot) in
+         
+         // If the player is one of the users players add it to the table
+         if(self.playerIsUsers(snapshot.key)){
+            // take data from the snapshot and add a player object
+            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+            let heightSnap = snapshot.childSnapshot(forPath: "height")
+            let weightSnap = snapshot.childSnapshot(forPath: "weight")
+            let positionSnap = snapshot.childSnapshot(forPath: "position")
+            let rankSnap = snapshot.childSnapshot(forPath: "rank")
+            let pidSnap = snapshot.childSnapshot(forPath: "pid")
+            
+            let playerData = pidSnap.key as? String
+            if let actualData = playerData {
+               guard let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+                  else {
+                     fatalError("Counld not instantiate player")
+               }
+               
+               self.currentPath = IndexPath(row:self.players.count, section: 0)
+               
+               self.players.append(player)
+               
+               
+               self.tableView.beginUpdates()
+               self.tableView.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableView.endUpdates()
+            }
+         }
+      })
+   }
+   
+   // Checks the player is one of the users
+   func playerIsUsers(_ pid:String) -> Bool{
+      var isUsers = false
+      
+      let playerId = pid.prefix(28)
+      isUsers = playerId == uid
+      
+      return isUsers
+   }
+   
+   // MARK: Button States
+   
+   // Sets save button functionality
    func setSaveButton(to on: Bool){
       if (on){
          saveButton.isEnabled = true
@@ -107,6 +182,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   // Sets cancel button functionality
    func setCancelButton(to on: Bool){
       if(on){
          cancelButton.isEnabled = true
@@ -117,6 +193,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   // Sets edit button functionality
    func setEditButton(to on: Bool){
       if(on){
          editButton.isEnabled = true
@@ -125,6 +202,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   // Sets add button functionality
    func setAddButton(to on: Bool){
       if(on){
          addButton.isEnabled = true
@@ -133,6 +211,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   // Sets reset button functionality
    func resetButtonState(){
       tableView.allowsSelection = true
       setEditPlayerFields(to: false)
@@ -142,10 +221,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       setCancelButton(to: false)
    }
    
-   func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
-   }
-   
+   // Grabs all stats from the player
    func populateStats(with player: Player){
       
       pointsCell.text = String(player.points)
@@ -166,6 +242,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
    }
    
+   // MARK: Default fields
+   
+   // Sets all player stats to 0
    func defaultStats(){
       
       pointsCell.text = String(0)
@@ -186,6 +265,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
    }
    
+   // Sets all player fields to default
    func defaultAllFields(){
       playerFirstNameText.text = "First"
       playerLastNameText.text = "Last"
@@ -198,6 +278,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       defaultStats()
    }
    
+   // Display players info
    func grabPlayerFields(){
       playerFirstNameText.text = players[currentPath.row].firstName
       playerLastNameText.text =  players[currentPath.row].lastName
@@ -207,6 +288,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerPositionText.text = players[currentPath.row].position
    }
    
+   // Set an edited players fields
    func setOldPlayerFields(){
       players[currentPath.row].firstName = playerFirstNameText.text ?? "First"
       players[currentPath.row].lastName = playerLastNameText.text ?? "Last"
@@ -217,41 +299,49 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       players[currentPath.row].photo = playerImage.image ?? UIImage(named: "Default")
       
       tableView.reloadRows(at: [currentPath], with: .none)
+      let ref = Database.database().reference(withPath: "players")
+      
+      let playerRef = ref.child(players[currentPath.row].playerId)
+      let playerData : [String: Any] = ["fname": players[currentPath.row].firstName,
+                                        "lname": players[currentPath.row].lastName,
+                                        "height": players[currentPath.row].height,
+                                        "weight": players[currentPath.row].weight,
+                                        "rank": players[currentPath.row].rank,
+                                        "position": players[currentPath.row].position]
+      playerRef.updateChildValues(playerData)
    }
    
-    func createNewPlayer(){
-        let firstName = playerFirstNameText.text ?? "First"
-        let lastName = playerLastNameText.text ?? "Last"
-        let height = playerHeightText.text ?? "Height"
-        let weight = playerWeightText.text ?? "Weight"
-        let rank = playerClassText.text ?? "Rank"
-        let photo = UIImage(named: "Default")
-        let position = playerPositionText.text ?? "Position"
-    
-        guard let newPlayer = Player(firstName: firstName, lastName: lastName, photo: photo, position: position, height: height, weight: weight, rank: rank)
-        else { fatalError("Creating new player Failed") }
-    
-        currentPath = IndexPath(row:players.count, section: 0)
-    
-        players.append(newPlayer)
+   // Creates a new player and stores their info in firebase
+   func createNewPlayer(){
+      
+      let firstName = playerFirstNameText.text ?? "First"
+      let lastName = playerLastNameText.text ?? "Last"
+      let height = playerHeightText.text ?? "Height"
+      let weight = playerWeightText.text ?? "Weight"
+      let rank = playerClassText.text ?? "Rank"
+      let photo = UIImage(named: "Default")
+      let position = playerPositionText.text ?? "Position"
+      var pid = ""
+      if(recentlyDeleted){
+         pid = uid + "-" + String(deletedPlayerNum)
+         recentlyDeleted = false
+      }else{
+         pid = uid + "-" + String(players.count)
+      }
+      let ref = Database.database().reference(withPath: "players")
 
-        let ref = Database.database().reference(withPath: "players")
-        let pid = 3
-        let playerRef = ref.child(String(pid))
-        let playerData : [String: Any] = ["pid":  pid,
-                                          "fname": firstName,
-                                          "lname": lastName,
-                                          "height": height,
-                                          "weight": weight,
-                                          "rank": rank,
-                                          "position": position]
-        playerRef.setValue(playerData)
-    
-        tableView.beginUpdates()
-        tableView.insertRows(at: [currentPath], with: .automatic)
-        tableView.endUpdates()
+      let playerRef = ref.child(pid)
+      let playerData : [String: Any] = ["pid":  pid,
+                                       "fname": firstName,
+                                       "lname": lastName,
+                                       "height": height,
+                                       "weight": weight,
+                                       "rank": rank,
+                                       "position": position]
+      playerRef.setValue(playerData)
    }
    
+   // Creates the position picker
    func createPositionPicker(){
       let positionPicker = UIPickerView()
       positionPicker.delegate = self
@@ -259,6 +349,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       positionPicker.tag = 0
    }
    
+   // Creates the height picker
    func createHeightPicker(){
       let heightPicker = UIPickerView()
       heightPicker.delegate = self
@@ -266,6 +357,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       heightPicker.tag = 1
    }
    
+   // Creates the class picker
    func createClassPicker(){
       let classPicker = UIPickerView()
       classPicker.delegate = self
@@ -273,11 +365,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       classPicker.tag = 2
    }
    
+   // Creates the toolbar for the pickers
    func createToolbar(){
       let toolbar = UIToolbar()
       toolbar.sizeToFit()
-      let doneButton = UIBarButtonItem(title:"Done", style: .plain, target: self, action: #selector(PlayerManagerViewController.dismissKeyboard))
-      
+      let doneButton = UIBarButtonItem(title:"Done", style: .done, target: self, action: #selector(PlayerManagerViewController.dismissKeyboard))
+
       toolbar.setItems([doneButton], animated: false)
       toolbar.isUserInteractionEnabled = true
       
@@ -286,6 +379,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerClassText.inputAccessoryView = toolbar
    }
    
+   // Dismisses keyboard
    @objc func dismissKeyboard(){
       view.endEditing(true)
    }
@@ -372,6 +466,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
    }
    
+   func numberOfSections(in tableView: UITableView) -> Int {
+      return 1
+   }
+   
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return players.count
    }
@@ -398,9 +496,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete{
+         let pid = players[indexPath.row].playerId
+         deletedPlayerNum = indexPath.row
          players.remove(at: indexPath.row)
          tableView.deleteRows(at: [indexPath], with: .fade)
          defaultAllFields()
+         let ref = Database.database().reference(withPath: "players")
+         ref.child(pid).removeValue()
+         recentlyDeleted = true
       }
    }
    

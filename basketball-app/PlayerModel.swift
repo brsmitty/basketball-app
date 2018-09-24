@@ -7,14 +7,46 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class PlayerModel: NSObject {
+   
+   var ref:DatabaseReference?
+   var databaseHandle:DatabaseHandle?
+   var players = [Player]()
 
    func getPlayers() -> [Player] {
       
       // Will get player data from firebase
       
-      var players = [Player]()
+      ref = Database.database().reference()
+      
+      databaseHandle = ref?.child("players").observe(.childAdded, with: { (snapshot) in
+         
+         // take data from the snapshot and add a player object
+         let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+         let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+         let heightSnap = snapshot.childSnapshot(forPath: "height")
+         let weightSnap = snapshot.childSnapshot(forPath: "weight")
+         let positionSnap = snapshot.childSnapshot(forPath: "position")
+         let rankSnap = snapshot.childSnapshot(forPath: "rank")
+         let pidSnap = snapshot.childSnapshot(forPath: "pid")
+         
+         let playerData = pidSnap.key as? String
+         if let actualData = playerData {
+            guard let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String)
+               else {
+                  fatalError("Counld not instantiate player")
+            }
+            self.players.append(player)
+            print(self.players.count)
+         }
+         
+      })
+      
+      print(players.count)
+      ///////////////
       
       guard let player1 = Player(firstName: "Michael",lastName: "White", photo: UIImage(named:"Kyrie"), position: "Point-Guard", height: "5'11", weight: "180", rank: "senior")
          else {
@@ -34,6 +66,7 @@ class PlayerModel: NSObject {
       }
       
       players.append(player3)
+      
       
       return players
    }
