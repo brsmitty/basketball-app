@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func AddEvent(_ sender: UIButton) {
-        print(readDataFromCSV(fileName: "Test", fileType: "csv"))
         let eventStore : EKEventStore = EKEventStore()
         
         eventStore.requestAccess(to: .event) { (granted, error) in
