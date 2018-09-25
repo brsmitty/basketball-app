@@ -29,12 +29,19 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    var uid: String = ""
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
+   var lineup: [Player] = [Player]()
    
    var playerOneID: String?
    var playerTwoID: String?
    var playerThreeID: String?
    var playerFourID: String?
    var playerFiveID: String?
+   
+   var playerOne: Player?
+   var playerTwo: Player?
+   var playerThree: Player?
+   var playerFour: Player?
+   var playerFive: Player?
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -53,6 +60,11 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       }
       self.navigationController?.setNavigationBarHidden(false, animated: false)
       getLineups()
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      playerRef?.removeObserver(withHandle: databaseHandlePlayer!)
+      lineupRef?.removeObserver(withHandle: databaseHandleLineup!)
    }
    
    override func didReceiveMemoryWarning() {
@@ -94,6 +106,16 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       return cell
    }
    
+   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+      if editingStyle == .delete{
+         let lid = uid + "-" + names[indexPath.row]
+         lineups.remove(at: indexPath.row)
+         tableView.deleteRows(at: [indexPath], with: .fade)
+         let ref = Database.database().reference(withPath: "lineups")
+         ref.child(lid).removeValue()
+      }
+   }
+   
    // MARK: Private Methods
    
    // Creates a new lineup and stores their info in firebase
@@ -103,43 +125,27 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       databaseHandleLineup = lineupRef?.child("lineups").observe(.childAdded, with: { (snapshot) in
          // If the player is one of the users players add it to the table
          if(self.lineupIsUsers(snapshot.key)){
-            self.names.append(String(snapshot.key.suffix(snapshot.key.count - 29)))
-            // take data from the snapshot and add a player object
-            self.playerOneID = (snapshot.childSnapshot(forPath: "playerOne").value as! String)
-            self.playerTwoID = (snapshot.childSnapshot(forPath: "playerTwo").value as! String)
-            self.playerThreeID = (snapshot.childSnapshot(forPath: "playerThree").value as! String)
-            self.playerFourID = (snapshot.childSnapshot(forPath: "playerFour").value as! String)
-            self.playerFiveID = (snapshot.childSnapshot(forPath: "playerFive").value as! String)
+            let name = String(snapshot.key.suffix(snapshot.key.count - 29))
+            if(!self.names.contains(name)){
+               self.names.append(name)
+               // take data from the snapshot and add a player object
+               self.playerOneID = (snapshot.childSnapshot(forPath: "playerOne").value as! String)
+               self.playerTwoID = (snapshot.childSnapshot(forPath: "playerTwo").value as! String)
+               self.playerThreeID = (snapshot.childSnapshot(forPath: "playerThree").value as! String)
+               self.playerFourID = (snapshot.childSnapshot(forPath: "playerFour").value as! String)
+               self.playerFiveID = (snapshot.childSnapshot(forPath: "playerFive").value as! String)
+               self.getPlayer()
+            }
+            
          }
       })
-      
-      let playerOne = self.findPlayer(self.playerOneID!)
-      let playerTwo = self.findPlayer(self.playerTwoID!)
-      let playerThree = self.findPlayer(self.playerThreeID!)
-      let playerFour = self.findPlayer(self.playerFourID!)
-      let playerFive = self.findPlayer(self.playerFiveID!)
-      
-      let lineup: [Player] = [Player](arrayLiteral: playerOne,playerTwo,playerThree,playerFour,playerFive)
-      
-      self.currentPath = IndexPath(row:self.lineups.count, section: 0)
-      
-      self.lineups.append(lineup)
-      
-      
-      self.tableView.beginUpdates()
-      self.tableView.insertRows(at: [self.currentPath], with: .automatic)
-      self.tableView.endUpdates()
-      
    }
    
-   func findPlayer(_ pid: String) -> Player{
-      var player:Player?
+   func getPlayer(){
       playerRef = Database.database().reference()
-      playerRef?.child("players").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+      databaseHandlePlayer = lineupRef?.child("players").observe(.childAdded, with: {(snapshot) in
          
-         // If the player is the one we are looking for
-         if(snapshot.key == pid){
-            // take data from the snapshot and add a player object
+         if(self.playerOneID == snapshot.key){
             let fnameSnap = snapshot.childSnapshot(forPath: "fname")
             let lnameSnap = snapshot.childSnapshot(forPath: "lname")
             let heightSnap = snapshot.childSnapshot(forPath: "height")
@@ -147,13 +153,66 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            
-            player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.playerOne = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.lineup.append(self.playerOne!)
          }
-      }) { (error) in
-         print(error.localizedDescription)
-      }
-      return player!
+         
+         if(self.playerTwoID == snapshot.key){
+            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+            let heightSnap = snapshot.childSnapshot(forPath: "height")
+            let weightSnap = snapshot.childSnapshot(forPath: "weight")
+            let positionSnap = snapshot.childSnapshot(forPath: "position")
+            let rankSnap = snapshot.childSnapshot(forPath: "rank")
+            let pidSnap = snapshot.childSnapshot(forPath: "pid")
+            self.playerTwo = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.lineup.append(self.playerTwo!)
+         }
+         
+         if(self.playerThreeID == snapshot.key){
+            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+            let heightSnap = snapshot.childSnapshot(forPath: "height")
+            let weightSnap = snapshot.childSnapshot(forPath: "weight")
+            let positionSnap = snapshot.childSnapshot(forPath: "position")
+            let rankSnap = snapshot.childSnapshot(forPath: "rank")
+            let pidSnap = snapshot.childSnapshot(forPath: "pid")
+            self.playerThree = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.lineup.append(self.playerThree!)
+         }
+         
+         if(self.playerFourID == snapshot.key){
+            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+            let heightSnap = snapshot.childSnapshot(forPath: "height")
+            let weightSnap = snapshot.childSnapshot(forPath: "weight")
+            let positionSnap = snapshot.childSnapshot(forPath: "position")
+            let rankSnap = snapshot.childSnapshot(forPath: "rank")
+            let pidSnap = snapshot.childSnapshot(forPath: "pid")
+            self.playerFour = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.lineup.append(self.playerFour!)
+         }
+         
+         if(self.playerFiveID == snapshot.key){
+            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+            let heightSnap = snapshot.childSnapshot(forPath: "height")
+            let weightSnap = snapshot.childSnapshot(forPath: "weight")
+            let positionSnap = snapshot.childSnapshot(forPath: "position")
+            let rankSnap = snapshot.childSnapshot(forPath: "rank")
+            let pidSnap = snapshot.childSnapshot(forPath: "pid")
+            self.playerFive = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.lineup.append(self.playerFive!)
+         }
+         if self.lineup.count == 5{
+            self.currentPath = IndexPath(row:self.lineups.count, section: 0)
+            self.lineups.append(self.lineup)
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [self.currentPath], with: .automatic)
+            self.tableView.endUpdates()
+            self.lineup = [Player]()
+         }
+      })
    }
    
    func lineupIsUsers(_ lid:String)-> Bool{
@@ -169,10 +228,10 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    @IBAction func unwindToLineupManager(sender: UIStoryboardSegue){
       if let sourceViewController = sender.source as? LineupEditorViewController, let lineup = sourceViewController.lineup{
          let lineupName = sourceViewController.nameForLineup
-         names.append(lineupName!)
-         let newIndexPath = IndexPath(row: lineups.count, section: 0)
-         lineups.append(lineup)
-         tableView.insertRows(at: [newIndexPath], with: .automatic)
+         //names.append(lineupName!)
+         //let newIndexPath = IndexPath(row: lineups.count, section: 0)
+         //lineups.append(lineup)
+         //tableView.insertRows(at: [newIndexPath], with: .automatic)
          
          let lid = uid + "-" + lineupName!
          let ref = Database.database().reference(withPath: "lineups")

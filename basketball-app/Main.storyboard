@@ -383,7 +383,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-uI-vvv">
                                 <rect key="frame" x="151" y="215" width="130" height="130"/>
@@ -937,7 +937,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="New Lineup" id="SMS-Jg-7OV">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hUY-Na-BLq"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hUY-Na-BLq">
+                            <connections>
+                                <action selector="cancel:" destination="Gki-9J-enn" id="S3A-mV-x7Z"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="ljg-p3-aZs">
                             <connections>
                                 <segue destination="Aay-va-XoC" kind="unwind" unwindAction="unwindToLineupManagerWithSender:" id="bA2-6N-snw"/>
@@ -1008,7 +1012,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3079.1015625" y="1355.46875"/>
+            <point key="canvasLocation" x="4235" y="1356"/>
         </scene>
         <!--Lineup Manager Navigation Controller-->
         <scene sceneID="bDD-sR-dci">
@@ -1470,7 +1474,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N8R-rZ-eSJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2354.8828125" y="1355.46875"/>
+            <point key="canvasLocation" x="2870" y="1400"/>
         </scene>
     </scenes>
     <resources>

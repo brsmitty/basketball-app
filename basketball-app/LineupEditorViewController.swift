@@ -12,7 +12,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
    // MARK: Properties
    @IBOutlet weak var lineupName: UITextField!
@@ -72,6 +72,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    var selectedPositionFour: String?
    var selectedPositionFive: String?
    
+   // Holds the path to the current row highlighed in the table view
+   var currentPath = IndexPath()
+   
    var lineup: [Player]?
    
    var playerOne: Player?
@@ -82,8 +85,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    override func viewDidLoad() {
       super.viewDidLoad()
-
-      self.getPlayers()
+      updateSaveButtonState()
     }
    
    override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +96,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.uid = uId
          }
       }
+      self.getPlayers()
       createPositionPicker()
       createToolbar()
       self.tableDropDownOne.delegate = self
@@ -111,6 +114,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       self.tableDropDownThreeHC.constant = 0
       self.tableDropDownFourHC.constant = 0
       self.tableDropDownFiveHC.constant = 0
+      self.lineupName.delegate = self
       self.lineupName.becomeFirstResponder()
    }
    
@@ -151,7 +155,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       databaseHandle = playerRef?.child("players").observe(.childAdded, with: { (snapshot) in
          
          // If the player is one of the users players add it to the table
-         //if(self.playerIsUsers(snapshot.key)){
+         if(self.playerIsUsers(snapshot.key)){
             // take data from the snapshot and add a player object
             let fnameSnap = snapshot.childSnapshot(forPath: "fname")
             let lnameSnap = snapshot.childSnapshot(forPath: "lname")
@@ -165,8 +169,27 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
                else {
                   fatalError("Counld not instantiate player")
             }
+            self.currentPath = IndexPath(row:self.players.count, section: 0)
             self.players.append(player)
-         //}
+            
+            self.tableDropDownOne.beginUpdates()
+            self.tableDropDownTwo.beginUpdates()
+            self.tableDropDownThree.beginUpdates()
+            self.tableDropDownFour.beginUpdates()
+            self.tableDropDownFive.beginUpdates()
+            
+            self.tableDropDownOne.insertRows(at: [self.currentPath], with: .automatic)
+            self.tableDropDownTwo.insertRows(at: [self.currentPath], with: .automatic)
+            self.tableDropDownThree.insertRows(at: [self.currentPath], with: .automatic)
+            self.tableDropDownFour.insertRows(at: [self.currentPath], with: .automatic)
+            self.tableDropDownFive.insertRows(at: [self.currentPath], with: .automatic)
+            
+            self.tableDropDownOne.endUpdates()
+            self.tableDropDownTwo.endUpdates()
+            self.tableDropDownThree.endUpdates()
+            self.tableDropDownFour.endUpdates()
+            self.tableDropDownFive.endUpdates()
+         }
       }
    )}
    
@@ -268,7 +291,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    // MARK: TableViewDelegate
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 4
+      return players.count
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -293,7 +316,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerOneName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
          playerOneImage.image = players[indexPath.row].photo
          playerOnePos.text = players[indexPath.row].position
-         UIView.animate(withDuration: 0.1){
+         UIView.animate(withDuration: 0.5){
             self.tableDropDownOneHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
@@ -304,7 +327,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerTwoName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
          playerTwoImage.image = players[indexPath.row].photo
          playerTwoPos.text = players[indexPath.row].position
-         UIView.animate(withDuration: 0.1){
+         UIView.animate(withDuration: 0.5){
             self.tableDropDownTwoHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
@@ -315,7 +338,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerThreeName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
          playerThreeImage.image = players[indexPath.row].photo
          playerThreePos.text = players[indexPath.row].position
-         UIView.animate(withDuration: 0.1){
+         UIView.animate(withDuration: 0.5){
             self.tableDropDownThreeHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
@@ -326,7 +349,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerFourName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
          playerFourImage.image = players[indexPath.row].photo
          playerFourPos.text = players[indexPath.row].position
-         UIView.animate(withDuration: 0.1){
+         UIView.animate(withDuration: 0.5){
             self.tableDropDownFourHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
@@ -337,7 +360,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerFiveName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
          playerFiveImage.image = players[indexPath.row].photo
          playerFivePos.text = players[indexPath.row].position
-         UIView.animate(withDuration: 0.1){
+         UIView.animate(withDuration: 0.5){
             self.tableDropDownFiveHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
@@ -350,7 +373,13 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
 
    }
    
+   
+   @IBAction func cancel(_ sender: UIBarButtonItem) {
+      dismiss(animated: true, completion: nil)
+   }
+   
    @IBAction func selectPlayerOne(_ sender: UITapGestureRecognizer) {
+      lineupName.resignFirstResponder()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownOneHC.constant = 44.0 * 5.0
@@ -365,6 +394,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    @IBAction func selectPlayerTwo(_ sender: UITapGestureRecognizer) {
+      lineupName.resignFirstResponder()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownTwoHC.constant = 44.0 * 5.0
@@ -378,6 +408,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       }
    }
    @IBAction func selectPlayerThree(_ sender: UITapGestureRecognizer) {
+      lineupName.resignFirstResponder()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownThreeHC.constant = 44.0 * 5.0
@@ -392,6 +423,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    @IBAction func selectPlayerFour(_ sender: UITapGestureRecognizer) {
+      lineupName.resignFirstResponder()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownFourHC.constant = 44.0 * 5.0
@@ -406,6 +438,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    @IBAction func selectPlayerFive(_ sender: UITapGestureRecognizer) {
+      lineupName.resignFirstResponder()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownFiveHC.constant = 44.0 * 5.0
@@ -418,6 +451,24 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          self.view.layoutIfNeeded()
       }
    }
+   
+   func textFieldDidBeginEditing(_ textField: UITextField) {
+      // Disable the Save button while editing.
+      saveButton.isEnabled = false
+   }
+   
+   func textFieldDidEndEditing(_ textField: UITextField) {
+      updateSaveButtonState()
+      navigationItem.title = textField.text
+   }
+   
+   private func updateSaveButtonState() {
+      // Disable the Save button if the text field is empty.
+      let text = lineupName.text ?? ""
+      saveButton.isEnabled = !text.isEmpty
+   }
+   
+   
 }
 
 
