@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "basketball-app/PlayerManagerViewController.swift"
-            timestampString = "559173869.463159"
+            timestampString = "559527871.035767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "232"
             endingLineNumber = "232"
-            landmarkName = "createNewPlayer()"
+            landmarkName = "populateStats(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

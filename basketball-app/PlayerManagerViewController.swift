@@ -331,7 +331,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       let ref = Database.database().reference(withPath: "players")
 
       let playerRef = ref.child(pid)
-      let playerData : [String: Any] = ["pid":  pid,
+      let playerData : [String: Any] = [
                                        "fname": firstName,
                                        "lname": lastName,
                                        "height": height,
@@ -340,7 +340,71 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "position": position]
       playerRef.setValue(playerData)
    }
-   
+    
+    @IBAction func setKPI(_ sender: Any) {
+        //create alert controller which will display KPI inputs
+        let alertController = UIAlertController(title: "Set Player KPI", message: "", preferredStyle: .alert)
+        //add 4 text fields to the alert controller, each to take input of a specific KPI
+        
+        let ref = Database.database().reference(withPath: "kpis")
+        let pid = self.uid + "-\(self.tableView.indexPathForSelectedRow![1])"
+        let id = "\(pid)-kpi"
+        let kpiRef = ref.child(id)
+        var fg = ""
+        var ft = ""
+        var rb = ""
+        var to = ""
+        kpiRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let kpi = snapshot.value as? NSDictionary
+            fg = kpi?["targetFG"] as? String ?? ""
+            ft = kpi?["targetFT"] as? String ?? ""
+            rb = kpi?["targetRB"] as? String ?? ""
+            to = kpi?["targetTO"] as? String ?? ""
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+
+        alertController.addTextField{ (textFieldFT : UITextField!) -> Void in
+            textFieldFT.placeholder = "Target FT%"
+            textFieldFT.text = ft
+        }
+        alertController.addTextField{ (textFieldFG : UITextField!) -> Void in
+            textFieldFG.placeholder = "Target FG%"
+            textFieldFG.text = fg
+        }
+        alertController.addTextField{ (textFieldRB : UITextField!) -> Void in
+            textFieldRB.placeholder = "Target No. RB"
+            textFieldRB.text = rb
+        }
+        alertController.addTextField{ (textFieldTO : UITextField!) -> Void in
+            textFieldTO.placeholder = "Target Max No. TO"
+            textFieldTO.text = to
+        }
+        //create save action and add the button to the alert controller
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+            //get pointers to all 4 text fields in the alert controller window
+            let textFT = alertController.textFields![0] as UITextField
+            let textFG = alertController.textFields![1] as UITextField
+            let textRB = alertController.textFields![2] as UITextField
+            let textTO = alertController.textFields![3] as UITextField
+            //create a dictionary of all 4 fields and their values (values are pulled from the text properties of the text field pointers
+            let kpiData : [String: Any] = ["targetFT":  textFT.text!,
+                                              "targetFG":  textFG.text!,
+                                              "targetRB":  textRB.text!,
+                                              "targetTO":  textTO.text!]
+            kpiRef.setValue(kpiData)
+            
+            //TODO: change text color of fields according to new KPI values
+            
+        })
+        alertController.addAction(saveAction)
+        //create cancel action and add the button to the alert controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in })
+        alertController.addAction(cancelAction)
+        //present the alert controller
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
    // Creates the position picker
    func createPositionPicker(){
       let positionPicker = UIPickerView()
