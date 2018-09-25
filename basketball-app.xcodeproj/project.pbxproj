@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		275F46C22157D37B004E6ED7 /* LineupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */; };
+		275F46C62157E76E004E6ED7 /* LineupManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */; };
+		275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */; };
+		275F46CA21585833004E6ED7 /* DropDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C921585833004E6ED7 /* DropDownTableViewCell.swift */; };
 		2786CCCE2144B571003539A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
 		2786CCD2214580B3003539A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
@@ -27,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupTableViewCell.swift; sourceTree = "<group>"; };
+		275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineupManagerViewController.swift; path = "basketball-app/LineupManagerViewController.swift"; sourceTree = SOURCE_ROOT; };
+		275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupEditorViewController.swift; sourceTree = "<group>"; };
+		275F46C921585833004E6ED7 /* DropDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTableViewCell.swift; sourceTree = "<group>"; };
 		2786CCCD2144B571003539A2 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		2786CCD1214580B3003539A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +87,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		27706C582155DDCA001673D2 /* PlayerManager */ = {
+			isa = PBXGroup;
+			children = (
+				2786CCCD2144B571003539A2 /* Player.swift */,
+				27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */,
+				27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */,
+			);
+			path = PlayerManager;
+			sourceTree = "<group>";
+		};
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
@@ -100,16 +118,17 @@
 		63C79FCD21403291006726C3 /* basketball-app */ = {
 			isa = PBXGroup;
 			children = (
+				27706C582155DDCA001673D2 /* PlayerManager */,
+				275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */,
+				275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */,
+				275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */,
 				63C79FCE21403291006726C3 /* AppDelegate.swift */,
 				63C79FD021403291006726C3 /* ViewController.swift */,
-				27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */,
-				27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */,
 				2786CCD1214580B3003539A2 /* Main.storyboard */,
 				63C79FE2214033A8006726C3 /* GoogleService-Info.plist */,
 				63C79FD521403292006726C3 /* Assets.xcassets */,
 				63C79FD721403292006726C3 /* LaunchScreen.storyboard */,
 				63C79FDA21403292006726C3 /* Info.plist */,
-				2786CCCD2144B571003539A2 /* Player.swift */,
 				983695FF21478FA50047E0C5 /* ToastView.swift */,
 				63E879732146D21600B1A458 /* UserAuthViewController.swift */,
 				6346B80E214A720D000B0B6E /* User.swift */,
@@ -117,6 +136,7 @@
 				6346B812214AB76E000B0B6E /* TeamModel.swift */,
 				6346B814214AB779000B0B6E /* Team.swift */,
 				6321151E2153F39F00F5FD6C /* KPI.swift */,
+				275F46C921585833004E6ED7 /* DropDownTableViewCell.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -244,7 +264,11 @@
 				6346B815214AB779000B0B6E /* Team.swift in Sources */,
 				63C79FD121403291006726C3 /* ViewController.swift in Sources */,
 				6346B811214AB765000B0B6E /* UserModel.swift in Sources */,
+				275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */,
+				275F46C22157D37B004E6ED7 /* LineupTableViewCell.swift in Sources */,
+				275F46CA21585833004E6ED7 /* DropDownTableViewCell.swift in Sources */,
 				6346B813214AB76E000B0B6E /* TeamModel.swift in Sources */,
+				275F46C62157E76E004E6ED7 /* LineupManagerViewController.swift in Sources */,
 				2786CCCE2144B571003539A2 /* Player.swift in Sources */,
 				27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */,
 				6346B80F214A720D000B0B6E /* User.swift in Sources */,
