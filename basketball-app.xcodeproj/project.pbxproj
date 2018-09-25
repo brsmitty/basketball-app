@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
 		275F46C22157D37B004E6ED7 /* LineupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */; };
 		275F46C62157E76E004E6ED7 /* LineupManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */; };
 		275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
 		275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupTableViewCell.swift; sourceTree = "<group>"; };
 		275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineupManagerViewController.swift; path = "basketball-app/LineupManagerViewController.swift"; sourceTree = SOURCE_ROOT; };
 		275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupEditorViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				2786CCCD2144B571003539A2 /* Player.swift */,
 				27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */,
 				27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */,
+				271C0214215AA33D003D1BB2 /* MiddleViewController.swift */,
 			);
 			path = PlayerManager;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				275F46C62157E76E004E6ED7 /* LineupManagerViewController.swift in Sources */,
 				2786CCCE2144B571003539A2 /* Player.swift in Sources */,
 				27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */,
+				271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */,
 				6346B80F214A720D000B0B6E /* User.swift in Sources */,
 				6321151F2153F39F00F5FD6C /* KPI.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,

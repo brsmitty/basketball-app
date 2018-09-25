@@ -33,6 +33,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="basket" width="123" height="123"/>
+        <image name="basket" width="512" height="512"/>
     </resources>
 </document>
