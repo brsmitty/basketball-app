@@ -93,7 +93,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ssz-zT-Axf">
                                 <rect key="frame" x="425" y="474" width="175" height="30"/>
@@ -165,7 +165,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -491,7 +491,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Set KPI"/>
                                 <connections>
-                                    <action selector="setKPI:" destination="wie-Xy-O0x" eventType="touchDown" id="Gom-09-5Av"/>
+                                    <action selector="setKPI:" destination="wie-Xy-O0x" eventType="touchDown" id="1R5-TX-Ng4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -598,6 +598,6 @@
         <image name="basket" width="123" height="123"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gY6-vb-H0D"/>
+        <segue reference="mrU-1k-9Qt"/>
     </inferredMetricsTieBreakers>
 </document>
