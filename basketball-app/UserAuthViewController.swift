@@ -52,6 +52,15 @@ class UserAuthViewController: UIViewController {
                     }
                 }
             }
+            else {
+                let alert = UIAlertController(title: "Registration Failed",
+                                              message: error!.localizedDescription,
+                                              preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
