@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ANw-Rg-tjL">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -94,10 +94,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTQ-4a-Zf5">
+                                <rect key="frame" x="425" y="548" width="175" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.85625809590000002" green="0.55483934820000003" blue="0.10450278389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="KmK-hO-VMD" kind="show" id="Gdd-rM-bAj"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ssz-zT-Axf">
-                                <rect key="frame" x="425" y="474" width="175" height="30"/>
+                                <rect key="frame" x="425" y="447" width="175" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.2097109285" blue="0.14431726089999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login">
@@ -105,6 +116,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginClicked:" destination="7nf-nr-9D1" eventType="touchDown" id="RVo-bl-9EN"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="loginSegue" id="yy7-tv-92L"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -114,7 +126,6 @@
                     <connections>
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
                         <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
-                        <segue destination="ZBd-8z-jps" kind="show" identifier="loginSegue" id="55C-Hn-qQB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -159,6 +170,7 @@
                                 </state>
                                 <connections>
                                     <action selector="registerClicked:" destination="KmK-hO-VMD" eventType="touchDown" id="dfX-db-Fbq"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="registerSegue" id="8Zf-Qv-X2R"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="7Mr-IT-YVC">
@@ -166,7 +178,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -175,7 +187,6 @@
                     <connections>
                         <outlet property="registerEmail" destination="ZUN-Dl-FmG" id="oEL-eo-rve"/>
                         <outlet property="registerPass" destination="7Mr-IT-YVC" id="x7b-ou-y7N"/>
-                        <segue destination="E45-8C-LlX" kind="show" identifier="registerSegue" id="mrU-1k-9Qt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -353,6 +364,11 @@
                         <viewLayoutGuide key="safeArea" id="rv4-38-HBv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Team Lineup Manager" id="PMb-hH-gnY">
+                        <barButtonItem key="leftBarButtonItem" title="Main Menu" id="TIq-1U-0XW">
+                            <connections>
+                                <action selector="cancel:" destination="xeR-OJ-5PN" id="qG3-35-ymy"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0ut-rc-FPb">
                             <connections>
                                 <segue destination="Doy-HC-f9T" kind="presentation" identifier="AddLineup" id="4FM-24-Tj1"/>
@@ -1331,6 +1347,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCA-AL-DPi">
+                                <rect key="frame" x="600" y="718" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Set KPI"/>
+                                <connections>
+                                    <action selector="setKPI:" destination="wie-Xy-O0x" eventType="touchUpInside" id="zJf-0s-yaq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZn-eY-VOl">
+                                <rect key="frame" x="161" y="77" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Main Menu"/>
+                                <connections>
+                                    <action selector="cancel:" destination="wie-Xy-O0x" eventType="touchUpInside" id="hvl-ds-Id6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1409,7 +1441,46 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2419" y="180"/>
+            <point key="canvasLocation" x="2651" y="177"/>
+        </scene>
+        <!--Choice-->
+        <scene sceneID="iNb-wP-Eb9">
+            <objects>
+                <viewController id="iQa-d8-Vh0" userLabel="Choice" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EFW-7U-Bjg">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMq-A8-vSY">
+                                <rect key="frame" x="375" y="161" width="274" height="127"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Player Manager">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="E45-8C-LlX" kind="show" id="qKn-p4-AhN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-hT-E1h">
+                                <rect key="frame" x="375" y="418" width="274" height="127"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Lineup Manager">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ZBd-8z-jps" kind="show" id="PUu-bU-EKP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hHV-jI-tWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1861.5234374999998" y="-834.375"/>
         </scene>
         <!--Team Manager Navigation Controller-->
         <scene sceneID="meH-id-wIt">
@@ -1427,7 +1498,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJa-17-U8B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2419" y="-744"/>
+            <point key="canvasLocation" x="2651" y="-751"/>
         </scene>
         <!--Add Event-->
         <scene sceneID="QP2-0B-l8a">
@@ -1477,4 +1548,8 @@
         <image name="Default" width="1524" height="976"/>
         <image name="basket" width="123" height="123"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yy7-tv-92L"/>
+        <segue reference="kvW-Ra-Bdw"/>
+    </inferredMetricsTieBreakers>
 </document>
