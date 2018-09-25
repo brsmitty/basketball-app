@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koD-Sm-5sq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-858" y="74"/>
+            <point key="canvasLocation" x="-522" y="-301"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="8ka-rJ-bbR">
@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-134" y="-255"/>
+            <point key="canvasLocation" x="1078.7109375" y="-833.59375"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
@@ -180,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-134" y="446"/>
+            <point key="canvasLocation" x="469" y="628"/>
         </scene>
         <!--Lineup Manager-->
         <scene sceneID="1KB-DZ-vQq">
@@ -383,7 +383,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-uI-vvv">
                                 <rect key="frame" x="151" y="215" width="130" height="130"/>
@@ -937,11 +937,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="New Lineup" id="SMS-Jg-7OV">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hUY-Na-BLq">
-                            <connections>
-                                <action selector="cancel:" destination="Gki-9J-enn" id="S3A-mV-x7Z"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hUY-Na-BLq"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="ljg-p3-aZs">
                             <connections>
                                 <segue destination="Aay-va-XoC" kind="unwind" unwindAction="unwindToLineupManagerWithSender:" id="bA2-6N-snw"/>
@@ -1012,7 +1008,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4235" y="1356"/>
+            <point key="canvasLocation" x="3079.1015625" y="1355.46875"/>
         </scene>
         <!--Lineup Manager Navigation Controller-->
         <scene sceneID="bDD-sR-dci">
@@ -1413,7 +1409,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1291" y="73"/>
+            <point key="canvasLocation" x="2419" y="180"/>
         </scene>
         <!--Team Manager Navigation Controller-->
         <scene sceneID="meH-id-wIt">
@@ -1457,7 +1453,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ysG-dq-WpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-522" y="898"/>
-            
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CCB-Ok-D0Q">
@@ -1475,14 +1470,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N8R-rZ-eSJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2870" y="1400"/>
+            <point key="canvasLocation" x="2354.8828125" y="1355.46875"/>
         </scene>
     </scenes>
     <resources>
         <image name="Default" width="1524" height="976"/>
         <image name="basket" width="123" height="123"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="gY6-vb-H0D"/>
-    </inferredMetricsTieBreakers>
 </document>
