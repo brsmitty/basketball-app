@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKit
+import os.log
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -23,6 +24,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     private var typePicker = UIPickerView()
     private var datePicker = UIDatePicker()
     private var timePicker = UIDatePicker()
+    var game : Game?
+    var location : String?
+    var gameTitle : String?
+    var gameDate : Date?
+    var gameType : String?
+    var gameTime : Date?
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -115,10 +122,27 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         view.endEditing(true)
     }
     
-    @IBAction func AddClicked(_ sender: Any) {
-        gameTitle.append(GameOpponent.text!)
-        ScheduleManagementViewController().appendEvents(inputTitle: "lalala", inputDetail: "bobobo")
+    // This method lets you configure a view controller before it's presented.
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        var detailString = Location.text! + ", " + GameType.text! + ", " + GameDate.text!
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM, dd, yyyy"
+        let raceDate = GameDate.text
+        let date = dateFormatter.date(from: raceDate!)
+        
+        game = Game(title: GameOpponent.text!, detail: detailString)
+        gameDate = date
+        gameTitle = GameOpponent.text!
+        location = Location.text!
+        gameType = GameType.text!
     }
+    
     
   
     

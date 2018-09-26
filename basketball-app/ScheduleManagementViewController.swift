@@ -9,7 +9,11 @@
 import UIKit
 import EventKit
 
-var gameTitle: [String] = []
+var gameTitles: [String] = []
+var gameDates: [Date] = []
+var gameTimes: [Date] = []
+var gameLocations: [String] = []
+var gameTypes: [String] = []
 
 class ScheduleManagementViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
@@ -26,10 +30,6 @@ class ScheduleManagementViewController: UITableViewController{
         let tempGame = Game(title: inputTitle, detail: inputDetail)
         games.append(tempGame)
         
-        //let currentPath = IndexPath(row:self.games.count, section: 0)
-        //GameTableView.beginUpdates()
-        //GameTableView.insertRows(at: [currentPath], with: .automatic)
-        //GameTableView.endUpdates()
         
     }
     
@@ -45,6 +45,21 @@ class ScheduleManagementViewController: UITableViewController{
         return cell
     }
     
+    @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
+            
+            // Add a new game.
+            gameDates.append(date)
+            gameTitles.append(title)
+            gameLocations.append(location)
+            gameTypes.append(gameType)
+            
+            let newIndexPath = IndexPath(row: games.count, section: 0)
+            games.append(game)
+            GameTableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
+    
     @IBAction func AddEvent(_ sender: UIButton) {
         let eventStore : EKEventStore = EKEventStore()
         
@@ -54,11 +69,11 @@ class ScheduleManagementViewController: UITableViewController{
                 
                 let event:EKEvent = EKEvent(eventStore: eventStore)
                 
-                for titles in gameTitle{
+                for titles in gameTitles{
                 event.title = titles
-                event.startDate = Date()
-                event.endDate = Date()
-                event.notes = "Basketball game"
+                event.startDate = gameDates[gameTitles.index(of: titles)!]
+                event.endDate = gameDates[gameTitles.index(of: titles)!]
+                event.notes = gameLocations[gameTitles.index(of: titles)!] + ", " + gameTypes[gameTitles.index(of: titles)!]
                 event.calendar = eventStore.defaultCalendarForNewEvents
                 do {
                     try eventStore.save(event, span: .thisEvent)

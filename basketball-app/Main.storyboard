@@ -786,7 +786,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
-                                    <action selector="AddClicked:" destination="vcP-BO-OJH" eventType="touchUpInside" id="0Nn-1P-MVQ"/>
+                                    <segue destination="qwN-Wu-GUF" kind="unwind" unwindAction="unwindToGameListWithSender:" id="zeJ-PM-cwX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -802,6 +802,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kKG-SV-nYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="qwN-Wu-GUF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4598.4375" y="-1605.46875"/>
         </scene>
@@ -824,15 +825,15 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOv-56-fl4">
                                             <rect key="frame" x="16" y="0.0" width="288" height="39"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcp-Zt-Urg">
-                                            <rect key="frame" x="16" y="56" width="269" height="21"/>
+                                            <rect key="frame" x="16" y="47" width="304" height="37"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -841,7 +842,7 @@
                                     <outlet property="Cells" destination="bVt-Ok-KdP" id="osn-7w-MlY"/>
                                     <outlet property="GameDetail" destination="xcp-Zt-Urg" id="lLZ-3E-sve"/>
                                     <outlet property="GameTitle" destination="NOv-56-fl4" id="Gup-gM-VGq"/>
-                                    <segue destination="qSG-4h-ERI" kind="showDetail" id="eeF-ih-Msf"/>
+                                    <segue destination="qSG-4h-ERI" kind="showDetail" id="2u3-ei-v5m"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -920,6 +921,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ufG-oT-qoI"/>
-        <segue reference="eeF-ih-Msf"/>
+        <segue reference="2u3-ei-v5m"/>
     </inferredMetricsTieBreakers>
 </document>
