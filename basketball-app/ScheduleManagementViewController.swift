@@ -45,6 +45,20 @@ class ScheduleManagementViewController: UITableViewController{
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            games.remove(at: indexPath.row)
+            gameDates.remove(at: indexPath.row)
+            gameTypes.remove(at: indexPath.row)
+            gameLocations.remove(at: indexPath.row)
+            gameTitles.remove(at: indexPath.row)
+            
+            GameTableView.beginUpdates()
+            GameTableView.deleteRows(at: [indexPath], with: .automatic)
+            GameTableView.endUpdates()
+        }
+    }
+    
     @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
             
