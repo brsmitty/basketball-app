@@ -18,5 +18,7 @@ class GameCell: UITableViewCell{
         GameTitle.text = game.title
         GameDetail.text = game.detail
     }
+    
+    
 
 }

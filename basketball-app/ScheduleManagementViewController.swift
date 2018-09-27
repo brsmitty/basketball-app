@@ -19,6 +19,7 @@ class ScheduleManagementViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
     
     var games: [Game] = []
+    var titleSender : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,7 @@ class ScheduleManagementViewController: UITableViewController{
             GameTableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
+    
     
     @IBAction func AddEvent(_ sender: UIButton) {
         let eventStore : EKEventStore = EKEventStore()
