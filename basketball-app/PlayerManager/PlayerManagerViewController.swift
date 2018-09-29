@@ -265,13 +265,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    // Sets all player fields to default
    func defaultAllFields(){
-      playerFirstNameText.text = "First"
-      playerLastNameText.text = "Last"
-      playerHeightText.text = "Height"
-      playerWeightText.text = "Weight"
-      playerClassText.text = "Rank"
+      playerFirstNameText.text = nil
+      playerLastNameText.text = nil
+      playerHeightText.text = nil
+      playerWeightText.text = nil
+      playerClassText.text = nil
       playerImage.image = UIImage(named: "Default")
-      playerPositionText.text = "Position"
+      playerPositionText.text = nil
       
       defaultStats()
    }
@@ -292,7 +292,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       players[currentPath.row].lastName = playerLastNameText.text ?? "Last"
       players[currentPath.row].height = playerHeightText.text ?? "Height"
       players[currentPath.row].weight = playerWeightText.text ?? "Weight"
-      players[currentPath.row].rank = playerClassText.text ?? "Rank"
+      players[currentPath.row].rank = playerClassText.text ?? "Class"
       players[currentPath.row].position = playerPositionText.text ?? "Position"
       players[currentPath.row].photo = playerImage.image ?? UIImage(named: "Default")
       
@@ -312,13 +312,19 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // Creates a new player and stores their info in firebase
    func createNewPlayer(){
       
-      let firstName = playerFirstNameText.text ?? "First"
-      let lastName = playerLastNameText.text ?? "Last"
-      let height = playerHeightText.text ?? "Height"
-      let weight = playerWeightText.text ?? "Weight"
-      let rank = playerClassText.text ?? "Rank"
+      var firstName = playerFirstNameText.text ?? "First"
+      firstName = firstName == "" ? "First":firstName
+      var lastName = playerLastNameText.text ?? "Last"
+      lastName = lastName == "" ? "Last":lastName
+      var height = playerHeightText.text ?? "Height"
+      height = height == "" ? "Height":height
+      var weight = playerWeightText.text ?? "Weight"
+      weight = weight == "" ? "Weight":weight
+      var rank = playerClassText.text ?? "Class"
+      rank = rank == "" ? "Class":rank
       let photo = UIImage(named: "Default")
-      let position = playerPositionText.text ?? "Position"
+      var position = playerPositionText.text ?? "Position"
+      position = position == "" ? "Position":position
       var pid = ""
       if(recentlyDeleted){
          pid = uid + "-" + String(deletedPlayerNum)
@@ -626,12 +632,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       // reset current index path
       currentPath = IndexPath()
       
-      playerFirstNameText.text = "First"
-      playerLastNameText.text = "Last"
-      playerHeightText.text = "Height"
-      playerWeightText.text = "Weight"
-      playerClassText.text = "Rank"
-      playerPositionText.text = "Position"
+      playerFirstNameText.text = nil
+      playerLastNameText.text = nil
+      playerHeightText.text = nil
+      playerWeightText.text = nil
+      playerClassText.text = nil
+      playerPositionText.text = nil
       playerImage.image = UIImage(named: "Default")
       playerFirstNameText.becomeFirstResponder()
       
