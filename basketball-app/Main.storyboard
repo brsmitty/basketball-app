@@ -384,7 +384,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0ut-rc-FPb">
                             <connections>
-                                <segue destination="Doy-HC-f9T" kind="presentation" identifier="AddLineup" id="4FM-24-Tj1"/>
+                                <segue destination="Gki-9J-enn" kind="show" identifier="AddLineup" id="KUT-zL-ifF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1549,7 +1549,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yy7-tv-92L"/>
-        <segue reference="pkI-HB-cks"/>
+        <segue reference="KUT-zL-ifF"/>
         <segue reference="Gdd-rM-bAj"/>
         <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>

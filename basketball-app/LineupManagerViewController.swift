@@ -231,9 +231,22 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
          
          if let selectedIndexPath = tableView.indexPathForSelectedRow{
             lineups[selectedIndexPath.row] = lineup
-            tableView.reloadRows(at: [selectedIndexPath], with: .none)
             let lineupName = sourceViewController.nameForLineup
+            
+            let oldLid = uid + "-" + names[selectedIndexPath.row]
             names[selectedIndexPath.row] = lineupName!
+            tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            
+            let lid = uid + "-" + names[selectedIndexPath.row]
+            let ref = Database.database().reference(withPath: "lineups")
+            ref.child(oldLid).removeValue()
+            let playerRef = ref.child(lid)
+            let playerData : [String: Any] = ["playerOne": lineup[0].playerId,
+                                              "playerTwo": lineup[1].playerId,
+                                              "playerThree": lineup[2].playerId,
+                                              "playerFour": lineup[3].playerId,
+                                              "playerFive": lineup[4].playerId]
+            playerRef.setValue(playerData)
          }else{
             let lineupName = sourceViewController.nameForLineup
             //names.append(lineupName!)
@@ -265,6 +278,10 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       
       switch (segue.identifier ?? "") {
       case "AddLineup":
+         guard let lineupDetailViewController = segue.destination as? LineupEditorViewController else {
+            fatalError("Unexpected destination: \(segue.destination)")
+         }
+         lineupDetailViewController.names = names
          os_log("Adding a lineup.", log: OSLog.default, type: .debug)
       case "ShowDetail":
          guard let lineupDetailViewController = segue.destination as? LineupEditorViewController else {
@@ -280,6 +297,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
          }
          
          let selectedLineup = lineups[indexPath.row]
+         lineupDetailViewController.names = names
          lineupDetailViewController.lineup = selectedLineup
          lineupDetailViewController.nameForLineup = names[indexPath.row]
       default:

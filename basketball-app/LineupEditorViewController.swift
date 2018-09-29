@@ -63,6 +63,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    var tableIsVisible = false
    
    var nameForLineup: String?
+   var names: [String]?
    var players: [Player] = [Player]()
    var playersLeft: [Player] = [Player]()
    // holds the player reference to firebase
@@ -80,6 +81,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    var selectedPositionFour: String?
    var selectedPositionFive: String?
    
+   var edited: Bool?
+   
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
    
@@ -94,6 +97,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    override func viewDidLoad() {
       super.viewDidLoad()
       if let lineup = lineup {
+         edited = true
          playerOne = lineup[0]
          playerTwo = lineup[1]
          playerThree = lineup[2]
@@ -201,27 +205,32 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
                else {
                   fatalError("Counld not instantiate player")
             }
-            self.currentPath = IndexPath(row:self.players.count, section: 0)
+            self.currentPath = IndexPath(row:self.playersLeft.count, section: 0)
             self.players.append(player)
-            self.playersLeft.append(player)
+            if(self.playerOne?.playerId == player.playerId || self.playerTwo?.playerId == player.playerId || self.playerThree?.playerId == player.playerId || self.playerFour?.playerId == player.playerId || self.playerFive?.playerId == player.playerId){
+               
+            }else{
+               self.playersLeft.append(player)
+               
+               self.tableDropDownOne.beginUpdates()
+               self.tableDropDownTwo.beginUpdates()
+               self.tableDropDownThree.beginUpdates()
+               self.tableDropDownFour.beginUpdates()
+               self.tableDropDownFive.beginUpdates()
+               
+               self.tableDropDownOne.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownTwo.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownThree.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownFour.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownFive.insertRows(at: [self.currentPath], with: .automatic)
+               
+               self.tableDropDownOne.endUpdates()
+               self.tableDropDownTwo.endUpdates()
+               self.tableDropDownThree.endUpdates()
+               self.tableDropDownFour.endUpdates()
+               self.tableDropDownFive.endUpdates()
+            }
             
-            self.tableDropDownOne.beginUpdates()
-            self.tableDropDownTwo.beginUpdates()
-            self.tableDropDownThree.beginUpdates()
-            self.tableDropDownFour.beginUpdates()
-            self.tableDropDownFive.beginUpdates()
-            
-            self.tableDropDownOne.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownTwo.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownThree.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownFour.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownFive.insertRows(at: [self.currentPath], with: .automatic)
-            
-            self.tableDropDownOne.endUpdates()
-            self.tableDropDownTwo.endUpdates()
-            self.tableDropDownThree.endUpdates()
-            self.tableDropDownFour.endUpdates()
-            self.tableDropDownFive.endUpdates()
          }
       }
    )}
@@ -355,7 +364,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.view.layoutIfNeeded()
          }
          if(playerOne != nil){
-            playersLeft.append(players[players.firstIndex(of: playerOne!)!])
+            playersLeft.append(playerOne!)
             insertRows(indexPath)
          }
          playerOne = playersLeft[indexPath.row]
@@ -373,7 +382,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.view.layoutIfNeeded()
          }
          if(playerTwo != nil){
-            playersLeft.append(players[players.firstIndex(of: playerTwo!)!])
+            playersLeft.append(playerTwo!)
             insertRows(indexPath)
          }
          playerTwo = playersLeft[indexPath.row]
@@ -391,7 +400,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.view.layoutIfNeeded()
          }
          if(playerThree != nil){
-            playersLeft.append(players[players.firstIndex(of: playerThree!)!])
+            playersLeft.append(playerThree!)
             insertRows(indexPath)
          }
          playerThree = playersLeft[indexPath.row]
@@ -409,7 +418,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.view.layoutIfNeeded()
          }
          if(playerFour != nil){
-            playersLeft.append(players[players.firstIndex(of: playerFour!)!])
+            playersLeft.append(playerFour!)
             insertRows(indexPath)
          }
          playerFour = playersLeft[indexPath.row]
@@ -427,7 +436,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.view.layoutIfNeeded()
          }
          if(playerFive != nil){
-            playersLeft.append(players[players.firstIndex(of: playerFive!)!])
+            playersLeft.append(playerFive!)
             insertRows(indexPath)
          }
          playerFive = playersLeft[indexPath.row]
@@ -537,12 +546,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    func textFieldDidBeginEditing(_ textField: UITextField) {
-      if let text = textField.text{
-         if(text.isEmpty) {saveButton.isEnabled = false}
-         else {saveButton.isEnabled = true}
-      }else{
-         saveButton.isEnabled = true
-      }
+      updateSaveButtonState()
    }
    
    func textFieldDidEndEditing(_ textField: UITextField) {
@@ -558,11 +562,19 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       let player3 = playerThree ?? nil
       let player4 = playerFour ?? nil
       let player5 = playerFive ?? nil
-      if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty)){
+      let namesI = names ?? nil
+      if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty) && (namesI != nil && (!(namesI?.contains(lineupName.text!))!) || edited == true)){
          saveButton.isEnabled = true
       }else{
          saveButton.isEnabled = false
       }
+//      if let namesI = self.names{
+//         if(!(namesI.contains(lineupName.text!)) || (edited == true)){
+//            saveButton.isEnabled = true
+//         }else{
+//            saveButton.isEnabled = false
+//         }
+//      }
    }
    
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
