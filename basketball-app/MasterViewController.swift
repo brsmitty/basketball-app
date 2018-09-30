@@ -60,6 +60,16 @@ class MasterViewController: UITableViewController{
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let VC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        VC?.getTitle = gameTitles[indexPath.row]
+        VC?.getTypes = gameTypes[indexPath.row]
+        VC?.getLocations = gameLocations[indexPath.row]
+        VC?.getDate = gameDates[indexPath.row]
+        self.showDetailViewController(VC!, sender: Any?.self)
+    }
+    
     
     @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
@@ -75,9 +85,6 @@ class MasterViewController: UITableViewController{
             GameTableView.insertRows(at: [newIndexPath], with: .automatic)
         }
         
-        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
-            
-        }
     
     }
     
