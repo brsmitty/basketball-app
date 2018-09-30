@@ -53,10 +53,19 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    @IBOutlet weak var tableDropDownFive: UITableView!
    @IBOutlet weak var tableDropDownFiveHC: NSLayoutConstraint!
    
+   
+   @IBOutlet weak var playerOneClear: UIButton!
+   @IBOutlet weak var playerTwoClear: UIButton!
+   @IBOutlet weak var playerThreeClear: UIButton!
+   @IBOutlet weak var playerFourClear: UIButton!
+   @IBOutlet weak var playerFiveClear: UIButton!
+   
    var tableIsVisible = false
    
    var nameForLineup: String?
+   var names: [String]?
    var players: [Player] = [Player]()
+   var playersLeft: [Player] = [Player]()
    // holds the player reference to firebase
    var playerRef:DatabaseReference?
    // holds the database reference to firebase
@@ -72,6 +81,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    var selectedPositionFour: String?
    var selectedPositionFive: String?
    
+   var edited: Bool?
+   
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
    
@@ -85,6 +96,26 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      if let lineup = lineup {
+         edited = true
+         playerOne = lineup[0]
+         playerTwo = lineup[1]
+         playerThree = lineup[2]
+         playerFour = lineup[3]
+         playerFive = lineup[4]
+         playerOneName.text = (playerOne?.firstName)! + " " + (playerOne?.lastName)!
+         playerOnePos.text = playerOne?.position
+         playerTwoName.text = (playerTwo?.firstName)! + " " + (playerTwo?.lastName)!
+         playerTwoPos.text = playerTwo?.position
+         playerThreeName.text = (playerThree?.firstName)! + " " + (playerThree?.lastName)!
+         playerThreePos.text = playerThree?.position
+         playerFourName.text = (playerFour?.firstName)! + " " + (playerFour?.lastName)!
+         playerFourPos.text = playerFour?.position
+         playerFiveName.text = (playerFive?.firstName)! + " " + (playerFive?.lastName)!
+         playerFivePos.text = playerFive?.position
+         lineupName.text = nameForLineup
+         lineupName.resignFirstResponder()
+      }
       updateSaveButtonState()
     }
    
@@ -116,6 +147,11 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       self.tableDropDownFiveHC.constant = 0
       self.lineupName.delegate = self
       self.lineupName.becomeFirstResponder()
+      playerOneClear.isEnabled = false;
+      playerTwoClear.isEnabled = false;
+      playerThreeClear.isEnabled = false;
+      playerFourClear.isEnabled = false;
+      playerFiveClear.isEnabled = false;
    }
    
    override func viewWillDisappear(_ animated: Bool) {
@@ -169,26 +205,32 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
                else {
                   fatalError("Counld not instantiate player")
             }
-            self.currentPath = IndexPath(row:self.players.count, section: 0)
+            self.currentPath = IndexPath(row:self.playersLeft.count, section: 0)
             self.players.append(player)
+            if(self.playerOne?.playerId == player.playerId || self.playerTwo?.playerId == player.playerId || self.playerThree?.playerId == player.playerId || self.playerFour?.playerId == player.playerId || self.playerFive?.playerId == player.playerId){
+               
+            }else{
+               self.playersLeft.append(player)
+               
+               self.tableDropDownOne.beginUpdates()
+               self.tableDropDownTwo.beginUpdates()
+               self.tableDropDownThree.beginUpdates()
+               self.tableDropDownFour.beginUpdates()
+               self.tableDropDownFive.beginUpdates()
+               
+               self.tableDropDownOne.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownTwo.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownThree.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownFour.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableDropDownFive.insertRows(at: [self.currentPath], with: .automatic)
+               
+               self.tableDropDownOne.endUpdates()
+               self.tableDropDownTwo.endUpdates()
+               self.tableDropDownThree.endUpdates()
+               self.tableDropDownFour.endUpdates()
+               self.tableDropDownFive.endUpdates()
+            }
             
-            self.tableDropDownOne.beginUpdates()
-            self.tableDropDownTwo.beginUpdates()
-            self.tableDropDownThree.beginUpdates()
-            self.tableDropDownFour.beginUpdates()
-            self.tableDropDownFive.beginUpdates()
-            
-            self.tableDropDownOne.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownTwo.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownThree.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownFour.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableDropDownFive.insertRows(at: [self.currentPath], with: .automatic)
-            
-            self.tableDropDownOne.endUpdates()
-            self.tableDropDownTwo.endUpdates()
-            self.tableDropDownThree.endUpdates()
-            self.tableDropDownFour.endUpdates()
-            self.tableDropDownFive.endUpdates()
          }
       }
    )}
@@ -291,7 +333,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    // MARK: TableViewDelegate
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return players.count
+      return playersLeft.count
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -303,8 +345,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       }
       
       // get the player name from the array
-      cell.playerName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
-      cell.playerImage.image = players[indexPath.row].photo
+      cell.playerName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
+      cell.playerImage.image = playersLeft[indexPath.row].photo
       
       return cell
    }
@@ -313,73 +355,120 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       tableView.deselectRow(at: indexPath, animated: true)
       switch tableView.tag {
       case 0:
-         playerOneName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
-         playerOneImage.image = players[indexPath.row].photo
-         playerOnePos.text = players[indexPath.row].position
+         playerOneName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
+         playerOneImage.image = playersLeft[indexPath.row].photo
+         playerOnePos.text = playersLeft[indexPath.row].position
          UIView.animate(withDuration: 0.5){
             self.tableDropDownOneHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
          }
-         playerOne = players[indexPath.row]
+         if(playerOne != nil){
+            playersLeft.append(playerOne!)
+            insertRows(indexPath)
+         }
+         playerOne = playersLeft[indexPath.row]
+         playerOneClear.isEnabled = true
+         playersLeft.remove(at: indexPath.row)
+         reloadTableViews(indexPath)
          break
       case 1:
-         playerTwoName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
-         playerTwoImage.image = players[indexPath.row].photo
-         playerTwoPos.text = players[indexPath.row].position
+         playerTwoName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
+         playerTwoImage.image = playersLeft[indexPath.row].photo
+         playerTwoPos.text = playersLeft[indexPath.row].position
          UIView.animate(withDuration: 0.5){
             self.tableDropDownTwoHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
          }
-         playerTwo = players[indexPath.row]
+         if(playerTwo != nil){
+            playersLeft.append(playerTwo!)
+            insertRows(indexPath)
+         }
+         playerTwo = playersLeft[indexPath.row]
+         playerTwoClear.isEnabled = true
+         playersLeft.remove(at: indexPath.row)
+         reloadTableViews(indexPath)
          break
       case 2:
-         playerThreeName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
-         playerThreeImage.image = players[indexPath.row].photo
-         playerThreePos.text = players[indexPath.row].position
+         playerThreeName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
+         playerThreeImage.image = playersLeft[indexPath.row].photo
+         playerThreePos.text = playersLeft[indexPath.row].position
          UIView.animate(withDuration: 0.5){
             self.tableDropDownThreeHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
          }
-         playerThree = players[indexPath.row]
+         if(playerThree != nil){
+            playersLeft.append(playerThree!)
+            insertRows(indexPath)
+         }
+         playerThree = playersLeft[indexPath.row]
+         playerThreeClear.isEnabled = true
+         playersLeft.remove(at: indexPath.row)
+         reloadTableViews(indexPath)
          break
       case 3:
-         playerFourName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
-         playerFourImage.image = players[indexPath.row].photo
-         playerFourPos.text = players[indexPath.row].position
+         playerFourName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
+         playerFourImage.image = playersLeft[indexPath.row].photo
+         playerFourPos.text = playersLeft[indexPath.row].position
          UIView.animate(withDuration: 0.5){
             self.tableDropDownFourHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
          }
-         playerFour = players[indexPath.row]
+         if(playerFour != nil){
+            playersLeft.append(playerFour!)
+            insertRows(indexPath)
+         }
+         playerFour = playersLeft[indexPath.row]
+         playersLeft.remove(at: indexPath.row)
+         reloadTableViews(indexPath)
+         playerFourClear.isEnabled = true
          break
       case 4:
-         playerFiveName.text = players[indexPath.row].firstName + " " + players[indexPath.row].lastName
-         playerFiveImage.image = players[indexPath.row].photo
-         playerFivePos.text = players[indexPath.row].position
+         playerFiveName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
+         playerFiveImage.image = playersLeft[indexPath.row].photo
+         playerFivePos.text = playersLeft[indexPath.row].position
          UIView.animate(withDuration: 0.5){
             self.tableDropDownFiveHC.constant = 0
             self.tableIsVisible = false
             self.view.layoutIfNeeded()
          }
-         playerFive = players[indexPath.row]
+         if(playerFive != nil){
+            playersLeft.append(playerFive!)
+            insertRows(indexPath)
+         }
+         playerFive = playersLeft[indexPath.row]
+         playerFiveClear.isEnabled = true
+         playersLeft.remove(at: indexPath.row)
+         reloadTableViews(indexPath)
          break
       default:
          break
       }
+      updateSaveButtonState()
 
    }
    
    
    @IBAction func cancel(_ sender: UIBarButtonItem) {
-      dismiss(animated: true, completion: nil)
+      let isPresentingInAddMealMode = presentingViewController is UINavigationController
+      
+      if isPresentingInAddMealMode {
+         dismiss(animated: true, completion: nil)
+      }
+      else if let owningNavigationController = navigationController{
+         owningNavigationController.popViewController(animated: true)
+      }
+      else {
+         fatalError("The MealViewController is not inside a navigation controller.")
+      }
    }
    
    @IBAction func selectPlayerOne(_ sender: UITapGestureRecognizer) {
       lineupName.resignFirstResponder()
+      closeAllTables()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownOneHC.constant = 44.0 * 5.0
@@ -395,6 +484,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func selectPlayerTwo(_ sender: UITapGestureRecognizer) {
       lineupName.resignFirstResponder()
+      closeAllTables()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownTwoHC.constant = 44.0 * 5.0
@@ -409,6 +499,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    @IBAction func selectPlayerThree(_ sender: UITapGestureRecognizer) {
       lineupName.resignFirstResponder()
+      closeAllTables()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownThreeHC.constant = 44.0 * 5.0
@@ -424,6 +515,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func selectPlayerFour(_ sender: UITapGestureRecognizer) {
       lineupName.resignFirstResponder()
+      closeAllTables()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownFourHC.constant = 44.0 * 5.0
@@ -439,6 +531,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func selectPlayerFive(_ sender: UITapGestureRecognizer) {
       lineupName.resignFirstResponder()
+      closeAllTables()
       UIView.animate(withDuration: 0.5){
          if(!self.tableIsVisible){
             self.tableDropDownFiveHC.constant = 44.0 * 5.0
@@ -453,8 +546,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    func textFieldDidBeginEditing(_ textField: UITextField) {
-      // Disable the Save button while editing.
-      saveButton.isEnabled = false
+      updateSaveButtonState()
    }
    
    func textFieldDidEndEditing(_ textField: UITextField) {
@@ -465,10 +557,137 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    private func updateSaveButtonState() {
       // Disable the Save button if the text field is empty.
       let text = lineupName.text ?? ""
-      saveButton.isEnabled = !text.isEmpty
+      let player1 = playerOne ?? nil
+      let player2 = playerTwo ?? nil
+      let player3 = playerThree ?? nil
+      let player4 = playerFour ?? nil
+      let player5 = playerFive ?? nil
+      let namesI = names ?? nil
+      if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty) && (namesI != nil && (!(namesI?.contains(lineupName.text!))!) || edited == true)){
+         saveButton.isEnabled = true
+      }else{
+         saveButton.isEnabled = false
+      }
+//      if let namesI = self.names{
+//         if(!(namesI.contains(lineupName.text!)) || (edited == true)){
+//            saveButton.isEnabled = true
+//         }else{
+//            saveButton.isEnabled = false
+//         }
+//      }
    }
    
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      textField.resignFirstResponder()
+      return true
+   }
    
+   @IBAction func clearPlayerOne(_ sender: UIButton) {
+      let indexPath = IndexPath(item: playersLeft.count, section: 0)
+      playersLeft.append(players[players.firstIndex(of: playerOne!)!])
+      insertRows(indexPath)
+      playerOne = nil
+      playerOnePos.text = "Position"
+      playerOneName.text = "Name"
+      playerOneImage.image = UIImage(named:"Default")
+      updateSaveButtonState()
+      playerOneClear.isEnabled = false
+   }
+   @IBAction func clearPlayerTwo(_ sender: UIButton) {
+      let indexPath = IndexPath(item: playersLeft.count, section: 0)
+      playersLeft.append(players[players.firstIndex(of: playerTwo!)!])
+      insertRows(indexPath)
+      playerTwo = nil
+      playerTwoPos.text = "Position"
+      playerTwoName.text = "Name"
+      playerTwoImage.image = UIImage(named:"Default")
+      updateSaveButtonState()
+      playerTwoClear.isEnabled = false
+   }
+   
+   @IBAction func clearPlayerThree(_ sender: UIButton) {
+      let indexPath = IndexPath(item: playersLeft.count, section: 0)
+      playersLeft.append(players[players.firstIndex(of: playerThree!)!])
+      insertRows(indexPath)
+      playerThree = nil
+      playerThreePos.text = "Position"
+      playerThreeName.text = "Name"
+      playerThreeImage.image = UIImage(named:"Default")
+      updateSaveButtonState()
+      playerThreeClear.isEnabled = false
+   }
+   
+   @IBAction func clearPlayerFour(_ sender: UIButton) {
+      let indexPath = IndexPath(item: playersLeft.count, section: 0)
+      playersLeft.append(players[players.firstIndex(of: playerFour!)!])
+      insertRows(indexPath)
+      playerFour = nil
+      playerFourPos.text = "Position"
+      playerFourName.text = "Name"
+      playerFourImage.image = UIImage(named:"Default")
+      updateSaveButtonState()
+      playerFourClear.isEnabled = false
+   }
+   
+   @IBAction func clearPlayerFive(_ sender: UIButton) {
+      let indexPath = IndexPath(item: playersLeft.count, section: 0)
+      playersLeft.append(players[players.firstIndex(of: playerFive!)!])
+      insertRows(indexPath)
+      playerFive = nil
+      playerFivePos.text = "Position"
+      playerFiveName.text = "Name"
+      playerFiveImage.image = UIImage(named:"Default")
+      updateSaveButtonState()
+      playerFiveClear.isEnabled = false
+   }
+   
+   func insertRows(_ indexPath:IndexPath){
+      tableDropDownOne.insertRows(at: [indexPath], with: .none)
+      tableDropDownTwo.insertRows(at: [indexPath], with: .none)
+      tableDropDownThree.insertRows(at: [indexPath], with: .none)
+      tableDropDownFour.insertRows(at: [indexPath], with: .none)
+      tableDropDownFive.insertRows(at: [indexPath], with: .none)
+   }
+   
+   func reloadTableViews(_ indexPath:IndexPath){
+      tableDropDownOne.deleteRows(at: [indexPath], with: .none)
+      tableDropDownTwo.deleteRows(at: [indexPath], with: .none)
+      tableDropDownThree.deleteRows(at: [indexPath], with: .none)
+      tableDropDownFour.deleteRows(at: [indexPath], with: .none)
+      tableDropDownFive.deleteRows(at: [indexPath], with: .none)
+   }
+   
+   func closeAllTables(){
+      UIView.animate(withDuration: 0.5){
+         self.tableDropDownFiveHC.constant = 0
+         self.tableIsVisible = false
+         self.view.layoutIfNeeded()
+      }
+      UIView.animate(withDuration: 0.5){
+         self.tableDropDownOneHC.constant = 0
+         self.tableIsVisible = false
+         self.view.layoutIfNeeded()
+      }
+      UIView.animate(withDuration: 0.5){
+         self.tableDropDownThreeHC.constant = 0
+         self.tableIsVisible = false
+         self.view.layoutIfNeeded()
+      }
+      UIView.animate(withDuration: 0.5){
+         self.tableDropDownTwoHC.constant = 0
+         self.tableIsVisible = false
+         self.view.layoutIfNeeded()
+      }
+      UIView.animate(withDuration: 0.5){
+         self.tableDropDownFourHC.constant = 0
+         self.tableIsVisible = false
+         self.view.layoutIfNeeded()
+      }
+   }
+   @IBAction func unselectAll(_ sender: UITapGestureRecognizer) {
+      closeAllTables()
+      lineupName.resignFirstResponder()
+   }
 }
 
 
