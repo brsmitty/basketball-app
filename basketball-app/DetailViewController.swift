@@ -120,4 +120,23 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        var detailString = Location.text! + ", " + GameType.text! + ", " + GameDate.text!
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM, dd, yyyy"
+        let raceDate = GameDate.text
+        let date = dateFormatter.date(from: raceDate!)
+        
+        game = Game(title: GameOpponent.text!, detail: detailString)
+        gameDate = date
+        gameTitle = GameOpponent.text!
+        location = Location.text!
+        gameType = GameType.text!
+    }
 }

@@ -60,6 +60,7 @@ class MasterViewController: UITableViewController{
         }
     }
     
+    
     @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
             
@@ -73,6 +74,11 @@ class MasterViewController: UITableViewController{
             games.append(game)
             GameTableView.insertRows(at: [newIndexPath], with: .automatic)
         }
+        
+        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
+            
+        }
+    
     }
     
     
