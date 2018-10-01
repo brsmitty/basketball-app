@@ -8,6 +8,9 @@
 
 import UIKit
 import EventKit
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 var gameTitles: [String] = []
 var gameDates: [Date] = []
@@ -20,6 +23,29 @@ class MasterViewController: UITableViewController{
     
     var games: [Game] = []
     var titleSender : String?
+    // holds the player reference to firebase
+    var playRef:DatabaseReference?
+    // holds the database reference to firebase
+    var databaseHandle:DatabaseHandle?
+    // holds the users unique user ID
+    var uid: String = ""
+    var deletedPlayNum: Int = 0
+    // holds if a player was recently deleted
+    var recentlyDeleted: Bool = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Get the user id and set it to the user id global variable
+        Auth.auth().addStateDidChangeListener() { auth, user in
+            if user != nil {
+                guard let uId = user?.uid else {return}
+                self.uid = uId
+            }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        // Store the new players in firebase
+        playRef?.removeObserver(withHandle: databaseHandle!)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +58,46 @@ class MasterViewController: UITableViewController{
         games.append(tempGame)
         
         
+    }
+    
+    func gameIsUsers(_ lid:String)-> Bool{
+        var isUsers = false
+        
+        let lineupId = lid.prefix(28)
+        isUsers = lineupId == uid
+        
+        return isUsers
+    }
+    
+    func getGames(){
+        // Set up the references
+        playRef = Database.database().reference()
+        databaseHandle = playRef?.child("games").observe(.childAdded, with: { (snapshot) in
+            
+            // If the player is one of the users players add it to the table
+            if(self.gameIsUsers(snapshot.key)){
+                // take data from the snapshot and add a player object
+                let title = snapshot.childSnapshot(forPath: "title")
+                let location = snapshot.childSnapshot(forPath: "location")
+                let gameType = snapshot.childSnapshot(forPath: "gameType")
+                let gameDate = snapshot.childSnapshot(forPath: "gameDate")
+                let gameTime = snapshot.childSnapshot(forPath: "gameTime")
+                
+                gameTitles.append(title.value as! String)
+                gameLocations.append(location.value as! String)
+                gameTypes.append(gameType.value as! String)
+                let tempString = location.value as! String
+                
+                let temp = Game(title: title.value as! String, detail: tempString)
+                
+                let currentPath = IndexPath(row:self.games.count, section: 0)
+                self.games.append(temp)
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [currentPath], with: .automatic)
+                self.tableView.endUpdates()
+                
+            }
+        })
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +114,12 @@ class MasterViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "MM/dd/yyyy"
+            let stringDate = dataFormatter.string(from: gameDates[indexPath.row])
+            let pid = uid + "-" + stringDate
+            let ref = Database.database().reference(withPath: "games")
+            ref.child(pid).removeValue()
             games.remove(at: indexPath.row)
             gameDates.remove(at: indexPath.row)
             gameTypes.remove(at: indexPath.row)
@@ -72,7 +144,7 @@ class MasterViewController: UITableViewController{
     
     
     @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType {
+        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType, let gameTime = sourceViewController.gameTime {
             
             // Add a new game.
             gameDates.append(date)
@@ -83,6 +155,25 @@ class MasterViewController: UITableViewController{
             let newIndexPath = IndexPath(row: games.count, section: 0)
             games.append(game)
             GameTableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "MM/dd/yyyy"
+            let stringDate = dataFormatter.string(from: date)
+            
+            var pid = ""
+                pid = uid + "-" + stringDate
+            
+            let ref = Database.database().reference(withPath: "games")
+            
+            let playRef = ref.child(pid)
+            let playData : [String: Any] = ["pid":  pid,
+                                              "title": title,
+                                              "location": location,
+                                              "gameType": gameType,
+                                              "gameDate": stringDate,
+                                              "gameTime": gameTime]
+            playRef.setValue(playData)
         }
         
     

@@ -29,7 +29,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     var gameTitle : String?
     var gameDate : Date?
     var gameType : String?
-    var gameTime : Date?
+    var gameTime : String?
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -136,11 +136,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let raceDate = GameDate.text
         let date = dateFormatter.date(from: raceDate!)
         
+        
         game = Game(title: GameOpponent.text!, detail: detailString)
         gameDate = date
         gameTitle = GameOpponent.text!
         location = Location.text!
         gameType = GameType.text!
+        gameTime = GameTime.text!
     }
     
     
