@@ -1604,7 +1604,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04h-vO-WaB">
                                         <rect key="frame" x="565" y="44" width="92" height="63"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Save"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="0.72418305839999997" green="0.1083311309" blue="0.0062567848539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="JMe-ou-LfG" kind="unwind" unwindAction="unwindToGameListWithSender:" id="NjZ-x9-zwB"/>
                                         </connections>
@@ -1641,7 +1643,7 @@
         <scene sceneID="OOz-Go-pQu">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="vUI-De-ElO" customClass="MasterViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5d2-vP-1ph">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="95" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5d2-vP-1ph">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1654,17 +1656,24 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX9-Sw-GFh">
-                                            <rect key="frame" x="16" y="0.0" width="288" height="39"/>
+                                            <rect key="frame" x="129" y="0.0" width="175" height="84"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXl-51-0a0">
-                                            <rect key="frame" x="16" y="47" width="304" height="37"/>
+                                            <rect key="frame" x="9" y="6" width="103" height="73"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="|" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9c-6r-LXq">
+                                            <rect key="frame" x="94" y="8" width="18" height="79"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="125"/>
+                                            <color key="textColor" red="0.85625809590000002" green="0.55483934820000003" blue="0.10450278389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1687,18 +1696,23 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lp6-aY-uwC">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sync"/>
+                                <state key="normal" title="Sync">
+                                    <color key="titleColor" red="0.72418305839999997" green="0.1083311309" blue="0.0062567848539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="AddEvent:" destination="vUI-De-ElO" eventType="touchUpInside" id="tQt-EV-M7e"/>
                                 </connections>
                             </button>
+                            <color key="tintColor" red="1" green="0.2097109285" blue="0.14431726089999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Hw8-cN-9pX">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ri3-us-tCc">
                                 <rect key="frame" x="233" y="0.0" width="71" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <state key="normal" title="+"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="0.72418305839999997" green="0.1083311309" blue="0.0062567848539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="kkf-Ce-ZxK" kind="showDetail" id="acO-dO-Yhk"/>
                                 </connections>
@@ -1805,7 +1819,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubv-jm-E16">
                                         <rect key="frame" x="565" y="44" width="92" height="63"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Add"/>
+                                        <state key="normal" title="Add">
+                                            <color key="titleColor" red="0.72418305837563457" green="0.10833113093168006" blue="0.0062567848544707299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="Eem-xT-LLQ" kind="unwind" unwindAction="unwindToGameListWithSender:" id="K3X-Rv-8a9"/>
                                         </connections>

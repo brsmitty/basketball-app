@@ -128,7 +128,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         super.prepare(for: segue, sender: sender)
         
-        var detailString = Location.text! + ", " + GameType.text! + ", " + GameDate.text!
+        var detailString = GameDate.text!
         
         
         let dateFormatter = DateFormatter()
