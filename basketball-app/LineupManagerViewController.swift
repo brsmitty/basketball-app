@@ -31,6 +31,10 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
    var lineup: [Player] = [Player]()
+   var positionSlot:[String] = [String]()
+   var allSlots = [[String]]()
+   var count: Int = 0
+   var counts: [Int] = [Int]()
    
    var playerOneID: String?
    var playerTwoID: String?
@@ -109,8 +113,10 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    
    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete{
-         let lid = uid + "-" + names[indexPath.row]
+         let lid = uid + "-" + String(counts[indexPath.row]) + names[indexPath.row]
+         counts.remove(at: indexPath.row)
          lineups.remove(at: indexPath.row)
+         names.remove(at: indexPath.row)
          tableView.deleteRows(at: [indexPath], with: .fade)
          let ref = Database.database().reference(withPath: "lineups")
          ref.child(lid).removeValue()
@@ -126,7 +132,11 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       databaseHandleLineup = lineupRef?.child("lineups").observe(.childAdded, with: { (snapshot) in
          // If the player is one of the users players add it to the table
          if(self.lineupIsUsers(snapshot.key)){
-            let name = String(snapshot.key.suffix(snapshot.key.count - 29))
+            let name = String(snapshot.key.suffix(snapshot.key.count - 30))
+            let help = String(snapshot.key.suffix(snapshot.key.count - 29))
+            self.count = Int(help.prefix(1))!
+            self.counts.append(self.count)
+            self.count = self.count+1
             if(!self.names.contains(name)){
                self.names.append(name)
                // take data from the snapshot and add a player object
@@ -135,6 +145,17 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
                self.playerThreeID = (snapshot.childSnapshot(forPath: "playerThree").value as! String)
                self.playerFourID = (snapshot.childSnapshot(forPath: "playerFour").value as! String)
                self.playerFiveID = (snapshot.childSnapshot(forPath: "playerFive").value as! String)
+               let posOne = snapshot.childSnapshot(forPath: self.playerOneID!).value as! String
+               self.positionSlot.append(posOne)
+               let posTwo = snapshot.childSnapshot(forPath: self.playerTwoID!).value as! String
+               self.positionSlot.append(posTwo)
+               let posThree = snapshot.childSnapshot(forPath: self.playerThreeID!).value as! String
+               self.positionSlot.append(posThree)
+               let posFour = snapshot.childSnapshot(forPath: self.playerFourID!).value as! String
+               self.positionSlot.append(posFour)
+               let posFive = snapshot.childSnapshot(forPath: self.playerFiveID!).value as! String
+               self.positionSlot.append(posFive)
+               self.allSlots.append(self.positionSlot)
                self.getPlayer()
             }
             
@@ -230,22 +251,29 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       if let sourceViewController = sender.source as? LineupEditorViewController, let lineup = sourceViewController.lineup{
          
          if let selectedIndexPath = tableView.indexPathForSelectedRow{
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
             lineups[selectedIndexPath.row] = lineup
             let lineupName = sourceViewController.nameForLineup
             
-            let oldLid = uid + "-" + names[selectedIndexPath.row]
+            let oldLid = uid + "-" + String(counts[selectedIndexPath.row]) + names[selectedIndexPath.row]
             names[selectedIndexPath.row] = lineupName!
-            tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            
-            let lid = uid + "-" + names[selectedIndexPath.row]
+            let positions = sourceViewController.positions
+            allSlots[selectedIndexPath.row] = positions!
+            let lid = uid + "-" + String(counts[names.firstIndex(of: lineupName!)!]) + lineupName!
             let ref = Database.database().reference(withPath: "lineups")
             ref.child(oldLid).removeValue()
+            tableView.reloadRows(at: [selectedIndexPath], with: .none)
             let playerRef = ref.child(lid)
             let playerData : [String: Any] = ["playerOne": lineup[0].playerId,
                                               "playerTwo": lineup[1].playerId,
                                               "playerThree": lineup[2].playerId,
                                               "playerFour": lineup[3].playerId,
-                                              "playerFive": lineup[4].playerId]
+                                              "playerFive": lineup[4].playerId,
+                                              lineup[0].playerId: positions![0],
+                                              lineup[1].playerId: positions![1],
+                                              lineup[2].playerId: positions![2],
+                                              lineup[3].playerId: positions![3],
+                                              lineup[4].playerId: positions![4]]
             playerRef.setValue(playerData)
          }else{
             let lineupName = sourceViewController.nameForLineup
@@ -254,7 +282,9 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             //lineups.append(lineup)
             //tableView.insertRows(at: [newIndexPath], with: .automatic)
             
-            let lid = uid + "-" + lineupName!
+            let positions = sourceViewController.positions
+            let lid = uid + "-" + String(count) + lineupName!
+            self.count = self.count + 1
             let ref = Database.database().reference(withPath: "lineups")
             
             let playerRef = ref.child(lid)
@@ -262,11 +292,14 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
                                               "playerTwo": lineup[1].playerId,
                                               "playerThree": lineup[2].playerId,
                                               "playerFour": lineup[3].playerId,
-                                              "playerFive": lineup[4].playerId]
+                                              "playerFive": lineup[4].playerId,
+                                              lineup[0].playerId: positions![0],
+                                              lineup[1].playerId: positions![1],
+                                              lineup[2].playerId: positions![2],
+                                              lineup[3].playerId: positions![3],
+                                              lineup[4].playerId: positions![4]]
             playerRef.setValue(playerData)
          }
-         
-
       }
    }
    
@@ -278,6 +311,9 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       
       switch (segue.identifier ?? "") {
       case "AddLineup":
+         if let selectedIndexPath = tableView.indexPathForSelectedRow{
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
+         }
          guard let lineupDetailViewController = segue.destination as? LineupEditorViewController else {
             fatalError("Unexpected destination: \(segue.destination)")
          }
@@ -297,6 +333,8 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
          }
          
          let selectedLineup = lineups[indexPath.row]
+         let positions = allSlots[indexPath.row]
+         lineupDetailViewController.positions = positions
          lineupDetailViewController.names = names
          lineupDetailViewController.lineup = selectedLineup
          lineupDetailViewController.nameForLineup = names[indexPath.row]
