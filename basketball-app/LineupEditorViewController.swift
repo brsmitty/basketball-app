@@ -66,6 +66,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    var names: [String]?
    var players: [Player] = [Player]()
    var playersLeft: [Player] = [Player]()
+   var positions: [String]?
    // holds the player reference to firebase
    var playerRef:DatabaseReference?
    // holds the database reference to firebase
@@ -115,6 +116,11 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerFivePos.text = playerFive?.position
          lineupName.text = nameForLineup
          lineupName.resignFirstResponder()
+         positionOne.text = positions![0]
+         positionTwo.text = positions![1]
+         positionThree.text = positions![2]
+         positionFour.text = positions![3]
+         positionFive.text = positions![4]
       }
       updateSaveButtonState()
     }
@@ -178,9 +184,11 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          return
       }
       
-      
+      lineup = [Player]()
       lineup = [Player](arrayLiteral: playerOne!, playerTwo!, playerThree!, playerFour!, playerFive!)
       nameForLineup = lineupName.text
+      positions = [String]()
+      positions = [String](arrayLiteral: positionOne.text!, positionTwo.text!, positionThree.text!, positionFour.text!, positionFive.text!)
     }
    
    
@@ -308,22 +316,27 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       case 0:
          selectedPositionOne = positionNames[row]
          positionOne.text = selectedPositionOne
+         updateSaveButtonState()
          break
       case 1:
          selectedPositionTwo = positionNames[row]
          positionTwo.text = selectedPositionTwo
+         updateSaveButtonState()
          break
       case 2:
          selectedPositionThree = positionNames[row]
          positionThree.text = selectedPositionThree
+         updateSaveButtonState()
          break
       case 3:
          selectedPositionFour = positionNames[row]
          positionFour.text = selectedPositionFour
+         updateSaveButtonState()
          break
       case 4:
          selectedPositionFive = positionNames[row]
          positionFive.text = selectedPositionFive
+         updateSaveButtonState()
       default:
          break
       }
@@ -563,7 +576,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       let player4 = playerFour ?? nil
       let player5 = playerFive ?? nil
       let namesI = names ?? nil
-      if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty) && (namesI != nil && (!(namesI?.contains(lineupName.text!))!) || edited == true)){
+      let filled = positionsFilled()
+      if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty) && (namesI != nil && (!(namesI?.contains(lineupName.text!))!) || edited == true) && filled){
          saveButton.isEnabled = true
       }else{
          saveButton.isEnabled = false
@@ -590,6 +604,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerOnePos.text = "Position"
       playerOneName.text = "Name"
       playerOneImage.image = UIImage(named:"Default")
+      positionOne.text = ""
       updateSaveButtonState()
       playerOneClear.isEnabled = false
    }
@@ -601,6 +616,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerTwoPos.text = "Position"
       playerTwoName.text = "Name"
       playerTwoImage.image = UIImage(named:"Default")
+      positionTwo.text = ""
       updateSaveButtonState()
       playerTwoClear.isEnabled = false
    }
@@ -613,6 +629,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerThreePos.text = "Position"
       playerThreeName.text = "Name"
       playerThreeImage.image = UIImage(named:"Default")
+      positionThree.text = ""
       updateSaveButtonState()
       playerThreeClear.isEnabled = false
    }
@@ -625,6 +642,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerFourPos.text = "Position"
       playerFourName.text = "Name"
       playerFourImage.image = UIImage(named:"Default")
+      positionFour.text = ""
       updateSaveButtonState()
       playerFourClear.isEnabled = false
    }
@@ -637,6 +655,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerFivePos.text = "Position"
       playerFiveName.text = "Name"
       playerFiveImage.image = UIImage(named:"Default")
+      positionFive.text = ""
       updateSaveButtonState()
       playerFiveClear.isEnabled = false
    }
@@ -684,9 +703,23 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          self.view.layoutIfNeeded()
       }
    }
+   
+   func positionsFilled() -> Bool{
+      let one = positionOne.text ?? nil
+      let two = positionTwo.text ?? nil
+      let three = positionThree.text ?? nil
+      let four = positionFour.text ?? nil
+      let five = positionFive.text ?? nil
+      return (!(one?.isEmpty)! && !(two?.isEmpty)! && !(three?.isEmpty)! && !(four?.isEmpty)! && !(five?.isEmpty)!)
+   }
    @IBAction func unselectAll(_ sender: UITapGestureRecognizer) {
       closeAllTables()
       lineupName.resignFirstResponder()
+      positionFive.resignFirstResponder()
+      positionFour.resignFirstResponder()
+      positionThree.resignFirstResponder()
+      positionTwo.resignFirstResponder()
+      positionOne.resignFirstResponder()
    }
 }
 

@@ -386,6 +386,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0ut-rc-FPb">
                             <connections>
+                                <action selector="deslectRow:" destination="xeR-OJ-5PN" id="y5t-wM-8FI"/>
                                 <segue destination="Gki-9J-enn" kind="show" identifier="AddLineup" id="KUT-zL-ifF"/>
                             </connections>
                         </barButtonItem>
@@ -432,9 +433,13 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-XR-nfg">
+<<<<<<< HEAD
                                 <rect key="frame" x="447" y="177" width="130" height="220"/>
+=======
+                                <rect key="frame" x="447" y="183" width="130" height="220"/>
+>>>>>>> 1e23e87b9718aba9e6a26f8755c3d89329716864
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Position 2" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3NA-Pv-Zti">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 2" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3NA-Pv-Zti">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="EsL-pX-zgE"/>
@@ -478,9 +483,13 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="IIN-2F-gc1">
+<<<<<<< HEAD
                                 <rect key="frame" x="151" y="177" width="127" height="217"/>
+=======
+                                <rect key="frame" x="151" y="183" width="127" height="217"/>
+>>>>>>> 1e23e87b9718aba9e6a26f8755c3d89329716864
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Position 1" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cCm-RS-rRg">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cCm-RS-rRg">
                                         <rect key="frame" x="0.0" y="0.0" width="127" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="127" id="q7d-Nc-dL4"/>
@@ -524,9 +533,13 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZR7-Nm-9fd">
+<<<<<<< HEAD
                                 <rect key="frame" x="743" y="177" width="130" height="220"/>
+=======
+                                <rect key="frame" x="743" y="183" width="130" height="220"/>
+>>>>>>> 1e23e87b9718aba9e6a26f8755c3d89329716864
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Position 3" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3y-NV-1Ts">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 3" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3y-NV-1Ts">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="TjI-Zz-BWa"/>
@@ -570,9 +583,13 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-jB-IfN">
+<<<<<<< HEAD
                                 <rect key="frame" x="300" y="437" width="130" height="220"/>
+=======
+                                <rect key="frame" x="300" y="443" width="130" height="220"/>
+>>>>>>> 1e23e87b9718aba9e6a26f8755c3d89329716864
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Position 4" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vB6-NZ-eG2">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 4" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vB6-NZ-eG2">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="0jw-rg-k9i"/>
@@ -616,9 +633,13 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="yRG-vH-4Fa">
+<<<<<<< HEAD
                                 <rect key="frame" x="608" y="437" width="130" height="220"/>
+=======
+                                <rect key="frame" x="608" y="443" width="130" height="220"/>
+>>>>>>> 1e23e87b9718aba9e6a26f8755c3d89329716864
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Position 5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7xz-PS-3rI">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 5" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7xz-PS-3rI">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="F2y-1D-h6F"/>
