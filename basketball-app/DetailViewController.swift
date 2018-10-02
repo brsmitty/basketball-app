@@ -12,6 +12,7 @@ import os.log
 
 
 class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    @IBOutlet weak var GameDetail: UITextField!
     @IBOutlet weak var GameOpponent: UITextField!
     @IBOutlet weak var GameTime: UITextField!
     @IBOutlet weak var GameDate: UITextField!
@@ -34,7 +35,8 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var getTypes = String()
     var getLocations = String()
     var getDate = Date()
-    var getTime = Date()
+    var getTime = String()
+    var getDetail = String()
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -85,13 +87,13 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let dataFormatter = DateFormatter()
         dataFormatter.dateFormat = "MM/dd/yyyy"
         GameDate.text = dataFormatter.string(from: getDate)
-        
-        dataFormatter.dateFormat = "HH:mm"
-        GameTime.text = dataFormatter.string(from: getTime)
+
         
         GameOpponent.text = getTitle
         GameType.text = getTypes
         Location.text = getLocations
+        GameDetail.text = getDetail
+        GameTime.text = getTime
         
         locationPicker.dataSource = self
         locationPicker.delegate = self
@@ -136,6 +138,25 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        var detailString = GameDate.text!
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM, dd, yyyy"
+        let raceDate = GameDate.text
+        let date = dateFormatter.date(from: raceDate!)
+        
+        game = Game(title: GameOpponent.text!, detail: detailString)
+        gameDate = date
+        gameTitle = GameOpponent.text!
+        location = Location.text!
+        gameType = GameType.text!
     }
     
 }
