@@ -25,6 +25,14 @@ class basketball_appTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func registerValidEmail () {
+        
+    }
+    
+    func registerInvalidEmail () {
+        
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
