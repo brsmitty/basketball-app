@@ -598,7 +598,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func clearPlayerOne(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      playersLeft.append(players[players.firstIndex(of: playerOne!)!])
+     // playersLeft.append(players[players.firstIndex(of: playerOne!)!])
       insertRows(indexPath)
       playerOne = nil
       playerOnePos.text = "Position"
@@ -610,7 +610,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    @IBAction func clearPlayerTwo(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      playersLeft.append(players[players.firstIndex(of: playerTwo!)!])
+     // playersLeft.append(players[players.firstIndex(of: playerTwo!)!])
       insertRows(indexPath)
       playerTwo = nil
       playerTwoPos.text = "Position"
@@ -623,7 +623,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func clearPlayerThree(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      playersLeft.append(players[players.firstIndex(of: playerThree!)!])
+     // playersLeft.append(players[players.firstIndex(of: playerThree!)!])
       insertRows(indexPath)
       playerThree = nil
       playerThreePos.text = "Position"
@@ -636,7 +636,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func clearPlayerFour(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      playersLeft.append(players[players.firstIndex(of: playerFour!)!])
+      //playersLeft.append(players[players.firstIndex(of: playerFour!)!])
       insertRows(indexPath)
       playerFour = nil
       playerFourPos.text = "Position"
@@ -649,7 +649,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func clearPlayerFive(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      playersLeft.append(players[players.firstIndex(of: playerFive!)!])
+      //playersLeft.append(players[players.firstIndex(of: playerFive!)!])
       insertRows(indexPath)
       playerFive = nil
       playerFivePos.text = "Position"

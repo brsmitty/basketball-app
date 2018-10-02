@@ -1,0 +1,212 @@
+//
+//  MasterViewController.swift
+//  basketball-app
+//
+//  Created by Maggie Zhang on 9/27/18.
+//  Copyright © 2018 David Zucco. All rights reserved.
+//
+
+import UIKit
+import EventKit
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
+
+var gameTitles: [String] = []
+var gameDates: [Date] = []
+var gameTimes: [Date] = []
+var gameLocations: [String] = []
+var gameTypes: [String] = []
+
+class MasterViewController: UITableViewController{
+    @IBOutlet var GameTableView: UITableView!
+    
+    var games: [Game] = []
+    var titleSender : String?
+    // holds the player reference to firebase
+    var playRef:DatabaseReference?
+    // holds the database reference to firebase
+    var databaseHandle:DatabaseHandle?
+    // holds the users unique user ID
+    var uid: String = ""
+    var deletedPlayNum: Int = 0
+    // holds if a player was recently deleted
+    var recentlyDeleted: Bool = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Get the user id and set it to the user id global variable
+        Auth.auth().addStateDidChangeListener() { auth, user in
+            if user != nil {
+                guard let uId = user?.uid else {return}
+                self.uid = uId
+            }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        // Store the new players in firebase
+        playRef?.removeObserver(withHandle: databaseHandle!)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        GameTableView.delegate = self
+        GameTableView.dataSource = self
+    }
+    
+    func appendEvents(inputTitle: String, inputDetail: String){
+        let tempGame = Game(title: inputTitle, detail: inputDetail)
+        games.append(tempGame)
+        
+        
+    }
+    
+    func gameIsUsers(_ lid:String)-> Bool{
+        var isUsers = false
+        
+        let lineupId = lid.prefix(28)
+        isUsers = lineupId == uid
+        
+        return isUsers
+    }
+    
+    func getGames(){
+        // Set up the references
+        playRef = Database.database().reference()
+        databaseHandle = playRef?.child("games").observe(.childAdded, with: { (snapshot) in
+            
+            // If the player is one of the users players add it to the table
+            if(self.gameIsUsers(snapshot.key)){
+                // take data from the snapshot and add a player object
+                let title = snapshot.childSnapshot(forPath: "title")
+                let location = snapshot.childSnapshot(forPath: "location")
+                let gameType = snapshot.childSnapshot(forPath: "gameType")
+                let gameDate = snapshot.childSnapshot(forPath: "gameDate")
+                let gameTime = snapshot.childSnapshot(forPath: "gameTime")
+                
+                gameTitles.append(title.value as! String)
+                gameLocations.append(location.value as! String)
+                gameTypes.append(gameType.value as! String)
+                let tempString = location.value as! String
+                
+                let temp = Game(title: title.value as! String, detail: tempString)
+                
+                let currentPath = IndexPath(row:self.games.count, section: 0)
+                self.games.append(temp)
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [currentPath], with: .automatic)
+                self.tableView.endUpdates()
+                
+            }
+        })
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return games.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let game = games[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell") as! GameCell
+        cell.setGame(game: game)
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "MM/dd/yyyy"
+            let stringDate = dataFormatter.string(from: gameDates[indexPath.row])
+            let pid = uid + "-" + stringDate
+            let ref = Database.database().reference(withPath: "games")
+            ref.child(pid).removeValue()
+            games.remove(at: indexPath.row)
+            gameDates.remove(at: indexPath.row)
+            gameTypes.remove(at: indexPath.row)
+            gameLocations.remove(at: indexPath.row)
+            gameTitles.remove(at: indexPath.row)
+            
+            GameTableView.beginUpdates()
+            GameTableView.deleteRows(at: [indexPath], with: .automatic)
+            GameTableView.endUpdates()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let VC = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        VC?.getTitle = gameTitles[indexPath.row]
+        VC?.getTypes = gameTypes[indexPath.row]
+        VC?.getLocations = gameLocations[indexPath.row]
+        VC?.getDate = gameDates[indexPath.row]
+        self.showDetailViewController(VC!, sender: Any?.self)
+    }
+    
+    
+    @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType, let gameTime = sourceViewController.gameTime {
+            
+            // Add a new game.
+            gameDates.append(date)
+            gameTitles.append(title)
+            gameLocations.append(location)
+            gameTypes.append(gameType)
+            
+            let newIndexPath = IndexPath(row: games.count, section: 0)
+            games.append(game)
+            GameTableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "MM/dd/yyyy"
+            let stringDate = dataFormatter.string(from: date)
+            
+            var pid = ""
+                pid = uid + "-" + stringDate
+            
+            let ref = Database.database().reference(withPath: "games")
+            
+            let playRef = ref.child(pid)
+            let playData : [String: Any] = ["pid":  pid,
+                                              "title": title,
+                                              "location": location,
+                                              "gameType": gameType,
+                                              "gameDate": stringDate,
+                                              "gameTime": gameTime]
+            playRef.setValue(playData)
+        }
+        
+    
+    }
+    
+    
+    @IBAction func AddEvent(_ sender: UIButton) {
+        let eventStore : EKEventStore = EKEventStore()
+        
+        eventStore.requestAccess(to: .event) { (granted, error) in
+            
+            if (granted) && (error == nil) {
+                
+                let event:EKEvent = EKEvent(eventStore: eventStore)
+                
+                for titles in gameTitles{
+                    event.title = titles
+                    event.startDate = gameDates[gameTitles.index(of: titles)!]
+                    event.endDate = gameDates[gameTitles.index(of: titles)!]
+                    event.notes = gameLocations[gameTitles.index(of: titles)!] + ", " + gameTypes[gameTitles.index(of: titles)!]
+                    event.calendar = eventStore.defaultCalendarForNewEvents
+                    do {
+                        try eventStore.save(event, span: .thisEvent)
+                    } catch let error as NSError {
+                        print("failed to save event with error : \(error)")
+                    }
+                    print("Saved Event")
+                }
+            }
+            else{
+                print("failed to save event with errorString(describing: error)")
+            }
+        }
+    }
+}
+

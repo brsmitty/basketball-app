@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  DetailViewController.swift
 //  basketball-app
 //
-//  Created by David on 9/5/18.
+//  Created by Maggie Zhang on 9/27/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
 
@@ -10,8 +10,8 @@ import UIKit
 import EventKit
 import os.log
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
+
+class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var GameOpponent: UITextField!
     @IBOutlet weak var GameTime: UITextField!
     @IBOutlet weak var GameDate: UITextField!
@@ -29,7 +29,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     var gameTitle : String?
     var gameDate : Date?
     var gameType : String?
-    var gameTime : String?
+    var gameTime : Date?
+    var getTitle = String()
+    var getTypes = String()
+    var getLocations = String()
+    var getDate = Date()
+    var getTime = Date()
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -74,31 +79,42 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
         return returnValue
     }
-   
-   override func viewDidLoad() {
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "MM/dd/yyyy"
+        GameDate.text = dataFormatter.string(from: getDate)
+        
+        dataFormatter.dateFormat = "HH:mm"
+        GameTime.text = dataFormatter.string(from: getTime)
+        
+        GameOpponent.text = getTitle
+        GameType.text = getTypes
+        Location.text = getLocations
+        
         locationPicker.dataSource = self
         locationPicker.delegate = self
         locationPicker.tag = 0
         Location.inputView = locationPicker
-    
+        
         typePicker.dataSource = self
         typePicker.delegate = self
         typePicker.tag = 1
         GameType.inputView = typePicker
-    
+        
         datePicker.datePickerMode = .date
         GameDate.inputView = datePicker
         datePicker.addTarget(self, action: #selector(ViewController.dateChanged(datePicker:)), for: .valueChanged)
-    
+        
         timePicker.datePickerMode = .time
         GameTime.inputView = timePicker
         timePicker.addTarget(self, action: #selector(ViewController.timeChanged(timePicker:)), for: .valueChanged)
-    
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -121,33 +137,5 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
     }
-    
-    // This method lets you configure a view controller before it's presented.
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        super.prepare(for: segue, sender: sender)
-        
-        var detailString = Location.text! + ", " + GameType.text! + ", " + GameDate.text!
-        
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM, dd, yyyy"
-        let raceDate = GameDate.text
-        let date = dateFormatter.date(from: raceDate!)
-        
-        
-        game = Game(title: GameOpponent.text!, detail: detailString)
-        gameDate = date
-        gameTitle = GameOpponent.text!
-        location = Location.text!
-        gameType = GameType.text!
-        gameTime = GameTime.text!
-    }
-    
-    
-  
-    
-    
     
 }
