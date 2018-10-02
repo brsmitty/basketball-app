@@ -12,6 +12,8 @@ import os.log
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var GameOptionalDetail: UITextField!
     @IBOutlet weak var GameOpponent: UITextField!
     @IBOutlet weak var GameTime: UITextField!
     @IBOutlet weak var GameDate: UITextField!
@@ -30,6 +32,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     var gameDate : Date?
     var gameType : String?
     var gameTime : String?
+    var gameDetail : String?
+    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -77,6 +81,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
    
    override func viewDidLoad() {
         super.viewDidLoad()
+        addButton.layer.cornerRadius = 0.15 * addButton.bounds.size.width
+    
         locationPicker.dataSource = self
         locationPicker.delegate = self
         locationPicker.tag = 0
@@ -128,7 +134,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         super.prepare(for: segue, sender: sender)
         
-        var detailString = Location.text! + ", " + GameType.text! + ", " + GameDate.text!
+        var detailString = GameDate.text!
         
         
         let dateFormatter = DateFormatter()
@@ -136,12 +142,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let raceDate = GameDate.text
         let date = dateFormatter.date(from: raceDate!)
         
-        
         game = Game(title: GameOpponent.text!, detail: detailString)
         gameDate = date
         gameTitle = GameOpponent.text!
         location = Location.text!
         gameType = GameType.text!
+        gameDetail = GameOptionalDetail.text!
         gameTime = GameTime.text!
     }
     

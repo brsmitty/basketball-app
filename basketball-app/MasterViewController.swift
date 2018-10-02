@@ -14,9 +14,10 @@ import FirebaseAuth
 
 var gameTitles: [String] = []
 var gameDates: [Date] = []
-var gameTimes: [Date] = []
+var gameTimes: [String] = []
 var gameLocations: [String] = []
 var gameTypes: [String] = []
+var gameDetails : [String] = []
 
 class MasterViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
@@ -125,6 +126,8 @@ class MasterViewController: UITableViewController{
             gameTypes.remove(at: indexPath.row)
             gameLocations.remove(at: indexPath.row)
             gameTitles.remove(at: indexPath.row)
+            gameTimes.remove(at: indexPath.row)
+            gameDetails.remove(at: indexPath.row)
             
             GameTableView.beginUpdates()
             GameTableView.deleteRows(at: [indexPath], with: .automatic)
@@ -139,18 +142,23 @@ class MasterViewController: UITableViewController{
         VC?.getTypes = gameTypes[indexPath.row]
         VC?.getLocations = gameLocations[indexPath.row]
         VC?.getDate = gameDates[indexPath.row]
+        VC?.getDetail = gameDetails[indexPath.row]
+        VC?.getTime = gameTimes[indexPath.row]
+        
         self.showDetailViewController(VC!, sender: Any?.self)
     }
     
     
     @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType, let gameTime = sourceViewController.gameTime {
+        if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType, let gameTime = sourceViewController.gameTime, let gameDetail = sourceViewController.gameDetail {
             
             // Add a new game.
             gameDates.append(date)
             gameTitles.append(title)
             gameLocations.append(location)
             gameTypes.append(gameType)
+            gameDetails.append(gameDetail)
+            gameTimes.append(gameTime)
             
             let newIndexPath = IndexPath(row: games.count, section: 0)
             games.append(game)
@@ -172,10 +180,10 @@ class MasterViewController: UITableViewController{
                                               "location": location,
                                               "gameType": gameType,
                                               "gameDate": stringDate,
-                                              "gameTime": gameTime]
+                                              "gameTime": gameTime,
+                                              "gameDetail": gameDetail]
             playRef.setValue(playData)
         }
-        
     
     }
     
@@ -191,9 +199,12 @@ class MasterViewController: UITableViewController{
                 
                 for titles in gameTitles{
                     event.title = titles
+                    let dataFormatter = DateFormatter()
+                    dataFormatter.dateFormat = "HH:mm"
+                    let dateTime = dataFormatter.date(from: gameTimes[gameTitles.index(of: titles)!])
                     event.startDate = gameDates[gameTitles.index(of: titles)!]
                     event.endDate = gameDates[gameTitles.index(of: titles)!]
-                    event.notes = gameLocations[gameTitles.index(of: titles)!] + ", " + gameTypes[gameTitles.index(of: titles)!]
+                    event.notes = gameLocations[gameTitles.index(of: titles)!] + ", " + gameTypes[gameTitles.index(of: titles)!] + "\n" + gameDetails[gameTitles.index(of: titles)!]
                     event.calendar = eventStore.defaultCalendarForNewEvents
                     do {
                         try eventStore.save(event, span: .thisEvent)
