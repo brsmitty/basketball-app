@@ -24,6 +24,7 @@
 		6346B815214AB779000B0B6E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B814214AB779000B0B6E /* Team.swift */; };
 		6350451721626249003A046C /* basketball_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350451621626249003A046C /* basketball_appTests.swift */; };
 		6350451F2163977C003A046C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350451E2163977C003A046C /* GameViewController.swift */; };
+		636EBE0C2163F83900700E14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 636EBE0B2163F83800700E14 /* Assets.xcassets */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD121403291006726C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FD021403291006726C3 /* ViewController.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
@@ -64,6 +65,7 @@
 		6350451621626249003A046C /* basketball_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = basketball_appTests.swift; sourceTree = "<group>"; };
 		6350451821626249003A046C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6350451E2163977C003A046C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		636EBE0B2163F83800700E14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63C79FCB21403291006726C3 /* basketball-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basketball-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD021403291006726C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		63C79FCD21403291006726C3 /* basketball-app */ = {
 			isa = PBXGroup;
 			children = (
+				636EBE0B2163F83800700E14 /* Assets.xcassets */,
 				27706C582155DDCA001673D2 /* PlayerManager */,
 				275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */,
 				275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */,
@@ -277,6 +280,7 @@
 			files = (
 				63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */,
 				63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */,
+				636EBE0C2163F83900700E14 /* Assets.xcassets in Resources */,
 				2786CCD2214580B3003539A2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

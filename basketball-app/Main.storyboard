@@ -437,7 +437,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-XR-nfg">
-                                <rect key="frame" x="447" y="183" width="130" height="220"/>
+                                <rect key="frame" x="447" y="177" width="130" height="220"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 2" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3NA-Pv-Zti">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
@@ -529,7 +529,7 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZR7-Nm-9fd">
-                                <rect key="frame" x="743" y="183" width="130" height="220"/>
+                                <rect key="frame" x="743" y="177" width="130" height="220"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 3" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3y-NV-1Ts">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
@@ -575,7 +575,7 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-jB-IfN">
-                                <rect key="frame" x="300" y="443" width="130" height="220"/>
+                                <rect key="frame" x="300" y="437" width="130" height="220"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 4" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vB6-NZ-eG2">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
@@ -621,7 +621,7 @@
                                 </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="yRG-vH-4Fa">
-                                <rect key="frame" x="608" y="443" width="130" height="220"/>
+                                <rect key="frame" x="608" y="437" width="130" height="220"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Position 5" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7xz-PS-3rI">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="30"/>
