@@ -604,6 +604,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerOnePos.text = "Position"
       playerOneName.text = "Name"
       playerOneImage.image = UIImage(named:"Default")
+      positionOne.text = ""
       updateSaveButtonState()
       playerOneClear.isEnabled = false
    }
@@ -615,6 +616,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerTwoPos.text = "Position"
       playerTwoName.text = "Name"
       playerTwoImage.image = UIImage(named:"Default")
+      positionTwo.text = ""
       updateSaveButtonState()
       playerTwoClear.isEnabled = false
    }
@@ -627,6 +629,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerThreePos.text = "Position"
       playerThreeName.text = "Name"
       playerThreeImage.image = UIImage(named:"Default")
+      positionThree.text = ""
       updateSaveButtonState()
       playerThreeClear.isEnabled = false
    }
@@ -639,6 +642,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerFourPos.text = "Position"
       playerFourName.text = "Name"
       playerFourImage.image = UIImage(named:"Default")
+      positionFour.text = ""
       updateSaveButtonState()
       playerFourClear.isEnabled = false
    }
@@ -651,6 +655,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       playerFivePos.text = "Position"
       playerFiveName.text = "Name"
       playerFiveImage.image = UIImage(named:"Default")
+      positionFive.text = ""
       updateSaveButtonState()
       playerFiveClear.isEnabled = false
    }
