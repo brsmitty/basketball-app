@@ -16,7 +16,8 @@ class UserAuthViewController: UIViewController {
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
     @IBOutlet weak var registerEmail: UITextField!
-   @IBOutlet weak var registerPass: UITextField!
+    @IBOutlet weak var registerPass: UITextField!
+    var emailVerificationTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,18 @@ class UserAuthViewController: UIViewController {
                 guard let uid = user?.uid else { return }
                 let ref = Database.database().reference(withPath: "users")
                 let userRef = ref.child(uid)
-                let userData : [String: Any] = ["uid":  uid]
+                let userData : [String: Any] = ["uid":  uid, "verified": false]
                 userRef.setValue(userData)
+            }
+        }
+    }
+    
+    @objc func checkEmailValidation(){
+        Auth.auth().currentUser!.reload { (error) in
+            print(Auth.auth().currentUser!.isEmailVerified)
+            if (Auth.auth().currentUser!.isEmailVerified){
+                self.emailVerificationTimer.invalidate()
+                self.performSegue(withIdentifier: "registerSegue", sender: nil)
             }
         }
     }
@@ -47,10 +58,26 @@ class UserAuthViewController: UIViewController {
                         self.present(alert, animated: true, completion: nil)
                     }
                     else {
-                        self.performSegue(withIdentifier: "registerSegue", sender: nil)
-                        
+                        print("sending email")
+                        Auth.auth().currentUser?.sendEmailVerification { (error) in
+                            if (Auth.auth().currentUser!.isEmailVerified){
+                                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+                            }
+                            else{
+                                self.emailVerificationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.checkEmailValidation), userInfo: nil, repeats: true)
+                            }
+                        }
                     }
                 }
+            }
+            else {
+                let alert = UIAlertController(title: "Registration Failed",
+                                              message: error!.localizedDescription,
+                                              preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
