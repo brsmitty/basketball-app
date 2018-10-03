@@ -18,6 +18,7 @@ var gameTimes: [String] = []
 var gameLocations: [String] = []
 var gameTypes: [String] = []
 var gameDetails : [String] = []
+var synced : [Bool] = []
 
 class MasterViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
@@ -50,6 +51,7 @@ class MasterViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getGames()
         GameTableView.delegate = self
         GameTableView.dataSource = self
     }
@@ -87,9 +89,14 @@ class MasterViewController: UITableViewController{
                 gameTitles.append(title.value as! String)
                 gameLocations.append(location.value as! String)
                 gameTypes.append(gameType.value as! String)
-                let tempString = location.value as! String
+                gameDates.append(gameDate.value as! Date)
+                gameTimes.append(gameTime.value as! String)
+                synced.append(false)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM, dd, yyyy"
+                let date = dateFormatter.string(from: gameDate.value as! Date)
                 
-                let temp = Game(title: title.value as! String, detail: tempString)
+                let temp = Game(title: title.value as! String, detail: date)
                 
                 let currentPath = IndexPath(row:self.games.count, section: 0)
                 self.games.append(temp)
@@ -128,6 +135,7 @@ class MasterViewController: UITableViewController{
             gameTitles.remove(at: indexPath.row)
             gameTimes.remove(at: indexPath.row)
             gameDetails.remove(at: indexPath.row)
+            synced.remove(at: indexPath.row)
             
             GameTableView.beginUpdates()
             GameTableView.deleteRows(at: [indexPath], with: .automatic)
@@ -159,6 +167,7 @@ class MasterViewController: UITableViewController{
             gameTypes.append(gameType)
             gameDetails.append(gameDetail)
             gameTimes.append(gameTime)
+            synced.append(false)
             
             let newIndexPath = IndexPath(row: games.count, section: 0)
             games.append(game)
@@ -198,10 +207,8 @@ class MasterViewController: UITableViewController{
                 let event:EKEvent = EKEvent(eventStore: eventStore)
                 
                 for titles in gameTitles{
+                    if(synced[gameTitles.index(of: titles)!] == false){
                     event.title = titles
-                    let dataFormatter = DateFormatter()
-                    dataFormatter.dateFormat = "HH:mm"
-                    let dateTime = dataFormatter.date(from: gameTimes[gameTitles.index(of: titles)!])
                     event.startDate = gameDates[gameTitles.index(of: titles)!]
                     event.endDate = gameDates[gameTitles.index(of: titles)!]
                     event.notes = gameLocations[gameTitles.index(of: titles)!] + ", " + gameTypes[gameTitles.index(of: titles)!] + "\n" + gameDetails[gameTitles.index(of: titles)!]
@@ -211,7 +218,9 @@ class MasterViewController: UITableViewController{
                     } catch let error as NSError {
                         print("failed to save event with error : \(error)")
                     }
+                    synced[gameTitles.index(of: titles)!] = true
                     print("Saved Event")
+                }
                 }
             }
             else{
