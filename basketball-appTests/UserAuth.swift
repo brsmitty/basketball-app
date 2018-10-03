@@ -8,11 +8,10 @@
 
 import XCTest
 
-class basketball_appTests: XCTestCase {
+class userAuth: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
@@ -25,11 +24,11 @@ class basketball_appTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
-    func registerValidEmail () {
+    func testRegisterValidEmail () {
         
     }
     
-    func registerInvalidEmail () {
+    func testRegisterInvalidEmail () {
         
     }
     

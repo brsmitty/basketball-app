@@ -17,9 +17,16 @@ class UserAuthViewController: UIViewController {
     @IBOutlet weak var loginPass: UITextField!
     @IBOutlet weak var registerEmail: UITextField!
     @IBOutlet weak var registerPass: UITextField!
-    var emailVerificationTimer: Timer!
+   @IBOutlet weak var registerPassCheck: LoginTextField!
+   @IBOutlet weak var teamName: LoginTextField!
+   @IBOutlet weak var validityLabel: UILabel!
+   @IBOutlet weak var passwordMatchLabel: UILabel!
+   var emailVerificationTimer: Timer!
     
-    override func viewDidLoad() {
+   @IBOutlet weak var loginButton: UIButton!
+   @IBOutlet weak var registerButton: UIButton!
+   @IBOutlet weak var signUpButton: UIButton!
+   override func viewDidLoad() {
         super.viewDidLoad()
         
         Auth.auth().addStateDidChangeListener() { auth, user in
@@ -31,6 +38,35 @@ class UserAuthViewController: UIViewController {
                 userRef.setValue(userData)
             }
         }
+      if let emailField = loginEmail{
+         emailField.layer.cornerRadius = 5
+      }
+      if let passField = loginPass{
+         passField.layer.cornerRadius = 5
+      }
+      
+      if let registerEmail = registerEmail{
+         registerEmail.layer.cornerRadius = 5
+      }
+      if let registerPass = registerPass{
+         registerPass.layer.cornerRadius = 5
+      }
+      if let registerPassCheck = registerPassCheck{
+         registerPassCheck.layer.cornerRadius = 5
+      }
+      if let teamName = teamName{
+         teamName.layer.cornerRadius = 5
+      }
+      if let loginButton = loginButton{
+         loginButton.layer.cornerRadius = 5
+      }
+      if let registerButton = registerButton{
+         registerButton.layer.cornerRadius = 5
+      }
+      if let signUpButton = signUpButton{
+         signUpButton.layer.cornerRadius = 5
+      }
+      
     }
     
     @objc func checkEmailValidation(){
