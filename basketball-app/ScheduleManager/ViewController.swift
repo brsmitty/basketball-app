@@ -20,8 +20,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var GameType: UITextField!
     @IBOutlet weak var Location: UITextField!
     
-    private var locationPick = ["Home", "Away"]
-    private var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament"]
+    private var locationPick = ["Home", "Away", "Netural"]
+    private var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament","Scrimmage"]
     private var locationPicker = UIPickerView()
     private var typePicker = UIPickerView()
     private var datePicker = UIDatePicker()
