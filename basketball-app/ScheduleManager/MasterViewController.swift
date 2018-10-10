@@ -51,7 +51,7 @@ class MasterViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getGames()
+        //getGames()
         GameTableView.delegate = self
         GameTableView.dataSource = self
     }
@@ -179,7 +179,7 @@ class MasterViewController: UITableViewController{
             let stringDate = dataFormatter.string(from: date)
             
             var pid = ""
-                pid = uid + "-" + stringDate
+                pid = uid + "-" + String(games.count)
             
             let ref = Database.database().reference(withPath: "games")
             
@@ -209,9 +209,10 @@ class MasterViewController: UITableViewController{
                 for titles in gameTitles{
                     if(synced[gameTitles.index(of: titles)!] == false){
                     event.title = titles
+                    event.location = gameLocations[gameTitles.index(of: titles)!]
                     event.startDate = gameDates[gameTitles.index(of: titles)!]
                     event.endDate = gameDates[gameTitles.index(of: titles)!]
-                    event.notes = gameLocations[gameTitles.index(of: titles)!] + ", " + gameTypes[gameTitles.index(of: titles)!] + "\n" + gameDetails[gameTitles.index(of: titles)!]
+                    event.notes = gameTypes[gameTitles.index(of: titles)!] + "\n" + gameDetails[gameTitles.index(of: titles)!]
                     event.calendar = eventStore.defaultCalendarForNewEvents
                     do {
                         try eventStore.save(event, span: .thisEvent)

@@ -17,14 +17,15 @@ var fileNames : [String] = []
 
 class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
     func viewPdf(titleText: String) {
-        if let url = Bundle.main.url(forResource: "Playbook", withExtension: "pdf"){
+        let temp = fileNames[storedPlaybooks.index(of: titleText)!]
+        if let url = Bundle.main.url(forResource: temp, withExtension: "pdf"){
             let webview = UIWebView(frame: self.view.frame)
             let urlRequest = URLRequest(url: url)
             webview.loadRequest(urlRequest as URLRequest)
             
             let pdfVC = UIViewController()
             pdfVC.view.addSubview(webview)
-            pdfVC.title = "Playbook"
+            pdfVC.title = temp
             self.navigationController?.pushViewController(pdfVC, animated: true)
         }
     }
@@ -51,6 +52,18 @@ class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
         cell.delegate = self
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            playbooks.remove(at: indexPath.row)
+            storedPlaybooks.remove(at: indexPath.row)
+            fileNames.remove(at: indexPath.row)
+            PlaybookTableView.beginUpdates()
+            PlaybookTableView.deleteRows(at: [indexPath], with: .automatic)
+            PlaybookTableView.endUpdates()
+        }
+        
     }
     
     @IBAction func unwindToPlaybookList(sender: UIStoryboardSegue) {
