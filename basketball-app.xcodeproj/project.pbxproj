@@ -10,6 +10,8 @@
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
 		274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A641D2164051700F0F4E7 /* LoginTextField.swift */; };
 		274A64262164451E00F0F4E7 /* userAuthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A64252164451E00F0F4E7 /* userAuthUITests.swift */; };
+		274A642E2165B92500F0F4E7 /* EmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */; };
+		274A64302165B9E500F0F4E7 /* VerifiedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */; };
 		275F46C22157D37B004E6ED7 /* LineupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */; };
 		275F46C62157E76E004E6ED7 /* LineupManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */; };
 		275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */; };
@@ -61,6 +63,8 @@
 		274A64232164451E00F0F4E7 /* userAuthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		274A64252164451E00F0F4E7 /* userAuthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAuthUITests.swift; sourceTree = "<group>"; };
 		274A64272164451E00F0F4E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewController.swift; sourceTree = "<group>"; };
+		274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiedViewController.swift; sourceTree = "<group>"; };
 		275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupTableViewCell.swift; sourceTree = "<group>"; };
 		275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineupManagerViewController.swift; path = "basketball-app/Lineup/LineupManagerViewController.swift"; sourceTree = SOURCE_ROOT; };
 		275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupEditorViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 				98E2C198215D632A005FA620 /* MasterViewController.swift */,
 				98E2C19A215D6374005FA620 /* DetailViewController.swift */,
 				6350451E2163977C003A046C /* GameViewController.swift */,
+				274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */,
+				274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -427,6 +433,7 @@
 				27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */,
 				98E2C195215D6301005FA620 /* Game.swift in Sources */,
 				6346B815214AB779000B0B6E /* Team.swift in Sources */,
+				274A64302165B9E500F0F4E7 /* VerifiedViewController.swift in Sources */,
 				63C79FD121403291006726C3 /* ViewController.swift in Sources */,
 				6346B811214AB765000B0B6E /* UserModel.swift in Sources */,
 				275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */,
@@ -441,6 +448,7 @@
 				271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */,
 				6346B80F214A720D000B0B6E /* User.swift in Sources */,
 				274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */,
+				274A642E2165B92500F0F4E7 /* EmailVerificationViewController.swift in Sources */,
 				98E2C193215D6292005FA620 /* GameCell.swift in Sources */,
 				6321151F2153F39F00F5FD6C /* KPI.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,

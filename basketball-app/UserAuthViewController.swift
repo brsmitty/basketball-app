@@ -11,7 +11,11 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class UserAuthViewController: UIViewController {
+enum Logging: Error {
+   case invalidEmail
+}
+
+class UserAuthViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
@@ -39,22 +43,30 @@ class UserAuthViewController: UIViewController {
             }
         }
       if let emailField = loginEmail{
+         emailField.delegate = self
+         emailField.tag = 0
          emailField.layer.cornerRadius = 5
       }
       if let passField = loginPass{
+         passField.delegate = self
+         passField.tag = 1
          passField.layer.cornerRadius = 5
       }
       
       if let registerEmail = registerEmail{
+         registerEmail.delegate = self
          registerEmail.layer.cornerRadius = 5
       }
       if let registerPass = registerPass{
+         registerPass.delegate = self
          registerPass.layer.cornerRadius = 5
       }
       if let registerPassCheck = registerPassCheck{
+         registerPassCheck.delegate = self
          registerPassCheck.layer.cornerRadius = 5
       }
       if let teamName = teamName{
+         teamName.delegate = self
          teamName.layer.cornerRadius = 5
       }
       if let loginButton = loginButton{
@@ -68,6 +80,10 @@ class UserAuthViewController: UIViewController {
       }
       
     }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+   }
     
     @objc func checkEmailValidation(){
         Auth.auth().currentUser!.reload { (error) in
@@ -94,15 +110,16 @@ class UserAuthViewController: UIViewController {
                         self.present(alert, animated: true, completion: nil)
                     }
                     else {
-                        print("sending email")
-                        Auth.auth().currentUser?.sendEmailVerification { (error) in
-                            if (Auth.auth().currentUser!.isEmailVerified){
-                                self.performSegue(withIdentifier: "registerSegue", sender: nil)
-                            }
-                            else{
-                                self.emailVerificationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.checkEmailValidation), userInfo: nil, repeats: true)
-                            }
-                        }
+                     self.performSegue(withIdentifier: "verificationSegue", sender: nil)
+//                        print("sending email")
+//                        Auth.auth().currentUser?.sendEmailVerification { (error) in
+//                            if (Auth.auth().currentUser!.isEmailVerified){
+//                                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+//                            }
+//                            else{
+//                                self.emailVerificationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.checkEmailValidation), userInfo: nil, repeats: true)
+//                            }
+//                        }
                     }
                 }
             }
@@ -145,5 +162,11 @@ class UserAuthViewController: UIViewController {
             }
         }
     }
+   
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      
+      textField.resignFirstResponder()
+      return true
+   }
 }
 

@@ -35,7 +35,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="Ssz-zT-Axf" id="vpQ-vU-S1L"/>
                                 </connections>
@@ -50,7 +50,7 @@
                                 <rect key="frame" x="387" y="381" width="250" height="60"/>
                                 <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKi-ay-HA3">
                                 <rect key="frame" x="393" y="388" width="71" height="17"/>
@@ -78,7 +78,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginClicked:" destination="7nf-nr-9D1" eventType="touchDown" id="RVo-bl-9EN"/>
-                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="loginSegue" id="yy7-tv-92L"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BallIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qP4-8h-pky">
@@ -145,11 +144,12 @@
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
                         <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
                         <outlet property="registerButton" destination="gTQ-4a-Zf5" id="Zd3-5X-rLj"/>
+                        <segue destination="iQa-d8-Vh0" kind="show" identifier="loginSegue" id="6q6-o3-KoC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="66.796875" y="-811.71875"/>
+            <point key="canvasLocation" x="67" y="-834"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
@@ -178,7 +178,6 @@
                                 </state>
                                 <connections>
                                     <action selector="registerClicked:" destination="KmK-hO-VMD" eventType="touchDown" id="dfX-db-Fbq"/>
-                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="registerSegue" id="oB7-TT-wv2"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ERZ-nu-Nad" customClass="LoginTextField" customModule="basketball_app" customModuleProvider="target">
@@ -188,7 +187,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="continue"/>
                                 <connections>
                                     <outlet property="delegate" destination="Ssz-zT-Axf" id="Dns-Sw-MEy"/>
                                 </connections>
@@ -197,19 +196,19 @@
                                 <rect key="frame" x="387" y="283" width="250" height="60"/>
                                 <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="continue" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NQF-yD-lE8" customClass="LoginTextField" customModule="basketball_app" customModuleProvider="target">
                                 <rect key="frame" x="387" y="378" width="250" height="60"/>
                                 <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="continue" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YLr-hv-eAz" customClass="LoginTextField" customModule="basketball_app" customModuleProvider="target">
                                 <rect key="frame" x="387" y="481" width="250" height="60"/>
                                 <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd1-QU-A8o">
                                 <rect key="frame" x="394" y="187" width="43" height="17"/>
@@ -318,6 +317,7 @@
                         <outlet property="signUpButton" destination="ozA-df-2rE" id="FO1-o5-TGg"/>
                         <outlet property="teamName" destination="YLr-hv-eAz" id="6Eo-Ci-fNz"/>
                         <outlet property="validityLabel" destination="afM-vB-92d" id="Bfd-zL-kUb"/>
+                        <segue destination="oDR-l3-YGm" kind="show" identifier="verificationSegue" animates="NO" id="GX0-sW-hI8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1119,7 +1119,7 @@
         <!--EmailVerificationView Controller-->
         <scene sceneID="HeD-qj-jsv">
             <objects>
-                <viewController id="oDR-l3-YGm" userLabel="EmailVerificationView Controller" customClass="UserAuthViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oDR-l3-YGm" userLabel="EmailVerificationView Controller" customClass="EmailVerificationViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hkc-PO-ngS">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1156,6 +1156,9 @@
                                 <state key="normal" title="Resend Code">
                                     <color key="titleColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="resendCode:" destination="oDR-l3-YGm" eventType="touchUpInside" id="HVF-1s-fii"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Still not there? Tap Resend Code below." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPh-jc-2U6">
                                 <rect key="frame" x="304" y="433" width="416" height="79"/>
@@ -1187,6 +1190,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cJ7-1R-al7"/>
                     </view>
+                    <connections>
+                        <segue destination="ZpI-uQ-bK5" kind="show" identifier="verifiedSegue" animates="NO" id="gec-7C-NVC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z2p-3q-yS8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1195,7 +1201,7 @@
         <!--Verified View Controller-->
         <scene sceneID="e1f-gH-qvk">
             <objects>
-                <viewController id="ZpI-uQ-bK5" userLabel="Verified View Controller" sceneMemberID="viewController">
+                <viewController id="ZpI-uQ-bK5" userLabel="Verified View Controller" customClass="VerifiedViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="76z-nf-wYO">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1234,10 +1240,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C6V-gX-PPx"/>
                     </view>
+                    <connections>
+                        <segue destination="iQa-d8-Vh0" kind="show" identifier="registerSegue" id="Tvv-NR-hec"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQR-ER-JL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="72.65625" y="1460.9375"/>
+            <point key="canvasLocation" x="828" y="-2"/>
         </scene>
         <!--Lineup Manager Navigation Controller-->
         <scene sceneID="bDD-sR-dci">
@@ -2170,14 +2179,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BG" width="2846" height="2134"/>
+        <image name="BG" width="2732" height="2048"/>
         <image name="BallIcon" width="333" height="341"/>
         <image name="Board" width="1944" height="1633"/>
         <image name="Default" width="1524" height="976"/>
         <image name="VerifiedBall" width="458" height="458"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oB7-TT-wv2"/>
+        <segue reference="6q6-o3-KoC"/>
         <segue reference="uip-NA-VoC"/>
         <segue reference="h23-EV-ejH"/>
     </inferredMetricsTieBreakers>
