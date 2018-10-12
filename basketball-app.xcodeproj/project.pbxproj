@@ -21,6 +21,8 @@
 		63041344216E29EB005546D3 /* testLineupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041343216E29EB005546D3 /* testLineupManager.swift */; };
 		63041346216E2A0F005546D3 /* testPlaybookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041345216E2A0F005546D3 /* testPlaybookManager.swift */; };
 		63041348216E2A30005546D3 /* testAdminToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041347216E2A30005546D3 /* testAdminToggle.swift */; };
+		630E2C66216E66C800881C1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C65216E66C800881C1F /* Assets.xcassets */; };
+		630E2C68216E672600881C1F /* Playbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C67216E672600881C1F /* Playbook.pdf */; };
 		6321151F2153F39F00F5FD6C /* KPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321151E2153F39F00F5FD6C /* KPI.swift */; };
 		6346B80F214A720D000B0B6E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B80E214A720D000B0B6E /* User.swift */; };
 		6346B811214AB765000B0B6E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B810214AB765000B0B6E /* UserModel.swift */; };
@@ -36,7 +38,6 @@
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
-		98DD769D2165D8980010F5D0 /* Playbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 98DD769C2165D8980010F5D0 /* Playbook.pdf */; };
 		98E2C193215D6292005FA620 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E2C192215D6292005FA620 /* GameCell.swift */; };
 		98E2C195215D6301005FA620 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E2C194215D6301005FA620 /* Game.swift */; };
 		98E2C199215D632A005FA620 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E2C198215D632A005FA620 /* MasterViewController.swift */; };
@@ -69,6 +70,8 @@
 		63041343216E29EB005546D3 /* testLineupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testLineupManager.swift; sourceTree = "<group>"; };
 		63041345216E2A0F005546D3 /* testPlaybookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testPlaybookManager.swift; sourceTree = "<group>"; };
 		63041347216E2A30005546D3 /* testAdminToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testAdminToggle.swift; sourceTree = "<group>"; };
+		630E2C65216E66C800881C1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		630E2C67216E672600881C1F /* Playbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Playbook.pdf; sourceTree = "<group>"; };
 		6321151E2153F39F00F5FD6C /* KPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPI.swift; sourceTree = "<group>"; };
 		6346B80E214A720D000B0B6E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6346B810214AB765000B0B6E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -87,7 +90,6 @@
 		98588C60216511E300DA226C /* PlaybookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookCell.swift; sourceTree = "<group>"; };
 		98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookViewController.swift; sourceTree = "<group>"; };
 		98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
-		98DD769C2165D8980010F5D0 /* Playbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Playbook.pdf; path = ../../Desktop/Playbook.pdf; sourceTree = "<group>"; };
 		98E2C192215D6292005FA620 /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		98E2C194215D6301005FA620 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		98E2C198215D632A005FA620 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +180,8 @@
 		63C79FCD21403291006726C3 /* basketball-app */ = {
 			isa = PBXGroup;
 			children = (
-				98DD769C2165D8980010F5D0 /* Playbook.pdf */,
+				630E2C67216E672600881C1F /* Playbook.pdf */,
+				630E2C65216E66C800881C1F /* Assets.xcassets */,
 				98DD769721655F010010F5D0 /* ScheduleManager */,
 				27706C582155DDCA001673D2 /* PlayerManager */,
 				275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */,
@@ -309,9 +312,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */,
-				98DD769D2165D8980010F5D0 /* Playbook.pdf in Resources */,
 				63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */,
 				2786CCD2214580B3003539A2 /* Main.storyboard in Resources */,
+				630E2C66216E66C800881C1F /* Assets.xcassets in Resources */,
+				630E2C68216E672600881C1F /* Playbook.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
