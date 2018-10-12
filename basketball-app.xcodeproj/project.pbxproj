@@ -17,10 +17,6 @@
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
 		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
-		63041342216E282E005546D3 /* testScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041341216E282E005546D3 /* testScheduleManager.swift */; };
-		63041344216E29EB005546D3 /* testLineupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041343216E29EB005546D3 /* testLineupManager.swift */; };
-		63041346216E2A0F005546D3 /* testPlaybookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041345216E2A0F005546D3 /* testPlaybookManager.swift */; };
-		63041348216E2A30005546D3 /* testAdminToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63041347216E2A30005546D3 /* testAdminToggle.swift */; };
 		630E2C66216E66C800881C1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C65216E66C800881C1F /* Assets.xcassets */; };
 		630E2C68216E672600881C1F /* Playbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C67216E672600881C1F /* Playbook.pdf */; };
 		6321151F2153F39F00F5FD6C /* KPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321151E2153F39F00F5FD6C /* KPI.swift */; };
@@ -44,16 +40,6 @@
 		98E2C19B215D6374005FA620 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E2C19A215D6374005FA620 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6304133C216E280E005546D3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63C79FC321403291006726C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63C79FCA21403291006726C3;
-			remoteInfo = "basketball-app";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
 		275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupTableViewCell.swift; sourceTree = "<group>"; };
@@ -64,12 +50,6 @@
 		2786CCD1214580B3003539A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerViewController.swift; sourceTree = "<group>"; };
 		27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
-		63041337216E280E005546D3 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6304133B216E280E005546D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63041341216E282E005546D3 /* testScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testScheduleManager.swift; sourceTree = "<group>"; };
-		63041343216E29EB005546D3 /* testLineupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testLineupManager.swift; sourceTree = "<group>"; };
-		63041345216E2A0F005546D3 /* testPlaybookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testPlaybookManager.swift; sourceTree = "<group>"; };
-		63041347216E2A30005546D3 /* testAdminToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testAdminToggle.swift; sourceTree = "<group>"; };
 		630E2C65216E66C800881C1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		630E2C67216E672600881C1F /* Playbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Playbook.pdf; sourceTree = "<group>"; };
 		6321151E2153F39F00F5FD6C /* KPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPI.swift; sourceTree = "<group>"; };
@@ -99,13 +79,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		63041334216E280E005546D3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		63C79FC821403291006726C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,23 +118,10 @@
 			path = PlayerManager;
 			sourceTree = "<group>";
 		};
-		63041338216E280E005546D3 /* UI Tests */ = {
-			isa = PBXGroup;
-			children = (
-				6304133B216E280E005546D3 /* Info.plist */,
-				63041341216E282E005546D3 /* testScheduleManager.swift */,
-				63041343216E29EB005546D3 /* testLineupManager.swift */,
-				63041345216E2A0F005546D3 /* testPlaybookManager.swift */,
-				63041347216E2A30005546D3 /* testAdminToggle.swift */,
-			);
-			path = "UI Tests";
-			sourceTree = "<group>";
-		};
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
 				63C79FCD21403291006726C3 /* basketball-app */,
-				63041338216E280E005546D3 /* UI Tests */,
 				63C79FCC21403291006726C3 /* Products */,
 				165C386DCD297A94D812A1E2 /* Pods */,
 				000C9FD9583F679DDB3773CB /* Frameworks */,
@@ -172,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				63C79FCB21403291006726C3 /* basketball-app.app */,
-				63041337216E280E005546D3 /* UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -223,24 +182,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		63041336216E280E005546D3 /* UI Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6304133E216E280E005546D3 /* Build configuration list for PBXNativeTarget "UI Tests" */;
-			buildPhases = (
-				63041333216E280E005546D3 /* Sources */,
-				63041334216E280E005546D3 /* Frameworks */,
-				63041335216E280E005546D3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6304133D216E280E005546D3 /* PBXTargetDependency */,
-			);
-			name = "UI Tests";
-			productName = "UI Tests";
-			productReference = 63041337216E280E005546D3 /* UI Tests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		63C79FCA21403291006726C3 /* basketball-app */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63C79FDD21403292006726C3 /* Build configuration list for PBXNativeTarget "basketball-app" */;
@@ -270,11 +211,6 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "David Zucco";
 				TargetAttributes = {
-					63041336216E280E005546D3 = {
-						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1000;
-						TestTargetID = 63C79FCA21403291006726C3;
-					};
 					63C79FCA21403291006726C3 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -294,19 +230,11 @@
 			projectRoot = "";
 			targets = (
 				63C79FCA21403291006726C3 /* basketball-app */,
-				63041336216E280E005546D3 /* UI Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		63041335216E280E005546D3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		63C79FC921403291006726C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -367,17 +295,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		63041333216E280E005546D3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63041344216E29EB005546D3 /* testLineupManager.swift in Sources */,
-				63041346216E2A0F005546D3 /* testPlaybookManager.swift in Sources */,
-				63041342216E282E005546D3 /* testScheduleManager.swift in Sources */,
-				63041348216E2A30005546D3 /* testAdminToggle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		63C79FC721403291006726C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,14 +329,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		6304133D216E280E005546D3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63C79FCA21403291006726C3 /* basketball-app */;
-			targetProxy = 6304133C216E280E005546D3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		63C79FD721403292006726C3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -432,50 +341,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6304133F216E280E005546D3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "UI Tests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.davidzucco.UI-Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Debug;
-		};
-		63041340216E280E005546D3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "UI Tests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.davidzucco.UI-Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Release;
-		};
 		63C79FDB21403292006726C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -629,15 +494,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6304133E216E280E005546D3 /* Build configuration list for PBXNativeTarget "UI Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6304133F216E280E005546D3 /* Debug */,
-				63041340216E280E005546D3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		63C79FC621403291006726C3 /* Build configuration list for PBXProject "basketball-app" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
