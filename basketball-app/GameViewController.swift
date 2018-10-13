@@ -88,10 +88,12 @@ class GameViewController: UIViewController {
         let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
             print("made")
+            self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
         }
         let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
             print("missed")
+            self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
         }
         ac.addAction(madeBtn)
         ac.addAction(missedBtn)
@@ -99,6 +101,5 @@ class GameViewController: UIViewController {
         popover?.sourceView = view
         popover?.sourceRect = self.boxRects[0]
         present(ac, animated: true)
-        self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
     }
 }
