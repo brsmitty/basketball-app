@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    var lineup : [String] = ["", "Kyrie", "JR", "LeBron", "Tristan", "Kevin"]
     var panStartPoint = CGPoint() //coordinates of pan start
     var panEndPoint = CGPoint() //coordinates of pan end
     var boxHeight : CGFloat = 100.0
@@ -44,17 +45,11 @@ class GameViewController: UIViewController {
         
         if recognizer.state == .began {
             self.panStartPoint = player.center
-            print(determineBoxIndex(point: self.panStartPoint))
-            
         }
-        
         if recognizer.state == .ended {
-            
             self.panEndPoint = CGPoint(x: panStartPoint.x + translation.x, y: panStartPoint.y + translation.y)
-            print(determineBoxIndex(point: self.panEndPoint))
-            
+            determineAction(startIndex: determineBoxIndex(point: self.panStartPoint), endingIndex: determineBoxIndex(point: self.panEndPoint))
         }
-            
         if recognizer.state == .cancelled {print("cancel")}
     }
     
@@ -65,5 +60,45 @@ class GameViewController: UIViewController {
             else{ i += 1 }
         }
         return 999
+    }
+    
+    func determineAction(startIndex: Int, endingIndex: Int){
+        if endingIndex == 0 {
+            handleShot(playerIndex: startIndex)
+        }
+        else if endingIndex != 999 {
+            handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
+        }
+    }
+    
+    func handleShot(playerIndex: Int){
+        print(self.lineup[playerIndex] + " shot the ball!")
+        displayShotChart()
+        
+    }
+    
+    func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
+        print(self.lineup[passingPlayerIndex] + " passed to " + self.lineup[receivingPlayerIndex])
+        
+    }
+    
+    func displayShotChart(){
+    
+        
+        let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
+        let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            print("made")
+        }
+        let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            print("missed")
+        }
+        ac.addAction(madeBtn)
+        ac.addAction(missedBtn)
+        let popover = ac.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = self.boxRects[0]
+        //present(ac, animated: true)
     }
 }
