@@ -13,7 +13,6 @@
 		275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */; };
 		275F46CA21585833004E6ED7 /* DropDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C921585833004E6ED7 /* DropDownTableViewCell.swift */; };
 		2786CCCE2144B571003539A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
-		2786CCD2214580B3003539A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
 		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
@@ -26,6 +25,7 @@
 		6346B813214AB76E000B0B6E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B812214AB76E000B0B6E /* TeamModel.swift */; };
 		6346B815214AB779000B0B6E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B814214AB779000B0B6E /* Team.swift */; };
 		6350451F2163977C003A046C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350451E2163977C003A046C /* GameViewController.swift */; };
+		6374F5622172514E00E3BBF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD121403291006726C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FD021403291006726C3 /* ViewController.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
@@ -243,8 +243,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */,
+				6374F5622172514E00E3BBF4 /* Main.storyboard in Resources */,
 				63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */,
-				2786CCD2214580B3003539A2 /* Main.storyboard in Resources */,
 				630E2C66216E66C800881C1F /* Assets.xcassets in Resources */,
 				630E2C68216E672600881C1F /* Playbook.pdf in Resources */,
 			);

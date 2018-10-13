@@ -83,7 +83,6 @@ class GameViewController: UIViewController {
     }
     
     func displayShotChart(){
-    
         
         let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
         let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
@@ -99,6 +98,7 @@ class GameViewController: UIViewController {
         let popover = ac.popoverPresentationController
         popover?.sourceView = view
         popover?.sourceRect = self.boxRects[0]
-        //present(ac, animated: true)
+        present(ac, animated: true)
+        self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
     }
 }

@@ -1428,19 +1428,24 @@
         <!--Shot Chart View Controller-->
         <scene sceneID="68h-q4-66P">
             <objects>
-                <viewController id="LxQ-Ta-2eg" customClass="ShotChartViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShotChartViewController" id="LxQ-Ta-2eg" customClass="ShotChartViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IH7-CU-c9o">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="halfcourt" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-TH-S5j">
-                                <rect key="frame" x="20" y="151" width="984" height="597"/>
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="oVR-gZ-DDj"/>
                     </view>
+                    <connections>
+                        <outlet property="chartView" destination="SN0-TH-S5j" id="BHb-rt-UaD"/>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="backToGameViewSegue" id="atr-rx-Imt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLe-Cd-oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1522,6 +1527,7 @@
                         <outlet property="imagePlayer3" destination="oDq-Y0-kG6" id="4iA-Yt-td1"/>
                         <outlet property="imagePlayer4" destination="iFf-z6-Xqm" id="nkR-N8-w4R"/>
                         <outlet property="imagePlayer5" destination="wI4-G9-3Xm" id="AyM-26-8tu"/>
+                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1667,7 +1673,7 @@
             <objects>
                 <viewController storyboardIdentifier="DetailViewController" id="6pQ-7S-mRD" customClass="DetailViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xjy-QS-BBd">
-                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gda-kg-POQ">
@@ -2276,6 +2282,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UGe-Oh-QD3"/>
+        <segue reference="atr-rx-Imt"/>
         <segue reference="KUT-zL-ifF"/>
         <segue reference="kvW-Ra-Bdw"/>
         <segue reference="9D4-EJ-t0G"/>
