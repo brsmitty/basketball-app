@@ -63,22 +63,22 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       }
       
       if let registerEmail = registerEmail{
-         registerEmail.tag = 0
+         registerEmail.tag = 2
          registerEmail.delegate = self
          registerEmail.layer.cornerRadius = 5
       }
       if let registerPass = registerPass{
-         registerPass.tag = 1
+         registerPass.tag = 3
          registerPass.delegate = self
          registerPass.layer.cornerRadius = 5
       }
       if let registerPassCheck = registerPassCheck{
-         registerPassCheck.tag = 2
+         registerPassCheck.tag = 4
          registerPassCheck.delegate = self
          registerPassCheck.layer.cornerRadius = 5
       }
       if let teamName = teamName{
-         teamName.tag = 3
+         teamName.tag = 5
          teamName.delegate = self
          teamName.layer.cornerRadius = 5
       }
@@ -92,10 +92,32 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
          signUpButton.layer.cornerRadius = 5
       }
       
+      self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+      
+      // Listen for keyboard events
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
+   
+   deinit {
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+   }
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+   }
+   
+   @objc func keyboardWillChange(notification: Notification){
+      
+      if notification.name == Notification.Name.UIKeyboardWillChangeFrame || notification.name == Notification.Name.UIKeyboardWillShow{
+         
+         view.frame.origin.y = -170
+      }else {
+         view.frame.origin.y = 0
+      }
    }
     
     @objc func checkEmailValidation(){
@@ -109,71 +131,61 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func registerClicked(_ sender: Any) {
-        
+      
+      if(registerEmail.text == ""){
+         createAlert(with: "Registration Failed", and: "Email Required")
+      }
+      else if(registerPassCheck.text == "" && registerPass.text == ""){
+         createAlert(with: "Registration Failed", and: "Password and Re-Type Password Required")
+      }else if(teamName.text == ""){
+         createAlert(with: "Registration Failed", and: "Team Name Required")
+      }
+      else{
         Auth.auth().createUser(withEmail: registerEmail.text!, password: registerPass.text!) { user, error in
             if error == nil {
                 Auth.auth().signIn(withEmail: self.registerEmail.text!, password: self.registerPass.text!) { user, error in
                     if let error = error, user == nil {
-                        let alert = UIAlertController(title: "Sign In Failed",
-                                                      message: error.localizedDescription,
-                                                      preferredStyle: .alert)
-                        
-                        alert.addAction(UIAlertAction(title: "OK", style: .default))
-                        
-                        self.present(alert, animated: true, completion: nil)
+                     self.createAlert(with: "Registration Failed", and: error.localizedDescription)
                     }
                     else {
                      self.performSegue(withIdentifier: "verificationSegue", sender: nil)
-//                        print("sending email")
-//                        Auth.auth().currentUser?.sendEmailVerification { (error) in
-//                            if (Auth.auth().currentUser!.isEmailVerified){
-//                                self.performSegue(withIdentifier: "registerSegue", sender: nil)
-//                            }
-//                            else{
-//                                self.emailVerificationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.checkEmailValidation), userInfo: nil, repeats: true)
-//                            }
-//                        }
                     }
                 }
             }
             else {
-                let alert = UIAlertController(title: "Registration Failed",
-                                              message: error!.localizedDescription,
-                                              preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                
-                self.present(alert, animated: true, completion: nil)
+               self.createAlert(with: "Registration Failed", and: error!.localizedDescription)
             }
         }
+      }
     }
+   
+   func createAlert(with title:String, and alert: String){
+      let alert = UIAlertController(title: title, message: alert, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .default))
+      self.present(alert, animated: true, completion: nil)
+   }
     
     @IBAction func loginClicked(_ sender: Any) {
         guard
             let email = loginEmail.text,
-            let password = loginPass.text,
-            email.count > 0,
-            password.count > 0
+            let password = loginPass.text
             else {
                 return
             }
-        
+      if(loginPass.text == "" || loginEmail.text == ""){
+         createAlert(with: "Sign In Failed", and: "Email and Password field cannot be empty")
+      }else{
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
 
             if let error = error, user == nil {
-                let alert = UIAlertController(title: "Sign In Failed",
-                                              message: error.localizedDescription,
-                                              preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                
-                self.present(alert, animated: true, completion: nil)
+               self.createAlert(with: "Sign In Failed", and: error.localizedDescription)
             }
             else {
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
                 
             }
         }
+      }
     }
    
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -185,24 +197,22 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
    func textFieldDidEndEditing(_ textField: UITextField) {
       
       switch textField.tag{
-         case 0:
-            if(emailCheck()){
-               validityLabel.text = "Valid"
-               validityLabel.textColor = UIColor.green
-            }else{
-               validityLabel.text = "Invalid"
-               validityLabel.textColor = UIColor.red
+         case 2:
+            if (registerEmail.text != ""){
+               emailCheck()
             }
             break
-         case 1:
-            if (registerPassCheck != nil){
+         case 3:
+            if (registerPassCheck.text != "" && registerPass.text != ""){
                passwordCheck()
             }
             break
-         case 2:
-            passwordCheck()
+         case 4:
+            if (registerPassCheck.text != "" && registerPass.text != ""){
+               passwordCheck()
+            }
             break
-         case 3:
+         case 5:
             break
          default:
             break
@@ -219,13 +229,28 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       }
    }
    
-   func emailCheck() -> Bool{
+   
+   func emailCheck(){
+      if(emailStringCheck()){
+         validityLabel.text = "Valid"
+         validityLabel.textColor = UIColor.green
+      }else{
+         validityLabel.text = "Invalid"
+         validityLabel.textColor = UIColor.red
+      }
+   }
+   
+   func emailStringCheck() -> Bool{
       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
       let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
       
       return emailTest.evaluate(with:registerEmail.text)
       
       // Code from Maxim Shoustin and Gabbyboy - StackOverflow
+   }
+   
+   @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
+      view.endEditing(true)
    }
 }
 

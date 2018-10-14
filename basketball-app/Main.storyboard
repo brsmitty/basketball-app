@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="-834"/>
+            <point key="canvasLocation" x="66.796875" y="-834.375"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
@@ -2186,7 +2186,7 @@
         <image name="VerifiedBall" width="458" height="458"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tvv-NR-hec"/>
+        <segue reference="6q6-o3-KoC"/>
         <segue reference="uip-NA-VoC"/>
         <segue reference="h23-EV-ejH"/>
     </inferredMetricsTieBreakers>
