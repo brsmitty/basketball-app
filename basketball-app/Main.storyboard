@@ -10,6 +10,105 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--ResetPassword View Controller-->
+        <scene sceneID="hq9-3B-Oyh">
+            <objects>
+                <viewController id="j66-ou-ZWs" userLabel="ResetPassword View Controller" customClass="PasswordResetViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o1g-U9-zfN">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="BG" translatesAutoresizingMaskIntoConstraints="NO" id="K0c-GN-nxm">
+                                <rect key="frame" x="0.0" y="20" width="2732" height="748"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Board" translatesAutoresizingMaskIntoConstraints="NO" id="ycj-1v-c4K">
+                                <rect key="frame" x="119" y="99" width="786" height="590"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="786" id="FIH-7E-3iy"/>
+                                    <constraint firstAttribute="height" constant="590" id="sZb-19-gyD"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xzI-jw-qFS">
+                                <rect key="frame" x="387" y="444" width="250" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.3294117647" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <state key="normal" title="SEND LINK">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerClicked:" destination="KmK-hO-VMD" eventType="touchDown" id="HU1-oP-Nl7"/>
+                                    <action selector="sendResetLink:" destination="j66-ou-ZWs" eventType="touchUpInside" id="DTu-aZ-qVr"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please provide the email address linked to the account of which you wish to reset the password." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W1-Rb-8GN">
+                                <rect key="frame" x="255" y="293.5" width="514" height="48.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="21"/>
+                                <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXD-xh-Lqo">
+                                <rect key="frame" x="183" y="684" width="128" height="32"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                <state key="normal" title="&lt; Back to Login">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="7nf-nr-9D1" kind="show" animates="NO" id="ghn-UH-XNA"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wa5-gQ-4Bi" customClass="LoginTextField" customModule="basketball_app" customModuleProvider="target">
+                                <rect key="frame" x="387" y="360" width="250" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="hSm-xK-pBF"/>
+                                    <constraint firstAttribute="width" constant="250" id="k5D-ld-fhc"/>
+                                </constraints>
+                                <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ssz-zT-Axf" id="csD-rX-egd"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2op-Kk-wwL">
+                                <rect key="frame" x="394" y="366" width="43" height="17"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="centerX" secondItem="0W1-Rb-8GN" secondAttribute="centerX" id="2h8-Iu-liZ"/>
+                            <constraint firstItem="ycj-1v-c4K" firstAttribute="top" secondItem="0W1-Rb-8GN" secondAttribute="bottom" constant="-243" id="3il-2D-c6n"/>
+                            <constraint firstItem="ycj-1v-c4K" firstAttribute="leading" secondItem="QXD-xh-Lqo" secondAttribute="trailing" constant="-192" id="4dL-g1-9Bc"/>
+                            <constraint firstItem="K0c-GN-nxm" firstAttribute="leading" secondItem="o1g-U9-zfN" secondAttribute="leading" id="7kU-oA-efk"/>
+                            <constraint firstItem="xzI-jw-qFS" firstAttribute="top" secondItem="wa5-gQ-4Bi" secondAttribute="bottom" constant="24" id="9aQ-Cr-H2M"/>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="trailing" secondItem="xzI-jw-qFS" secondAttribute="trailing" id="AQz-qT-B13"/>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="top" secondItem="2op-Kk-wwL" secondAttribute="bottom" constant="-23" id="Paq-Qp-IoD"/>
+                            <constraint firstItem="K0c-GN-nxm" firstAttribute="bottom" secondItem="wEY-6f-4T0" secondAttribute="bottom" id="XcW-VU-2Uv"/>
+                            <constraint firstItem="0W1-Rb-8GN" firstAttribute="leading" secondItem="ycj-1v-c4K" secondAttribute="trailing" constant="-650" id="ZDb-3x-zFv"/>
+                            <constraint firstItem="xzI-jw-qFS" firstAttribute="height" secondItem="wa5-gQ-4Bi" secondAttribute="height" id="ZXN-PV-i2W"/>
+                            <constraint firstItem="QXD-xh-Lqo" firstAttribute="top" secondItem="ycj-1v-c4K" secondAttribute="bottom" constant="-5" id="fR6-KQ-rI6"/>
+                            <constraint firstItem="K0c-GN-nxm" firstAttribute="top" secondItem="wEY-6f-4T0" secondAttribute="top" id="hId-PF-gjT"/>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="leading" secondItem="2op-Kk-wwL" secondAttribute="trailing" constant="-50" id="jj9-eG-ahZ"/>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="leading" secondItem="xzI-jw-qFS" secondAttribute="leading" id="kEF-Bb-HnL"/>
+                            <constraint firstItem="ycj-1v-c4K" firstAttribute="centerX" secondItem="wEY-6f-4T0" secondAttribute="centerX" id="qVv-qq-3eE"/>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="top" secondItem="0W1-Rb-8GN" secondAttribute="bottom" constant="18" id="v3C-t3-f6N"/>
+                            <constraint firstItem="xzI-jw-qFS" firstAttribute="width" secondItem="wa5-gQ-4Bi" secondAttribute="width" id="xpX-j6-Q5x"/>
+                            <constraint firstItem="wa5-gQ-4Bi" firstAttribute="centerX" secondItem="ycj-1v-c4K" secondAttribute="centerX" id="yN8-3f-XFI"/>
+                            <constraint firstItem="ycj-1v-c4K" firstAttribute="centerY" secondItem="wEY-6f-4T0" secondAttribute="centerY" id="zYk-CM-hWt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wEY-6f-4T0"/>
+                    </view>
+                    <connections>
+                        <outlet property="emailField" destination="wa5-gQ-4Bi" id="zak-07-XRW"/>
+                        <outlet property="sendButton" destination="xzI-jw-qFS" id="iO3-fe-jl5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pjk-r8-JYz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-722.4609375" y="-834.375"/>
+        </scene>
         <!--User Auth View Controller-->
         <scene sceneID="8ka-rJ-bbR">
             <objects>
@@ -101,6 +200,9 @@
                                 <state key="normal" title="Forgot your Password?">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="j66-ou-ZWs" kind="show" animates="NO" id="TOl-Mj-POo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2188,6 +2290,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="6q6-o3-KoC"/>
         <segue reference="uip-NA-VoC"/>
-        <segue reference="h23-EV-ejH"/>
+        <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
 </document>
