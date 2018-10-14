@@ -42,6 +42,15 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                 userRef.setValue(userData)
             }
         }
+      
+      if let passwordLabel = passwordMatchLabel{
+         passwordLabel.text = ""
+      }
+
+      if let validLabel = validityLabel{
+         validLabel.text = ""
+      }
+      
       if let emailField = loginEmail{
          emailField.delegate = self
          emailField.tag = 0
@@ -54,18 +63,22 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       }
       
       if let registerEmail = registerEmail{
+         registerEmail.tag = 0
          registerEmail.delegate = self
          registerEmail.layer.cornerRadius = 5
       }
       if let registerPass = registerPass{
+         registerPass.tag = 1
          registerPass.delegate = self
          registerPass.layer.cornerRadius = 5
       }
       if let registerPassCheck = registerPassCheck{
+         registerPassCheck.tag = 2
          registerPassCheck.delegate = self
          registerPassCheck.layer.cornerRadius = 5
       }
       if let teamName = teamName{
+         teamName.tag = 3
          teamName.delegate = self
          teamName.layer.cornerRadius = 5
       }
@@ -167,6 +180,52 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       
       textField.resignFirstResponder()
       return true
+   }
+   
+   func textFieldDidEndEditing(_ textField: UITextField) {
+      
+      switch textField.tag{
+         case 0:
+            if(emailCheck()){
+               validityLabel.text = "Valid"
+               validityLabel.textColor = UIColor.green
+            }else{
+               validityLabel.text = "Invalid"
+               validityLabel.textColor = UIColor.red
+            }
+            break
+         case 1:
+            if (registerPassCheck != nil){
+               passwordCheck()
+            }
+            break
+         case 2:
+            passwordCheck()
+            break
+         case 3:
+            break
+         default:
+            break
+      }
+   }
+   
+   func passwordCheck(){
+      if(registerPassCheck.text == registerPass.text){
+         passwordMatchLabel.text = "Passwords Match"
+         passwordMatchLabel.textColor = UIColor.green
+      }else{
+         passwordMatchLabel.text = "Passwords Don't Match"
+         passwordMatchLabel.textColor = UIColor.red//(red: 193, green: 39, blue: 45, alpha: 1)
+      }
+   }
+   
+   func emailCheck() -> Bool{
+      let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+      let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+      
+      return emailTest.evaluate(with:registerEmail.text)
+      
+      // Code from Maxim Shoustin and Gabbyboy - StackOverflow
    }
 }
 
