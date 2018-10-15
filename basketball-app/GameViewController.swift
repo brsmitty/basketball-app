@@ -38,16 +38,10 @@ class GameViewController: UIViewController {
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
         self.roster = getRoster()
-        print("LOAD GAME")
     }
     
     func getRoster() -> [Player] {
-        let p1 = Player.init(firstName: "David", lastName: "Zucco", photo: nil, position: "PG", height: "6'11\"", weight: "170", rank: "Senior", playerId: "asbjfajfbjbcvjsdbf233")
-        let p2 = Player.init(firstName: "Mike", lastName: "White", photo: nil, position: "SG", height: "6'11\"", weight: "170", rank: "Senior", playerId: "jhdjkaj23n423423")
-        let p3 = Player.init(firstName: "Yiwei", lastName: "Zhang", photo: nil, position: "PF", height: "6'11\"", weight: "170", rank: "Senior", playerId: "askljdwlkn53223422")
-        let p4 = Player.init(firstName: "Dan", lastName: "Jones", photo: nil, position: "SF", height: "6'11\"", weight: "170", rank: "Senior", playerId: "daklsmdlkamsk2422")
-        let p5 = Player.init(firstName: "Matt", lastName: "Williams", photo: nil, position: "C", height: "6'11\"", weight: "170", rank: "Senior", playerId: "aklfjaksfn83249242")
-        let roster : [Player] = [p1, p2, p3, p4, p5]
+        let roster : [Player] = []
         
         return roster
     }

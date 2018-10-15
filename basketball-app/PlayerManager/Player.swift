@@ -45,13 +45,13 @@ class Player: NSObject {
    
    // MARK: Initialization
    
-   init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String){
+    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String){
       
       // Fail init without name
 
       // Initialize stored parameters
       self.playerId = playerId
-    self.teamId = "123456789"
+      self.teamId = "123"
       self.firstName = firstName
       self.lastName = lastName
       self.photo = photo

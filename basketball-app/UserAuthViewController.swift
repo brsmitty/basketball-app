@@ -26,7 +26,6 @@ class UserAuthViewController: UIViewController {
     @objc func checkEmailValidation(){ // reload user from firebase every 5 seconds until email is verified
         Auth.auth().currentUser!.reload { (error) in
             if (Auth.auth().currentUser!.isEmailVerified){
-                print("User Email Verified")
                 self.emailVerificationTimer.invalidate()
                 self.createUser()
                 self.performSegue(withIdentifier: "registerSegue", sender: nil)
@@ -40,9 +39,9 @@ class UserAuthViewController: UIViewController {
         let userRef = firebaseRef.child(uid)
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
         let userData : [String: Any] = ["uid":  uid, "tid": tid]
-        createTeam(tid: tid)
         userRef.setValue(userData)
-        print("User Created")
+        createTeam(tid: tid)
+        storePersistentData(uid: uid, tid: tid)
     }
     
     func createTeam(tid: String){ // create team record for the newly created team of the newly created user
@@ -50,7 +49,18 @@ class UserAuthViewController: UIViewController {
         let teamRef = firebaseRef.child(tid)
         let teamData : [String: Any] = ["tid":  tid]
         teamRef.setValue(teamData)
-        print("Team Created")
+    }
+    
+    func storePersistentData(uid: String, tid: String){
+        let defaults = UserDefaults.standard
+        defaults.set(uid, forKey: "uid")
+        defaults.set(tid, forKey: "tid")
+    }
+    
+    func retrievePersistentData(){
+        let defaults = UserDefaults.standard
+        print(defaults.string(forKey: "uid")!)
+        print(defaults.string(forKey: "tid")!)
     }
     
     @IBAction func registerClicked(_ sender: Any) {
@@ -90,7 +100,10 @@ class UserAuthViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true, completion: nil)
             }
-            else { self.performSegue(withIdentifier: "loginSegue", sender: nil) }
+            else {
+                self.retrievePersistentData()
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            }
         }
     }
 }
