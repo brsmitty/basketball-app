@@ -343,7 +343,12 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       }
    }
 
-   @IBAction func cancel(_ sender: UIBarButtonItem) {
-      dismiss(animated: true, completion: nil)
+//   @IBAction func cancel(_ sender: UIBarButtonItem) {
+//      dismiss(animated: true, completion: nil)
+//   }
+   
+   @IBAction func cancel(_ sender: UIButton) {
+      dismiss(animated: false, completion: nil)
    }
+   
 }

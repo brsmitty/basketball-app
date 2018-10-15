@@ -11,10 +11,6 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-enum Logging: Error {
-   case invalidEmail
-}
-
 class UserAuthViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var loginEmail: UITextField!

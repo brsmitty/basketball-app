@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
+		27185E252174370F00B69950 /* userAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E242174370F00B69950 /* userAuth.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
 		274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A641D2164051700F0F4E7 /* LoginTextField.swift */; };
 		274A64262164451E00F0F4E7 /* userAuthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A64252164451E00F0F4E7 /* userAuthUITests.swift */; };
@@ -42,6 +43,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		27185E272174370F00B69950 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C79FC321403291006726C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C79FCA21403291006726C3;
+			remoteInfo = "basketball-app";
+		};
 		274A64282164451E00F0F4E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63C79FC321403291006726C3 /* Project object */;
@@ -60,6 +68,9 @@
 
 /* Begin PBXFileReference section */
 		27185E192173EE1800B69950 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
+		27185E222174370F00B69950 /* userAuth.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuth.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		27185E242174370F00B69950 /* userAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAuth.swift; sourceTree = "<group>"; };
+		27185E262174370F00B69950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
 		274A641D2164051700F0F4E7 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		274A64232164451E00F0F4E7 /* userAuthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +113,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		27185E1F2174370F00B69950 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		274A64202164451E00F0F4E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,6 +160,26 @@
 				D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		27185E1B2173F3D100B69950 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */,
+				274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */,
+				27185E192173EE1800B69950 /* PasswordResetViewController.swift */,
+				63E879732146D21600B1A458 /* UserAuthViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		27185E232174370F00B69950 /* userAuth */ = {
+			isa = PBXGroup;
+			children = (
+				27185E242174370F00B69950 /* userAuth.swift */,
+				27185E262174370F00B69950 /* Info.plist */,
+			);
+			path = userAuth;
 			sourceTree = "<group>";
 		};
 		274A641C216403C800F0F4E7 /* Lineup */ = {
@@ -190,6 +228,7 @@
 				63C79FCD21403291006726C3 /* basketball-app */,
 				6350451521626249003A046C /* basketball-appTests */,
 				274A64242164451E00F0F4E7 /* userAuthUITests */,
+				27185E232174370F00B69950 /* userAuth */,
 				63C79FCC21403291006726C3 /* Products */,
 				165C386DCD297A94D812A1E2 /* Pods */,
 				000C9FD9583F679DDB3773CB /* Frameworks */,
@@ -202,6 +241,7 @@
 				63C79FCB21403291006726C3 /* basketball-app.app */,
 				6350451421626249003A046C /* basketball-appTests.xctest */,
 				274A64232164451E00F0F4E7 /* userAuthUITests.xctest */,
+				27185E222174370F00B69950 /* userAuth.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,13 +252,13 @@
 				636EBE0B2163F83800700E14 /* Assets.xcassets */,
 				27706C582155DDCA001673D2 /* PlayerManager */,
 				274A641C216403C800F0F4E7 /* Lineup */,
+				27185E1B2173F3D100B69950 /* Login */,
 				63C79FCE21403291006726C3 /* AppDelegate.swift */,
 				2786CCD1214580B3003539A2 /* Main.storyboard */,
 				274A641D2164051700F0F4E7 /* LoginTextField.swift */,
 				63C79FE2214033A8006726C3 /* GoogleService-Info.plist */,
 				63C79FD721403292006726C3 /* LaunchScreen.storyboard */,
 				63C79FDA21403292006726C3 /* Info.plist */,
-				63E879732146D21600B1A458 /* UserAuthViewController.swift */,
 				6346B80E214A720D000B0B6E /* User.swift */,
 				6346B810214AB765000B0B6E /* UserModel.swift */,
 				6346B812214AB76E000B0B6E /* TeamModel.swift */,
@@ -230,9 +270,6 @@
 				98E2C198215D632A005FA620 /* MasterViewController.swift */,
 				98E2C19A215D6374005FA620 /* DetailViewController.swift */,
 				6350451E2163977C003A046C /* GameViewController.swift */,
-				274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */,
-				274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */,
-				27185E192173EE1800B69950 /* PasswordResetViewController.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -240,6 +277,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		27185E212174370F00B69950 /* userAuth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27185E292174370F00B69950 /* Build configuration list for PBXNativeTarget "userAuth" */;
+			buildPhases = (
+				27185E1E2174370F00B69950 /* Sources */,
+				27185E1F2174370F00B69950 /* Frameworks */,
+				27185E202174370F00B69950 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27185E282174370F00B69950 /* PBXTargetDependency */,
+			);
+			name = userAuth;
+			productName = userAuth;
+			productReference = 27185E222174370F00B69950 /* userAuth.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		274A64222164451E00F0F4E7 /* userAuthUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 274A642A2164451E00F0F4E7 /* Build configuration list for PBXNativeTarget "userAuthUITests" */;
@@ -305,6 +360,10 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "David Zucco";
 				TargetAttributes = {
+					27185E212174370F00B69950 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 63C79FCA21403291006726C3;
+					};
 					274A64222164451E00F0F4E7 = {
 						CreatedOnToolsVersion = 10.0;
 						TestTargetID = 63C79FCA21403291006726C3;
@@ -334,11 +393,19 @@
 				63C79FCA21403291006726C3 /* basketball-app */,
 				6350451321626249003A046C /* basketball-appTests */,
 				274A64222164451E00F0F4E7 /* userAuthUITests */,
+				27185E212174370F00B69950 /* userAuth */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		27185E202174370F00B69950 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		274A64212164451E00F0F4E7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,6 +479,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		27185E1E2174370F00B69950 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27185E252174370F00B69950 /* userAuth.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		274A641F2164451E00F0F4E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +538,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		27185E282174370F00B69950 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C79FCA21403291006726C3 /* basketball-app */;
+			targetProxy = 27185E272174370F00B69950 /* PBXContainerItemProxy */;
+		};
 		274A64292164451E00F0F4E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 63C79FCA21403291006726C3 /* basketball-app */;
@@ -487,6 +567,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		27185E2A2174370F00B69950 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = userAuth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.userAuth;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/basketball-app.app/basketball-app";
+			};
+			name = Debug;
+		};
+		27185E2B2174370F00B69950 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = userAuth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.userAuth;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/basketball-app.app/basketball-app";
+			};
+			name = Release;
+		};
 		274A642B2164451E00F0F4E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -719,6 +842,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		27185E292174370F00B69950 /* Build configuration list for PBXNativeTarget "userAuth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27185E2A2174370F00B69950 /* Debug */,
+				27185E2B2174370F00B69950 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		274A642A2164451E00F0F4E7 /* Build configuration list for PBXNativeTarget "userAuthUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

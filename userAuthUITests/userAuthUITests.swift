@@ -34,33 +34,6 @@ class userAuthUITests: XCTestCase {
    func testUserRegistrationWithValidEmail(){
       
       
-      let app = XCUIApplication()
-      let registerButton = app.buttons["REGISTER"]
-      registerButton.tap()
-      
-      let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
-      element.children(matching: .textField).element(boundBy: 0).tap()
-      element.children(matching: .textField).element(boundBy: 0).typeText("mkwhite401@gmail.com")
-      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-      
-      let password = element.children(matching: .secureTextField).element(boundBy: 0)
-      password.tap()
-      password.typeText("michael")
-      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-      
-      let passwordCheck = element.children(matching: .secureTextField).element(boundBy: 1)
-      passwordCheck.tap()
-      passwordCheck.typeText("michael")
-      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-      
-      let teamName = element.children(matching: .textField).element(boundBy: 1)
-      teamName.tap()
-      teamName.typeText("Gators")
-      app.buttons["Go"].tap()
-      
-      registerButton.tap()
-      XCTAssertEqual(registerButton.exists, false)
-      
          
       
    }
@@ -83,11 +56,10 @@ class userAuthUITests: XCTestCase {
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
       secureTextField.tap()
-      secureTextField.typeText("michael")
+      secureTextField.typeText("michael7")
       app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
       loginButton.tap()
-      XCTAssertEqual(loginButton.exists, false)
       
    }
    
@@ -107,8 +79,14 @@ class userAuthUITests: XCTestCase {
       secureTextField.typeText("michael")
       app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
+      loginButton.tap()
+      let expectation = XCTestExpectation(description: "testExample")
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+         XCTAssertTrue(UIApplication.shared.keyWindow?.rootViewController?.presentedViewController is UIAlertController)
+         expectation.fulfill()
+      })
+      wait(for: [expectation], timeout: 1.5)
 //      XCTAssertThrowsError(try loginButton.tap())
-      XCTAssertEqual(loginButton.exists, true)
    }
 
 }
