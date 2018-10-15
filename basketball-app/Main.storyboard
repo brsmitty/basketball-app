@@ -1478,6 +1478,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="bd5-OU-xAH" appends="YES" id="seu-ZZ-c27"/>
+                                            <outletCollection property="gestureRecognizers" destination="CG7-jB-azx" appends="YES" id="YiP-Gp-ncU"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Lebron" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-Y0-kG6">
@@ -1486,6 +1487,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="cAe-hd-hUA" appends="YES" id="dn7-qf-eEC"/>
+                                            <outletCollection property="gestureRecognizers" destination="Rgt-dx-MXi" appends="YES" id="QH3-6I-oOD"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tristan" translatesAutoresizingMaskIntoConstraints="NO" id="iFf-z6-Xqm">
@@ -1494,6 +1496,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="aum-kl-6a9" appends="YES" id="17V-rS-ouW"/>
+                                            <outletCollection property="gestureRecognizers" destination="9dE-7D-Wd5" appends="YES" id="5fa-Xp-ZCX"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Kevin" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-G9-3Xm">
@@ -1502,6 +1505,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="mZy-Hn-wwd" appends="YES" id="IDT-rv-8Ez"/>
+                                            <outletCollection property="gestureRecognizers" destination="EK9-5C-5Ub" appends="YES" id="dHY-ft-QMl"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="J.R." translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
@@ -1510,6 +1514,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="PC4-by-xec" appends="YES" id="ppI-SU-nuM"/>
+                                            <outletCollection property="gestureRecognizers" destination="TD6-4R-inY" appends="YES" id="2DT-50-f6g"/>
                                         </connections>
                                     </imageView>
                                 </subviews>
@@ -1521,6 +1526,7 @@
                         <viewLayoutGuide key="safeArea" id="oqP-l2-iqJ"/>
                     </view>
                     <connections>
+                        <outlet property="courtView" destination="e8w-3j-jDJ" id="TbL-r5-K5H"/>
                         <outlet property="imageHoop" destination="5TN-P3-RuZ" id="B5e-28-3x0"/>
                         <outlet property="imagePlayer1" destination="qzs-D5-kX9" id="RSy-Or-szh"/>
                         <outlet property="imagePlayer2" destination="9Yj-NZ-y2M" id="u0p-1I-MCi"/>
@@ -1556,6 +1562,31 @@
                         <action selector="handlePan:" destination="jGW-SO-mMU" id="zyT-Mi-nEY"/>
                     </connections>
                 </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EK9-5C-5Ub">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="Bmi-Me-uGM"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="TD6-4R-inY">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="hiA-L1-h2g"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="CG7-jB-azx">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="sQu-vB-srE"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Rgt-dx-MXi">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="zg0-Hx-bZ8"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="9dE-7D-Wd5">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="Ogi-Bs-azE"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1801.7578124999998" y="-1767.1875"/>
         </scene>

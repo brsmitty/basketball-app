@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    var roster : [Player] = []
     var lineup : [String] = ["", "Kyrie", "JR", "LeBron", "Tristan", "Kevin"]
     var panStartPoint = CGPoint() //coordinates of pan start
     var panEndPoint = CGPoint() //coordinates of pan end
@@ -20,6 +21,7 @@ class GameViewController: UIViewController {
     var boxWidth : CGFloat = 100.0
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //[0] = hoop, [1] = PG, [2] = SG, [3] = SF, [4] = PF, [5] = C
     
+    @IBOutlet weak var courtView: UIImageView!
     @IBOutlet weak var imageHoop: UIImageView!
     @IBOutlet weak var imagePlayer1: UIImageView!
     @IBOutlet weak var imagePlayer2: UIImageView!
@@ -35,6 +37,14 @@ class GameViewController: UIViewController {
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+        self.roster = getRoster()
+        print("LOAD GAME")
+    }
+    
+    func getRoster() -> [Player] {
+        var roster : [Player] = []
+        
+        return roster
     }
     
     @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
@@ -83,23 +93,55 @@ class GameViewController: UIViewController {
     }
     
     func displayShotChart(){
+        self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
+    }
+    
+    func handleTurnover(){
         
-        let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
-        let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-            print("made")
-            self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
+    }
+    
+    func handleJumpBall(){
+        
+    }
+    
+    func handleFoul(){
+        
+    }
+    
+    func subPlayer(){
+        
+    }
+    
+    @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
+        let point = touchHandler.location(in: self.courtView)
+        let index = determineBoxIndex(point: point)
+        let player = self.lineup[index]
+        if touchHandler.state == .began {
+            presentOffensiveOptions(point: point)
         }
-        let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
+    }
+    
+    func presentOffensiveOptions(point: CGPoint){
+        let ac = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
+        let turnoverBtn = UIAlertAction(title: "Turnover", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("missed")
-            self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
+            self.handleTurnover()
         }
-        ac.addAction(madeBtn)
-        ac.addAction(missedBtn)
+        let foulBtn = UIAlertAction(title: "Foul", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.handleFoul()
+        }
+        let jumpBallBtn = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.handleJumpBall()
+        }
+        ac.addAction(turnoverBtn)
+        ac.addAction(foulBtn)
+        ac.addAction(jumpBallBtn)
         let popover = ac.popoverPresentationController
         popover?.sourceView = view
-        popover?.sourceRect = self.boxRects[0]
+        popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
         present(ac, animated: true)
     }
+    
 }

@@ -25,10 +25,27 @@ class ShotChartViewController: UIViewController {
     }
     
     func saveShotLocation(position: CGPoint){
-        print("shot recorded at: ")
-        print(position.x)
-        print(position.y)
-        self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+        let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
+        let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            print("made shot recorded at: ")
+            print(position.x)
+            print(position.y)
+            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+        }
+        let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            print("missed shot recorded at: ")
+            print(position.x)
+            print(position.y)
+            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+        }
+        ac.addAction(madeBtn)
+        ac.addAction(missedBtn)
+        let popover = ac.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
+        present(ac, animated: true)
     }
     
     
