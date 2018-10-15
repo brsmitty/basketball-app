@@ -133,7 +133,10 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       }
       else if(registerPassCheck.text == "" && registerPass.text == ""){
          createAlert(with: "Registration Failed", and: "Password and Re-Type Password Required")
-      }else if(teamName.text == ""){
+      }else if(registerPass.text != registerPassCheck.text){
+         createAlert(with: "Registration Failed", and: "Password and Re-Type Password must match")
+      }
+      else if(teamName.text == ""){
          createAlert(with: "Registration Failed", and: "Team Name Required")
       }
       else{
