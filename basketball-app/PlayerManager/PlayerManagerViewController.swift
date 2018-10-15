@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
    // MARK: Properties
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var playerImage: UIImageView!
@@ -58,6 +58,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    var databaseHandle:DatabaseHandle?
    // holds the users unique user ID
    var uid: String = ""
+    var tid: String = ""
    // holds the deleted players num
    var deletedPlayerNum: Int = 0
    // holds if a player was recently deleted
@@ -87,6 +88,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    override func viewWillAppear(_ animated: Bool) {
+    
+        let defaults = UserDefaults.standard
+        uid = defaults.string(forKey: "uid")!
+        tid = defaults.string(forKey: "tid")!
       // Get the user id and set it to the user id global variable
       Auth.auth().addStateDidChangeListener() { auth, user in
          if user != nil {
@@ -139,10 +144,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
             
-            guard let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
-            else {
-                  fatalError("Counld not instantiate player")
-            }
+            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
+            
             
             self.currentPath = IndexPath(row:self.players.count, section: 0)
             
@@ -228,7 +231,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       oRebound.text = String(player.offRebounds)
       pFouls.text = String(player.personalFoul)
       assistsCell.text = String(player.assists)
-      fGoalCell.text = String(player.fgAttempts)
+      fGoalCell.text = String(player.fgAttempts.twoPoint)
       freeThrowPerc.text = String(player.ftAttempts)
       freeThrowMade.text = String(player.ftMade)
       tFoulCell.text = String(player.techFoul)
@@ -236,7 +239,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       dRebound.text = String(player.defRebounds)
       deflectionCell.text = String(player.deflections)
       blockCell.text = String(player.blocks)
-      chargeCell.text = String(player.chagesTaken)
+      chargeCell.text = String(player.chargesTaken)
       
    }
    
@@ -322,7 +325,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-      let photo = UIImage(named: "Default")
+      //let photo = UIImage(named: "Default")
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
       var pid = ""
@@ -332,10 +335,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }else{
          pid = uid + "-" + String(players.count)
       }
+    
+    let p = Player(firstName: firstName, lastName: lastName, photo: nil, position: position, height: height, weight: weight, rank: rank, playerId: pid, teamId: tid)
+    
       let ref = Database.database().reference(withPath: "players")
 
       let playerRef = ref.child(pid)
       let playerData : [String: Any] = ["pid":  pid,
+                                        "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
                                        "height": height,
@@ -343,7 +350,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "rank": rank,
                                        "position": position]
       playerRef.setValue(playerData)
+        addPlayerToTeam(data: playerData, tid: tid)
    }
+    
+    func addPlayerToTeam(data: [String:Any], tid: String){
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let teamRosterRef = firebaseRef.child(tid).child("roster")
+        teamRosterRef.child(data["pid"] as! String).setValue(data)
+    }
    
    // Creates the position picker
    func createPositionPicker(){

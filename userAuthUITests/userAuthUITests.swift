@@ -223,6 +223,7 @@ class userAuthUITests: XCTestCase {
       app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.typeText("mkwhite401@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Done"]/*[[".keyboards.buttons[\"Done\"]",".buttons[\"Done\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       app.buttons["SEND LINK"].tap()
+      XCTAssertTrue(app.alerts["Reset Failed"].exists)
       app.alerts["Reset Failed"].buttons["OK"].tap()
       
    }
