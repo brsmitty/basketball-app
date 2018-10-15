@@ -27,7 +27,8 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    // holds the database reference to firebase
    var databaseHandleLineup:DatabaseHandle?
    // holds the users unique user ID
-   var uid: String = ""
+    var uid: String = ""
+    var tid: String = ""
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
    var lineup: [Player] = [Player]()
@@ -56,6 +57,9 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    }
    
    override func viewWillAppear(_ animated: Bool) {
+        let defaults = UserDefaults.standard
+        uid = defaults.string(forKey: "uid")!
+        tid = defaults.string(forKey: "tid")!
       // Get the user id and set it to the user id global variable
       Auth.auth().addStateDidChangeListener() { auth, user in
          if user != nil {
@@ -175,7 +179,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            self.playerOne = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.playerOne = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.lineup.append(self.playerOne!)
          }
          
@@ -187,7 +191,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            self.playerTwo = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.playerTwo = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.lineup.append(self.playerTwo!)
          }
          
@@ -199,7 +203,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            self.playerThree = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.playerThree = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.lineup.append(self.playerThree!)
          }
          
@@ -211,7 +215,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            self.playerFour = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.playerFour = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.lineup.append(self.playerFour!)
          }
          
@@ -223,7 +227,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            self.playerFive = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            self.playerFive = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.lineup.append(self.playerFive!)
          }
          if self.lineup.count == 5{

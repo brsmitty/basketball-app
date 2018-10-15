@@ -144,7 +144,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
             
-            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
+            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             
             
             self.currentPath = IndexPath(row:self.players.count, section: 0)
@@ -239,7 +239,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       dRebound.text = String(player.defRebounds)
       deflectionCell.text = String(player.deflections)
       blockCell.text = String(player.blocks)
-      chargeCell.text = String(player.chagesTaken)
+      chargeCell.text = String(player.chargesTaken)
       
    }
    
@@ -335,6 +335,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }else{
          pid = uid + "-" + String(players.count)
       }
+    
+    let p = Player(firstName: firstName, lastName: lastName, photo: nil, position: position, height: height, weight: weight, rank: rank, playerId: pid, teamId: tid)
+    
       let ref = Database.database().reference(withPath: "players")
 
       let playerRef = ref.child(pid)

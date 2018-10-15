@@ -51,13 +51,13 @@ class Player: NSObject {
    
    // MARK: Initialization
    
-    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String){
+    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
       
       // Fail init without name
 
       // Initialize stored parameters
       self.playerId = playerId
-      self.teamId = "123"
+      self.teamId =  teamId
       self.firstName = firstName
       self.lastName = lastName
       self.photo = photo
@@ -152,6 +152,14 @@ class Player: NSObject {
     
     func updateSteals(steals: Int){
         self.steals += steals
+    }
+    
+    func toDictionary() -> [String: Any]{
+        var playerDict: [String: Any] = [:]
+        
+        playerDict["pid"] = "123"
+        
+        return playerDict
     }
     
     func firebaseSync(){
