@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
    // MARK: Properties
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var playerImage: UIImageView!
@@ -58,6 +58,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    var databaseHandle:DatabaseHandle?
    // holds the users unique user ID
    var uid: String = ""
+    var tid: String = ""
    // holds the deleted players num
    var deletedPlayerNum: Int = 0
    // holds if a player was recently deleted
@@ -87,6 +88,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    override func viewWillAppear(_ animated: Bool) {
+    
+        let defaults = UserDefaults.standard
+        uid = defaults.string(forKey: "uid")!
+        tid = defaults.string(forKey: "tid")!
       // Get the user id and set it to the user id global variable
       Auth.auth().addStateDidChangeListener() { auth, user in
          if user != nil {
@@ -334,6 +339,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
 
       let playerRef = ref.child(pid)
       let playerData : [String: Any] = ["pid":  pid,
+                                        "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
                                        "height": height,
@@ -341,7 +347,15 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "rank": rank,
                                        "position": position]
       playerRef.setValue(playerData)
+        addPlayerToTeam(pid: pid, tid: tid)
    }
+    
+    func addPlayerToTeam(pid: String, tid: String){
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let teamRosterRef = firebaseRef.child(tid).child("roster")
+        let playerData : [String: Any] = ["pid":  pid]
+        teamRosterRef.child(pid).setValue(playerData)
+    }
    
    // Creates the position picker
    func createPositionPicker(){

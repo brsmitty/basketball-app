@@ -41,6 +41,10 @@ class GameViewController: UIViewController {
     }
     
     func getRoster() -> [Player] {
+        let defaults = UserDefaults.standard
+        let uid = defaults.string(forKey: "uid")!
+        let tid = defaults.string(forKey: "tid")!
+        
         let roster : [Player] = []
         
         return roster
