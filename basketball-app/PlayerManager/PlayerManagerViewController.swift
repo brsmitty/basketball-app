@@ -347,14 +347,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "rank": rank,
                                        "position": position]
       playerRef.setValue(playerData)
-        addPlayerToTeam(pid: pid, tid: tid)
+        addPlayerToTeam(data: playerData, tid: tid)
    }
     
-    func addPlayerToTeam(pid: String, tid: String){
+    func addPlayerToTeam(data: [String:Any], tid: String){
         let firebaseRef = Database.database().reference(withPath: "teams")
         let teamRosterRef = firebaseRef.child(tid).child("roster")
-        let playerData : [String: Any] = ["pid":  pid]
-        teamRosterRef.child(pid).setValue(playerData)
+        teamRosterRef.child(data["pid"] as! String).setValue(data)
     }
    
    // Creates the position picker

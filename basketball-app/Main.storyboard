@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ANw-Rg-tjL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -2312,6 +2312,7 @@
         <image name="halfcourt" width="1251" height="1042"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Kov-4w-Yr5"/>
         <segue reference="UGe-Oh-QD3"/>
         <segue reference="atr-rx-Imt"/>
         <segue reference="KUT-zL-ifF"/>
