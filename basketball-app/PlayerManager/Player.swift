@@ -19,6 +19,7 @@ class Player: NSObject {
    // MARK: Properties
    
    var playerId:String
+    var teamId: String
    var firstName:String
    var lastName:String
    var photo: UIImage?
@@ -50,6 +51,7 @@ class Player: NSObject {
 
       // Initialize stored parameters
       self.playerId = playerId
+    self.teamId = "123456789"
       self.firstName = firstName
       self.lastName = lastName
       self.photo = photo
@@ -102,6 +104,10 @@ class Player: NSObject {
     
     func addOffRebounds(rebounds: Int){
         self.offRebounds += rebounds
+    }
+    
+    func firebaseSync(){
+    
     }
 
 }

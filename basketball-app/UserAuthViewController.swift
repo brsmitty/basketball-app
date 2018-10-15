@@ -21,62 +21,57 @@ class UserAuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Auth.auth().addStateDidChangeListener() { auth, user in
-            if user != nil {
-                guard let uid = user?.uid else { return }
-                let ref = Database.database().reference(withPath: "users")
-                let userRef = ref.child(uid)
-                let userData : [String: Any] = ["uid":  uid, "verified": false]
-                userRef.setValue(userData)
-            }
-        }
     }
     
-    @objc func checkEmailValidation(){
+    @objc func checkEmailValidation(){ // reload user from firebase every 5 seconds until email is verified
         Auth.auth().currentUser!.reload { (error) in
-            print(Auth.auth().currentUser!.isEmailVerified)
             if (Auth.auth().currentUser!.isEmailVerified){
+                print("User Email Verified")
                 self.emailVerificationTimer.invalidate()
+                self.createUser()
                 self.performSegue(withIdentifier: "registerSegue", sender: nil)
             }
         }
     }
     
+    func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let firebaseRef = Database.database().reference(withPath: "users")
+        let userRef = firebaseRef.child(uid)
+        let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
+        let userData : [String: Any] = ["uid":  uid, "tid": tid]
+        createTeam(tid: tid)
+        userRef.setValue(userData)
+        print("User Created")
+    }
+    
+    func createTeam(tid: String){ // create team record for the newly created team of the newly created user
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let teamRef = firebaseRef.child(tid)
+        let teamData : [String: Any] = ["tid":  tid]
+        teamRef.setValue(teamData)
+        print("Team Created")
+    }
+    
     @IBAction func registerClicked(_ sender: Any) {
-        
-        Auth.auth().createUser(withEmail: registerEmail.text!, password: registerPass.text!) { user, error in
-            if error == nil {
-                Auth.auth().signIn(withEmail: self.registerEmail.text!, password: self.registerPass.text!) { user, error in
-                    if let error = error, user == nil {
-                        let alert = UIAlertController(title: "Sign In Failed",
-                                                      message: error.localizedDescription,
-                                                      preferredStyle: .alert)
-                        
+        Auth.auth().createUser(withEmail: registerEmail.text!, password: registerPass.text!) { user, error in // attempt to register new user
+            if error == nil { // proceed if account WAS successfully created
+                Auth.auth().signIn(withEmail: self.registerEmail.text!, password: self.registerPass.text!) { user, error in // attempt to sign in the newly registered user
+                    if let error = error, user == nil { // display error if sign in was NOT successful
+                        let alert = UIAlertController(title: "Sign In Failed", message: error.localizedDescription, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default))
-                        
                         self.present(alert, animated: true, completion: nil)
                     }
-                    else {
-                        print("sending email")
-                        Auth.auth().currentUser?.sendEmailVerification { (error) in
-                            if (Auth.auth().currentUser!.isEmailVerified){
-                                self.performSegue(withIdentifier: "registerSegue", sender: nil)
-                            }
-                            else{
-                                self.emailVerificationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.checkEmailValidation), userInfo: nil, repeats: true)
-                            }
+                    else { // proceed if sign in WAS successful
+                        Auth.auth().currentUser?.sendEmailVerification { (error) in // send verification email and begin timer on 5-second interval until email is verified
+                            self.emailVerificationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.checkEmailValidation), userInfo: nil, repeats: true)
                         }
                     }
                 }
             }
-            else {
-                let alert = UIAlertController(title: "Registration Failed",
-                                              message: error!.localizedDescription,
-                                              preferredStyle: .alert)
-                
+            else { // display error if registration was NOT successful
+                let alert = UIAlertController(title: "Registration Failed", message: error!.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
-                
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -88,25 +83,14 @@ class UserAuthViewController: UIViewController {
             let password = loginPass.text,
             email.count > 0,
             password.count > 0
-            else {
-                return
-            }
-        
+        else { return }
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
-
             if let error = error, user == nil {
-                let alert = UIAlertController(title: "Sign In Failed",
-                                              message: error.localizedDescription,
-                                              preferredStyle: .alert)
-                
+                let alert = UIAlertController(title: "Sign In Failed", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
-                
                 self.present(alert, animated: true, completion: nil)
             }
-            else {
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                
-            }
+            else { self.performSegue(withIdentifier: "loginSegue", sender: nil) }
         }
     }
 }
