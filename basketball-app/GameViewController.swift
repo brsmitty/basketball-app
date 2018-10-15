@@ -13,35 +13,140 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    var roster : [Player] = []
+    var lineup : [String] = ["", "Kyrie", "JR", "LeBron", "Tristan", "Kevin"]
+    var panStartPoint = CGPoint() //coordinates of pan start
+    var panEndPoint = CGPoint() //coordinates of pan end
+    var boxHeight : CGFloat = 100.0
+    var boxWidth : CGFloat = 100.0
+    var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //[0] = hoop, [1] = PG, [2] = SG, [3] = SF, [4] = PF, [5] = C
+    
+    @IBOutlet weak var courtView: UIImageView!
+    @IBOutlet weak var imageHoop: UIImageView!
+    @IBOutlet weak var imagePlayer1: UIImageView!
+    @IBOutlet weak var imagePlayer2: UIImageView!
+    @IBOutlet weak var imagePlayer3: UIImageView!
+    @IBOutlet weak var imagePlayer4: UIImageView!
+    @IBOutlet weak var imagePlayer5: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
+        boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
+        boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
+        boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
+        boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
+        boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+        self.roster = getRoster()
+        print("LOAD GAME")
+    }
+    
+    func getRoster() -> [Player] {
+        let p1 = Player.init(firstName: "David", lastName: "Zucco", photo: nil, position: "PG", height: "6'11\"", weight: "170", rank: "Senior", playerId: "asbjfajfbjbcvjsdbf233")
+        let p2 = Player.init(firstName: "Mike", lastName: "White", photo: nil, position: "SG", height: "6'11\"", weight: "170", rank: "Senior", playerId: "jhdjkaj23n423423")
+        let p3 = Player.init(firstName: "Yiwei", lastName: "Zhang", photo: nil, position: "PF", height: "6'11\"", weight: "170", rank: "Senior", playerId: "askljdwlkn53223422")
+        let p4 = Player.init(firstName: "Dan", lastName: "Jones", photo: nil, position: "SF", height: "6'11\"", weight: "170", rank: "Senior", playerId: "daklsmdlkamsk2422")
+        let p5 = Player.init(firstName: "Matt", lastName: "Williams", photo: nil, position: "C", height: "6'11\"", weight: "170", rank: "Senior", playerId: "aklfjaksfn83249242")
+        let roster : [Player] = [p1, p2, p3, p4, p5]
+        
+        return roster
+    }
+    
+    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
+        
+        guard recognizer.view != nil else {return}
+        let player = recognizer.view!
+        let translation = recognizer.translation(in: player.superview)
+        
+        if recognizer.state == .began {
+            self.panStartPoint = player.center
+        }
+        if recognizer.state == .ended {
+            self.panEndPoint = CGPoint(x: panStartPoint.x + translation.x, y: panStartPoint.y + translation.y)
+            determineAction(startIndex: determineBoxIndex(point: self.panStartPoint), endingIndex: determineBoxIndex(point: self.panEndPoint))
+        }
+        if recognizer.state == .cancelled {print("cancel")}
+    }
+    
+    func determineBoxIndex(point: CGPoint) -> Int {
+        var i: Int = 0
+        for rect in boxRects {
+            if rect.contains(point){ return i }
+            else{ i += 1 }
+        }
+        return 999
+    }
+    
+    func determineAction(startIndex: Int, endingIndex: Int){
+        if endingIndex == 0 {
+            handleShot(playerIndex: startIndex)
+        }
+        else if endingIndex != 999 {
+            handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
+        }
+    }
+    
+    func handleShot(playerIndex: Int){
+        print(self.lineup[playerIndex] + " shot the ball!")
+        displayShotChart()
         
     }
     
-    var initialCenter = CGPoint()
+    func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
+        print(self.lineup[passingPlayerIndex] + " passed to " + self.lineup[receivingPlayerIndex])
+        
+    }
     
-    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        guard recognizer.view != nil else {return}
-        let piece = recognizer.view!
-        // Get the changes in the X and Y directions relative to
-        // the superview's coordinate space.
-        let translation = recognizer.translation(in: piece.superview)
-        if recognizer.state == .began {
-            print("pan begin")
-            // Save the view's original position.
-            self.initialCenter = piece.center
-        }
-        // Update the position for the .began, .changed, and .ended states
-        if recognizer.state != .cancelled {
-            print("pan changed/ended")
-            // Add the X and Y translation to the view's original position.
-            let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-            piece.center = newCenter
-        }
-        else {
-            print("pan cancelled")
-            // On cancellation, return the piece to its original location.
-            piece.center = initialCenter
+    func displayShotChart(){
+        self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
+    }
+    
+    func handleTurnover(){
+        
+    }
+    
+    func handleJumpBall(){
+        
+    }
+    
+    func handleFoul(){
+        
+    }
+    
+    func subPlayer(){
+        
+    }
+    
+    @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
+        let point = touchHandler.location(in: self.courtView)
+        let index = determineBoxIndex(point: point)
+        let player = self.lineup[index]
+        if touchHandler.state == .began {
+            presentOffensiveOptions(point: point)
         }
     }
+    
+    func presentOffensiveOptions(point: CGPoint){
+        let ac = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
+        let turnoverBtn = UIAlertAction(title: "Turnover", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.handleTurnover()
+        }
+        let foulBtn = UIAlertAction(title: "Foul", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.handleFoul()
+        }
+        let jumpBallBtn = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.handleJumpBall()
+        }
+        ac.addAction(turnoverBtn)
+        ac.addAction(foulBtn)
+        ac.addAction(jumpBallBtn)
+        let popover = ac.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
+        present(ac, animated: true)
+    }
+    
 }

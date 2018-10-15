@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jGW-SO-mMU">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -1425,6 +1425,32 @@
             </objects>
             <point key="canvasLocation" x="2650.78125" y="176.5625"/>
         </scene>
+        <!--Shot Chart View Controller-->
+        <scene sceneID="68h-q4-66P">
+            <objects>
+                <viewController storyboardIdentifier="ShotChartViewController" id="LxQ-Ta-2eg" customClass="ShotChartViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IH7-CU-c9o">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="halfcourt" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-TH-S5j">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="oVR-gZ-DDj"/>
+                    </view>
+                    <connections>
+                        <outlet property="chartView" destination="SN0-TH-S5j" id="BHb-rt-UaD"/>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="backToGameViewSegue" id="atr-rx-Imt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mLe-Cd-oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1801.7578124999998" y="-2457.03125"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="Ns0-DN-6jC">
             <objects>
@@ -1433,45 +1459,134 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="court" translatesAutoresizingMaskIntoConstraints="NO" id="e8w-3j-jDJ">
-                                <rect key="frame" x="0.0" y="102" width="1024" height="666"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wki-LE-FuN">
+                                <rect key="frame" x="0.0" y="92" width="1024" height="676"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="mi9-uJ-SrF" appends="YES" id="GHy-6o-EOy"/>
-                                </connections>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
-                                <rect key="frame" x="20" y="132" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qzs-D5-kX9">
-                                <rect key="frame" x="332" y="385" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iFf-z6-Xqm">
-                                <rect key="frame" x="20" y="618" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-Y0-kG6">
-                                <rect key="frame" x="244" y="569" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-G9-3Xm">
-                                <rect key="frame" x="244" y="190" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="halfcourt" translatesAutoresizingMaskIntoConstraints="NO" id="e8w-3j-jDJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="668"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                    </imageView>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="basket" translatesAutoresizingMaskIntoConstraints="NO" id="5TN-P3-RuZ">
+                                        <rect key="frame" x="462" y="34" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Kyrie" translatesAutoresizingMaskIntoConstraints="NO" id="qzs-D5-kX9">
+                                        <rect key="frame" x="462" y="358" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="bd5-OU-xAH" appends="YES" id="seu-ZZ-c27"/>
+                                            <outletCollection property="gestureRecognizers" destination="CG7-jB-azx" appends="YES" id="YiP-Gp-ncU"/>
+                                        </connections>
+                                    </imageView>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Lebron" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-Y0-kG6">
+                                        <rect key="frame" x="757" y="251" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="cAe-hd-hUA" appends="YES" id="dn7-qf-eEC"/>
+                                            <outletCollection property="gestureRecognizers" destination="Rgt-dx-MXi" appends="YES" id="QH3-6I-oOD"/>
+                                        </connections>
+                                    </imageView>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tristan" translatesAutoresizingMaskIntoConstraints="NO" id="iFf-z6-Xqm">
+                                        <rect key="frame" x="884" y="34" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="aum-kl-6a9" appends="YES" id="17V-rS-ouW"/>
+                                            <outletCollection property="gestureRecognizers" destination="9dE-7D-Wd5" appends="YES" id="5fa-Xp-ZCX"/>
+                                        </connections>
+                                    </imageView>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Kevin" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-G9-3Xm">
+                                        <rect key="frame" x="40" y="34" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="mZy-Hn-wwd" appends="YES" id="IDT-rv-8Ez"/>
+                                            <outletCollection property="gestureRecognizers" destination="EK9-5C-5Ub" appends="YES" id="dHY-ft-QMl"/>
+                                        </connections>
+                                    </imageView>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="J.R." translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
+                                        <rect key="frame" x="167" y="251" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="PC4-by-xec" appends="YES" id="ppI-SU-nuM"/>
+                                            <outletCollection property="gestureRecognizers" destination="TD6-4R-inY" appends="YES" id="2DT-50-f6g"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="oqP-l2-iqJ"/>
                     </view>
+                    <connections>
+                        <outlet property="courtView" destination="e8w-3j-jDJ" id="TbL-r5-K5H"/>
+                        <outlet property="imageHoop" destination="5TN-P3-RuZ" id="B5e-28-3x0"/>
+                        <outlet property="imagePlayer1" destination="qzs-D5-kX9" id="RSy-Or-szh"/>
+                        <outlet property="imagePlayer2" destination="9Yj-NZ-y2M" id="u0p-1I-MCi"/>
+                        <outlet property="imagePlayer3" destination="oDq-Y0-kG6" id="4iA-Yt-td1"/>
+                        <outlet property="imagePlayer4" destination="iFf-z6-Xqm" id="nkR-N8-w4R"/>
+                        <outlet property="imagePlayer5" destination="wI4-G9-3Xm" id="AyM-26-8tu"/>
+                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="mi9-uJ-SrF">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="mZy-Hn-wwd">
                     <connections>
-                        <action selector="handlePan:" destination="jGW-SO-mMU" id="cMV-lI-RcE"/>
+                        <action selector="handlePan:" destination="jGW-SO-mMU" id="UwL-Lr-cEc"/>
                     </connections>
                 </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="cAe-hd-hUA">
+                    <connections>
+                        <action selector="handlePan:" destination="jGW-SO-mMU" id="sgn-Mo-QIH"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="bd5-OU-xAH">
+                    <connections>
+                        <action selector="handlePan:" destination="jGW-SO-mMU" id="b3R-1i-WIm"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="PC4-by-xec">
+                    <connections>
+                        <action selector="handlePan:" destination="jGW-SO-mMU" id="1kd-L2-3gi"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="aum-kl-6a9">
+                    <connections>
+                        <action selector="handlePan:" destination="jGW-SO-mMU" id="zyT-Mi-nEY"/>
+                    </connections>
+                </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EK9-5C-5Ub">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="Bmi-Me-uGM"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="TD6-4R-inY">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="hiA-L1-h2g"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="CG7-jB-azx">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="sQu-vB-srE"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Rgt-dx-MXi">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="zg0-Hx-bZ8"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="9dE-7D-Wd5">
+                    <connections>
+                        <action selector="handleLongPress:" destination="jGW-SO-mMU" id="Ogi-Bs-azE"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1801.7578124999998" y="-1767.1875"/>
         </scene>
@@ -2188,11 +2303,17 @@
     </scenes>
     <resources>
         <image name="Default" width="1524" height="976"/>
+        <image name="J.R." width="350" height="254"/>
+        <image name="Kevin" width="350" height="254"/>
+        <image name="Kyrie" width="350" height="254"/>
+        <image name="Lebron" width="350" height="254"/>
+        <image name="Tristan" width="350" height="254"/>
         <image name="basket" width="512" height="512"/>
-        <image name="court" width="2085" height="1251"/>
+        <image name="halfcourt" width="1251" height="1042"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oGC-8x-0c7"/>
+        <segue reference="UGe-Oh-QD3"/>
+        <segue reference="atr-rx-Imt"/>
         <segue reference="KUT-zL-ifF"/>
         <segue reference="kvW-Ra-Bdw"/>
         <segue reference="9D4-EJ-t0G"/>

@@ -44,15 +44,9 @@ class Player: NSObject {
    
    // MARK: Initialization
    
-   init?(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String){
+   init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String){
       
       // Fail init without name
-      guard !firstName.isEmpty else{
-         return nil
-      }
-      guard !lastName.isEmpty else{
-         return nil
-      }
 
       // Initialize stored parameters
       self.playerId = playerId
@@ -81,5 +75,33 @@ class Player: NSObject {
       self.chagesTaken = 0
       self.techFoul = 0
    }
+    
+    func addPoints(points: Int){
+        self.points += points
+    }
+    
+    func addAssists(assits: Int){
+        self.assists += assists
+    }
+    
+    func addTurnovers(turnovers: Int){
+        self.turnovers += turnovers
+    }
+    
+    func addPersonalFouls(fouls: Int){
+        self.personalFoul += fouls
+    }
+    
+    func addTechFouls(fouls: Int){
+        self.techFoul += fouls
+    }
+    
+    func addDefRebounds(rebounds: Int){
+        self.defRebounds += rebounds
+    }
+    
+    func addOffRebounds(rebounds: Int){
+        self.offRebounds += rebounds
+    }
 
 }
