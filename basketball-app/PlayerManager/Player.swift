@@ -9,9 +9,15 @@
 import UIKit
 
 struct FGMade {
-   var total:Int = 0
-   var threePoint:Int = 0
-   var twoPoint:Int = 0
+    var total:Int = 0
+    var threePoint:Int = 0
+    var twoPoint:Int = 0
+}
+
+struct FGAttempts {
+    var total:Int = 0
+    var threePoint:Int = 0
+    var twoPoint:Int = 0
 }
 
 class Player: NSObject {
@@ -30,7 +36,7 @@ class Player: NSObject {
    var points:Int
    var assists:Int
    var turnovers:Int
-   var fgAttempts:Int
+   var fgAttempts = FGAttempts()
    var fgMade = FGMade()
    var offRebounds:Int
    var ftAttempts:Int
@@ -40,7 +46,7 @@ class Player: NSObject {
    var deflections:Int
    var blocks:Int
    var personalFoul:Int
-   var chagesTaken:Int
+   var chargesTaken:Int
    var techFoul:Int
    
    // MARK: Initialization
@@ -62,7 +68,9 @@ class Player: NSObject {
       self.points = 0
       self.assists = 0
       self.turnovers = 0
-      self.fgAttempts = 0
+      self.fgAttempts.threePoint = 0
+      self.fgAttempts.twoPoint = 0
+      self.fgAttempts.total = self.fgAttempts.threePoint + self.fgAttempts.twoPoint
       self.fgMade.threePoint = 0
       self.fgMade.twoPoint = 0
       self.fgMade.total = self.fgMade.threePoint + self.fgMade.twoPoint
@@ -74,40 +82,80 @@ class Player: NSObject {
       self.deflections = 0
       self.blocks = 0
       self.personalFoul = 0
-      self.chagesTaken = 0
+      self.chargesTaken = 0
       self.techFoul = 0
    }
     
-    func addPoints(points: Int){
+    func updatePoints(points: Int){
         self.points += points
     }
     
-    func addAssists(assits: Int){
+    func updateAssists(assits: Int){
         self.assists += assists
     }
     
-    func addTurnovers(turnovers: Int){
+    func updateTurnovers(turnovers: Int){
         self.turnovers += turnovers
     }
     
-    func addPersonalFouls(fouls: Int){
+    func updateThreePointMade(made: Int){
+        self.fgMade.threePoint += made
+    }
+    
+    func updateTwoPointMade(made: Int){
+        self.fgMade.twoPoint += made
+    }
+    
+    func updateFreeThrowMade(made: Int){
+        self.ftMade += made
+    }
+    
+    func updateThreePointAttempt(attempted: Int){
+        self.fgAttempts.threePoint += attempted
+    }
+    
+    func updateTwoPointAttempt(attempted: Int){
+        self.fgAttempts.twoPoint += attempted
+    }
+    
+    func updateFreeThrowAttempt(attempted: Int){
+        self.ftAttempts += attempted
+    }
+    
+    func updatePersonalFouls(fouls: Int){
         self.personalFoul += fouls
     }
     
-    func addTechFouls(fouls: Int){
+    func updateTechFouls(fouls: Int){
         self.techFoul += fouls
     }
     
-    func addDefRebounds(rebounds: Int){
+    func updateChargesTaken(charges: Int){
+        self.chargesTaken += charges
+    }
+    
+    func updateDefRebounds(rebounds: Int){
         self.defRebounds += rebounds
     }
     
-    func addOffRebounds(rebounds: Int){
+    func updateOffRebounds(rebounds: Int){
         self.offRebounds += rebounds
     }
     
-    func firebaseSync(){
+    func updateDeflections(deflections: Int){
+        self.deflections += deflections
+    }
     
+    func updateBlocks(blocks: Int){
+        self.blocks += blocks
+    }
+    
+    func updateSteals(steals: Int){
+        self.steals += steals
+    }
+    
+    func firebaseSync(){
+        
     }
 
 }

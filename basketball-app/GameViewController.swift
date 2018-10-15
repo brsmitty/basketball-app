@@ -42,11 +42,10 @@ class GameViewController: UIViewController {
     
     func getRoster() -> [Player] {
         let defaults = UserDefaults.standard
-        let uid = defaults.string(forKey: "uid")!
         let tid = defaults.string(forKey: "tid")!
         
         let firebaseRef = Database.database().reference()
-        let dbHandler = firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
+        firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             print(value!)
         }) { (error) in

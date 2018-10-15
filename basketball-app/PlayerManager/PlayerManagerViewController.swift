@@ -231,7 +231,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       oRebound.text = String(player.offRebounds)
       pFouls.text = String(player.personalFoul)
       assistsCell.text = String(player.assists)
-      fGoalCell.text = String(player.fgAttempts)
+      fGoalCell.text = String(player.fgAttempts.twoPoint)
       freeThrowPerc.text = String(player.ftAttempts)
       freeThrowMade.text = String(player.ftMade)
       tFoulCell.text = String(player.techFoul)
@@ -325,7 +325,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-      let photo = UIImage(named: "Default")
+      //let photo = UIImage(named: "Default")
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
       var pid = ""
