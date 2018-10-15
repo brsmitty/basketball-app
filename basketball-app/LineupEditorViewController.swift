@@ -72,7 +72,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    // holds the database reference to firebase
    var databaseHandle:DatabaseHandle?
    // holds the users unique user ID
-   var uid: String = ""
+    var uid: String = ""
+    var tid: String = ""
    // Array of all position names for the picker wheel
    let positionNames:[String] = [String] (arrayLiteral: "","Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
    // holds the selected position for the pickerWheel
@@ -126,6 +127,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
    
    override func viewWillAppear(_ animated: Bool) {
+    let defaults = UserDefaults.standard
+    uid = defaults.string(forKey: "uid")!
+    tid = defaults.string(forKey: "tid")!
       // Get the user id and set it to the user id global variable
       Auth.auth().addStateDidChangeListener() { auth, user in
          if user != nil {
@@ -209,10 +213,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
             
-            guard let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String)
-               else {
-                  fatalError("Counld not instantiate player")
-            }
+            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.currentPath = IndexPath(row:self.playersLeft.count, section: 0)
             self.players.append(player)
             if(self.playerOne?.playerId == player.playerId || self.playerTwo?.playerId == player.playerId || self.playerThree?.playerId == player.playerId || self.playerFour?.playerId == player.playerId || self.playerFive?.playerId == player.playerId){
