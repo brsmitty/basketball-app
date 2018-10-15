@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    var ballIndex : Int = 1
     var roster : [Player] = []
     var lineup : [String] = ["", "Kyrie", "JR", "LeBron", "Tristan", "Kevin"]
     var panStartPoint = CGPoint() //coordinates of pan start
@@ -47,7 +48,7 @@ class GameViewController: UIViewController {
         let firebaseRef = Database.database().reference()
         firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
-            print(value!)
+            //print(value!)
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -84,26 +85,34 @@ class GameViewController: UIViewController {
     
     func determineAction(startIndex: Int, endingIndex: Int){
         if endingIndex == 0 {
-            handleShot(playerIndex: startIndex)
+            handleLayup(playerIndex: startIndex)
         }
         else if endingIndex != 999 {
             handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
         }
     }
     
-    func handleShot(playerIndex: Int){
-        print(self.lineup[playerIndex] + " shot the ball!")
+    func handleLayup(playerIndex: Int){
+        print(self.lineup[playerIndex] + " made a layup!")
+        displayLayupChart()
+    }
+    
+    @IBAction func handleShot(_ recognizer: UITapGestureRecognizer) {
+        print(self.lineup[ballIndex] + " shot the ball!")
         displayShotChart()
-        
     }
     
     func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
         print(self.lineup[passingPlayerIndex] + " passed to " + self.lineup[receivingPlayerIndex])
-        
+        ballIndex = receivingPlayerIndex
     }
     
     func displayShotChart(){
         self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
+    }
+    
+    func displayLayupChart(){
+        
     }
     
     func handleTurnover(){
