@@ -13,57 +13,60 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
-    var ballIndex : Int = 1
-    var roster : [String: Any] = [:]
-//    var lineup : [String: Any] = [:]
-    var active = [String?](repeating: nil, count: 5)
-    var panStartPoint = CGPoint()
-    var panEndPoint = CGPoint()
-    let boxHeight : CGFloat = 100.0
-    let boxWidth : CGFloat = 100.0
-    var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()]
+    var possession: String = "" //keeps track of whether current possession is offense or defense, starts as neither at beginning of the game, until a jump ball occurs
+    var ballIndex : Int = 0 //keeps track of the index of the player who currently has the ball. alligned with active[String]
+    var roster : [String: Any] = [:] //dictionary such that key = PID and value = dictionary of player properties
+    var active = [String?](repeating: nil, count: 5) //String array of the PIDs of all 5 players on the floor currently, starts as nil until intial subs are made
+    var panStartPoint = CGPoint() //beginning point of any given pan gesture
+    var panEndPoint = CGPoint() //end point of any given pan gesture
+    let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
+    let boxWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
+    var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C -- IN THAT ORDER
     
-    @IBOutlet weak var courtView: UIImageView!
-    @IBOutlet weak var imageHoop: UIImageView!
-    @IBOutlet weak var imagePlayer1: UIImageView!
-    @IBOutlet weak var imagePlayer2: UIImageView!
-    @IBOutlet weak var imagePlayer3: UIImageView!
-    @IBOutlet weak var imagePlayer4: UIImageView!
-    @IBOutlet weak var imagePlayer5: UIImageView!
+    @IBOutlet weak var courtView: UIImageView! //court image outlet
+    @IBOutlet weak var imageHoop: UIImageView! //hoop image outlet
+    @IBOutlet weak var imagePlayer1: UIImageView! //PG image outlet
+    @IBOutlet weak var imagePlayer2: UIImageView! //SG image outlet
+    @IBOutlet weak var imagePlayer3: UIImageView! //SF image outlet
+    @IBOutlet weak var imagePlayer4: UIImageView! //PF image outlet
+    @IBOutlet weak var imagePlayer5: UIImageView! //C image outlet
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //init all hitbox rectangles from the UI Image Views
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+        //get roster from the team in firebase
         getRoster()
     }
     
     func getRoster(){
+        //grab persistently stored TID, pull roster from firebase
         let defaults = UserDefaults.standard
         let tid = defaults.string(forKey: "tid")!
         let firebaseRef = Database.database().reference()
         firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
+            //fill roster dictionary with appropriate player values from firebase (key = PID, value = nested player dictionary)
             for v in value! {
-                var key = v.key as! String
-                var val = v.value as! NSDictionary
+                let key = v.key as! String
+                let val = v.value as! NSDictionary
                 self.roster[key] = val
             }
-        }) { (error) in
+        }) { (error) in //error pulling roster from firebase
             print(error.localizedDescription)
         }
     }
     
+    //handles passing swipe gestures from player to player, as well as layup swipe gestures from player to hoop
     @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        
         guard recognizer.view != nil else {return}
         let player = recognizer.view!
         let translation = recognizer.translation(in: player.superview)
-        
         if recognizer.state == .began {
             self.panStartPoint = player.center
         }
@@ -74,6 +77,7 @@ class GameViewController: UIViewController {
         if recognizer.state == .cancelled {print("cancel")}
     }
     
+    //returns index in active[String] and boxRects[CGRect] of hitbox which was targeted, given the coordinate point of the user interaction(s). return 999 for empty gesture, i.e. swipe to random spot on court
     func determineBoxIndex(point: CGPoint) -> Int {
         var i: Int = 0
         for rect in boxRects {
@@ -83,6 +87,7 @@ class GameViewController: UIViewController {
         return 999
     }
     
+    //determine if a swipe was a pass (player to player) or a layup (player to hoop)
     func determineAction(startIndex: Int, endingIndex: Int){
         if endingIndex == 0 {
             handleLayup(playerIndex: startIndex)
@@ -92,64 +97,89 @@ class GameViewController: UIViewController {
         }
     }
     
+    //layup detected, display paint image for more accurate placement of layup shot location
     func handleLayup(playerIndex: Int){
         //print(self.lineup[playerIndex] + " made a layup!")
         displayLayupChart()
     }
     
+    //shot detected, display full shot chart for placement of shot location
     @IBAction func handleShot(_ recognizer: UITapGestureRecognizer) {
         //print(self.lineup[ballIndex] + " shot the ball!")
         displayShotChart()
     }
     
+    //pass detected, record and update ballIndex
     func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
         //print(self.lineup[passingPlayerIndex] + " passed to " + self.lineup[receivingPlayerIndex])
         ballIndex = receivingPlayerIndex
     }
     
+    //segue to shot chart view
     func displayShotChart(){
         self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
     }
     
+    //segue to paint shot chart view
     func displayLayupChart(){
         
     }
     
+    //turnover recorded, change possession
     func handleTurnover(){
         
     }
     
-    func handleJumpBall(){
-        
+    //jump ball recorded, determine outcome and set possession accordingly
+    func handleJumpBall(point: CGPoint){
+        let popupForJumpBallOutcome = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
+        let jumpBallWonOutcome = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.possession = "offense"
+        }
+        let jumpBallLostOutcome = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.possession = "defense"
+            
+        }
+        popupForJumpBallOutcome.addAction(jumpBallWonOutcome)
+        popupForJumpBallOutcome.addAction(jumpBallLostOutcome)
+        let popover = popupForJumpBallOutcome.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
+        present(popupForJumpBallOutcome, animated: true)
     }
     
+    //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(){
         
     }
     
+    //player sub detected, display bench players and update active[String] accordingly
     func subPlayer(index: Int, point: CGPoint){
-        let ac = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
-        var btn: UIAlertAction
-        for player in roster{
+        let popupForBenchedPlayersToSub = UIAlertController(title: "Bench", message: "", preferredStyle: .actionSheet)
+        var benchPlayer: UIAlertAction
+        for player in roster {
             let dict = player.value as! NSDictionary
             if (!isActive(pid: dict["pid"] as! String)){
                 let fname = dict["fname"] as! String
                 let lname = dict["lname"] as! String
                 let pid = dict["pid"] as! String
-                btn = UIAlertAction(title: "\(fname) \(lname)", style: UIAlertActionStyle.default) {
+                benchPlayer = UIAlertAction(title: "\(fname) \(lname)", style: UIAlertActionStyle.default) {
                     UIAlertAction in
                     self.active[index - 1] = pid
                     
                 }
-                ac.addAction(btn)
+                popupForBenchedPlayersToSub.addAction(benchPlayer)
             }
         }
-        let popover = ac.popoverPresentationController
+        let popover = popupForBenchedPlayersToSub.popoverPresentationController
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
-        present(ac, animated: true)
+        present(popupForBenchedPlayersToSub, animated: true)
     }
     
+    //return whether player is on the floor currently or not
     func isActive(pid: String) -> Bool{
         for player in active {
             if (player == pid){
@@ -159,6 +189,7 @@ class GameViewController: UIViewController {
         return false
     }
     
+    //long press detected, display offensive player options
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
         let point = touchHandler.location(in: self.courtView)
         let index = determineBoxIndex(point: point)
@@ -168,8 +199,9 @@ class GameViewController: UIViewController {
         }
     }
     
+    //display appropriate actions for current offensive possession
     func presentOffensiveOptions(point: CGPoint, index: Int){
-        let ac = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
+        let popupForOffensivePlayerOptions = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
         let turnoverBtn = UIAlertAction(title: "Turnover", style: UIAlertActionStyle.default) {
             UIAlertAction in
             self.handleTurnover()
@@ -180,23 +212,24 @@ class GameViewController: UIViewController {
         }
         let jumpBallBtn = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            self.handleJumpBall()
+            self.handleJumpBall(point: point)
         }
         let subPlayerBtn = UIAlertAction(title: "Sub", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            //print(self.imagePlayer1.image.)
             self.subPlayer(index: index, point: point)
         }
         if (active[index - 1] != nil){
-            ac.addAction(turnoverBtn)
-            ac.addAction(foulBtn)
-            ac.addAction(jumpBallBtn)
+            if (possession != ""){
+                popupForOffensivePlayerOptions.addAction(turnoverBtn)
+                popupForOffensivePlayerOptions.addAction(foulBtn)
+            }
+            popupForOffensivePlayerOptions.addAction(jumpBallBtn)
         }
-        ac.addAction(subPlayerBtn)
-        let popover = ac.popoverPresentationController
+        popupForOffensivePlayerOptions.addAction(subPlayerBtn)
+        let popover = popupForOffensivePlayerOptions.popoverPresentationController
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
-        present(ac, animated: true)
+        present(popupForOffensivePlayerOptions, animated: true)
     }
     
 }
