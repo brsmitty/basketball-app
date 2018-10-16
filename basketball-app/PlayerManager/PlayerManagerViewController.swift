@@ -345,10 +345,26 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                         "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
+                                       "photo": "",
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
-                                       "position": position]
+                                       "position": position,
+                                       "points": 0,
+                                       "assists": 0,
+                                       "turnovers": 0,
+                                       "fgAttempts": ["threePoint": 0, "twoPoint": 0, "total": 0],
+                                       "fgMade": ["threePoint": 0, "twoPoint": 0, "total": 0],
+                                       "offRebounds": 0,
+                                       "defRebounds": 0,
+                                       "ftAttempts": 0,
+                                       "ftMade": 0,
+                                       "steals": 0,
+                                       "deflections": 0,
+                                       "blocks": 0,
+                                       "personalFoul": 0,
+                                       "chargesTaken": 0,
+                                       "techFoul": 0]
       playerRef.setValue(playerData)
         addPlayerToTeam(data: playerData, tid: tid)
    }

@@ -86,6 +86,37 @@ class Player: NSObject {
       self.techFoul = 0
    }
     
+    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, stats: [String: Int]){
+        self.playerId = playerId
+        self.teamId =  teamId
+        self.firstName = firstName
+        self.lastName = lastName
+        self.photo = photo
+        self.height = height
+        self.weight = weight
+        self.rank = rank
+        self.position = position
+        self.points = stats["points"] ?? 0
+        self.assists = stats["assists"] ?? 0
+        self.turnovers = stats["turnovers"] ?? 0
+        self.fgAttempts.threePoint = stats["fgThreePointAttempts"] ?? 0
+        self.fgAttempts.twoPoint = stats["fgTwoPointAttempts"] ?? 0
+        self.fgAttempts.total = self.fgAttempts.threePoint + self.fgAttempts.twoPoint
+        self.fgMade.threePoint = stats["fgThreePointMade"] ?? 0
+        self.fgMade.twoPoint = stats["fgTwoPointMade"] ?? 0
+        self.fgMade.total = self.fgMade.threePoint + self.fgMade.twoPoint
+        self.offRebounds = stats["offRebounds"] ?? 0
+        self.ftAttempts = stats["ftAttempts"] ?? 0
+        self.ftMade = stats["ftMade"] ?? 0
+        self.steals = stats["steals"] ?? 0
+        self.defRebounds = stats["defRebounds"] ?? 0
+        self.deflections = stats["deflections"] ?? 0
+        self.blocks = stats["blocks"] ?? 0
+        self.personalFoul = stats["personalFoul"] ?? 0
+        self.chargesTaken = stats["chargesTaken"] ?? 0
+        self.techFoul = stats["techFouls"] ?? 0
+    }
+    
     func updatePoints(points: Int){
         self.points += points
     }
@@ -152,14 +183,6 @@ class Player: NSObject {
     
     func updateSteals(steals: Int){
         self.steals += steals
-    }
-    
-    func toDictionary() -> [String: Any]{
-        var playerDict: [String: Any] = [:]
-        
-        playerDict["pid"] = "123"
-        
-        return playerDict
     }
     
     func firebaseSync(){
