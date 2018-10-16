@@ -2159,13 +2159,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gda-kg-POQ">
                                 <rect key="frame" x="0.0" y="0.0" width="701.5" height="768"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Opponent" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UQ5-Ze-02x">
-                                        <rect key="frame" x="196" y="165" width="387" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Opponent:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="de9-ct-SVP">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="de9-ct-SVP">
                                         <rect key="frame" x="99" y="165" width="89" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="exr-a6-2jl"/>
@@ -2175,7 +2169,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oWV-RT-DQK">
-                                        <rect key="frame" x="196" y="243" width="387" height="30"/>
+                                        <rect key="frame" x="196" y="234" width="387" height="39"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2231,15 +2225,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMZ-ib-Le4">
-                                        <rect key="frame" x="99" y="248" width="89" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMZ-ib-Le4">
+                                        <rect key="frame" x="99" y="238" width="89" height="31"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-CE-oeS">
-                                        <rect key="frame" x="43" y="51" width="102" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-CE-oeS">
+                                        <rect key="frame" x="43" y="51" width="101.5" height="64"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="Main Menu">
@@ -2249,11 +2242,21 @@
                                             <segue destination="iQa-d8-Vh0" kind="presentation" id="UGe-Oh-QD3"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Opponent" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UQ5-Ze-02x">
+                                        <rect key="frame" x="196" y="171" width="387" height="21"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="at3-wr-s7W" firstAttribute="trailing" secondItem="N7N-CE-oeS" secondAttribute="trailing" constant="557" id="1Jo-ZX-qkH"/>
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="leading" secondItem="UQ5-Ze-02x" secondAttribute="leading" id="2dl-jF-G5G"/>
+                                    <constraint firstItem="N7N-CE-oeS" firstAttribute="top" secondItem="at3-wr-s7W" secondAttribute="top" constant="31" id="3Xd-Ed-HOW"/>
+                                    <constraint firstItem="de9-ct-SVP" firstAttribute="top" secondItem="N7N-CE-oeS" secondAttribute="bottom" constant="50" id="3as-pF-iWd"/>
                                     <constraint firstItem="Lrp-ph-4ft" firstAttribute="top" secondItem="GeI-cb-d3G" secondAttribute="top" id="5xI-hX-ilf"/>
+                                    <constraint firstItem="nId-bZ-0v3" firstAttribute="top" secondItem="TMZ-ib-Le4" secondAttribute="bottom" constant="49" id="6N6-59-X6G"/>
                                     <constraint firstItem="bOv-JI-c7q" firstAttribute="top" secondItem="5Um-Za-zHC" secondAttribute="top" id="6i3-Yw-nGR"/>
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="trailing" secondItem="TMZ-ib-Le4" secondAttribute="trailing" id="6td-fE-LKJ"/>
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="leading" secondItem="at3-wr-s7W" secondAttribute="leading" constant="99" id="7CS-Uq-CQv"/>
@@ -2263,6 +2266,7 @@
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="trailing" secondItem="bOv-JI-c7q" secondAttribute="trailing" id="D7c-HX-VEg"/>
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="trailing" secondItem="RIS-36-HT4" secondAttribute="trailing" id="FOR-c4-jg6"/>
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="leading" secondItem="oWV-RT-DQK" secondAttribute="leading" id="HnP-a5-jQH"/>
+                                    <constraint firstItem="TMZ-ib-Le4" firstAttribute="centerY" secondItem="oWV-RT-DQK" secondAttribute="centerY" id="P3f-4R-nWT"/>
                                     <constraint firstItem="Lrp-ph-4ft" firstAttribute="leading" secondItem="GeI-cb-d3G" secondAttribute="trailing" constant="8" symbolic="YES" id="PDm-fn-PAy"/>
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="leading" secondItem="5Um-Za-zHC" secondAttribute="leading" id="Qm4-g6-sgO"/>
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="leading" secondItem="Lrp-ph-4ft" secondAttribute="leading" id="Sig-oH-92O"/>
@@ -2271,9 +2275,12 @@
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="leading" secondItem="nId-bZ-0v3" secondAttribute="trailing" constant="8" symbolic="YES" id="aph-Xb-9lf"/>
                                     <constraint firstItem="Lrp-ph-4ft" firstAttribute="top" secondItem="5Um-Za-zHC" secondAttribute="bottom" constant="43" id="dJK-n4-PMe"/>
                                     <constraint firstItem="at3-wr-s7W" firstAttribute="trailing" secondItem="YGb-6u-ntg" secondAttribute="trailing" constant="118.5" id="g5R-Xe-ONY"/>
+                                    <constraint firstItem="oWV-RT-DQK" firstAttribute="top" secondItem="UQ5-Ze-02x" secondAttribute="bottom" constant="48" id="gKk-Et-3s4"/>
+                                    <constraint firstItem="UQ5-Ze-02x" firstAttribute="top" secondItem="at3-wr-s7W" secondAttribute="top" constant="145" id="heW-Iq-qL0"/>
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="leading" secondItem="TMZ-ib-Le4" secondAttribute="leading" id="i5t-iS-YRp"/>
                                     <constraint firstItem="YGb-6u-ntg" firstAttribute="top" secondItem="oWV-RT-DQK" secondAttribute="bottom" constant="45" id="iuP-sM-M6J"/>
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="leading" secondItem="ytW-gW-T8v" secondAttribute="leading" id="jSZ-SQ-0y2"/>
+                                    <constraint firstItem="N7N-CE-oeS" firstAttribute="leading" secondItem="at3-wr-s7W" secondAttribute="leading" constant="43" id="jkv-Up-yeC"/>
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="trailing" secondItem="ytW-gW-T8v" secondAttribute="trailing" id="k1t-4b-6Fg"/>
                                     <constraint firstItem="ytW-gW-T8v" firstAttribute="bottom" secondItem="RIS-36-HT4" secondAttribute="bottom" id="kEZ-UL-aXQ"/>
                                     <constraint firstItem="de9-ct-SVP" firstAttribute="leading" secondItem="nId-bZ-0v3" secondAttribute="leading" id="kKR-m2-VXc"/>
@@ -2752,22 +2759,22 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="BallIcon" width="333" height="341"/>
-        <image name="Board" width="1944" height="1633"/>
+        <image name="BallIcon" width="333.5" height="341"/>
+        <image name="Board" width="1944" height="1633.5"/>
         <image name="Default" width="1524" height="976"/>
         <image name="VerifiedBall" width="458" height="458"/>
-        <image name="halfcourt" width="1251" height="1042"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
-        <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="paint" width="524" height="520"/>
+        <image name="halfcourt" width="300.239990234375" height="250.08000183105469"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
+        <image name="navLineupBar" width="2559.5" height="244"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="paint" width="125.76000213623047" height="124.80000305175781"/>
         <image name="scheduleRect_1" width="1369" height="375"/>
         <image name="settingsDots" width="16" height="62"/>
         <image name="teamPerfRect_1" width="1069" height="1263"/>
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6q6-o3-KoC"/>
+        <segue reference="UGe-Oh-QD3"/>
         <segue reference="atr-rx-Imt"/>
         <segue reference="KUT-zL-ifF"/>
         <segue reference="ghn-UH-XNA"/>
