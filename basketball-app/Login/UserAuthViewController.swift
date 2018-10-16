@@ -26,18 +26,9 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
    @IBOutlet weak var loginButton: UIButton!
    @IBOutlet weak var registerButton: UIButton!
    @IBOutlet weak var signUpButton: UIButton!
+    
    override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Auth.auth().addStateDidChangeListener() { auth, user in
-            if user != nil {
-                guard let uid = user?.uid else { return }
-                let ref = Database.database().reference(withPath: "users")
-                let userRef = ref.child(uid)
-                let userData : [String: Any] = ["uid":  uid, "verified": false]
-                userRef.setValue(userData)
-            }
-        }
       
       if let passwordLabel = passwordMatchLabel{
          passwordLabel.text = ""
@@ -118,7 +109,6 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
     
     @objc func checkEmailValidation(){
         Auth.auth().currentUser!.reload { (error) in
-            print(Auth.auth().currentUser!.isEmailVerified)
             if (Auth.auth().currentUser!.isEmailVerified){
                 self.emailVerificationTimer.invalidate()
                 self.performSegue(withIdentifier: "registerSegue", sender: nil)

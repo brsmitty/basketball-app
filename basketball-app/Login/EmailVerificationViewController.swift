@@ -16,23 +16,12 @@ class EmailVerificationViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      Auth.auth().addStateDidChangeListener() { auth, user in
-         if user != nil {
-            guard let uid = user?.uid else { return }
-            let ref = Database.database().reference(withPath: "users")
-            let userRef = ref.child(uid)
-            let userData : [String: Any] = ["uid":  uid, "verified": false]
-            userRef.setValue(userData)
-         }
-      }
-      emailVerification()
+        emailVerification()
     }
     
 
    @IBAction func resendCode(_ sender: UIButton) {
       emailVerificationTimer = Timer()
-      print("resending email")
       Auth.auth().currentUser?.sendEmailVerification { (error) in
          if (Auth.auth().currentUser!.isEmailVerified){
             self.performSegue(withIdentifier: "verifiedSegue", sender: nil)
@@ -48,14 +37,43 @@ class EmailVerificationViewController: UIViewController {
          print(Auth.auth().currentUser!.isEmailVerified)
          if (Auth.auth().currentUser!.isEmailVerified){
             self.emailVerificationTimer.invalidate()
+            self.createUser()
             self.performSegue(withIdentifier: "verifiedSegue", sender: nil)
          }
       }
    }
+    
+    func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let firebaseRef = Database.database().reference(withPath: "users")
+        let userRef = firebaseRef.child(uid)
+        let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
+        let userData : [String: Any] = ["uid":  uid, "tid": tid]
+        userRef.setValue(userData)
+        createTeam(tid: tid)
+        storePersistentData(uid: uid, tid: tid)
+    }
+    
+    func createTeam(tid: String){ // create team record for the newly created team of the newly created user
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let teamRef = firebaseRef.child(tid)
+        let teamData : [String: Any] = ["tid":  tid]
+        teamRef.setValue(teamData)
+    }
+    
+    func storePersistentData(uid: String, tid: String){
+        let defaults = UserDefaults.standard
+        defaults.set(uid, forKey: "uid")
+        defaults.set(tid, forKey: "tid")
+    }
+    
+    func retrievePersistentData(){
+        let defaults = UserDefaults.standard
+        print(defaults.string(forKey: "uid")!)
+        print(defaults.string(forKey: "tid")!)
+    }
    
    func emailVerification(){
-      
-      print("sending email")
       Auth.auth().currentUser?.sendEmailVerification { (error) in
           if (Auth.auth().currentUser!.isEmailVerified){
               self.performSegue(withIdentifier: "verifiedSegue", sender: nil)

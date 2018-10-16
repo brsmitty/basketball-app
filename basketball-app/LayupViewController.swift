@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ShotChartViewController: UIViewController {
+class LayupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Success: loaded regular shot chart")
+        print("Success: loaded layup shot chart")
     }
     
     @IBOutlet weak var chartView: UIImageView!
@@ -25,27 +25,27 @@ class ShotChartViewController: UIViewController {
     }
     
     func saveShotLocation(position: CGPoint){
-        let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
-        let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
+        let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
+        let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded made shot at x, y coordinates below")
+            print("Success: recorded made layup at x, y coordinates below")
             print(position.x)
             print(position.y)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
-        let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
+        let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded missed shot at x, y coordinates below")
+            print("Success: recorded missed layup at x, y coordinates below")
             print(position.x)
             print(position.y)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
-        popupForShotOutcome.addAction(madeShot)
-        popupForShotOutcome.addAction(missedShot)
-        let popover = popupForShotOutcome.popoverPresentationController
+        ac.addAction(madeBtn)
+        ac.addAction(missedBtn)
+        let popover = ac.popoverPresentationController
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
-        present(popupForShotOutcome, animated: true)
+        present(ac, animated: true)
     }
     
     
