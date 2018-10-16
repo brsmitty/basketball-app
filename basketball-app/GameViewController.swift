@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    var tid : String = ""
     var possession: String = "" //keeps track of whether current possession is offense or defense, starts as neither at beginning of the game, until a jump ball occurs
     var ballIndex : Int = 0 //keeps track of the index of the player who currently has the ball. alligned with active[String]
     var roster : [String: Any] = [:] //dictionary such that key = PID and value = dictionary of player properties
@@ -40,6 +41,7 @@ class GameViewController: UIViewController {
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+        print("Success: touch target rectangles initialized")
         //get roster from the team in firebase
         getRoster()
     }
@@ -47,7 +49,7 @@ class GameViewController: UIViewController {
     func getRoster(){
         //grab persistently stored TID, pull roster from firebase
         let defaults = UserDefaults.standard
-        let tid = defaults.string(forKey: "tid")!
+        tid = defaults.string(forKey: "tid")!
         let firebaseRef = Database.database().reference()
         firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
@@ -57,6 +59,7 @@ class GameViewController: UIViewController {
                 let val = v.value as! NSDictionary
                 self.roster[key] = val
             }
+            print("Success: roster populated from firebase")
         }) { (error) in //error pulling roster from firebase
             print(error.localizedDescription)
         }
@@ -69,9 +72,11 @@ class GameViewController: UIViewController {
         let translation = recognizer.translation(in: player.superview)
         if recognizer.state == .began {
             self.panStartPoint = player.center
+            print("Success: pan gesture recognized as started")
         }
         if recognizer.state == .ended {
             self.panEndPoint = CGPoint(x: panStartPoint.x + translation.x, y: panStartPoint.y + translation.y)
+            print("Success: pan gesture recognized as ended")
             determineAction(startIndex: determineBoxIndex(point: self.panStartPoint), endingIndex: determineBoxIndex(point: self.panEndPoint))
         }
         if recognizer.state == .cancelled {print("cancel")}
@@ -99,19 +104,19 @@ class GameViewController: UIViewController {
     
     //layup detected, display paint image for more accurate placement of layup shot location
     func handleLayup(playerIndex: Int){
-        //print(self.lineup[playerIndex] + " made a layup!")
+        print("Success: layup gesture recognized")
         displayLayupChart()
     }
     
     //shot detected, display full shot chart for placement of shot location
     @IBAction func handleShot(_ recognizer: UITapGestureRecognizer) {
-        //print(self.lineup[ballIndex] + " shot the ball!")
+        print("Success: shot gesture recognized")
         displayShotChart()
     }
     
     //pass detected, record and update ballIndex
     func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
-        //print(self.lineup[passingPlayerIndex] + " passed to " + self.lineup[receivingPlayerIndex])
+        print("Success: pass gesture recognized")
         ballIndex = receivingPlayerIndex
     }
     
@@ -122,24 +127,27 @@ class GameViewController: UIViewController {
     
     //segue to paint shot chart view
     func displayLayupChart(){
-        
+        self.performSegue(withIdentifier: "layupSegue", sender: nil)
     }
     
     //turnover recorded, change possession
     func handleTurnover(){
-        
+        print("Success: turnover recognized")
     }
     
     //jump ball recorded, determine outcome and set possession accordingly
     func handleJumpBall(point: CGPoint){
+        print("Success: jump ball recognized")
         let popupForJumpBallOutcome = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
         let jumpBallWonOutcome = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) {
             UIAlertAction in
             self.possession = "offense"
+            print("Success: possession changed to offense")
         }
         let jumpBallLostOutcome = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) {
             UIAlertAction in
             self.possession = "defense"
+            print("Success: possession changed to defense")
             
         }
         popupForJumpBallOutcome.addAction(jumpBallWonOutcome)
@@ -152,11 +160,12 @@ class GameViewController: UIViewController {
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(){
-        
+        print("Success: foul recognized")
     }
     
     //player sub detected, display bench players and update active[String] accordingly
     func subPlayer(index: Int, point: CGPoint){
+        print("Success: player sub recognized")
         let popupForBenchedPlayersToSub = UIAlertController(title: "Bench", message: "", preferredStyle: .actionSheet)
         var benchPlayer: UIAlertAction
         for player in roster {
@@ -168,7 +177,6 @@ class GameViewController: UIViewController {
                 benchPlayer = UIAlertAction(title: "\(fname) \(lname)", style: UIAlertActionStyle.default) {
                     UIAlertAction in
                     self.active[index - 1] = pid
-                    
                 }
                 popupForBenchedPlayersToSub.addAction(benchPlayer)
             }
@@ -191,6 +199,7 @@ class GameViewController: UIViewController {
     
     //long press detected, display offensive player options
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
+        print("Success: long press gesture recognized")
         let point = touchHandler.location(in: self.courtView)
         let index = determineBoxIndex(point: point)
         //let player = self.lineup[index]
@@ -230,6 +239,12 @@ class GameViewController: UIViewController {
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
         present(popupForOffensivePlayerOptions, animated: true)
+    }
+    
+    func syncLineup(){
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let playerRef = firebaseRef.child(tid).child("lineups")
+        playerRef.setValue([])
     }
     
 }

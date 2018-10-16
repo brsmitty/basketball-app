@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 struct FGMade {
     var total:Int = 0
@@ -185,8 +186,10 @@ class Player: NSObject {
         self.steals += steals
     }
     
-    func firebaseSync(){
-        
+    func firebaseSync(tid: String, pid: String, data: NSDictionary){
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let playerRef = firebaseRef.child(tid).child("roster").child(pid)
+        playerRef.setValue(data)
     }
 
 }

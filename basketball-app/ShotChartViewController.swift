@@ -12,7 +12,7 @@ class ShotChartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("loaded shot chart")
+        print("Success: loaded regular shot chart")
     }
     
     @IBOutlet weak var chartView: UIImageView!
@@ -25,27 +25,27 @@ class ShotChartViewController: UIViewController {
     }
     
     func saveShotLocation(position: CGPoint){
-        let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
-        let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
+        let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
+        let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("made shot recorded at: ")
+            print("Success: recorded made shot at x, y coordinates below")
             print(position.x)
             print(position.y)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
-        let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
+        let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("missed shot recorded at: ")
+            print("Success: recorded missed shot at x, y coordinates below")
             print(position.x)
             print(position.y)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
-        ac.addAction(madeBtn)
-        ac.addAction(missedBtn)
-        let popover = ac.popoverPresentationController
+        popupForShotOutcome.addAction(madeShot)
+        popupForShotOutcome.addAction(missedShot)
+        let popover = popupForShotOutcome.popoverPresentationController
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
-        present(ac, animated: true)
+        present(popupForShotOutcome, animated: true)
     }
     
     
