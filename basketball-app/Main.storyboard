@@ -1935,6 +1935,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6u-tu-zza">
+                                <rect key="frame" x="495" y="35" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sync"/>
+                                <connections>
+                                    <action selector="sync:" destination="jGW-SO-mMU" eventType="touchDown" id="0b2-75-wc3"/>
+                                    <action selector="sync:" destination="3v7-tM-AsI" eventType="touchDown" id="TiH-qg-dZt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -1953,6 +1962,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3v7-tM-AsI" userLabel="Exit" sceneMemberID="exit"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="mZy-Hn-wwd">
                     <connections>
                         <action selector="handlePan:" destination="jGW-SO-mMU" id="UwL-Lr-cEc"/>
@@ -2784,9 +2794,8 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kov-4w-Yr5"/>
         <segue reference="6q6-o3-KoC"/>
-        <segue reference="atr-rx-Imt"/>
+        <segue reference="rkw-yI-9zs"/>
         <segue reference="KUT-zL-ifF"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>

@@ -10,11 +10,23 @@ import UIKit
 
 class ShotChartViewController: UIViewController {
     
-    var test: String = ""
+    var state: [String: Any] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(test)
+        print(state)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToGameViewSegue" {
+            if let destination = segue.destination as? GameViewController {
+                state["twoPtAtt"] = 1
+                state["twoPtMake"] = 1
+                state["points"] = 2
+                destination.state = state
+            }
+        }
     }
     
     @IBOutlet weak var chartView: UIImageView!
