@@ -1823,6 +1823,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4UJ-NJ-rP9"/>
                     </view>
+                    <connections>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="backToGameViewSegue2" id="rkw-yI-9zs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1852,7 +1855,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLe-Cd-oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1801.7578124999998" y="-2457.03125"/>
+            <point key="canvasLocation" x="1829" y="-2620"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="Ns0-DN-6jC">
@@ -1940,8 +1943,8 @@
                         <outlet property="imagePlayer3" destination="oDq-Y0-kG6" id="4iA-Yt-td1"/>
                         <outlet property="imagePlayer4" destination="iFf-z6-Xqm" id="nkR-N8-w4R"/>
                         <outlet property="imagePlayer5" destination="wI4-G9-3Xm" id="AyM-26-8tu"/>
-                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
-                        <segue destination="GJf-Rq-iBH" kind="presentation" identifier="layupSegue" id="SJv-Yq-Kco"/>
+                        <segue destination="LxQ-Ta-2eg" kind="show" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
+                        <segue destination="GJf-Rq-iBH" kind="show" identifier="layupSegue" id="SJv-Yq-Kco"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2768,7 +2771,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6q6-o3-KoC"/>
-        <segue reference="atr-rx-Imt"/>
+        <segue reference="rkw-yI-9zs"/>
         <segue reference="KUT-zL-ifF"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
