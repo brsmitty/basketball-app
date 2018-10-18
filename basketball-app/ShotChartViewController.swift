@@ -10,8 +10,11 @@ import UIKit
 
 class ShotChartViewController: UIViewController {
     
+    var test: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(test)
     }
     
     @IBOutlet weak var chartView: UIImageView!

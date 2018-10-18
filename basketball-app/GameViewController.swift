@@ -149,6 +149,13 @@ class GameViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "shotChartSegue" {
+            if let destination = segue.destination as? ShotChartViewController {
+                destination.test = "3"
+            }
+        }
+    }
     
     // GENERAL HELPER FUNCTIONS ///////////////////////////////////////////////
     
