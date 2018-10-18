@@ -45,6 +45,8 @@
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
+		987B3085217834E10010F3A6 /* gestureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B3084217834E10010F3A6 /* gestureUITests.swift */; };
+		987B3093217840280010F3A6 /* subPlayersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B3092217840280010F3A6 /* subPlayersUITests.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +67,20 @@
 			remoteInfo = "basketball-app";
 		};
 		6350451921626249003A046C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C79FC321403291006726C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C79FCA21403291006726C3;
+			remoteInfo = "basketball-app";
+		};
+		987B3087217834E10010F3A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C79FC321403291006726C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C79FCA21403291006726C3;
+			remoteInfo = "basketball-app";
+		};
+		987B3095217840280010F3A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63C79FC321403291006726C3 /* Project object */;
 			proxyType = 1;
@@ -120,6 +136,12 @@
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
 		98588C60216511E300DA226C /* PlaybookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookCell.swift; sourceTree = "<group>"; };
+		987B3082217834E10010F3A6 /* gestureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gestureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		987B3084217834E10010F3A6 /* gestureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gestureUITests.swift; sourceTree = "<group>"; };
+		987B3086217834E10010F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		987B3090217840280010F3A6 /* subPlayersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = subPlayersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		987B3092217840280010F3A6 /* subPlayersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subPlayersUITests.swift; sourceTree = "<group>"; };
+		987B3094217840280010F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookViewController.swift; sourceTree = "<group>"; };
 		98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
 		BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +175,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		987B307F217834E10010F3A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		987B308D217840280010F3A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +278,8 @@
 				6350451521626249003A046C /* basketball-appTests */,
 				274A64242164451E00F0F4E7 /* userAuthUITests */,
 				27185E232174370F00B69950 /* userAuth */,
+				987B3083217834E10010F3A6 /* gestureUITests */,
+				987B3091217840280010F3A6 /* subPlayersUITests */,
 				63C79FCC21403291006726C3 /* Products */,
 				165C386DCD297A94D812A1E2 /* Pods */,
 				000C9FD9583F679DDB3773CB /* Frameworks */,
@@ -255,6 +293,8 @@
 				6350451421626249003A046C /* basketball-appTests.xctest */,
 				274A64232164451E00F0F4E7 /* userAuthUITests.xctest */,
 				27185E222174370F00B69950 /* userAuth.xctest */,
+				987B3082217834E10010F3A6 /* gestureUITests.xctest */,
+				987B3090217840280010F3A6 /* subPlayersUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,6 +329,24 @@
 				6368B40521760B2A004E30DA /* LayupViewController.swift */,
 			);
 			path = "basketball-app";
+			sourceTree = "<group>";
+		};
+		987B3083217834E10010F3A6 /* gestureUITests */ = {
+			isa = PBXGroup;
+			children = (
+				987B3084217834E10010F3A6 /* gestureUITests.swift */,
+				987B3086217834E10010F3A6 /* Info.plist */,
+			);
+			path = gestureUITests;
+			sourceTree = "<group>";
+		};
+		987B3091217840280010F3A6 /* subPlayersUITests */ = {
+			isa = PBXGroup;
+			children = (
+				987B3092217840280010F3A6 /* subPlayersUITests.swift */,
+				987B3094217840280010F3A6 /* Info.plist */,
+			);
+			path = subPlayersUITests;
 			sourceTree = "<group>";
 		};
 		98DD769721655F010010F5D0 /* ScheduleManager */ = {
@@ -379,6 +437,42 @@
 			productReference = 63C79FCB21403291006726C3 /* basketball-app.app */;
 			productType = "com.apple.product-type.application";
 		};
+		987B3081217834E10010F3A6 /* gestureUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 987B308B217834E10010F3A6 /* Build configuration list for PBXNativeTarget "gestureUITests" */;
+			buildPhases = (
+				987B307E217834E10010F3A6 /* Sources */,
+				987B307F217834E10010F3A6 /* Frameworks */,
+				987B3080217834E10010F3A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				987B3088217834E10010F3A6 /* PBXTargetDependency */,
+			);
+			name = gestureUITests;
+			productName = gestureUITests;
+			productReference = 987B3082217834E10010F3A6 /* gestureUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		987B308F217840280010F3A6 /* subPlayersUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 987B3097217840280010F3A6 /* Build configuration list for PBXNativeTarget "subPlayersUITests" */;
+			buildPhases = (
+				987B308C217840280010F3A6 /* Sources */,
+				987B308D217840280010F3A6 /* Frameworks */,
+				987B308E217840280010F3A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				987B3096217840280010F3A6 /* PBXTargetDependency */,
+			);
+			name = subPlayersUITests;
+			productName = subPlayersUITests;
+			productReference = 987B3090217840280010F3A6 /* subPlayersUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -404,6 +498,14 @@
 					63C79FCA21403291006726C3 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					987B3081217834E10010F3A6 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 63C79FCA21403291006726C3;
+					};
+					987B308F217840280010F3A6 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 63C79FCA21403291006726C3;
+					};
 				};
 			};
 			buildConfigurationList = 63C79FC621403291006726C3 /* Build configuration list for PBXProject "basketball-app" */;
@@ -423,6 +525,8 @@
 				6350451321626249003A046C /* basketball-appTests */,
 				274A64222164451E00F0F4E7 /* userAuthUITests */,
 				27185E212174370F00B69950 /* userAuth */,
+				987B3081217834E10010F3A6 /* gestureUITests */,
+				987B308F217840280010F3A6 /* subPlayersUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -458,6 +562,20 @@
 				63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */,
 				630E2C66216E66C800881C1F /* Assets.xcassets in Resources */,
 				630E2C68216E672600881C1F /* Playbook.pdf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		987B3080217834E10010F3A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		987B308E217840280010F3A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +689,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		987B307E217834E10010F3A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				987B3085217834E10010F3A6 /* gestureUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		987B308C217840280010F3A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				987B3093217840280010F3A6 /* subPlayersUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -588,6 +722,16 @@
 			isa = PBXTargetDependency;
 			target = 63C79FCA21403291006726C3 /* basketball-app */;
 			targetProxy = 6350451921626249003A046C /* PBXContainerItemProxy */;
+		};
+		987B3088217834E10010F3A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C79FCA21403291006726C3 /* basketball-app */;
+			targetProxy = 987B3087217834E10010F3A6 /* PBXContainerItemProxy */;
+		};
+		987B3096217840280010F3A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C79FCA21403291006726C3 /* basketball-app */;
+			targetProxy = 987B3095217840280010F3A6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -877,6 +1021,88 @@
 			};
 			name = Release;
 		};
+		987B3089217834E10010F3A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = gestureUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.gestureUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "basketball-app";
+			};
+			name = Debug;
+		};
+		987B308A217834E10010F3A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = gestureUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.gestureUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "basketball-app";
+			};
+			name = Release;
+		};
+		987B3098217840280010F3A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = subPlayersUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.subPlayersUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "basketball-app";
+			};
+			name = Debug;
+		};
+		987B3099217840280010F3A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = subPlayersUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.subPlayersUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "basketball-app";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -921,6 +1147,24 @@
 			buildConfigurations = (
 				63C79FDE21403292006726C3 /* Debug */,
 				63C79FDF21403292006726C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		987B308B217834E10010F3A6 /* Build configuration list for PBXNativeTarget "gestureUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				987B3089217834E10010F3A6 /* Debug */,
+				987B308A217834E10010F3A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		987B3097217840280010F3A6 /* Build configuration list for PBXNativeTarget "subPlayersUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				987B3098217840280010F3A6 /* Debug */,
+				987B3099217840280010F3A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

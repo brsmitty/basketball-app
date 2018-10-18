@@ -43,6 +43,8 @@ class MasterViewController: UITableViewController{
                 self.uid = uId
             }
         }
+        
+        //getGames()
     }
     override func viewWillDisappear(_ animated: Bool) {
         // Store the new players in firebase
@@ -85,18 +87,20 @@ class MasterViewController: UITableViewController{
                 let gameType = snapshot.childSnapshot(forPath: "gameType")
                 let gameDate = snapshot.childSnapshot(forPath: "gameDate")
                 let gameTime = snapshot.childSnapshot(forPath: "gameTime")
+                let gameDetail = snapshot.childSnapshot(forPath: "gameDetail")
                 
                 gameTitles.append(title.value as! String)
                 gameLocations.append(location.value as! String)
                 gameTypes.append(gameType.value as! String)
-                gameDates.append(gameDate.value as! Date)
                 gameTimes.append(gameTime.value as! String)
+                gameDetails.append(gameDetail.value as! String)
                 synced.append(false)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM, dd, yyyy"
-                let date = dateFormatter.string(from: gameDate.value as! Date)
+                let date = dateFormatter.date(from: gameDate.value as! String)
+                gameDates.append(date!)
                 
-                let temp = Game(title: title.value as! String, detail: date)
+                let temp = Game(title: title.value as! String, detail: gameDate.value as! String)
                 
                 let currentPath = IndexPath(row:self.games.count, section: 0)
                 self.games.append(temp)
