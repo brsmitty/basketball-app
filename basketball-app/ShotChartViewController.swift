@@ -31,6 +31,7 @@ class ShotChartViewController: UIViewController {
             print("Success: recorded made shot at x, y coordinates below")
             print(position.x)
             print(position.y)
+            UIView.setAnimationsEnabled(false)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
         let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
@@ -38,6 +39,7 @@ class ShotChartViewController: UIViewController {
             print("Success: recorded missed shot at x, y coordinates below")
             print(position.x)
             print(position.y)
+            UIView.setAnimationsEnabled(false)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
         popupForShotOutcome.addAction(madeShot)

@@ -336,8 +336,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
          pid = uid + "-" + String(players.count)
       }
     
-    let p = Player(firstName: firstName, lastName: lastName, photo: nil, position: position, height: height, weight: weight, rank: rank, playerId: pid, teamId: tid)
-    
       let ref = Database.database().reference(withPath: "players")
 
       let playerRef = ref.child(pid)

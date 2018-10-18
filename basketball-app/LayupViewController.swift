@@ -31,14 +31,16 @@ class LayupViewController: UIViewController {
             print("Success: recorded made layup at x, y coordinates below")
             print(position.x)
             print(position.y)
-            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+            UIView.setAnimationsEnabled(false)
+            self.performSegue(withIdentifier: "backToGameViewSegue2", sender: nil)
         }
         let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
             print("Success: recorded missed layup at x, y coordinates below")
             print(position.x)
             print(position.y)
-            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+            UIView.setAnimationsEnabled(false)
+            self.performSegue(withIdentifier: "backToGameViewSegue2", sender: nil)
         }
         ac.addAction(madeBtn)
         ac.addAction(missedBtn)
