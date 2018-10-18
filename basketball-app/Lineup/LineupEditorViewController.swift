@@ -36,7 +36,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    @IBOutlet weak var playerThreePos: UILabel!
    @IBOutlet weak var playerFourPos: UILabel!
    @IBOutlet weak var playerFivePos: UILabel!
-   @IBOutlet weak var saveButton: UIBarButtonItem!
+   @IBOutlet weak var saveButton: UIButton!
+   @IBOutlet weak var cancelButton: UIButton!
+   
    
    @IBOutlet weak var tableDropDownOne: UITableView!
    @IBOutlet weak var tableDropDownOneHC: NSLayoutConstraint!
@@ -75,7 +77,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
     var uid: String = ""
     var tid: String = ""
    // Array of all position names for the picker wheel
-   let positionNames:[String] = [String] (arrayLiteral: "","Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
+   let positionNames:[String] = [String] (arrayLiteral: "Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
    // holds the selected position for the pickerWheel
    var selectedPositionOne: String?
    var selectedPositionTwo: String?
@@ -105,6 +107,11 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playerThree = lineup[2]
          playerFour = lineup[3]
          playerFive = lineup[4]
+         players.append(playerOne!)
+         players.append(playerTwo!)
+         players.append(playerThree!)
+         players.append(playerFour!)
+         players.append(playerFive!)
          playerOneName.text = (playerOne?.firstName)! + " " + (playerOne?.lastName)!
          playerOnePos.text = playerOne?.position
          playerTwoName.text = (playerTwo?.firstName)! + " " + (playerTwo?.lastName)!
@@ -122,9 +129,47 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          positionThree.text = positions![2]
          positionFour.text = positions![3]
          positionFive.text = positions![4]
+         
+         playerOneClear.isEnabled = true
+         playerOneClear.isHidden = false
+         playerTwoClear.isEnabled = true
+         playerTwoClear.isHidden = false
+         playerThreeClear.isEnabled = true
+         playerThreeClear.isHidden = false
+         playerFourClear.isEnabled = true
+         playerFourClear.isHidden = false
+         playerFiveClear.isEnabled = true
+         playerFiveClear.isHidden = false
+      }else{
+         edited = false
+         playerOneClear.isEnabled = false
+         playerOneClear.isHidden = true
+         playerTwoClear.isEnabled = false
+         playerTwoClear.isHidden = true
+         playerThreeClear.isEnabled = false
+         playerThreeClear.isHidden = true
+         playerFourClear.isEnabled = false
+         playerFourClear.isHidden = true
+         playerFiveClear.isEnabled = false
+         playerFiveClear.isHidden = true
       }
       updateSaveButtonState()
-    }
+      let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+      tap.cancelsTouchesInView = false
+      self.view.addGestureRecognizer(tap)
+      
+      
+      // Listen for keyboard events
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+   }
+   
+   deinit {
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+   }
    
    override func viewWillAppear(_ animated: Bool) {
     let defaults = UserDefaults.standard
@@ -137,6 +182,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.uid = uId
          }
       }
+      updateSaveButtonState()
       self.getPlayers()
       createPositionPicker()
       createToolbar()
@@ -157,11 +203,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       self.tableDropDownFiveHC.constant = 0
       self.lineupName.delegate = self
       self.lineupName.becomeFirstResponder()
-      playerOneClear.isEnabled = false;
-      playerTwoClear.isEnabled = false;
-      playerThreeClear.isEnabled = false;
-      playerFourClear.isEnabled = false;
-      playerFiveClear.isEnabled = false;
+      saveButton.layer.cornerRadius = 5
+      cancelButton.layer.cornerRadius = 5
    }
    
    override func viewWillDisappear(_ animated: Bool) {
@@ -173,6 +216,16 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+   
+   @objc func keyboardWillChange(notification: Notification){
+      
+      if notification.name == Notification.Name.UIKeyboardWillChangeFrame || notification.name == Notification.Name.UIKeyboardWillShow{
+         
+         view.frame.origin.y = -50
+      }else {
+         view.frame.origin.y = 0
+      }
+   }
     
 
    
@@ -183,7 +236,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
         super.prepare(for: segue, sender: sender)
       
       // Configure the desitination view controller only when the save button is pressed.
-      guard let button = sender as? UIBarButtonItem, button == saveButton else {
+      guard let button = sender as? UIButton, button == saveButton else {
          os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
          return
       }
@@ -215,7 +268,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
             
             let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             self.currentPath = IndexPath(row:self.playersLeft.count, section: 0)
-            self.players.append(player)
+            if(!self.players.contains(player)){
+               self.players.append(player)
+            }
             if(self.playerOne?.playerId == player.playerId || self.playerTwo?.playerId == player.playerId || self.playerThree?.playerId == player.playerId || self.playerFour?.playerId == player.playerId || self.playerFive?.playerId == player.playerId){
                
             }else{
@@ -342,6 +397,8 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          break
       }
       
+      pickerView.selectRow(0, inComponent: 0, animated: false)
+      
    }
    
    // MARK: TableViewDelegate
@@ -383,6 +440,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          }
          playerOne = playersLeft[indexPath.row]
          playerOneClear.isEnabled = true
+         playerOneClear.isHidden = false
          playersLeft.remove(at: indexPath.row)
          reloadTableViews(indexPath)
          break
@@ -401,6 +459,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          }
          playerTwo = playersLeft[indexPath.row]
          playerTwoClear.isEnabled = true
+         playerTwoClear.isHidden = false
          playersLeft.remove(at: indexPath.row)
          reloadTableViews(indexPath)
          break
@@ -419,6 +478,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          }
          playerThree = playersLeft[indexPath.row]
          playerThreeClear.isEnabled = true
+         playerThreeClear.isHidden = false
          playersLeft.remove(at: indexPath.row)
          reloadTableViews(indexPath)
          break
@@ -439,6 +499,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          playersLeft.remove(at: indexPath.row)
          reloadTableViews(indexPath)
          playerFourClear.isEnabled = true
+         playerFourClear.isHidden = false
          break
       case 4:
          playerFiveName.text = playersLeft[indexPath.row].firstName + " " + playersLeft[indexPath.row].lastName
@@ -455,6 +516,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          }
          playerFive = playersLeft[indexPath.row]
          playerFiveClear.isEnabled = true
+         playerFiveClear.isHidden = false
          playersLeft.remove(at: indexPath.row)
          reloadTableViews(indexPath)
          break
@@ -466,17 +528,17 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    
-   @IBAction func cancel(_ sender: UIBarButtonItem) {
-      let isPresentingInAddMealMode = presentingViewController is UINavigationController
+   @IBAction func cancel(_ sender: UIButton) {
+      let isPresentingInAddLineupMode = presentingViewController is LineupManagerViewController
       
-      if isPresentingInAddMealMode {
-         dismiss(animated: true, completion: nil)
+      if isPresentingInAddLineupMode {
+         dismiss(animated: false, completion: nil)
       }
       else if let owningNavigationController = navigationController{
-         owningNavigationController.popViewController(animated: true)
+         owningNavigationController.popViewController(animated: false)
       }
       else {
-         fatalError("The MealViewController is not inside a navigation controller.")
+         fatalError("The LineupViewController is not inside a navigation controller.")
       }
    }
    
@@ -580,8 +642,10 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       let filled = positionsFilled()
       if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty) && (namesI != nil && (!(namesI?.contains(lineupName.text!))!) || edited == true) && filled){
          saveButton.isEnabled = true
+         saveButton.isHidden = false
       }else{
          saveButton.isEnabled = false
+         saveButton.isHidden = true
       }
 //      if let namesI = self.names{
 //         if(!(namesI.contains(lineupName.text!)) || (edited == true)){
@@ -599,7 +663,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    
    @IBAction func clearPlayerOne(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-     // playersLeft.append(players[players.firstIndex(of: playerOne!)!])
+      playersLeft.append(players[players.firstIndex(of: playerOne!)!])
       insertRows(indexPath)
       playerOne = nil
       playerOnePos.text = "Position"
@@ -608,10 +672,11 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionOne.text = ""
       updateSaveButtonState()
       playerOneClear.isEnabled = false
+      playerOneClear.isHidden = true
    }
    @IBAction func clearPlayerTwo(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-     // playersLeft.append(players[players.firstIndex(of: playerTwo!)!])
+      playersLeft.append(players[players.firstIndex(of: playerTwo!)!])
       insertRows(indexPath)
       playerTwo = nil
       playerTwoPos.text = "Position"
@@ -620,11 +685,12 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionTwo.text = ""
       updateSaveButtonState()
       playerTwoClear.isEnabled = false
+      playerTwoClear.isHidden = true
    }
    
    @IBAction func clearPlayerThree(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-     // playersLeft.append(players[players.firstIndex(of: playerThree!)!])
+      playersLeft.append(players[players.firstIndex(of: playerThree!)!])
       insertRows(indexPath)
       playerThree = nil
       playerThreePos.text = "Position"
@@ -633,11 +699,12 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionThree.text = ""
       updateSaveButtonState()
       playerThreeClear.isEnabled = false
+      playerThreeClear.isHidden = true
    }
    
    @IBAction func clearPlayerFour(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      //playersLeft.append(players[players.firstIndex(of: playerFour!)!])
+      playersLeft.append(players[players.firstIndex(of: playerFour!)!])
       insertRows(indexPath)
       playerFour = nil
       playerFourPos.text = "Position"
@@ -646,11 +713,12 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionFour.text = ""
       updateSaveButtonState()
       playerFourClear.isEnabled = false
+      playerFourClear.isHidden = true
    }
    
    @IBAction func clearPlayerFive(_ sender: UIButton) {
       let indexPath = IndexPath(item: playersLeft.count, section: 0)
-      //playersLeft.append(players[players.firstIndex(of: playerFive!)!])
+      playersLeft.append(players[players.firstIndex(of: playerFive!)!])
       insertRows(indexPath)
       playerFive = nil
       playerFivePos.text = "Position"
@@ -659,6 +727,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionFive.text = ""
       updateSaveButtonState()
       playerFiveClear.isEnabled = false
+      playerFiveClear.isHidden = true
    }
    
    func insertRows(_ indexPath:IndexPath){
@@ -678,6 +747,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    func closeAllTables(){
+      
       UIView.animate(withDuration: 0.5){
          self.tableDropDownFiveHC.constant = 0
          self.tableIsVisible = false
@@ -713,14 +783,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       let five = positionFive.text ?? nil
       return (!(one?.isEmpty)! && !(two?.isEmpty)! && !(three?.isEmpty)! && !(four?.isEmpty)! && !(five?.isEmpty)!)
    }
-   @IBAction func unselectAll(_ sender: UITapGestureRecognizer) {
+
+   @IBAction func closeAllTables(_ sender: UITapGestureRecognizer) {
       closeAllTables()
-      lineupName.resignFirstResponder()
-      positionFive.resignFirstResponder()
-      positionFour.resignFirstResponder()
-      positionThree.resignFirstResponder()
-      positionTwo.resignFirstResponder()
-      positionOne.resignFirstResponder()
    }
 }
 

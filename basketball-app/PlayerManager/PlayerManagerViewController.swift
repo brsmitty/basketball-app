@@ -22,10 +22,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBOutlet weak var playerHeightText: UITextField!
    @IBOutlet weak var playerWeightText: UITextField!
    @IBOutlet weak var playerClassText: UITextField!
-   @IBOutlet weak var saveButton: UIBarButtonItem!
-   @IBOutlet weak var editButton: UIBarButtonItem!
-   @IBOutlet weak var addButton: UIBarButtonItem!
-   @IBOutlet weak var cancelButton: UIBarButtonItem!
+   @IBOutlet weak var saveButton: UIButton!
+   @IBOutlet weak var editButton: UIButton!
+   @IBOutlet weak var addButton: UIButton!
+   @IBOutlet weak var cancelButton: UIButton!
    @IBOutlet weak var pointsCell: UILabel!
    @IBOutlet weak var twoPoint: UILabel!
    @IBOutlet weak var threePoint: UILabel!
@@ -80,6 +80,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       self.tableView.dataSource = self
       self.tableView.delegate = self
       
+      let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+      tap.cancelsTouchesInView = false
+      self.view.addGestureRecognizer(tap)
+      addButton.layer.cornerRadius = 5
+      saveButton.layer.cornerRadius = 5
+      editButton.layer.cornerRadius = 5
+      cancelButton.layer.cornerRadius = 5
+      
    }
    
    override func didReceiveMemoryWarning() {
@@ -108,7 +116,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       createHeightPicker()
       createClassPicker()
       createToolbar()
-      self.navigationController?.setNavigationBarHidden(false, animated: false)
    }
    
    override func viewWillDisappear(_ animated: Bool) {
@@ -176,10 +183,11 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func setSaveButton(to on: Bool){
       if (on){
          saveButton.isEnabled = true
-         saveButton.tintColor = UIColor.blue
+         saveButton.isHidden = false
+
       }else{
          saveButton.isEnabled = false
-         saveButton.tintColor = UIColor.clear
+         saveButton.isHidden = true
       }
    }
    
@@ -187,10 +195,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func setCancelButton(to on: Bool){
       if(on){
          cancelButton.isEnabled = true
-         cancelButton.tintColor = UIColor.blue
+         cancelButton.isHidden = false
       }else {
          cancelButton.isEnabled = false
-         cancelButton.tintColor = UIColor.clear
+         cancelButton.isHidden = true
       }
    }
    
@@ -198,8 +206,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func setEditButton(to on: Bool){
       if(on){
          editButton.isEnabled = true
+         editButton.isHidden = false
       }else{
          editButton.isEnabled = false
+         editButton.isHidden = true
       }
    }
    
@@ -207,8 +217,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func setAddButton(to on: Bool){
       if(on){
          addButton.isEnabled = true
+         addButton.isHidden = false
       }else{
          addButton.isEnabled = false
+         addButton.isHidden = true
       }
    }
    
@@ -543,6 +555,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       default:
          break
       }
+      
+      pickerView.selectRow(0, inComponent: 0, animated: false)
 
    }
    
@@ -733,7 +747,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    @IBAction func cancel(_ sender: UIButton) {
-      dismiss(animated: true, completion: nil)
+      dismiss(animated: false, completion: nil)
    }
+
 }
 

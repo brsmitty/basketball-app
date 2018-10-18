@@ -32,36 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "274A64222164451E00F0F4E7"
-               BuildableName = "userAuthUITests.xctest"
-               BlueprintName = "userAuthUITests"
-               ReferencedContainer = "container:basketball-app.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "27185E212174370F00B69950"
-               BuildableName = "userAuth.xctest"
-               BlueprintName = "userAuth"
-               ReferencedContainer = "container:basketball-app.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6350451321626249003A046C"
-               BuildableName = "basketball-appTests.xctest"
-               BlueprintName = "basketball-appTests"
-               ReferencedContainer = "container:basketball-app.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "276B46C921766D8E00D565C4"
                BuildableName = "lineupUITest.xctest"
                BlueprintName = "lineupUITest"

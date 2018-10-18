@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
-		27185E252174370F00B69950 /* userAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E242174370F00B69950 /* userAuth.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
 		274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A641D2164051700F0F4E7 /* LoginTextField.swift */; };
 		274A64262164451E00F0F4E7 /* userAuthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A64252164451E00F0F4E7 /* userAuthUITests.swift */; };
@@ -24,7 +23,8 @@
 		276B46B221766C2E00D565C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46AD21766C2E00D565C4 /* ViewController.swift */; };
 		276B46B321766C2E00D565C4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46AE21766C2E00D565C4 /* Game.swift */; };
 		276B46CD21766D8E00D565C4 /* lineupUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46CC21766D8E00D565C4 /* lineupUITest.swift */; };
-		276B46D521766DA100D565C4 /* lineupUI_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46D421766DA100D565C4 /* lineupUI_Test.swift */; };
+		276B46D521766DA100D565C4 /* playerManagerUI_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46D421766DA100D565C4 /* playerManagerUI_Test.swift */; };
+		276B46D72177D86B00D565C4 /* DefaultUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46D62177D86B00D565C4 /* DefaultUITextField.swift */; };
 		2786CCCE2144B571003539A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
@@ -37,7 +37,6 @@
 		6346B811214AB765000B0B6E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B810214AB765000B0B6E /* UserModel.swift */; };
 		6346B813214AB76E000B0B6E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B812214AB76E000B0B6E /* TeamModel.swift */; };
 		6346B815214AB779000B0B6E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B814214AB779000B0B6E /* Team.swift */; };
-		6350451721626249003A046C /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350451621626249003A046C /* UserAuth.swift */; };
 		6350451F2163977C003A046C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350451E2163977C003A046C /* GameViewController.swift */; };
 		6368B40621760B2A004E30DA /* LayupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368B40521760B2A004E30DA /* LayupViewController.swift */; };
 		6374F5622172514E00E3BBF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
@@ -92,8 +91,6 @@
 /* Begin PBXFileReference section */
 		27185E192173EE1800B69950 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		27185E222174370F00B69950 /* userAuth.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuth.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		27185E242174370F00B69950 /* userAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAuth.swift; sourceTree = "<group>"; };
-		27185E262174370F00B69950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
 		274A641D2164051700F0F4E7 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		274A64232164451E00F0F4E7 /* userAuthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +111,8 @@
 		276B46CA21766D8E00D565C4 /* lineupUITest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lineupUITest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B46CC21766D8E00D565C4 /* lineupUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineupUITest.swift; sourceTree = "<group>"; };
 		276B46CE21766D8E00D565C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		276B46D421766DA100D565C4 /* lineupUI_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineupUI_Test.swift; sourceTree = "<group>"; };
+		276B46D421766DA100D565C4 /* playerManagerUI_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerManagerUI_Test.swift; sourceTree = "<group>"; };
+		276B46D62177D86B00D565C4 /* DefaultUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUITextField.swift; sourceTree = "<group>"; };
 		2786CCCD2144B571003539A2 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		2786CCD1214580B3003539A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerViewController.swift; sourceTree = "<group>"; };
@@ -128,8 +126,6 @@
 		6346B812214AB76E000B0B6E /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		6346B814214AB779000B0B6E /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		6350451421626249003A046C /* basketball-appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "basketball-appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6350451621626249003A046C /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
-		6350451821626249003A046C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6350451E2163977C003A046C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		6368B40521760B2A004E30DA /* LayupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayupViewController.swift; sourceTree = "<group>"; };
 		63C79FCB21403291006726C3 /* basketball-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basketball-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,15 +218,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		27185E232174370F00B69950 /* userAuth */ = {
-			isa = PBXGroup;
-			children = (
-				27185E242174370F00B69950 /* userAuth.swift */,
-				27185E262174370F00B69950 /* Info.plist */,
-			);
-			path = userAuth;
-			sourceTree = "<group>";
-		};
 		274A641C216403C800F0F4E7 /* Lineup */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,7 +240,7 @@
 		276B46CB21766D8E00D565C4 /* lineupUITest */ = {
 			isa = PBXGroup;
 			children = (
-				276B46D421766DA100D565C4 /* lineupUI_Test.swift */,
+				276B46D421766DA100D565C4 /* playerManagerUI_Test.swift */,
 				276B46CC21766D8E00D565C4 /* lineupUITest.swift */,
 				276B46CE21766D8E00D565C4 /* Info.plist */,
 			);
@@ -271,22 +258,11 @@
 			path = PlayerManager;
 			sourceTree = "<group>";
 		};
-		6350451521626249003A046C /* basketball-appTests */ = {
-			isa = PBXGroup;
-			children = (
-				6350451621626249003A046C /* UserAuth.swift */,
-				6350451821626249003A046C /* Info.plist */,
-			);
-			path = "basketball-appTests";
-			sourceTree = "<group>";
-		};
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
 				63C79FCD21403291006726C3 /* basketball-app */,
-				6350451521626249003A046C /* basketball-appTests */,
 				274A64242164451E00F0F4E7 /* userAuthUITests */,
-				27185E232174370F00B69950 /* userAuth */,
 				276B46CB21766D8E00D565C4 /* lineupUITest */,
 				63C79FCC21403291006726C3 /* Products */,
 				165C386DCD297A94D812A1E2 /* Pods */,
@@ -335,6 +311,7 @@
 				98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */,
 				63247DF52171455A00137FC3 /* ShotChartViewController.swift */,
 				6368B40521760B2A004E30DA /* LayupViewController.swift */,
+				276B46D62177D86B00D565C4 /* DefaultUITextField.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -621,7 +598,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27185E252174370F00B69950 /* userAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,7 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				276B46D521766DA100D565C4 /* lineupUI_Test.swift in Sources */,
+				276B46D521766DA100D565C4 /* playerManagerUI_Test.swift in Sources */,
 				276B46CD21766D8E00D565C4 /* lineupUITest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,7 +629,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6350451721626249003A046C /* UserAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +667,7 @@
 				63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */,
 				98588C61216511E300DA226C /* PlaybookCell.swift in Sources */,
 				98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */,
+				276B46D72177D86B00D565C4 /* DefaultUITextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
