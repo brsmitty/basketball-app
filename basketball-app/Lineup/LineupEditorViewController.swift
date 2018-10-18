@@ -36,7 +36,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    @IBOutlet weak var playerThreePos: UILabel!
    @IBOutlet weak var playerFourPos: UILabel!
    @IBOutlet weak var playerFivePos: UILabel!
-   @IBOutlet weak var saveButton: UIBarButtonItem!
+   @IBOutlet weak var saveButton: UIButton!
+   @IBOutlet weak var cancelButton: UIButton!
+   
    
    @IBOutlet weak var tableDropDownOne: UITableView!
    @IBOutlet weak var tableDropDownOneHC: NSLayoutConstraint!
@@ -123,8 +125,23 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
          positionFour.text = positions![3]
          positionFive.text = positions![4]
       }
-      updateSaveButtonState()
-    }
+      
+      let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+      tap.cancelsTouchesInView = false
+      self.view.addGestureRecognizer(tap)
+      
+      
+      // Listen for keyboard events
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+   }
+   
+   deinit {
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+   }
    
    override func viewWillAppear(_ animated: Bool) {
     let defaults = UserDefaults.standard
@@ -156,12 +173,15 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       self.tableDropDownFourHC.constant = 0
       self.tableDropDownFiveHC.constant = 0
       self.lineupName.delegate = self
+      updateSaveButtonState()
       self.lineupName.becomeFirstResponder()
       playerOneClear.isEnabled = false;
       playerTwoClear.isEnabled = false;
       playerThreeClear.isEnabled = false;
       playerFourClear.isEnabled = false;
       playerFiveClear.isEnabled = false;
+      saveButton.layer.cornerRadius = 5
+      cancelButton.layer.cornerRadius = 5
    }
    
    override func viewWillDisappear(_ animated: Bool) {
@@ -173,6 +193,16 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+   
+   @objc func keyboardWillChange(notification: Notification){
+      
+      if notification.name == Notification.Name.UIKeyboardWillChangeFrame || notification.name == Notification.Name.UIKeyboardWillShow{
+         
+         view.frame.origin.y = -90
+      }else {
+         view.frame.origin.y = 0
+      }
+   }
     
 
    
@@ -466,17 +496,17 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    
-   @IBAction func cancel(_ sender: UIBarButtonItem) {
-      let isPresentingInAddMealMode = presentingViewController is UINavigationController
+   @IBAction func cancel(_ sender: UIButton) {
+      let isPresentingInAddLineupMode = presentingViewController is LineupManagerViewController
       
-      if isPresentingInAddMealMode {
+      if isPresentingInAddLineupMode {
          dismiss(animated: true, completion: nil)
       }
       else if let owningNavigationController = navigationController{
          owningNavigationController.popViewController(animated: true)
       }
       else {
-         fatalError("The MealViewController is not inside a navigation controller.")
+         fatalError("The LineupViewController is not inside a navigation controller.")
       }
    }
    
@@ -579,8 +609,10 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       let namesI = names ?? nil
       let filled = positionsFilled()
       if((player1 != nil) && (player2 != nil) && (player3 != nil) && (player4 != nil) && (player5 != nil) && (!text.isEmpty) && (namesI != nil && (!(namesI?.contains(lineupName.text!))!) || edited == true) && filled){
+         saveButton.titleLabel!.text = "SAVE"
          saveButton.isEnabled = true
       }else{
+         saveButton.titleLabel?.text = ""
          saveButton.isEnabled = false
       }
 //      if let namesI = self.names{
@@ -678,6 +710,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
    }
    
    func closeAllTables(){
+      
       UIView.animate(withDuration: 0.5){
          self.tableDropDownFiveHC.constant = 0
          self.tableIsVisible = false
@@ -713,14 +746,9 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       let five = positionFive.text ?? nil
       return (!(one?.isEmpty)! && !(two?.isEmpty)! && !(three?.isEmpty)! && !(four?.isEmpty)! && !(five?.isEmpty)!)
    }
-   @IBAction func unselectAll(_ sender: UITapGestureRecognizer) {
+
+   @IBAction func closeAllTables(_ sender: UITapGestureRecognizer) {
       closeAllTables()
-      lineupName.resignFirstResponder()
-      positionFive.resignFirstResponder()
-      positionFour.resignFirstResponder()
-      positionThree.resignFirstResponder()
-      positionTwo.resignFirstResponder()
-      positionOne.resignFirstResponder()
    }
 }
 
