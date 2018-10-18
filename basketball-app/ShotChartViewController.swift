@@ -12,7 +12,6 @@ class ShotChartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Success: loaded regular shot chart")
     }
     
     @IBOutlet weak var chartView: UIImageView!
@@ -28,7 +27,6 @@ class ShotChartViewController: UIViewController {
         let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
         let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded made shot at x, y coordinates below")
             print(position.x)
             print(position.y)
             UIView.setAnimationsEnabled(false)
@@ -36,7 +34,6 @@ class ShotChartViewController: UIViewController {
         }
         let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded missed shot at x, y coordinates below")
             print(position.x)
             print(position.y)
             UIView.setAnimationsEnabled(false)

@@ -41,7 +41,6 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getRoster()
-        //retrieveGameState()
     }
     
     override func viewDidLoad() {
@@ -54,26 +53,7 @@ class GameViewController: UIViewController {
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
     }
-    
-    // GAME STATE FUNCTIONS ///////////////////////////////////////////////
-    
-    /*func retrieveGameState(){
-        defaults.set([:], forKey: "gameState")
-        gameState = defaults.object(forKey: "gameState") as! [String: Any]
-        print(gameState)
-        if (gameState.count == 0){
-            getRoster()
-        }
-    }
-    
-    func saveGameState(){
-        defaults.set(gameState, forKey: "gameState")
-    }
-    
-    func resetGameState(){
-        defaults.set([:], forKey: "gameState")
-    }*/
-    
+
     // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
     
     func getRoster(){
@@ -91,7 +71,6 @@ class GameViewController: UIViewController {
             }
             self.gameState["roster"] = roster
             self.createPlayerObjectsFromRoster(roster: roster)
-//            self.saveGameState()
         }) { (error) in //error pulling roster from firebase
             print(error.localizedDescription)
         }
@@ -161,7 +140,6 @@ class GameViewController: UIViewController {
     //shot detected, display full shot chart for placement of shot location
     @IBAction func handleShot(_ recognizer: UITapGestureRecognizer) {
         UIView.setAnimationsEnabled(false)
-//        saveGameState()
         self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
     }
     
@@ -202,7 +180,7 @@ class GameViewController: UIViewController {
         let popupForOffensivePlayerOptions = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
         let turnoverBtn = UIAlertAction(title: "Turnover", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            self.handleTurnover()
+            self.handleTurnover(index: index)
         }
         let foulBtn = UIAlertAction(title: "Foul", style: UIAlertActionStyle.default) {
             UIAlertAction in
@@ -235,7 +213,6 @@ class GameViewController: UIViewController {
     //layup detected, display paint image for more accurate placement of layup shot location
     func handleLayup(playerIndex: Int){
         UIView.setAnimationsEnabled(false)
-//        saveGameState()
         self.performSegue(withIdentifier: "layupSegue", sender: nil)
     }
     
@@ -245,8 +222,9 @@ class GameViewController: UIViewController {
     }
     
     //turnover recorded, change possession
-    func handleTurnover(){
-
+    func handleTurnover(index: Int){
+        let playerObject = self.activeObjects[index - 1]! as Player
+        playerObject.updateTurnovers(turnovers: 1)
     }
     
     //jump ball recorded, determine outcome and set possession accordingly
@@ -271,7 +249,8 @@ class GameViewController: UIViewController {
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(index: Int){
-        
+        let playerObject = self.activeObjects[index - 1]! as Player
+        playerObject.updatePersonalFouls(fouls: 1)
     }
     
     //player sub detected, display bench players and update active[String] accordingly
@@ -312,6 +291,35 @@ class GameViewController: UIViewController {
     }
     
     func syncSinglePlayerObjectToFirebase(index: Int){
-        
+        let playerObject = self.activeObjects[index - 1]! as Player
+        let playerData : [String: Any] = ["pid":  playerObject.playerId,
+                                          "tid": playerObject.teamId,
+                                          "fname": playerObject.firstName,
+                                          "lname": playerObject.lastName,
+                                          "photo": "",
+                                          "height": playerObject.height,
+                                          "weight": playerObject.weight,
+                                          "rank": playerObject.rank,
+                                          "position": playerObject.position,
+                                          "points": playerObject.points,
+                                          "assists": playerObject.assists,
+                                          "turnovers": playerObject.turnovers,
+                                          "threePtAtt": playerObject.threePtAtt,
+                                          "twoPtAtt": playerObject.twoPtAtt,
+                                          "threePtMade": playerObject.threePtMade,
+                                          "twoPtMade": playerObject.twoPtMade,
+                                          "ftAtt": playerObject.ftAtt,
+                                          "ftMade": playerObject.ftMade,
+                                          "offRebounds": playerObject.offRebounds,
+                                          "defRebounds": playerObject.defRebounds,
+                                          "steals": playerObject.steals,
+                                          "blocks": playerObject.blocks,
+                                          "deflections": playerObject.deflections,
+                                          "personalFoul": playerObject.personalFoul,
+                                          "techFoul": playerObject.techFoul,
+                                          "chargesTaken": playerObject.chargesTaken]
+        let firebaseRef = Database.database().reference(withPath: "teams")
+        let teamRosterRef = firebaseRef.child(playerObject.teamId).child("roster")
+        teamRosterRef.child(playerObject.playerId).setValue(playerData)
     }
 }
