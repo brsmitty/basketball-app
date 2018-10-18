@@ -20,6 +20,8 @@ class GameViewController: UIViewController {
     var possessionArrow: String = "" //possession arrow for jump balls
     var ballIndex : Int = 0 //keeps track of the index of the player who currently has the ball. alligned with active[String]
     var active = [String?](repeating: nil, count: 5) //String array of the PIDs of all 5 players on the floor currently, starts as nil until intial subs are made
+    var activeObjects = [Player?](repeating: nil, count: 5) //parallel to active, contains all player objects
+    var roster = [Player?](repeating: nil, count: 20)
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
     var panEndPoint = CGPoint() //end point of any given pan gesture
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
@@ -96,17 +98,37 @@ class GameViewController: UIViewController {
     }
     
     func createPlayerObjectsFromRoster(roster: [String: Any]){
+        var i: Int = 0
         for player in roster {
-            /*var p = Player(firstName: String,
-                           lastName: <#T##String#>,
-                           photo: <#T##UIImage?#>,
-                           position: <#T##String#>,
-                           height: <#T##String#>,
-                           weight: <#T##String#>,
-                           rank: <#T##String#>,
-                           playerId: <#T##String#>,
-                           teamId: <#T##String#>,
-                           stats: <#T##[String : Int]#>)*/
+            let p = player.value as! [String: Any]
+            let playerObject = Player(firstName: p["fname"] as! String,
+                           lastName: p["lname"] as! String,
+                           photo: nil,
+                           position: p["position"] as! String,
+                           height: p["height"] as! String,
+                           weight: p["weight"] as! String,
+                           rank: p["rank"] as! String,
+                           playerId: p["pid"] as! String,
+                           teamId: p["tid"] as! String,
+                           points: p["points"] as! Int,
+                           assists: p["assists"] as! Int,
+                           turnovers: p["turnovers"] as! Int,
+                           threePtAtt: p["threePtAtt"] as! Int,
+                           twoPtAtt: p["twoPtAtt"] as! Int,
+                           threePtMade: p["threePtMade"] as! Int,
+                           twoPtMade: p["twoPtMade"] as! Int,
+                           ftAtt: p["ftAtt"] as! Int,
+                           ftMade: p["ftMade"] as! Int,
+                           offRebounds: p["offRebounds"] as! Int,
+                           defRebounds: p["defRebounds"] as! Int,
+                           steals: p["steals"] as! Int,
+                           blocks: p["blocks"] as! Int,
+                           deflections: p["deflections"] as! Int,
+                           personalFoul: p["personalFoul"] as! Int,
+                           techFoul: p["techFoul"] as! Int,
+                           chargesTaken: p["chargesTaken"] as! Int)
+            self.roster[i] = playerObject
+            i += 1
         }
     }
     
@@ -265,6 +287,7 @@ class GameViewController: UIViewController {
                 benchPlayer = UIAlertAction(title: "\(fname) \(lname)", style: UIAlertActionStyle.default) {
                     UIAlertAction in
                     self.active[index - 1] = pid
+                    self.activeObjects[index - 1] = self.getPlayerObject(pid: pid)
                 }
                 popupForBenchedPlayersToSub.addAction(benchPlayer)
             }
@@ -273,5 +296,22 @@ class GameViewController: UIViewController {
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
         present(popupForBenchedPlayersToSub, animated: true)
+    }
+    
+    func getPlayerObject(pid: String) -> Player{
+        for player in roster{
+            if (player!.playerId == pid){
+                return player!
+            }
+        }
+        return Player(firstName: "", lastName: "", photo: nil, position: "", height: "", weight: "", rank: "", playerId: "", teamId: "")
+    }
+    
+    func syncAllPlayerObjectsToFirebase(){
+        
+    }
+    
+    func syncSinglePlayerObjectToFirebase(index: Int){
+        
     }
 }

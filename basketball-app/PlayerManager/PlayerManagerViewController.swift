@@ -226,13 +226,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func populateStats(with player: Player){
       
       pointsCell.text = String(player.points)
-      twoPoint.text = String(player.fgMade.twoPoint)
-      threePoint.text = String(player.fgMade.threePoint)
+      twoPoint.text = String(player.twoPtMade)
+      threePoint.text = String(player.threePtMade)
       oRebound.text = String(player.offRebounds)
       pFouls.text = String(player.personalFoul)
       assistsCell.text = String(player.assists)
-      fGoalCell.text = String(player.fgAttempts.twoPoint)
-      freeThrowPerc.text = String(player.ftAttempts)
+      fGoalCell.text = String(player.twoPtAtt)
+      freeThrowPerc.text = String(player.ftAtt)
       freeThrowMade.text = String(player.ftMade)
       tFoulCell.text = String(player.techFoul)
       stealsCell.text = String(player.steals)
@@ -351,18 +351,20 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "points": 0,
                                        "assists": 0,
                                        "turnovers": 0,
-                                       "fgAttempts": ["threePoint": 0, "twoPoint": 0, "total": 0],
-                                       "fgMade": ["threePoint": 0, "twoPoint": 0, "total": 0],
+                                       "threePtAtt": 0,
+                                       "twoPtAtt": 0,
+                                       "threePtMade": 0,
+                                       "twoPtMade": 0,
+                                       "ftAtt": 0,
+                                       "ftMade": 0,
                                        "offRebounds": 0,
                                        "defRebounds": 0,
-                                       "ftAttempts": 0,
-                                       "ftMade": 0,
                                        "steals": 0,
-                                       "deflections": 0,
                                        "blocks": 0,
+                                       "deflections": 0,
                                        "personalFoul": 0,
-                                       "chargesTaken": 0,
-                                       "techFoul": 0]
+                                        "techFoul": 0,
+                                       "chargesTaken": 0]
       playerRef.setValue(playerData)
         addPlayerToTeam(data: playerData, tid: tid)
    }
