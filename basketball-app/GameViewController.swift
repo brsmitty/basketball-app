@@ -143,6 +143,13 @@ class GameViewController: UIViewController {
         self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
     }
     
+    @IBAction func handleDribble(_ sender: UITapGestureRecognizer) {
+        if (determineBoxIndex(point: sender.location(in: self.courtView)) == ballIndex){
+            print("dribble")
+        }
+    }
+    
+    
     // GENERAL HELPER FUNCTIONS ///////////////////////////////////////////////
     
     //returns index in active[String] and boxRects[CGRect] of hitbox which was targeted, given the coordinate point of the user interaction(s). return 999 for empty gesture, i.e. swipe to random spot on court

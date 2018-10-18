@@ -1889,6 +1889,7 @@
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="bd5-OU-xAH" appends="YES" id="seu-ZZ-c27"/>
                                             <outletCollection property="gestureRecognizers" destination="CG7-jB-azx" appends="YES" id="YiP-Gp-ncU"/>
+                                            <outletCollection property="gestureRecognizers" destination="m7L-Sz-02X" appends="YES" id="7Yo-0k-v9A"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-Y0-kG6">
@@ -1898,6 +1899,7 @@
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="cAe-hd-hUA" appends="YES" id="dn7-qf-eEC"/>
                                             <outletCollection property="gestureRecognizers" destination="Rgt-dx-MXi" appends="YES" id="QH3-6I-oOD"/>
+                                            <outletCollection property="gestureRecognizers" destination="8yS-Nc-tSi" appends="YES" id="VjU-zb-Tfv"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="iFf-z6-Xqm">
@@ -1907,6 +1909,7 @@
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="aum-kl-6a9" appends="YES" id="17V-rS-ouW"/>
                                             <outletCollection property="gestureRecognizers" destination="9dE-7D-Wd5" appends="YES" id="5fa-Xp-ZCX"/>
+                                            <outletCollection property="gestureRecognizers" destination="5r7-gd-WB7" appends="YES" id="3ky-it-vVM"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
@@ -1916,6 +1919,7 @@
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="PC4-by-xec" appends="YES" id="ppI-SU-nuM"/>
                                             <outletCollection property="gestureRecognizers" destination="TD6-4R-inY" appends="YES" id="2DT-50-f6g"/>
+                                            <outletCollection property="gestureRecognizers" destination="NJL-hZ-Pzz" appends="YES" id="VNz-Xq-Fvl"/>
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-G9-3Xm">
@@ -1925,6 +1929,7 @@
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="mZy-Hn-wwd" appends="YES" id="IDT-rv-8Ez"/>
                                             <outletCollection property="gestureRecognizers" destination="EK9-5C-5Ub" appends="YES" id="dHY-ft-QMl"/>
+                                            <outletCollection property="gestureRecognizers" destination="CWf-1y-590" appends="YES" id="gFZ-pG-0L7"/>
                                         </connections>
                                     </imageView>
                                 </subviews>
@@ -2003,6 +2008,15 @@
                         <action selector="handleShot:" destination="jGW-SO-mMU" id="RhP-E4-Uhd"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="CWf-1y-590"/>
+                <tapGestureRecognizer id="NJL-hZ-Pzz"/>
+                <tapGestureRecognizer id="m7L-Sz-02X">
+                    <connections>
+                        <action selector="handleDribble:" destination="jGW-SO-mMU" id="caN-Fn-1AY"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="8yS-Nc-tSi"/>
+                <tapGestureRecognizer id="5r7-gd-WB7"/>
             </objects>
             <point key="canvasLocation" x="1795.8984374999998" y="-1809.375"/>
         </scene>
@@ -2770,6 +2784,7 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="SJv-Yq-Kco"/>
         <segue reference="6q6-o3-KoC"/>
         <segue reference="rkw-yI-9zs"/>
         <segue reference="KUT-zL-ifF"/>
