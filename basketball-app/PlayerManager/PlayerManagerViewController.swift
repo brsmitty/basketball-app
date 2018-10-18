@@ -80,7 +80,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       self.tableView.dataSource = self
       self.tableView.delegate = self
       
-      self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+      let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+      tap.cancelsTouchesInView = false
+      self.view.addGestureRecognizer(tap)
       addButton.layer.cornerRadius = 5
       saveButton.layer.cornerRadius = 5
       editButton.layer.cornerRadius = 5
@@ -114,7 +116,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       createHeightPicker()
       createClassPicker()
       createToolbar()
-      self.navigationController?.setNavigationBarHidden(false, animated: false)
    }
    
    override func viewWillDisappear(_ animated: Bool) {

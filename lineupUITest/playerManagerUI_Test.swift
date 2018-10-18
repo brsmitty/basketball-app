@@ -33,7 +33,6 @@ class playerManagerUI_Test: XCTestCase {
       let app = XCUIApplication()
       app.otherElements.containing(.image, identifier:"welcomeBar").children(matching: .button).element(boundBy: 3).tap()
       
-      let teamPlayerManagerNavigationBar = app.navigationBars["Team Player Manager"]
       let addButton = app.buttons["ADD PLAYER"]
       addButton.tap()
       
@@ -157,6 +156,31 @@ class playerManagerUI_Test: XCTestCase {
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       saveButton.tap()
+      
+   }
+   
+   func testSaveEditPlayer(){
+      
+      
+      
+      let app = XCUIApplication()
+      app.otherElements.containing(.image, identifier:"welcomeBar").children(matching: .button).element(boundBy: 3).tap()
+      app.tables/*@START_MENU_TOKEN@*/.staticTexts["Michael White"]/*[[".cells.staticTexts[\"Michael White\"]",".staticTexts[\"Michael White\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+      app.buttons["EDIT"].tap()
+      let firstTextField = app.textFields["First"]
+      firstTextField.typeText("Michael")
+      app.buttons["SAVE"].tap()
+      
+   }
+   
+   func testCancelEditPlayer(){
+      let app = XCUIApplication()
+      app.otherElements.containing(.image, identifier:"welcomeBar").children(matching: .button).element(boundBy: 3).tap()
+      app.tables/*@START_MENU_TOKEN@*/.staticTexts["Michael White"]/*[[".cells.staticTexts[\"Michael White\"]",".staticTexts[\"Michael White\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+      app.buttons["EDIT"].tap()
+      let firstTextField = app.textFields["First"]
+      firstTextField.typeText("Michael")
+      app.buttons["CANCEL"].tap()
       
    }
    
