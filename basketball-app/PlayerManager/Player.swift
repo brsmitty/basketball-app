@@ -9,113 +9,101 @@
 import UIKit
 import FirebaseDatabase
 
-struct FGMade {
-    var total:Int = 0
-    var threePoint:Int = 0
-    var twoPoint:Int = 0
-}
-
-struct FGAttempts {
-    var total:Int = 0
-    var threePoint:Int = 0
-    var twoPoint:Int = 0
-}
-
 class Player: NSObject {
    
    // MARK: Properties
    
-   var playerId:String
+    var playerId:String
     var teamId: String
-   var firstName:String
-   var lastName:String
-   var photo: UIImage?
-   var position:String
-   var height:String
-   var weight:String
-   var rank:String
-   var points:Int
-   var assists:Int
-   var turnovers:Int
-   var fgAttempts = FGAttempts()
-   var fgMade = FGMade()
-   var offRebounds:Int
-   var ftAttempts:Int
-   var ftMade:Int
-   var steals:Int
-   var defRebounds:Int
-   var deflections:Int
-   var blocks:Int
-   var personalFoul:Int
-   var chargesTaken:Int
-   var techFoul:Int
+    
+    var firstName:String
+    var lastName:String
+    var height:String
+    var weight:String
+    var position:String
+    var rank:String
+    var photo: UIImage?
+    
+    var points:Int
+    var assists:Int
+    var turnovers:Int
+    var threePtAtt: Int
+    var twoPtAtt: Int
+    var threePtMade: Int
+    var twoPtMade: Int
+    var ftAtt:Int
+    var ftMade:Int
+    var offRebounds:Int
+    var defRebounds:Int
+    var steals:Int
+    var blocks:Int
+    var deflections:Int
+    var personalFoul:Int
+    var techFoul:Int
+    var chargesTaken:Int
    
    // MARK: Initialization
    
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
-      
-      // Fail init without name
-
-      // Initialize stored parameters
-      self.playerId = playerId
-      self.teamId =  teamId
-      self.firstName = firstName
-      self.lastName = lastName
-      self.photo = photo
-      self.height = height
-      self.weight = weight
-      self.rank = rank
-      self.position = position
-      self.points = 0
-      self.assists = 0
-      self.turnovers = 0
-      self.fgAttempts.threePoint = 0
-      self.fgAttempts.twoPoint = 0
-      self.fgAttempts.total = self.fgAttempts.threePoint + self.fgAttempts.twoPoint
-      self.fgMade.threePoint = 0
-      self.fgMade.twoPoint = 0
-      self.fgMade.total = self.fgMade.threePoint + self.fgMade.twoPoint
-      self.offRebounds = 0
-      self.ftAttempts = 0
-      self.ftMade = 0
-      self.steals = 0
-      self.defRebounds = 0
-      self.deflections = 0
-      self.blocks = 0
-      self.personalFoul = 0
-      self.chargesTaken = 0
-      self.techFoul = 0
-   }
-    
-    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, stats: [String: Int]){
         self.playerId = playerId
         self.teamId =  teamId
+
         self.firstName = firstName
         self.lastName = lastName
-        self.photo = photo
         self.height = height
         self.weight = weight
-        self.rank = rank
         self.position = position
-        self.points = stats["points"] ?? 0
-        self.assists = stats["assists"] ?? 0
-        self.turnovers = stats["turnovers"] ?? 0
-        self.fgAttempts.threePoint = stats["fgThreePointAttempts"] ?? 0
-        self.fgAttempts.twoPoint = stats["fgTwoPointAttempts"] ?? 0
-        self.fgAttempts.total = self.fgAttempts.threePoint + self.fgAttempts.twoPoint
-        self.fgMade.threePoint = stats["fgThreePointMade"] ?? 0
-        self.fgMade.twoPoint = stats["fgTwoPointMade"] ?? 0
-        self.fgMade.total = self.fgMade.threePoint + self.fgMade.twoPoint
-        self.offRebounds = stats["offRebounds"] ?? 0
-        self.ftAttempts = stats["ftAttempts"] ?? 0
-        self.ftMade = stats["ftMade"] ?? 0
-        self.steals = stats["steals"] ?? 0
-        self.defRebounds = stats["defRebounds"] ?? 0
-        self.deflections = stats["deflections"] ?? 0
-        self.blocks = stats["blocks"] ?? 0
-        self.personalFoul = stats["personalFoul"] ?? 0
-        self.chargesTaken = stats["chargesTaken"] ?? 0
-        self.techFoul = stats["techFouls"] ?? 0
+        self.rank = rank
+        self.photo = photo
+
+        self.points = 0
+        self.assists = 0
+        self.turnovers = 0
+        self.threePtAtt = 0
+        self.twoPtAtt = 0
+        self.threePtMade = 0
+        self.twoPtMade = 0
+        self.ftAtt = 0
+        self.ftMade = 0
+        self.offRebounds = 0
+        self.defRebounds = 0
+        self.steals = 0
+        self.blocks = 0
+        self.deflections = 0
+        self.personalFoul = 0
+        self.techFoul = 0
+        self.chargesTaken = 0
+   }
+    
+    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, points: Int, assists: Int, turnovers: Int, threePtAtt: Int, twoPtAtt: Int, threePtMade: Int, twoPtMade: Int, ftAtt: Int, ftMade: Int, offRebounds: Int, defRebounds: Int, steals: Int, blocks: Int, deflections: Int, personalFoul: Int, techFoul: Int, chargesTaken: Int){
+        self.playerId = playerId
+        self.teamId =  teamId
+        
+        self.firstName = firstName
+        self.lastName = lastName
+        self.height = height
+        self.weight = weight
+        self.position = position
+        self.rank = rank
+        self.photo = photo
+        
+        self.points = points
+        self.assists = assists
+        self.turnovers = turnovers
+        self.threePtAtt = threePtAtt
+        self.twoPtAtt = twoPtAtt
+        self.threePtMade = threePtMade
+        self.twoPtMade = twoPtMade
+        self.ftAtt = ftAtt
+        self.ftMade = ftMade
+        self.offRebounds = offRebounds
+        self.defRebounds = defRebounds
+        self.steals = steals
+        self.blocks = blocks
+        self.deflections = deflections
+        self.personalFoul = personalFoul
+        self.techFoul = techFoul
+        self.chargesTaken = chargesTaken
     }
     
     func updatePoints(points: Int){
@@ -131,11 +119,11 @@ class Player: NSObject {
     }
     
     func updateThreePointMade(made: Int){
-        self.fgMade.threePoint += made
+        self.threePtMade += made
     }
     
     func updateTwoPointMade(made: Int){
-        self.fgMade.twoPoint += made
+        self.twoPtMade += made
     }
     
     func updateFreeThrowMade(made: Int){
@@ -143,15 +131,15 @@ class Player: NSObject {
     }
     
     func updateThreePointAttempt(attempted: Int){
-        self.fgAttempts.threePoint += attempted
+        self.threePtAtt += attempted
     }
     
     func updateTwoPointAttempt(attempted: Int){
-        self.fgAttempts.twoPoint += attempted
+        self.twoPtAtt += attempted
     }
     
     func updateFreeThrowAttempt(attempted: Int){
-        self.ftAttempts += attempted
+        self.ftAtt += attempted
     }
     
     func updatePersonalFouls(fouls: Int){

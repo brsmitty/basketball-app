@@ -10,9 +10,23 @@ import UIKit
 
 class ShotChartViewController: UIViewController {
     
+    var state: [String: Any] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Success: loaded regular shot chart")
+        print(state)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToGameViewSegue" {
+            if let destination = segue.destination as? GameViewController {
+                state["twoPtAtt"] = 1
+                state["twoPtMake"] = 1
+                state["points"] = 2
+                destination.state = state
+            }
+        }
     }
     
     @IBOutlet weak var chartView: UIImageView!
@@ -28,16 +42,16 @@ class ShotChartViewController: UIViewController {
         let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
         let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded made shot at x, y coordinates below")
             print(position.x)
             print(position.y)
+            UIView.setAnimationsEnabled(false)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
         let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded missed shot at x, y coordinates below")
             print(position.x)
             print(position.y)
+            UIView.setAnimationsEnabled(false)
             self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
         }
         popupForShotOutcome.addAction(madeShot)

@@ -12,7 +12,6 @@ class LayupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Success: loaded layup shot chart")
     }
     
     @IBOutlet weak var chartView: UIImageView!
@@ -28,17 +27,17 @@ class LayupViewController: UIViewController {
         let ac = UIAlertController(title: "Shot Result?", message: "", preferredStyle: .actionSheet)
         let madeBtn = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded made layup at x, y coordinates below")
             print(position.x)
             print(position.y)
-            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+            UIView.setAnimationsEnabled(false)
+            self.performSegue(withIdentifier: "backToGameViewSegue2", sender: nil)
         }
         let missedBtn = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            print("Success: recorded missed layup at x, y coordinates below")
             print(position.x)
             print(position.y)
-            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+            UIView.setAnimationsEnabled(false)
+            self.performSegue(withIdentifier: "backToGameViewSegue2", sender: nil)
         }
         ac.addAction(madeBtn)
         ac.addAction(missedBtn)
