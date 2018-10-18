@@ -2105,6 +2105,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="484-X1-sBO" kind="show" id="ViG-cS-jwd"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbm-eb-8sO" userLabel="settingsButton">
                                 <rect key="frame" x="985" y="30" width="8" height="35"/>
@@ -2265,7 +2268,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-CE-oeS">
-                                        <rect key="frame" x="43" y="51" width="102" height="64"/>
+                                        <rect key="frame" x="43" y="51" width="101.5" height="64"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="Main Menu">
@@ -2801,9 +2804,10 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="JTi-sR-lQD"/>
         <segue reference="UGe-Oh-QD3"/>
-        <segue reference="rkw-yI-9zs"/>
+        <segue reference="5E9-9j-04f"/>
         <segue reference="KUT-zL-ifF"/>
-        <segue reference="ghn-UH-XNA"/>
+        <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>
 </document>
