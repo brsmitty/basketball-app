@@ -49,6 +49,8 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    var playerFour: Player?
    var playerFive: Player?
    
+   @IBOutlet weak var addLineupButton: UIButton!
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       
@@ -69,6 +71,8 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       }
       self.navigationController?.setNavigationBarHidden(false, animated: false)
       getLineups()
+      
+      addLineupButton.layer.cornerRadius = 5
    }
    
    override func viewWillDisappear(_ animated: Bool) {

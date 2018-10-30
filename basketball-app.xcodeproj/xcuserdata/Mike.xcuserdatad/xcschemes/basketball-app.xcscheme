@@ -32,6 +32,26 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "276B46C921766D8E00D565C4"
+               BuildableName = "lineupUITest.xctest"
+               BlueprintName = "lineupUITest"
+               ReferencedContainer = "container:basketball-app.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "987B3081217834E10010F3A6"
+               BuildableName = "gestureUITests.xctest"
+               BlueprintName = "gestureUITests"
+               ReferencedContainer = "container:basketball-app.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "274A64222164451E00F0F4E7"
                BuildableName = "userAuthUITests.xctest"
                BlueprintName = "userAuthUITests"
@@ -42,9 +62,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "27185E212174370F00B69950"
-               BuildableName = "userAuth.xctest"
-               BlueprintName = "userAuth"
+               BlueprintIdentifier = "987B308F217840280010F3A6"
+               BuildableName = "subPlayersUITests.xctest"
+               BlueprintName = "subPlayersUITests"
                ReferencedContainer = "container:basketball-app.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -52,9 +72,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6350451321626249003A046C"
-               BuildableName = "basketball-appTests.xctest"
-               BlueprintName = "basketball-appTests"
+               BlueprintIdentifier = "27FC62D221790B6600DE6B08"
+               BuildableName = "playerManageTests.xctest"
+               BlueprintName = "playerManageTests"
                ReferencedContainer = "container:basketball-app.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -62,9 +82,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "276B46C921766D8E00D565C4"
-               BuildableName = "lineupUITest.xctest"
-               BlueprintName = "lineupUITest"
+               BlueprintIdentifier = "27FC62E021790B8500DE6B08"
+               BuildableName = "lineupManageTests.xctest"
+               BlueprintName = "lineupManageTests"
                ReferencedContainer = "container:basketball-app.xcodeproj">
             </BuildableReference>
          </TestableReference>
