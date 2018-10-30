@@ -17,18 +17,6 @@ class ShotChartViewController: UIViewController {
         print(state)
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "backToGameViewSegue" {
-            if let destination = segue.destination as? GameViewController {
-                state["twoPtAtt"] = 1
-                state["twoPtMake"] = 1
-                state["points"] = 2
-                destination.state = state
-            }
-        }
-    }
-    
     @IBOutlet weak var chartView: UIImageView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
