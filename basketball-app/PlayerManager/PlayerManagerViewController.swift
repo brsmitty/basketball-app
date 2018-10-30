@@ -617,8 +617,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
          fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
       }
-      
+      print(selectedImage)
+//    playerImage.layer.masksToBounds = true
+//    playerImage.clipsToBounds = true
+      playerImage.contentMode = .scaleAspectFit
       playerImage.image = selectedImage
+        
       
       dismiss(animated: true, completion: nil)
       

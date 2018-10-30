@@ -110,7 +110,7 @@ class Player: NSObject {
         self.points += points
     }
     
-    func updateAssists(assits: Int){
+    func updateAssists(assists: Int){
         self.assists += assists
     }
     

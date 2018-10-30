@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -1807,30 +1807,6 @@
             </objects>
             <point key="canvasLocation" x="2650.78125" y="176.5625"/>
         </scene>
-        <!--Layup View Controller-->
-        <scene sceneID="M4g-Ew-Nc6">
-            <objects>
-                <viewController id="GJf-Rq-iBH" customClass="LayupViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="V3Z-P7-bh2">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paint" translatesAutoresizingMaskIntoConstraints="NO" id="h1M-Jt-aX4">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="4UJ-NJ-rP9"/>
-                    </view>
-                    <connections>
-                        <segue destination="jGW-SO-mMU" kind="show" identifier="backToGameViewSegue2" id="rkw-yI-9zs"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2495.5078125" y="-2457.03125"/>
-        </scene>
         <!--Shot Chart View Controller-->
         <scene sceneID="68h-q4-66P">
             <objects>
@@ -1932,6 +1908,24 @@
                                             <outletCollection property="gestureRecognizers" destination="CWf-1y-590" appends="YES" id="gFZ-pG-0L7"/>
                                         </connections>
                                     </imageView>
+                                    <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1Y-oQ-2ZA">
+                                        <rect key="frame" x="40" y="610" width="100" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Charge"/>
+                                        <connections>
+                                            <action selector="handleCharge:" destination="jGW-SO-mMU" eventType="touchDown" id="Zmh-OG-X8n"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fo8-Oe-kHR">
+                                        <rect key="frame" x="884" y="610" width="100" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Tech Foul"/>
+                                        <connections>
+                                            <action selector="handleTechFoul:" destination="jGW-SO-mMU" eventType="touchDown" id="7Yr-d6-L9M"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -1958,7 +1952,6 @@
                         <outlet property="imagePlayer4" destination="iFf-z6-Xqm" id="nkR-N8-w4R"/>
                         <outlet property="imagePlayer5" destination="wI4-G9-3Xm" id="AyM-26-8tu"/>
                         <segue destination="LxQ-Ta-2eg" kind="show" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
-                        <segue destination="GJf-Rq-iBH" kind="show" identifier="layupSegue" id="SJv-Yq-Kco"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2013,11 +2006,7 @@
                         <action selector="handleLongPress:" destination="jGW-SO-mMU" id="Ogi-Bs-azE"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer id="dCX-mh-O30">
-                    <connections>
-                        <action selector="handleShot:" destination="jGW-SO-mMU" id="RhP-E4-Uhd"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="dCX-mh-O30"/>
                 <tapGestureRecognizer id="CWf-1y-590"/>
                 <tapGestureRecognizer id="NJL-hZ-Pzz"/>
                 <tapGestureRecognizer id="m7L-Sz-02X">
@@ -2823,10 +2812,9 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JTi-sR-lQD"/>
-        <segue reference="UGe-Oh-QD3"/>
+        <segue reference="6q6-o3-KoC"/>
         <segue reference="5E9-9j-04f"/>
         <segue reference="KUT-zL-ifF"/>
-        <segue reference="9D4-EJ-t0G"/>
+        <segue reference="h23-EV-ejH"/>
     </inferredMetricsTieBreakers>
 </document>

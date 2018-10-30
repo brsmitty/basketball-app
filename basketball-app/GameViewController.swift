@@ -13,18 +13,22 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
-    var gameBegan = false
-    var teamFouls = 0
-    var state: [String: Any] = [:]
-    let defaults = UserDefaults.standard
-    var gameState: [String: Any] = [:]
-    var tid : String = ""
-    var possession: String = "" //keeps track of whether current possession is offense or defense, starts as neither at beginning of the game, until a jump ball occurs
-    var possessionArrow: String = "" //possession arrow for jump balls
-    var ballIndex : Int = 0 //keeps track of the index of the player who currently has the ball. alligned with active[String]
-    var active = [String?](repeating: nil, count: 5) //String array of the PIDs of all 5 players on the floor currently, starts as nil until intial subs are made
-    var activeObjects = [Player?](repeating: nil, count: 5) //parallel to active, contains all player objects
+    let storage = UserDefaults.standard
+    var gameState: [String: Any] = ["began": false,
+                                    "possession": "",
+                                    "possessionArrow": "",
+                                    "teamFouls": 0,
+                                    "ballIndex": 999,
+                                    "assistingPlayerIndex": 999,
+                                    "roster": [],
+                                    "lineups": []]
+    
+    
+    var activePlayerIdStrings = [String?](repeating: nil, count: 5) //String array of the PIDs of all 5 players on the floor currently, starts as nil until intial subs are made
+    var activePlayerObjects = [Player?](repeating: nil, count: 5) //parallel to active, contains all player objects
+    
     var roster = [Player?](repeating: nil, count: 20)
+    
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
     var panEndPoint = CGPoint() //end point of any given pan gesture
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
@@ -48,7 +52,6 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(state)
         //init all hitbox rectangles from the UI Image Views
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
@@ -63,17 +66,19 @@ class GameViewController: UIViewController {
     func getRoster(){
         //grab persistently stored TID, pull roster from firebase
         var roster : [String: Any] = [:]
-        tid = defaults.string(forKey: "tid")!
+        let tid = storage.string(forKey: "tid")!
         let firebaseRef = Database.database().reference()
         firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? [String: Any]
+            var value = snapshot.value as? [String: Any]
             //fill roster dictionary with appropriate player values from firebase (key = PID, value = nested player dictionary)
+            if value == nil { value = [:] }
             for v in value! {
                 let key = v.key
                 let val = v.value as! [String: Any]
                 roster[key] = val
             }
             self.gameState["roster"] = roster
+            print(self.gameState)
             self.createPlayerObjectsFromRoster(roster: roster)
         }) { (error) in //error pulling roster from firebase
             print(error.localizedDescription)
@@ -120,17 +125,27 @@ class GameViewController: UIViewController {
     
     //handles passing swipe gestures from player to player, as well as layup swipe gestures from player to hoop
     @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        guard recognizer.view != nil else {return}
-        let player = recognizer.view!
-        let translation = recognizer.translation(in: player.superview)
-        if recognizer.state == .began {
-            self.panStartPoint = player.center
+        if gameState["began"] as! Bool {
+            guard recognizer.view != nil else {return}
+            let player = recognizer.view!
+            let translation = recognizer.translation(in: player.superview)
+            
+            if recognizer.state == .began { //get coordinates of the pan start
+                self.panStartPoint = player.center
+            }
+            if recognizer.state == .ended { //get coordinates of the pan end and determine if it was a pass or shot
+                self.panEndPoint = CGPoint(x: panStartPoint.x + translation.x, y: panStartPoint.y + translation.y)
+                let startIndex = determineBoxIndex(point: self.panStartPoint)
+                let endingIndex = determineBoxIndex(point: self.panEndPoint)
+                
+                if (endingIndex == 0) { //shot
+                    handleShot(playerIndex: startIndex)
+                }
+                else if (endingIndex != 999) { //pass
+                    handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
+                }
+            }
         }
-        if recognizer.state == .ended {
-            self.panEndPoint = CGPoint(x: panStartPoint.x + translation.x, y: panStartPoint.y + translation.y)
-            determineAction(startIndex: determineBoxIndex(point: self.panStartPoint), endingIndex: determineBoxIndex(point: self.panEndPoint))
-        }
-        if recognizer.state == .cancelled {print("cancel")}
     }
     
     //long press detected, display offensive player options
@@ -142,38 +157,11 @@ class GameViewController: UIViewController {
         }
     }
     
-    //shot detected, display full shot chart for placement of shot location
-    @IBAction func handleShot(_ recognizer: UITapGestureRecognizer) {
-        if (gameBegan){
-            let position = boxRects[ballIndex].origin
-            let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
-            let playerObject = self.activeObjects[ballIndex]! as Player
-            let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
-                UIAlertAction in
-                playerObject.updatePoints(points: 2)
-                playerObject.updateTwoPointMade(made: 1)
-                playerObject.updateTwoPointAttempt(attempted: 1)
-                print("Success: recorded made shot for \(self.activeObjects[self.ballIndex]!.firstName)")
-                
-            }
-            let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
-                UIAlertAction in
-                playerObject.updateTwoPointAttempt(attempted: 1)
-                print("Success: recorded missed shot for \(self.activeObjects[self.ballIndex]!.firstName)")
-                
-            }
-            popupForShotOutcome.addAction(madeShot)
-            popupForShotOutcome.addAction(missedShot)
-            let popover = popupForShotOutcome.popoverPresentationController
-            popover?.sourceView = view
-            popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
-            present(popupForShotOutcome, animated: true)
-        }
-    }
-    
     @IBAction func handleDribble(_ sender: UITapGestureRecognizer) {
-        if (determineBoxIndex(point: sender.location(in: self.courtView)) - 1 == ballIndex && gameBegan){
-            print("Success: \(self.activeObjects[ballIndex]!.firstName) dribbled")
+        if (determineBoxIndex(point: sender.location(in: self.courtView)) - 1 == gameState["ballIndex"] as! Int && gameState["began"] as! Bool){
+            gameState["assistingPlayerIndex"] = 999
+            let b = gameState["ballIndex"] as! Int
+            print("Success: \(self.activePlayerObjects[b]!.firstName) dribbled")
         }
     }
     
@@ -189,19 +177,9 @@ class GameViewController: UIViewController {
         return 999
     }
     
-    //determine if a swipe was a pass (player to player) or a layup (player to hoop)
-    func determineAction(startIndex: Int, endingIndex: Int){
-        if (endingIndex == 0 && gameBegan) {
-            if (startIndex - 1 == ballIndex) { handleLayup(playerIndex: startIndex) }
-        }
-        else if (endingIndex != 999 && gameBegan) {
-            handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
-        }
-    }
-    
     //return whether player is on the floor currently or not
     func isActive(pid: String) -> Bool{
-        for player in active {
+        for player in activePlayerIdStrings {
             if (player == pid){
                 return true
             }
@@ -229,7 +207,7 @@ class GameViewController: UIViewController {
             self.subPlayer(index: index, point: point)
         }
         if (fullLineup()){
-            if (gameBegan){
+            if (gameState["began"] as! Bool){
                 popupForOffensivePlayerOptions.addAction(turnoverBtn)
                 popupForOffensivePlayerOptions.addAction(foulBtn)
             }
@@ -245,24 +223,30 @@ class GameViewController: UIViewController {
     // BASKETBALL ACTION FUNCTIONS ///////////////////////////////////////////////
     
     //layup detected, display paint image for more accurate placement of layup shot location
-    func handleLayup(playerIndex: Int){
+    func handleShot(playerIndex: Int){
         let position = panEndPoint
         let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
-        let playerObject = self.activeObjects[playerIndex - 1]! as Player
+        let playerObject = self.activePlayerObjects[playerIndex - 1]! as Player
         let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            //print("Layup Made: (\(position.x), \(position.y))")
+            //print("Shot Made: (\(position.x), \(position.y))")
             playerObject.updatePoints(points: 2)
             playerObject.updateTwoPointMade(made: 1)
             playerObject.updateTwoPointAttempt(attempted: 1)
-            print("Success: made layup recorded for \(self.activeObjects[playerIndex - 1]!.firstName)")
+            if self.gameState["assistingPlayerIndex"] as! Int != 999 {
+                let assistingPlayerObject = self.activePlayerObjects[self.gameState["assistingPlayerIndex"] as! Int]! as Player
+                assistingPlayerObject.updateAssists(assists: 1)
+                print("Success: assist recorded for \(assistingPlayerObject.firstName)")
+            }
+            print("Success: made layup recorded for \(self.activePlayerObjects[playerIndex - 1]!.firstName)")
             
         }
         let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
             UIAlertAction in
-            //print("Layup Missed: (\(position.x), \(position.y))")
+            //print("Shot Missed: (\(position.x), \(position.y))")
             playerObject.updateTwoPointAttempt(attempted: 1)
-            print("Success: missed layup recorded for \(self.activeObjects[playerIndex - 1]!.firstName)")
+            self.handleRebound()
+            print("Success: missed layup recorded for \(self.activePlayerObjects[playerIndex - 1]!.firstName)")
             
         }
         popupForShotOutcome.addAction(madeShot)
@@ -273,34 +257,103 @@ class GameViewController: UIViewController {
         present(popupForShotOutcome, animated: true)
     }
     
+    func handleRebound(){
+        let position = panEndPoint
+        let popupForRebound = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
+        
+        var activePlayer: UIAlertAction
+        var i = 0
+        for player in activePlayerObjects {
+            let fname = player?.firstName
+            let lname = player?.lastName
+            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) {
+                UIAlertAction in
+                player?.updateOffRebounds(rebounds: 1)
+                self.gameState["ballIndex"] = i
+                print("Success: offensive rebound recorded for \(fname!)")
+            }
+            popupForRebound.addAction(activePlayer)
+            i += 1
+        }
+        
+        let defensiveRebound = UIAlertAction(title: "No", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            print("Success: recognized defensive rebound")
+        }
+        popupForRebound.addAction(defensiveRebound)
+        let popover = popupForRebound.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
+        present(popupForRebound, animated: true)
+    }
+    
     //pass detected, record and update ballIndex
     func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
-        ballIndex = receivingPlayerIndex - 1
-        print("Success: recorded pass from \(self.activeObjects[passingPlayerIndex - 1]!.firstName) to \(self.activeObjects[receivingPlayerIndex - 1]!.firstName)")
+        if passingPlayerIndex - 1 == gameState["ballIndex"] as! Int {
+            gameState["assistingPlayerIndex"] = passingPlayerIndex - 1
+            gameState["ballIndex"] = receivingPlayerIndex - 1
+            print("Success: recorded pass from \(self.activePlayerObjects[passingPlayerIndex - 1]!.firstName) to \(self.activePlayerObjects[receivingPlayerIndex - 1]!.firstName)")
+        }
     }
     
     //turnover recorded, change possession
     func handleTurnover(index: Int){
-        let playerObject = self.activeObjects[index - 1]! as Player
+        let playerObject = self.activePlayerObjects[index - 1]! as Player
         playerObject.updateTurnovers(turnovers: 1)
-        print("Success: recorded turnover for \(self.activeObjects[index - 1]!.firstName)")
+        gameState["possession"] = "defense"
+        print("Success: recorded turnover for \(self.activePlayerObjects[index - 1]!.firstName)")
+    }
+    
+    @IBAction func handleCharge(_ sender: UIButton) {
+        if gameState["gameBegan"] as! Bool {
+            let playerObject = activePlayerObjects[gameState["ballIndex"] as! Int]! as Player
+            playerObject.updatePersonalFouls(fouls: 1)
+            print("Success: recorded charging foul on \(self.activePlayerObjects[gameState["ballIndex"] as! Int]!.firstName)")
+        }
+    }
+    
+    @IBAction func handleTechFoul(_ sender: UIButton) {
+        let position = panEndPoint
+        let popupForTechFoul = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
+        
+        var activePlayer: UIAlertAction
+        for player in activePlayerObjects {
+            let fname = player?.firstName
+            let lname = player?.lastName
+            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) {
+                UIAlertAction in
+                player?.updateTechFouls(fouls: 1)
+                print("Success: techincal foul recorded for \(fname!)")
+            }
+            popupForTechFoul.addAction(activePlayer)
+        }
+        
+        let coachOption = UIAlertAction(title: "Coach", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            print("Success: recognized coach technical foul")
+        }
+        popupForTechFoul.addAction(coachOption)
+        let popover = popupForTechFoul.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
+        present(popupForTechFoul, animated: true)
     }
     
     //jump ball recorded, determine outcome and set possession accordingly
     func handleJumpBall(point: CGPoint, index: Int){
-        if (!gameBegan){
-            gameBegan = true
-            ballIndex = index - 1
+        if (gameState["began"] as! Bool == false){
+            gameState["began"] = true
+            gameState["ballIndex"] = index - 1
             let popupForJumpBallOutcome = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
             let jumpBallWonOutcome = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) {
                 UIAlertAction in
-                self.possession = "offense"
-                print("Success: jump ball won by \(self.activeObjects[index - 1]!.firstName), possession set to offense, possession arrow set to defense")
+                self.gameState["possession"] = "offense"
+                print("Success: jump ball won by \(self.activePlayerObjects[index - 1]!.firstName), possession set to offense, possession arrow set to defense")
             }
             let jumpBallLostOutcome = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) {
                 UIAlertAction in
-                self.possession = "defense"
-                print("Success: jump ball lost by \(self.activeObjects[index - 1]!.firstName), possession set to defense, possession arrow set to offense")
+                self.gameState["possession"] = "defense"
+                print("Success: jump ball lost by \(self.activePlayerObjects[index - 1]!.firstName), possession set to defense, possession arrow set to offense")
             }
             popupForJumpBallOutcome.addAction(jumpBallWonOutcome)
             popupForJumpBallOutcome.addAction(jumpBallLostOutcome)
@@ -310,22 +363,34 @@ class GameViewController: UIViewController {
             present(popupForJumpBallOutcome, animated: true)
         }
         else{
-            possession = possessionArrow
-            if (possessionArrow == "defense"){
-                possessionArrow = "offense"
+            gameState["possession"] = gameState["possessionArrow"]
+            if (gameState["possessionArrow"] as! String == "defense"){
+                gameState["possessionArrow"] = "offense"
                 print("Success: possession set to defense, arrow set to offense")
             }
-            else if (possessionArrow == "offense"){
-                possessionArrow = "defense"
+            else if (gameState["possessionArrow"] as! String == "offense"){
+                gameState["possessionArrow"] = "defense"
                 print("Success: possession set to offense, arrow set to defense")
             }
         }
     }
     
     func fullLineup() -> Bool {
-        for player in active {
+        for player in activePlayerIdStrings {
             if player == nil {
                 return false
+            }
+        }
+        if (newLineup()){
+            
+        }
+        return true
+    }
+    
+    func newLineup() -> Bool {
+        for lineup in gameState["lineups"] as! [[String]] {
+            for player in lineup {
+                
             }
         }
         return true
@@ -333,9 +398,11 @@ class GameViewController: UIViewController {
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(index: Int){
-        let playerObject = self.activeObjects[index - 1]! as Player
+        let playerObject = self.activePlayerObjects[index - 1]! as Player
         playerObject.updatePersonalFouls(fouls: 1)
-        print("Success: personal foul recorded for \(self.activeObjects[index - 1]!.firstName), team foul number \(teamFouls)")
+        let fouls = gameState["teamFouls"] as! Int
+        gameState["teamFouls"] = fouls + 1
+        print("Success: personal foul recorded for \(self.activePlayerObjects[index - 1]!.firstName), team foul number \(gameState["teamFouls"]!)")
     }
     
     //player sub detected, display bench players and update active[String] accordingly
@@ -350,15 +417,15 @@ class GameViewController: UIViewController {
                 let pid = dict["pid"] as! String
                 benchPlayer = UIAlertAction(title: "\(fname) \(lname)", style: UIAlertActionStyle.default) {
                     UIAlertAction in
-                    self.active[index - 1] = pid
+                    self.activePlayerIdStrings[index - 1] = pid
                     
                     var subbed = "no one"
-                    if (self.activeObjects[index - 1] != nil){
-                        subbed = self.activeObjects[index - 1]!.firstName
+                    if (self.activePlayerObjects[index - 1] != nil){
+                        subbed = self.activePlayerObjects[index - 1]!.firstName
                     }
                     print("Success: \(fname) subbed in, \(subbed) was benched")
                     
-                    self.activeObjects[index - 1] = self.getPlayerObject(pid: pid)
+                    self.activePlayerObjects[index - 1] = self.getPlayerObject(pid: pid)
                 }
                 popupForBenchedPlayersToSub.addAction(benchPlayer)
             }
@@ -392,7 +459,7 @@ class GameViewController: UIViewController {
     }
     
     func syncSinglePlayerObjectToFirebase(index: Int){
-        let playerObject = self.activeObjects[index - 1]! as Player
+        let playerObject = self.activePlayerObjects[index - 1]! as Player
         let playerData : [String: Any] = ["pid":  playerObject.playerId,
                                           "tid": playerObject.teamId,
                                           "fname": playerObject.firstName,
@@ -423,14 +490,4 @@ class GameViewController: UIViewController {
         let teamRosterRef = firebaseRef.child(playerObject.teamId).child("roster")
         teamRosterRef.child(playerObject.playerId).setValue(playerData)
     }
-    
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "shotChartSegue" {
-            if let destination = segue.destination as? ShotChartViewController {
-                destination.state = self.gameState["roster"] as! [String: Any]
-            }
-        }
-    }
-    */
 }
