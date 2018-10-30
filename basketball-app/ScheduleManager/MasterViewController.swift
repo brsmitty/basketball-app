@@ -44,7 +44,7 @@ class MasterViewController: UITableViewController{
             }
         }
         
-        getGames()
+        //getGames()
     }
     override func viewWillDisappear(_ animated: Bool) {
         // Store the new players in firebase
