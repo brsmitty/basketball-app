@@ -81,7 +81,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
    
    override func viewDidLoad() {
         super.viewDidLoad()
-        addButton.layer.cornerRadius = 0.15 * addButton.bounds.size.width
+        addButton.layer.cornerRadius = 5
     
         locationPicker.dataSource = self
         locationPicker.delegate = self
@@ -103,6 +103,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture)
+      
+      GameOptionalDetail.autocorrectionType = .no
+      GameOpponent.autocorrectionType = .no
+      GameTime.autocorrectionType = .no
+      GameDate.autocorrectionType = .no
+      GameType.autocorrectionType = .no
+      Location.autocorrectionType = .no
     }
 
     override func didReceiveMemoryWarning() {
