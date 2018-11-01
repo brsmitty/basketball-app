@@ -381,19 +381,28 @@ class GameViewController: UIViewController {
                 return false
             }
         }
-        if (newLineup()){
-            
-        }
         return true
     }
     
-    func newLineup() -> Bool {
+    func isNewLineup() -> Bool {
+        var isNew = true
         for lineup in gameState["lineups"] as! [[String]] {
-            for player in lineup {
-                
-            }
+//            if lineup.elementsEqual()
         }
-        return true
+        return isNew
+    }
+    
+    func createNewLineup(){
+        if isNewLineup() {
+            var lineup: [String] = [String]()
+            for pid in activePlayerIdStrings as! [String] {
+                print(pid)
+                let substr = String(pid.suffix(pid.count - 29))
+                print(substr)
+                lineup.append(substr)
+            }
+            print(lineup.sorted())
+        }
     }
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
@@ -426,6 +435,7 @@ class GameViewController: UIViewController {
                     print("Success: \(fname) subbed in, \(subbed) was benched")
                     
                     self.activePlayerObjects[index - 1] = self.getPlayerObject(pid: pid)
+                    if (self.fullLineup()) { self.createNewLineup() }
                 }
                 popupForBenchedPlayersToSub.addAction(benchPlayer)
             }

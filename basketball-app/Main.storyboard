@@ -1955,6 +1955,7 @@
         <!--Layup View Controller-->
         <scene sceneID="M4g-Ew-Nc6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="GJf-Rq-iBH" customClass="LayupViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V3Z-P7-bh2">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -1969,7 +1970,6 @@
                         <viewLayoutGuide key="safeArea" id="4UJ-NJ-rP9"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2495.5078125" y="-2457.03125"/>
         </scene>
