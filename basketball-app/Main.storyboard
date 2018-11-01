@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -669,7 +669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAQ-zk-6rl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1665.8203125" y="754.6875"/>
+            <point key="canvasLocation" x="2431" y="1355"/>
         </scene>
         <!--Lineup Editor View Controller-->
         <scene sceneID="eI8-jk-XJ0">
@@ -1751,7 +1751,6 @@
                                 </state>
                                 <connections>
                                     <action selector="cancel:" destination="xeR-OJ-5PN" eventType="touchUpInside" id="jz9-VC-AP7"/>
-                                    <action selector="toLineup:" destination="wie-Xy-O0x" eventType="touchUpInside" id="hZE-we-aeF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtq-Zb-R7R" userLabel="scheduleButton">
@@ -1761,6 +1760,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="poq-ee-9Ka" kind="show" animates="NO" id="QSQ-J0-xoi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbi-xJ-LQ0" userLabel="playbookButton">
                                 <rect key="frame" x="859" y="697" width="165" height="71"/>
@@ -1769,6 +1771,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="FiU-no-Emh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKE-xk-8TI" userLabel="PlayerManagerButton">
                                 <rect key="frame" x="0.0" y="697" width="161" height="71"/>
@@ -1779,7 +1784,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancel:" destination="wie-Xy-O0x" eventType="touchUpInside" id="jvl-UD-CXc"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="3Z6-IZ-FyP"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navPlayerManageBar" translatesAutoresizingMaskIntoConstraints="NO" id="0a7-Rc-89L">
@@ -1950,12 +1955,11 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2650.78125" y="176.5625"/>
+            <point key="canvasLocation" x="2398" y="462"/>
         </scene>
         <!--Layup View Controller-->
         <scene sceneID="M4g-Ew-Nc6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="GJf-Rq-iBH" customClass="LayupViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V3Z-P7-bh2">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -1970,6 +1974,7 @@
                         <viewLayoutGuide key="safeArea" id="4UJ-NJ-rP9"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2495.5078125" y="-2457.03125"/>
         </scene>
@@ -2224,9 +2229,6 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="xeR-OJ-5PN" kind="show" animates="NO" id="gWm-kU-sOc"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaa-it-2TP" userLabel="scheduleButton">
                                 <rect key="frame" x="686" y="697" width="167" height="70"/>
@@ -2850,6 +2852,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="IvK-YH-sUY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExU-HE-bUY" userLabel="PlayerManagerButton">
                                 <rect key="frame" x="0.0" y="696" width="159" height="71"/>
@@ -2859,6 +2864,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="wie-Xy-O0x" kind="show" animates="NO" id="e7R-cf-tXG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvk-DI-iAd" userLabel="scheduleButton">
                                 <rect key="frame" x="686" y="696" width="167" height="70"/>
@@ -2923,6 +2931,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="wie-Xy-O0x" kind="show" animates="NO" id="Cb4-Fq-DNy"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HW5-SF-gwI" userLabel="scheduleButton">
                                 <rect key="frame" x="686" y="696" width="167" height="70"/>
@@ -2931,6 +2942,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="poq-ee-9Ka" kind="show" animates="NO" id="WO2-zA-rWu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbq-EC-6Zk" userLabel="lineupManagerButton">
                                 <rect key="frame" x="167" y="695" width="166" height="71"/>
@@ -2976,7 +2990,6 @@
         <!--Navigation Controller-->
         <scene sceneID="JRG-jf-7TA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tfk-Zc-yuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="2oo-7W-TNs" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FsN-eH-MkX">
                         <rect key="frame" x="0.0" y="20" width="320" height="50"/>
@@ -2986,6 +2999,7 @@
                         <segue destination="vUI-De-ElO" kind="relationship" relationship="rootViewController" id="sxC-bR-c4V"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tfk-Zc-yuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3829" y="-2059"/>
         </scene>
@@ -3028,8 +3042,11 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="G23-pq-Ha4"/>
+        <segue reference="FiU-no-Emh"/>
+        <segue reference="QSQ-J0-xoi"/>
+        <segue reference="3Z6-IZ-FyP"/>
         <segue reference="5E9-9j-04f"/>
+        <segue reference="e7R-cf-tXG"/>
         <segue reference="Vuy-KR-7OI"/>
         <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>
