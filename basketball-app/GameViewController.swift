@@ -42,7 +42,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var imagePlayer3: UIImageView! //SF image outlet
     @IBOutlet weak var imagePlayer4: UIImageView! //PF image outlet
     @IBOutlet weak var imagePlayer5: UIImageView! //C image outlet
-    
+   @IBOutlet weak var chargeButton: UIButton!
+   @IBOutlet weak var timeoutButton: UIButton!
+   @IBOutlet weak var benchButton: UIButton!
+   @IBOutlet weak var gameSummaryButton: UIButton!
+   @IBOutlet weak var techFoulButton: UIButton!
+   
     // OVERRIDE VIEW FUNCTIONS ///////////////////////////////////////////////
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +64,13 @@ class GameViewController: UIViewController {
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+      
+      chargeButton.layer.cornerRadius = 5
+      timeoutButton.layer.cornerRadius = 5
+      benchButton.layer.cornerRadius = 5
+      gameSummaryButton.layer.cornerRadius = 5
+      techFoulButton.layer.cornerRadius = 5
+      
     }
 
     // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
