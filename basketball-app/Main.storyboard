@@ -2913,19 +2913,19 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="Board" width="1944" height="1633"/>
+        <image name="Board" width="1944" height="1633.5"/>
         <image name="Default" width="1524" height="976"/>
         <image name="VerifiedBall" width="458" height="458"/>
-        <image name="ballIconV2" width="333" height="341"/>
+        <image name="ballIconV2" width="333.5" height="341"/>
         <image name="blankBlueTable" width="1069" height="1108"/>
-        <image name="halfcourt" width="1251" height="1042"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
+        <image name="halfcourt" width="300.239990234375" height="250.08000183105469"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
         <image name="lineupBar" width="2732" height="144"/>
         <image name="lineupManagerBar" width="2732" height="144"/>
-        <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="navPlayerManageBar" width="2559" height="244"/>
-        <image name="paint" width="524" height="520"/>
+        <image name="navLineupBar" width="2559.5" height="244"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="navPlayerManageBar" width="2559.5" height="244"/>
+        <image name="paint" width="125.76000213623047" height="124.80000305175781"/>
         <image name="playerManagerBar" width="2732" height="144"/>
         <image name="scheduleRect_1" width="1369" height="375"/>
         <image name="settingsDots" width="16" height="62"/>
@@ -2933,8 +2933,9 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Kov-4w-Yr5"/>
         <segue reference="6q6-o3-KoC"/>
-        <segue reference="5E9-9j-04f"/>
+        <segue reference="atr-rx-Imt"/>
         <segue reference="Vuy-KR-7OI"/>
         <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>
