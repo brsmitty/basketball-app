@@ -64,6 +64,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // holds if a player was recently deleted
    var recentlyDeleted: Bool = false
    
+   var count: Int = 0
+   var counts: [Int] = [Int]()
+   
    // Array of all position names for the picker wheel
    let positionNames:[String] = [String] (arrayLiteral: "Point-Guard", "Shooting-Guard", "Small-Forward", "Center", "Power-Forward")
    // Array of all height names for the picker wheel
@@ -116,6 +119,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       createHeightPicker()
       createClassPicker()
       createToolbar()
+      
+      if counts.count > 0{
+         self.count = self.counts[self.counts.count - 1] + 1
+      }
    }
    
    override func viewWillDisappear(_ animated: Bool) {
@@ -150,18 +157,28 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
+            let image = snapshot.childSnapshot(forPath: "photo").value as! String
             
-            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: UIImage(named: "Default"), position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
+            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
+            let decodedImage:UIImage = UIImage(data:imageData)!
             
+            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: decodedImage, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             
-            self.currentPath = IndexPath(row:self.players.count, section: 0)
-            
-            self.players.append(player)
-            
-            
-            self.tableView.beginUpdates()
-            self.tableView.insertRows(at: [self.currentPath], with: .automatic)
-            self.tableView.endUpdates()
+            let help = String(snapshot.key.suffix(snapshot.key.count - 29))
+            if(!self.counts.contains(Int(help)!)){
+               self.count = Int(help.prefix(help.count))!
+               self.counts.append(self.count)
+               self.count = self.count+1
+               
+               self.currentPath = IndexPath(row:self.players.count, section: 0)
+               
+               self.players.append(player)
+               
+               
+               self.tableView.beginUpdates()
+               self.tableView.insertRows(at: [self.currentPath], with: .automatic)
+               self.tableView.endUpdates()
+            }
             
          }
       })
@@ -337,16 +354,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-      //let photo = UIImage(named: "Default")
+      let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
+      let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
-      var pid = ""
-      if(recentlyDeleted){
-         pid = uid + "-" + String(deletedPlayerNum)
-         recentlyDeleted = false
-      }else{
-         pid = uid + "-" + String(players.count)
-      }
+      let pid = uid + "-" + String(count)
+      //self.count = self.count + 1
     
       let ref = Database.database().reference(withPath: "players")
 
@@ -355,7 +368,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                         "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
-                                       "photo": "",
+                                       "photo": strImage,
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
@@ -623,7 +636,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
       dismiss(animated: true, completion: nil)
-      resetButtonState()
+      //resetButtonState()
    }
    
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -638,14 +651,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerImage.image = selectedImage
         
       
-      dismiss(animated: true, completion: nil)
-      
-      tableView.allowsSelection = false
-      setEditPlayerFields(to: true)
-      setAddButton(to: false)
-      setEditButton(to: false)
-      setSaveButton(to: true)
-      setCancelButton(to: true)
+      dismiss(animated: true, completion: {
+         self.tableView.allowsSelection = false
+         self.setEditPlayerFields(to: true)
+         self.setAddButton(to: false)
+         self.setEditButton(to: false)
+         self.setSaveButton(to: true)
+         self.setCancelButton(to: true)
+      })
       
    }
    
@@ -711,7 +724,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
 
    @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
-      playerPositionText.resignFirstResponder()
+      view.endEditing(true)
       
       let imagePickerController = UIImagePickerController()
       
@@ -732,7 +745,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
       actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {(action:UIAlertAction) in
          imagePickerController.sourceType = .photoLibrary
-         imagePickerController.allowsEditing = false
+         imagePickerController.allowsEditing = true
          self.present(imagePickerController, animated: true)
       }))
       

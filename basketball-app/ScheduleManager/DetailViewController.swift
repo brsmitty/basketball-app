@@ -115,12 +115,18 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture)
+      
+      
     }
+   
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+   
+   
     
     @objc func dateChanged(datePicker: UIDatePicker){
         let dataFormatter = DateFormatter()

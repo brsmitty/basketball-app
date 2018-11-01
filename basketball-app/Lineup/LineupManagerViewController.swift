@@ -142,7 +142,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
          if(self.lineupIsUsers(snapshot.key)){
             let name = String(snapshot.key.suffix(snapshot.key.count - 30))
             let help = String(snapshot.key.suffix(snapshot.key.count - 29))
-            self.count = Int(help.prefix(1))!
+            self.count = Int(help.prefix(help.count - 1))!
             self.counts.append(self.count)
             self.count = self.count+1
             if(!self.names.contains(name)){
