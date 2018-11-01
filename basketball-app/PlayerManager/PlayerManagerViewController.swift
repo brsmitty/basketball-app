@@ -59,10 +59,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // holds the users unique user ID
    var uid: String = ""
     var tid: String = ""
-   // holds the deleted players num
-   var deletedPlayerNum: Int = 0
-   // holds if a player was recently deleted
-   var recentlyDeleted: Bool = false
+   
+   var playerImageURL = NSURL.init()
    
    var count: Int = 0
    var counts: [Int] = [Int]()
@@ -159,8 +157,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
             let image = snapshot.childSnapshot(forPath: "photo").value as! String
             
-            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
-            let decodedImage:UIImage = UIImage(data:imageData)!
+            //let imageData:NSData = NSData.init(contentsOf: image)
+//            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
+//            let decodedImage:UIImage = UIImage(data:imageData)!
+            let imageUrl = NSURL(fileURLWithPath: String(image.suffix(image.count - 7)))
+            let imageData:NSData = NSData.init(contentsOf:imageUrl as URL)!
+            let decodedImage:UIImage = UIImage(data:imageData as Data)!
             
             let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: decodedImage, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             
@@ -354,12 +356,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-      let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
-      let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
+//      let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
+//      let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
+      let strImage:String = playerImageURL.absoluteString!
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
       let pid = uid + "-" + String(count)
       //self.count = self.count + 1
+
     
       let ref = Database.database().reference(withPath: "players")
 
@@ -621,13 +625,11 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete{
          let pid = players[indexPath.row].playerId
-         deletedPlayerNum = indexPath.row
          players.remove(at: indexPath.row)
          tableView.deleteRows(at: [indexPath], with: .fade)
          defaultAllFields()
          let ref = Database.database().reference(withPath: "players")
          ref.child(pid).removeValue()
-         recentlyDeleted = true
       }
    }
    
@@ -647,6 +649,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
       
+      let imageURL = info[UIImagePickerControllerImageURL] as! NSURL
+      playerImageURL = imageURL
       guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
          fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
       }

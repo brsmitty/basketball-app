@@ -512,4 +512,7 @@ class GameViewController: UIViewController {
         let teamRosterRef = firebaseRef.child(playerObject.teamId).child("roster")
         teamRosterRef.child(playerObject.playerId).setValue(playerData)
     }
+   @IBAction func dismiss(_ sender: UIButton) {
+      dismiss(animated: true, completion: nil)
+   }
 }
