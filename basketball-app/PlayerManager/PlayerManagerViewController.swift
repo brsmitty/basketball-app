@@ -368,7 +368,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                         "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
-                                       "photo": strImage,
+                                       "photo": "",
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
@@ -569,7 +569,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
          break
       }
       
-      pickerView.selectRow(0, inComponent: 0, animated: false)
 
    }
    
@@ -635,8 +634,15 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // MARK: UIImagePickerDelegate
    
    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-      dismiss(animated: true, completion: nil)
-      //resetButtonState()
+      dismiss(animated: true, completion:{
+         self.tableView.allowsSelection = false
+         self.setEditPlayerFields(to: true)
+         self.setAddButton(to: false)
+         self.setEditButton(to: false)
+         self.setSaveButton(to: true)
+         self.setCancelButton(to: true)
+         
+      })
    }
    
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -761,10 +767,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
       
       
-   }
-   
-   @IBAction func cancel(_ sender: UIButton) {
-      dismiss(animated: false, completion: nil)
    }
 
 }

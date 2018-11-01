@@ -10,11 +10,11 @@ import UIKit
 
 class ShotChartViewController: UIViewController {
     
-    var state: [String: Any] = [:]
+    var gameState: [String: Any] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(state)
+        print(gameState)
     }
     
     @IBOutlet weak var chartView: UIImageView!
