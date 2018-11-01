@@ -368,7 +368,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                         "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
-                                       "photo": strImage,
+                                       "photo": "",
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,

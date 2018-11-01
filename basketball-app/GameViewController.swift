@@ -238,6 +238,7 @@ class GameViewController: UIViewController {
                 assistingPlayerObject.updateAssists(assists: 1)
                 print("Success: assist recorded for \(assistingPlayerObject.firstName)")
             }
+            self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
             print("Success: made layup recorded for \(self.activePlayerObjects[playerIndex - 1]!.firstName)")
             
         }
@@ -246,6 +247,7 @@ class GameViewController: UIViewController {
             //print("Shot Missed: (\(position.x), \(position.y))")
             playerObject.updateTwoPointAttempt(attempted: 1)
             self.handleRebound()
+            self.performSegue(withIdentifier: "shotChartSegue", sender: nil)
             print("Success: missed layup recorded for \(self.activePlayerObjects[playerIndex - 1]!.firstName)")
             
         }
@@ -432,6 +434,7 @@ class GameViewController: UIViewController {
                     if (self.activePlayerObjects[index - 1] != nil){
                         subbed = self.activePlayerObjects[index - 1]!.firstName
                     }
+                    
                     print("Success: \(fname) subbed in, \(subbed) was benched")
                     
                     self.activePlayerObjects[index - 1] = self.getPlayerObject(pid: pid)
@@ -499,5 +502,15 @@ class GameViewController: UIViewController {
         let firebaseRef = Database.database().reference(withPath: "teams")
         let teamRosterRef = firebaseRef.child(playerObject.teamId).child("roster")
         teamRosterRef.child(playerObject.playerId).setValue(playerData)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if (segue.identifier! == "shotChartSegue") {
+            guard let shotChartVC = segue.destination as? ShotChartViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            shotChartVC.gameState = self.gameState
+        }
     }
 }
