@@ -23,7 +23,8 @@ var synced : [Bool] = []
 class MasterViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
     
-    var games: [Game] = []
+   @IBOutlet weak var barNav: UINavigationItem!
+   var games: [Game] = []
     var titleSender : String?
     // holds the player reference to firebase
     var playRef:DatabaseReference?
@@ -34,7 +35,8 @@ class MasterViewController: UITableViewController{
     var deletedPlayNum: Int = 0
     // holds if a player was recently deleted
     var recentlyDeleted: Bool = false
-    
+   @IBOutlet weak var syncButton: UIBarButtonItem!
+   
     override func viewWillAppear(_ animated: Bool) {
         // Get the user id and set it to the user id global variable
         Auth.auth().addStateDidChangeListener() { auth, user in
@@ -43,6 +45,11 @@ class MasterViewController: UITableViewController{
                 self.uid = uId
             }
         }
+      
+      syncButton.setTitleTextAttributes([
+         NSAttributedStringKey.font: UIFont(name: "Helvetica-Bold", size: 18.0)!,
+         NSAttributedStringKey.foregroundColor: UIColor.blue],
+                                        for: .normal)
         
         //getGames()
     }

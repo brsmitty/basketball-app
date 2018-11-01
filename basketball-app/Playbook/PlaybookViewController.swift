@@ -39,6 +39,7 @@ class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
         super.viewDidLoad()
         PlaybookTableView.delegate = self
         PlaybookTableView.dataSource = self
+      
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,5 +80,8 @@ class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
         }
         
     }
+   
+   
+
     
 }
