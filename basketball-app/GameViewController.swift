@@ -205,8 +205,8 @@ class GameViewController: UIViewController {
             self.panEndPoint = recognizer.location(in: containerView)
             let activePlayers = gameState["active"] as! [Player]
             let benchPlayers = gameState["bench"] as! [Player]
-            let benchIndex = getBenchPlayerIndex(point: self.panStartPoint)
-            let activeIndex = getActivePlayerIndex(point: self.panEndPoint)
+            let benchIndex = getPlayerIndex(from: "bench", point: self.panStartPoint)
+            let activeIndex = getPlayerIndex(from: "active", point: self.panEndPoint)
             let playerSubbingIn = benchPlayers[benchIndex]
             let playerSubbingOut = activePlayers[activeIndex]
             self.substitutePlayer(in: playerSubbingIn, out: playerSubbingOut)
@@ -214,15 +214,12 @@ class GameViewController: UIViewController {
         recognizer.setTranslation(CGPoint.zero, in: self.view)
     }
     
-    func getBenchPlayerIndex(point: CGPoint) -> Int {
+    func getPlayerIndex(from: String, point: CGPoint) -> Int {
         var index = 0
-        
-        return index
-    }
-    
-    func getActivePlayerIndex(point: CGPoint) -> Int {
-        var index = 0
-        
+        for player in gameState[from] as! [Player] {
+            
+            index += 1
+        }
         return index
     }
     
