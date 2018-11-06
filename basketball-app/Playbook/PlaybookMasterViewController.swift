@@ -10,7 +10,7 @@ import UIKit
 
 class PlaybookMasterViewController: UIViewController {
 
-    override func viewDidLoad() {
+   override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -37,6 +37,9 @@ class PlaybookMasterViewController: UIViewController {
       }
    }
 
-
+   @IBAction func goBack(_ sender: UIButton) {
+      dismiss(animated: false, completion: nil)
+   }
+   
 
 }

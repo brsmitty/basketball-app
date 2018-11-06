@@ -83,8 +83,32 @@ class GameViewController: UIViewController {
         let strMinutes = String(format: "%02d", quarterTime)
         labelMinute.text = strMinutes
         labelSecond.text = "00"
+      
+      // circular all images
+      roundImages()
     }
 
+   func roundImages(){
+      imagePlayer1.layer.masksToBounds = false
+      imagePlayer1.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer1.clipsToBounds = true
+      
+      imagePlayer2.layer.masksToBounds = false
+      imagePlayer2.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer2.clipsToBounds = true
+      
+      imagePlayer3.layer.masksToBounds = false
+      imagePlayer3.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer3.clipsToBounds = true
+      
+      imagePlayer4.layer.masksToBounds = false
+      imagePlayer4.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer4.clipsToBounds = true
+      
+      imagePlayer5.layer.masksToBounds = false
+      imagePlayer5.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer5.clipsToBounds = true
+   }
     // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
     
     func getRoster(){
@@ -595,4 +619,7 @@ class GameViewController: UIViewController {
         labelSecond.text = strSeconds
         
     }
+   @IBAction func dismiss(_ sender: UIButton) {
+      dismiss(animated: true, completion: nil)
+   }
 }
