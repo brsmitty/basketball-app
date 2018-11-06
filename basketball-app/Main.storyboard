@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pjk-r8-JYz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-722.4609375" y="-834.375"/>
+            <point key="canvasLocation" x="-793" y="-970"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="8ka-rJ-bbR">
@@ -251,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="66.796875" y="-834.375"/>
+            <point key="canvasLocation" x="67" y="-970"/>
         </scene>
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
@@ -424,7 +424,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZS-Yn-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="66.796875" y="-35.15625"/>
+            <point key="canvasLocation" x="-793" y="-81"/>
         </scene>
         <!--Lineup Manager-->
         <scene sceneID="1KB-DZ-vQq">
@@ -1399,7 +1399,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z2p-3q-yS8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="723"/>
+            <point key="canvasLocation" x="-793" y="707"/>
         </scene>
         <!--Verified View Controller-->
         <scene sceneID="e1f-gH-qvk">
@@ -1449,7 +1449,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQR-ER-JL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="828" y="-35"/>
+            <point key="canvasLocation" x="67" y="-81"/>
+        </scene>
+        <!--Performance View Controller-->
+        <scene sceneID="wQA-KJ-VMV">
+            <objects>
+                <viewController id="gg5-YA-dpO" customClass="PerformanceViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vkb-eQ-UM2">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="fOs-9V-cSv"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpV-wT-Cxs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1153" y="206"/>
         </scene>
         <!--Team Manager-->
         <scene sceneID="Ire-Lo-kJm">
@@ -1992,7 +2007,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2397.65625" y="461.71875"/>
+            <point key="canvasLocation" x="2602" y="293"/>
         </scene>
         <!--Layup View Controller-->
         <scene sceneID="M4g-Ew-Nc6">
@@ -2040,6 +2055,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLe-Cd-oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1801.7578124999998" y="-2457.03125"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="ROh-c1-nrY">
+            <objects>
+                <viewController id="XSy-ZY-hla" customClass="SettingsViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ONs-De-XjE">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="yPj-gI-Lzf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m20-WE-mXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="-1705"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="Ns0-DN-6jC">
@@ -2435,6 +2465,15 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-VB-FRC" userLabel="kpiButton">
+                                <rect key="frame" x="564" y="696" width="116" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
@@ -3041,6 +3080,15 @@
                                     <action selector="goBack:" destination="poq-ee-9Ka" eventType="touchUpInside" id="pDw-Ze-47E"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn4-i3-J56" userLabel="kpiButton">
+                                <rect key="frame" x="563" y="696" width="118" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="r46-84-zHs"/>
@@ -3149,6 +3197,15 @@
                                     <action selector="goBack:" destination="5be-5p-u9r" eventType="touchUpInside" id="qQr-cU-2ZY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWB-qW-g7X" userLabel="kpiButton">
+                                <rect key="frame" x="567" y="696" width="113" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Gl5-Xq-hJI"/>
@@ -3219,10 +3276,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="FiU-no-Emh"/>
         <segue reference="QSQ-J0-xoi"/>
-        <segue reference="uDY-fm-6DA"/>
+        <segue reference="7C8-E9-oft"/>
         <segue reference="ag0-m2-vyN"/>
-        <segue reference="e7R-cf-tXG"/>
+        <segue reference="aCz-M9-az0"/>
         <segue reference="Vuy-KR-7OI"/>
-        <segue reference="9D4-EJ-t0G"/>
+        <segue reference="h23-EV-ejH"/>
     </inferredMetricsTieBreakers>
 </document>
