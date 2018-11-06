@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jGW-SO-mMU">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2149,8 +2149,8 @@
                                         <rect key="frame" x="433" y="587" width="153" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scoreboardMock" translatesAutoresizingMaskIntoConstraints="NO" id="2BJ-S2-aXd">
-                                        <rect key="frame" x="296" y="-30" width="445" height="102"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="2BJ-S2-aXd">
+                                        <rect key="frame" x="282" y="-21" width="464" height="102"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="benchLabel" translatesAutoresizingMaskIntoConstraints="NO" id="qJQ-Yu-vGc">
@@ -2176,6 +2176,20 @@
                                             <action selector="handleCharge:" destination="jGW-SO-mMU" eventType="touchDown" id="5x1-C9-vHT"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzt-W4-5sf">
+                                        <rect key="frame" x="517" y="9" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gi-Y7-qZM">
+                                        <rect key="frame" x="479" y="9" width="21" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -2199,6 +2213,8 @@
                         <outlet property="imagePlayer3" destination="oDq-Y0-kG6" id="4iA-Yt-td1"/>
                         <outlet property="imagePlayer4" destination="iFf-z6-Xqm" id="nkR-N8-w4R"/>
                         <outlet property="imagePlayer5" destination="wI4-G9-3Xm" id="AyM-26-8tu"/>
+                        <outlet property="labelMinute" destination="0Gi-Y7-qZM" id="7kB-xG-Iov"/>
+                        <outlet property="labelSecond" destination="wzt-W4-5sf" id="GTP-vI-zrb"/>
                         <outlet property="techFoulButton" destination="fo8-Oe-kHR" id="I2g-u2-fWu"/>
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
                         <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
@@ -3135,41 +3151,40 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="Board" width="1944" height="1633"/>
+        <image name="Board" width="1944" height="1633.5"/>
         <image name="Default" width="1524" height="976"/>
+        <image name="Image" width="1447.199951171875" height="259.20001220703125"/>
         <image name="VerifiedBall" width="458" height="458"/>
-        <image name="ballIconV2" width="333" height="341"/>
-        <image name="benchLabel" width="167" height="98"/>
+        <image name="ballIconV2" width="333.5" height="341"/>
+        <image name="benchLabel" width="167" height="98.5"/>
         <image name="blankBlueTable" width="1069" height="1108"/>
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="court" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="gameTimeNavBarShort" width="316" height="242"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
         <image name="lineupBar" width="2732" height="144"/>
         <image name="lineupManagerBar" width="2732" height="144"/>
-        <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="navPlaybookBar" width="2559" height="244"/>
-        <image name="navPlayerManageBar" width="2559" height="244"/>
-        <image name="navScheduleBar" width="2559" height="244"/>
+        <image name="navLineupBar" width="2559.5" height="244"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="navPlaybookBar" width="2559.5" height="244"/>
+        <image name="navPlayerManageBar" width="2559.5" height="244"/>
+        <image name="navScheduleBar" width="2559.5" height="244"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
         <image name="scheduleBar" width="2732" height="144"/>
         <image name="scheduleRect_1" width="1369" height="375"/>
-        <image name="scoreboardMock" width="1421" height="236"/>
         <image name="settingsDots" width="16" height="62"/>
         <image name="teamPerfRect_1" width="1069" height="1263"/>
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kov-4w-Yr5"/>
-        <segue reference="IvK-YH-sUY"/>
-        <segue reference="WO2-zA-rWu"/>
+        <segue reference="Gdc-D2-q3f"/>
+        <segue reference="T0b-Oa-zQb"/>
         <segue reference="e3A-Mz-pRJ"/>
-        <segue reference="atr-rx-Imt"/>
-        <segue reference="Cb4-Fq-DNy"/>
+        <segue reference="5E9-9j-04f"/>
+        <segue reference="aCz-M9-az0"/>
         <segue reference="Vuy-KR-7OI"/>
-        <segue reference="h23-EV-ejH"/>
+        <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>
 </document>

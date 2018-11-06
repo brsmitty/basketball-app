@@ -13,6 +13,12 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    weak var timer: Timer?
+    var startTime: Double = 0
+    var time: Double = 0
+    var elapsed: Double = 0
+    var status: Bool = false
+    var quarterTime: Int = 10
     let storage = UserDefaults.standard
     var gameState: [String: Any] = ["began": false,
                                     "possession": "",
@@ -35,6 +41,8 @@ class GameViewController: UIViewController {
     let boxWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C -- IN THAT ORDER
     
+    @IBOutlet weak var labelSecond: UILabel!
+    @IBOutlet weak var labelMinute: UILabel!
     @IBOutlet weak var courtView: UIImageView! //court image outlet
     @IBOutlet weak var imageHoop: UIImageView! //hoop image outlet
     @IBOutlet weak var imagePlayer1: UIImageView! //PG image outlet
@@ -71,6 +79,10 @@ class GameViewController: UIViewController {
       gameSummaryButton.layer.cornerRadius = 5
       techFoulButton.layer.cornerRadius = 5
       
+        
+        let strMinutes = String(format: "%02d", quarterTime)
+        labelMinute.text = strMinutes
+        labelSecond.text = "00"
     }
 
     // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
@@ -524,5 +536,67 @@ class GameViewController: UIViewController {
             }
             shotChartVC.gameState = self.gameState
         }
+    }
+    
+    func restart(){
+        // Invalidate timer
+        timer?.invalidate()
+        
+        // Reset timer variables
+        startTime = 0
+        time = 0
+        elapsed = 0
+        
+        
+        // Reset all labels
+        let strMinutes = String(format: "%02d", quarterTime)
+        labelMinute.text = strMinutes
+        labelSecond.text = "00"
+        
+    }
+    func start() {
+        
+        startTime = Date().timeIntervalSinceReferenceDate - elapsed
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        
+        
+    }
+    
+    func stop() {
+        
+        elapsed = Date().timeIntervalSinceReferenceDate - startTime
+        timer?.invalidate()
+        
+        
+    }
+    
+    @objc func updateCounter() {
+        
+        // Calculate total time since timer started in seconds
+        time = Date().timeIntervalSinceReferenceDate - startTime
+        
+        // Calculate minutes
+        let minutes = Int(time / 60.0)
+        time -= (TimeInterval(minutes) * 60)
+        let minutes2 = quarterTime - minutes - 1
+        
+        // Calculate seconds
+        let seconds = Int(59.0) - Int(time)
+        time -= TimeInterval(seconds)
+        
+        if(minutes2 == 0 && seconds == 0){
+            stop()
+        }
+        
+        // Format time vars with leading zero
+        let strMinutes = String(format: "%02d", minutes2)
+        let strSeconds = String(format: "%02d", seconds)
+        //let strMilliseconds = String(format: "%02d", milliseconds)
+        
+        // Add time vars to relevant labels
+        labelMinute.text = strMinutes
+        labelSecond.text = strSeconds
+        //labelMillisecond.text = strMilliseconds
+        
     }
 }
