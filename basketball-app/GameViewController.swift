@@ -25,20 +25,15 @@ class GameViewController: UIViewController {
                                     "bench": [],
                                     "lineups": []]
     
-    
     var activePlayerIdStrings = [String?](repeating: nil, count: 5) //String array of the PIDs of all 5 players on the floor currently, starts as nil until intial subs are made
     var activePlayerObjects = [Player?](repeating: nil, count: 5) //parallel to active, contains all player objects
-    
-    var roster = [Player?](repeating: nil, count: 20)
-    
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
     var panEndPoint = CGPoint() //end point of any given pan gesture
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
     let boxWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
-    var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C -- IN THAT ORDER
-    
-    
+    let benchPictureHeight : Int = 50 //constant for the width of the hit box for a player
+    var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var courtView: UIImageView! //court image outlet
@@ -48,43 +43,36 @@ class GameViewController: UIViewController {
     @IBOutlet weak var imagePlayer3: UIImageView! //SF image outlet
     @IBOutlet weak var imagePlayer4: UIImageView! //PF image outlet
     @IBOutlet weak var imagePlayer5: UIImageView! //C image outlet
-   @IBOutlet weak var chargeButton: UIButton!
-   @IBOutlet weak var timeoutButton: UIButton!
-   @IBOutlet weak var benchButton: UIButton!
-   @IBOutlet weak var gameSummaryButton: UIButton!
-   @IBOutlet weak var techFoulButton: UIButton!
+    @IBOutlet weak var chargeButton: UIButton!
+    @IBOutlet weak var timeoutButton: UIButton!
+    @IBOutlet weak var benchButton: UIButton!
+    @IBOutlet weak var gameSummaryButton: UIButton!
+    @IBOutlet weak var techFoulButton: UIButton!
     @IBOutlet weak var outOfBoundsButton: UIButton!
-    
-    // OVERRIDE VIEW FUNCTIONS ///////////////////////////////////////////////
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        benchView.isHidden = true
         super.viewWillAppear(animated)
-        getRoster()
+        benchView.isHidden = true
+        getRosterFromFirebase()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //init all hitbox rectangles from the UI Image Views
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
-      
-      chargeButton.layer.cornerRadius = 5
-      timeoutButton.layer.cornerRadius = 5
-      outOfBoundsButton.layer.cornerRadius = 5
-      benchButton.layer.cornerRadius = 5
-      gameSummaryButton.layer.cornerRadius = 5
-      techFoulButton.layer.cornerRadius = 5
-      
+        chargeButton.layer.cornerRadius = 5
+        timeoutButton.layer.cornerRadius = 5
+        outOfBoundsButton.layer.cornerRadius = 5
+        benchButton.layer.cornerRadius = 5
+        gameSummaryButton.layer.cornerRadius = 5
+        techFoulButton.layer.cornerRadius = 5
     }
 
-    // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
-    
-    func getRoster(){
+    func getRosterFromFirebase(){
         //grab persistently stored TID, pull roster from firebase
         var roster : [String: Any] = [:]
         let tid = storage.string(forKey: "tid")!
@@ -98,16 +86,13 @@ class GameViewController: UIViewController {
                 let val = v.value as! [String: Any]
                 roster[key] = val
             }
-            self.gameState["roster"] = roster
-            self.populateBench()
             self.createPlayerObjectsFromRoster(roster: roster)
-        }) { (error) in //error pulling roster from firebase
-            print(error.localizedDescription)
-        }
+        }) { (error) in print(error.localizedDescription) }
     }
     
     func createPlayerObjectsFromRoster(roster: [String: Any]){
         var i: Int = 0
+        var players : [Player] = []
         for player in roster {
             let p = player.value as! [String: Any]
             let playerObject = Player(firstName: p["fname"] as! String,
@@ -136,55 +121,60 @@ class GameViewController: UIViewController {
                            personalFoul: p["personalFoul"] as! Int,
                            techFoul: p["techFoul"] as! Int,
                            chargesTaken: p["chargesTaken"] as! Int)
-            self.roster[i] = playerObject
+            players.append(playerObject)
             i += 1
         }
-        print("Success: roster loaded")
+        self.gameState["roster"] = players
+        self.gameState["bench"] = players
+        populateBench()
     }
 
     func populateBench(){
-        let pics = ["J.R.", "Kevin", "Lebron", "Kyrie", "Tristan", "J.R."]
-        
-        for p in pics {
-            let image = UIImage(named: p)
+        var y = 0
+        for player in gameState["bench"] as! [Player] {
+            let image = UIImage(named: "Kevin")
             let imageView = UIImageView(image: image!)
-            imageView.frame = CGRect(x: 0, y: y, width: 100, height: 50)
-            
-            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubPan(recognizer:)))
+            imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(panGesture)
             benchView.addSubview(imageView)
+            y += benchPictureHeight
         }
     }
     
-    // GESTURE HANDLER FUNCTIONS ///////////////////////////////////////////////
+    @IBAction func showBench(_ sender: UIButton) {
+        benchView.isHidden = false
+    }
     
-    @IBAction func handleSubPan(recognizer:UIPanGestureRecognizer) {
+    @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
+        if (sender.location(in: containerView).x > benchWidth) { benchView.isHidden = true }
+    }
+    
+    @IBAction func handleSubstitutionGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: containerView)
         if let view = recognizer.view {
             view.center = CGPoint(x:view.center.x + translation.x,
                                   y:view.center.y + translation.y)
         }
-        
         if recognizer.state == .began { //get coordinates of the pan start
-            self.panStartPoint = recognizer.location(in: containerView)
-            print("Start: \(self.panStartPoint)")
+            self.panStartPoint = recognizer.location(in: benchView)
         }
         if recognizer.state == .ended { //get coordinates of the pan end and determine if it was a pass or shot
             self.panEndPoint = recognizer.location(in: containerView)
-            print("End: \(self.panEndPoint)")
-            let startIndex = determineBenchBoxIndex(point: self.panStartPoint)
-            let endingIndex = determineBoxIndex(point: self.panEndPoint)
-            print("From: \(startIndex) - \(endingIndex)")
-            
-            /*if (endingIndex == 0) { //shot
-                handleShot(playerIndex: startIndex)
-            }
-            else if (endingIndex != 999) { //pass
-                handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
-            }*/
+            let activePlayers = gameState["active"] as! [Player]
+            let benchPlayers = gameState["bench"] as! [Player]
+            let subInIndex = getBenchPlayerIndex(point: self.panStartPoint)
+            let subOutIndex = getActivePlayerIndex(point: self.panEndPoint)
+            let playerSubbingIn = benchPlayers[subInIndex]
+            let playerSubbingOut = activePlayers[subOutIndex]
+            self.substitutePlayer(in: playerSubbingIn, out: playerSubbingOut)
         }
         recognizer.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
+    func substitutePlayer(in: Player, out: Player) {
+        
     }
     
     //handles passing swipe gestures from player to player, as well as layup swipe gestures from player to hoop
@@ -450,14 +440,6 @@ class GameViewController: UIViewController {
         }
     }
     
-    @IBAction func showBench(_ sender: UIButton) {
-        benchView.isHidden = false
-    }
-    
-    @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
-        if (sender.location(in: containerView).x > benchWidth) { benchView.isHidden = true }
-    }
-    
     @IBAction func showGameSummary(_ sender: UIButton) {
         
     }
@@ -543,9 +525,9 @@ class GameViewController: UIViewController {
     }
     
     func getPlayerObject(pid: String) -> Player{
-        for player in roster{
-            if (player!.playerId == pid){
-                return player!
+        for player in gameState["roster"] as! [Player]{
+            if (player.playerId == pid){
+                return player
             }
         }
         return Player(firstName: "", lastName: "", photo: nil, position: "", height: "", weight: "", rank: "", playerId: "", teamId: "")
