@@ -21,6 +21,8 @@ class GameViewController: UIViewController {
                                     "ballIndex": 999,
                                     "assistingPlayerIndex": 999,
                                     "roster": [],
+                                    "active": [],
+                                    "bench": [],
                                     "lineups": []]
     
     
@@ -33,8 +35,12 @@ class GameViewController: UIViewController {
     var panEndPoint = CGPoint() //end point of any given pan gesture
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
     let boxWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
+    let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C -- IN THAT ORDER
     
+    
+    @IBOutlet weak var benchView: UIView!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var courtView: UIImageView! //court image outlet
     @IBOutlet weak var imageHoop: UIImageView! //hoop image outlet
     @IBOutlet weak var imagePlayer1: UIImageView! //PG image outlet
@@ -47,10 +53,12 @@ class GameViewController: UIViewController {
    @IBOutlet weak var benchButton: UIButton!
    @IBOutlet weak var gameSummaryButton: UIButton!
    @IBOutlet weak var techFoulButton: UIButton!
-   
+    @IBOutlet weak var outOfBoundsButton: UIButton!
+    
     // OVERRIDE VIEW FUNCTIONS ///////////////////////////////////////////////
     
     override func viewWillAppear(_ animated: Bool) {
+        benchView.isHidden = true
         super.viewWillAppear(animated)
         getRoster()
     }
@@ -67,6 +75,7 @@ class GameViewController: UIViewController {
       
       chargeButton.layer.cornerRadius = 5
       timeoutButton.layer.cornerRadius = 5
+      outOfBoundsButton.layer.cornerRadius = 5
       benchButton.layer.cornerRadius = 5
       gameSummaryButton.layer.cornerRadius = 5
       techFoulButton.layer.cornerRadius = 5
@@ -90,7 +99,7 @@ class GameViewController: UIViewController {
                 roster[key] = val
             }
             self.gameState["roster"] = roster
-            print(self.gameState)
+            self.populateBench()
             self.createPlayerObjectsFromRoster(roster: roster)
         }) { (error) in //error pulling roster from firebase
             print(error.localizedDescription)
@@ -132,15 +141,58 @@ class GameViewController: UIViewController {
         }
         print("Success: roster loaded")
     }
+
+    func populateBench(){
+        let pics = ["J.R.", "Kevin", "Lebron", "Kyrie", "Tristan", "J.R."]
+        
+        for p in pics {
+            let image = UIImage(named: p)
+            let imageView = UIImageView(image: image!)
+            imageView.frame = CGRect(x: 0, y: y, width: 100, height: 50)
+            
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubPan(recognizer:)))
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(panGesture)
+            benchView.addSubview(imageView)
+        }
+    }
     
     // GESTURE HANDLER FUNCTIONS ///////////////////////////////////////////////
     
+    @IBAction func handleSubPan(recognizer:UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: containerView)
+        if let view = recognizer.view {
+            view.center = CGPoint(x:view.center.x + translation.x,
+                                  y:view.center.y + translation.y)
+        }
+        
+        if recognizer.state == .began { //get coordinates of the pan start
+            self.panStartPoint = recognizer.location(in: containerView)
+            print("Start: \(self.panStartPoint)")
+        }
+        if recognizer.state == .ended { //get coordinates of the pan end and determine if it was a pass or shot
+            self.panEndPoint = recognizer.location(in: containerView)
+            print("End: \(self.panEndPoint)")
+            let startIndex = determineBenchBoxIndex(point: self.panStartPoint)
+            let endingIndex = determineBoxIndex(point: self.panEndPoint)
+            print("From: \(startIndex) - \(endingIndex)")
+            
+            /*if (endingIndex == 0) { //shot
+                handleShot(playerIndex: startIndex)
+            }
+            else if (endingIndex != 999) { //pass
+                handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
+            }*/
+        }
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
     //handles passing swipe gestures from player to player, as well as layup swipe gestures from player to hoop
     @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        if gameState["began"] as! Bool {
+        if true {//if gameState["began"] as! Bool {
             guard recognizer.view != nil else {return}
             let player = recognizer.view!
-            let translation = recognizer.translation(in: player.superview)
+            let translation = recognizer.translation(in: containerView)
             
             if recognizer.state == .began { //get coordinates of the pan start
                 self.panStartPoint = player.center
@@ -162,7 +214,7 @@ class GameViewController: UIViewController {
     
     //long press detected, display offensive player options
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
-        let point = touchHandler.location(in: self.courtView)
+        let point = touchHandler.location(in: containerView)
         let index = determineBoxIndex(point: point)
         if touchHandler.state == .began {
             presentOffensiveOptions(point: point, index: index)
@@ -170,7 +222,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func handleDribble(_ sender: UITapGestureRecognizer) {
-        if (determineBoxIndex(point: sender.location(in: self.courtView)) - 1 == gameState["ballIndex"] as! Int && gameState["began"] as! Bool){
+        if (determineBoxIndex(point: sender.location(in: containerView)) - 1 == gameState["ballIndex"] as! Int && gameState["began"] as! Bool){
             gameState["assistingPlayerIndex"] = 999
             let b = gameState["ballIndex"] as! Int
             print("Success: \(self.activePlayerObjects[b]!.firstName) dribbled")
@@ -181,6 +233,15 @@ class GameViewController: UIViewController {
     
     //returns index in active[String] and boxRects[CGRect] of hitbox which was targeted, given the coordinate point of the user interaction(s). return 999 for empty gesture, i.e. swipe to random spot on court
     func determineBoxIndex(point: CGPoint) -> Int {
+        var i: Int = 0
+        for rect in boxRects {
+            if rect.contains(point){ return i }
+            else{ i += 1 }
+        }
+        return 999
+    }
+    
+    func determineBenchBoxIndex(point: CGPoint) -> Int {
         var i: Int = 0
         for rect in boxRects {
             if rect.contains(point){ return i }
@@ -319,7 +380,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func handleCharge(_ sender: UIButton) {
-        if gameState["gameBegan"] as! Bool {
+        if gameState["began"] as! Bool {
             let playerObject = activePlayerObjects[gameState["ballIndex"] as! Int]! as Player
             playerObject.updatePersonalFouls(fouls: 1)
             print("Success: recorded charging foul on \(self.activePlayerObjects[gameState["ballIndex"] as! Int]!.firstName)")
@@ -387,6 +448,26 @@ class GameViewController: UIViewController {
                 print("Success: possession set to offense, arrow set to defense")
             }
         }
+    }
+    
+    @IBAction func showBench(_ sender: UIButton) {
+        benchView.isHidden = false
+    }
+    
+    @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
+        if (sender.location(in: containerView).x > benchWidth) { benchView.isHidden = true }
+    }
+    
+    @IBAction func showGameSummary(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func handleOutOfBounds(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func handleTimeout(_ sender: UIButton) {
+        
     }
     
     func fullLineup() -> Bool {
@@ -518,11 +599,11 @@ class GameViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if (segue.identifier! == "shotChartSegue") {
+        /*if (segue.identifier! == "shotChartSegue") {
             guard let shotChartVC = segue.destination as? ShotChartViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             shotChartVC.gameState = self.gameState
-        }
+        }*/
     }
 }

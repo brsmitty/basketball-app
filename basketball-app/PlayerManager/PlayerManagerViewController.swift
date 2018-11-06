@@ -16,6 +16,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // MARK: Properties
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var playerImage: UIImageView!
+    var playerImageURL: String = ""
    @IBOutlet weak var playerPositionText: UITextField!
    @IBOutlet weak var playerFirstNameText: UITextField!
    @IBOutlet weak var playerLastNameText: UITextField!
@@ -157,12 +158,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            let image = snapshot.childSnapshot(forPath: "photo").value as! String
+            //let image = snapshot.childSnapshot(forPath: "photo").value as! String
             
-            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
-            let decodedImage:UIImage = UIImage(data:imageData)!
+            //let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
+            //let decodedImage:UIImage = UIImage(data:imageData)!
             
-            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: decodedImage, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
+            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: nil, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             
             let help = String(snapshot.key.suffix(snapshot.key.count - 29))
             if(!self.counts.contains(Int(help)!)){
@@ -368,7 +369,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                         "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
-                                       "photo": "",
+                                       "photo": playerImageURL,
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
@@ -646,7 +647,21 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-      
+    
+    if let imgUrl = info[UIImagePickerControllerImageURL] as? URL{
+        let imgName = imgUrl.lastPathComponent
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+        let localPath = documentDirectory?.appending(imgName)
+        
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let data = UIImagePNGRepresentation(image)! as NSData
+        data.write(toFile: localPath!, atomically: true)
+        //let imageData = NSData(contentsOfFile: localPath!)!
+        let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)
+        //playerImageURL = String(contentsOf: photoURL)
+        
+    }
+    
       guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
          fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
       }
