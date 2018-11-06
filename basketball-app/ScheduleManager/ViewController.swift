@@ -121,14 +121,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let dataFormatter = DateFormatter()
         dataFormatter.dateFormat = "MM/dd/yyyy"
         GameDate.text = dataFormatter.string(from: datePicker.date)
-        view.endEditing(true)
+        //view.endEditing(true)
     }
     
     @objc func timeChanged(timePicker: UIDatePicker){
         let dataFormatter = DateFormatter()
         dataFormatter.dateFormat = "HH:mm"
         GameTime.text = dataFormatter.string(from: timePicker.date)
-        view.endEditing(true)
+        //view.endEditing(true)
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){

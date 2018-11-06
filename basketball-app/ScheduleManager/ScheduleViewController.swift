@@ -34,4 +34,7 @@ class ScheduleViewController: UIViewController {
          view.frame.origin.y = 0
       }
    }
+   @IBAction func goBack(_ sender: UIButton) {
+      dismiss(animated: false, completion: nil)
+   }
 }

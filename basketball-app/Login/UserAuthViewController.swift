@@ -5,29 +5,27 @@
 //  Created by David on 9/10/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
-
 import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
 class UserAuthViewController: UIViewController, UITextFieldDelegate {
-    
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
     @IBOutlet weak var registerEmail: UITextField!
     @IBOutlet weak var registerPass: UITextField!
-   @IBOutlet weak var registerPassCheck: LoginTextField!
-   @IBOutlet weak var teamName: LoginTextField!
-   @IBOutlet weak var validityLabel: UILabel!
-   @IBOutlet weak var passwordMatchLabel: UILabel!
-   var emailVerificationTimer: Timer!
+    @IBOutlet weak var registerPassCheck: LoginTextField!
+    @IBOutlet weak var teamName: LoginTextField!
+    @IBOutlet weak var validityLabel: UILabel!
+    @IBOutlet weak var passwordMatchLabel: UILabel!
+    var emailVerificationTimer: Timer!
     
-   @IBOutlet weak var loginButton: UIButton!
-   @IBOutlet weak var registerButton: UIButton!
-   @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     
-   override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
       
       if let passwordLabel = passwordMatchLabel{
@@ -158,33 +156,28 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
         guard
             let email = loginEmail.text,
             let password = loginPass.text
-            else {
-                return
-            }
-      if(loginPass.text == "" || loginEmail.text == ""){
+        else { return }
+      if (loginPass.text == "" || loginEmail.text == "") {
          createAlert(with: "Sign In Failed", and: "Email and Password field cannot be empty")
-      }else{
+      } else {
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
-
             if let error = error, user == nil {
                self.createAlert(with: "Sign In Failed", and: error.localizedDescription)
             }
             else {
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
                 
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }
       }
     }
    
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      
       textField.resignFirstResponder()
       return true
    }
    
    func textFieldDidEndEditing(_ textField: UITextField) {
-      
       switch textField.tag{
          case 2:
             if (registerEmail.text != ""){
@@ -203,27 +196,28 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
             break
          case 5:
             break
-         default:
-            break
+         default: break
       }
    }
    
    func passwordCheck(){
-      if(registerPassCheck.text == registerPass.text){
+      if (registerPassCheck.text == registerPass.text) {
          passwordMatchLabel.text = "Passwords Match"
          passwordMatchLabel.textColor = UIColor.green
-      }else{
+      }
+      else {
          passwordMatchLabel.text = "Passwords Don't Match"
-         passwordMatchLabel.textColor = UIColor.red//(red: 193, green: 39, blue: 45, alpha: 1)
+         passwordMatchLabel.textColor = UIColor.red //(red: 193, green: 39, blue: 45, alpha: 1)
       }
    }
    
    
    func emailCheck(){
-      if(emailStringCheck()){
+      if (emailStringCheck()) {
          validityLabel.text = "Valid"
          validityLabel.textColor = UIColor.green
-      }else{
+      }
+      else {
          validityLabel.text = "Invalid"
          validityLabel.textColor = UIColor.red
       }
@@ -232,9 +226,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
    func emailStringCheck() -> Bool{
       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
       let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-      
       return emailTest.evaluate(with:registerEmail.text)
-      
       // Code from Maxim Shoustin and Gabbyboy - StackOverflow
    }
    
