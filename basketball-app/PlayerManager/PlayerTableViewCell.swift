@@ -18,6 +18,9 @@ class PlayerTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+      photoImageView.layer.masksToBounds = false
+      photoImageView.layer.cornerRadius = photoImageView.frame.size.width/2
+      photoImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

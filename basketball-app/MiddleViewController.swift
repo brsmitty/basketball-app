@@ -46,8 +46,8 @@ class MiddleViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
     
-        let defaults = UserDefaults.standard
-        uid = defaults.string(forKey: "uid")!
+        //let defaults = UserDefaults.standard
+        //uid = defaults.string(forKey: "uid")!
         
         // Get the user id and set it to the user id global variable
         Auth.auth().addStateDidChangeListener() { auth, user in

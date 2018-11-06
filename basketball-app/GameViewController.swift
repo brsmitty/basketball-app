@@ -13,6 +13,12 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     
+    weak var timer: Timer?
+    var startTime: Double = 0
+    var time: Double = 0
+    var elapsed: Double = 0
+    var status: Bool = false
+    var quarterTime: Int = 10
     let storage = UserDefaults.standard
     var gameState: [String: Any] = ["began": false,
                                     "possession": "",
@@ -36,6 +42,9 @@ class GameViewController: UIViewController {
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var labelSecond: UILabel!
+    @IBOutlet weak var labelMinute: UILabel!
     @IBOutlet weak var courtView: UIImageView! //court image outlet
     @IBOutlet weak var imageHoop: UIImageView! //hoop image outlet
     @IBOutlet weak var imagePlayer1: UIImageView! //PG image outlet
@@ -64,14 +73,46 @@ class GameViewController: UIViewController {
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
-        chargeButton.layer.cornerRadius = 5
-        timeoutButton.layer.cornerRadius = 5
-        outOfBoundsButton.layer.cornerRadius = 5
-        benchButton.layer.cornerRadius = 5
-        gameSummaryButton.layer.cornerRadius = 5
-        techFoulButton.layer.cornerRadius = 5
+
+      
+      chargeButton.layer.cornerRadius = 5
+      timeoutButton.layer.cornerRadius = 5
+      benchButton.layer.cornerRadius = 5
+      gameSummaryButton.layer.cornerRadius = 5
+      techFoulButton.layer.cornerRadius = 5
+      
+        
+        let strMinutes = String(format: "%02d", quarterTime)
+        labelMinute.text = strMinutes
+        labelSecond.text = "00"
+      
+      // circular all images
+      roundImages()
     }
 
+   func roundImages(){
+      imagePlayer1.layer.masksToBounds = false
+      imagePlayer1.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer1.clipsToBounds = true
+      
+      imagePlayer2.layer.masksToBounds = false
+      imagePlayer2.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer2.clipsToBounds = true
+      
+      imagePlayer3.layer.masksToBounds = false
+      imagePlayer3.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer3.clipsToBounds = true
+      
+      imagePlayer4.layer.masksToBounds = false
+      imagePlayer4.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer4.clipsToBounds = true
+      
+      imagePlayer5.layer.masksToBounds = false
+      imagePlayer5.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer5.clipsToBounds = true
+   }
+    // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
+    
     func getRosterFromFirebase(){
         //grab persistently stored TID, pull roster from firebase
         var roster : [String: Any] = [:]
@@ -600,4 +641,65 @@ class GameViewController: UIViewController {
             shotChartVC.gameState = self.gameState
         }*/
     }
+    
+    func restart(){
+        // Invalidate timer
+        timer?.invalidate()
+        
+        // Reset timer variables
+        startTime = 0
+        time = 0
+        elapsed = 0
+        
+        
+        // Reset all labels
+        let strMinutes = String(format: "%02d", quarterTime)
+        labelMinute.text = strMinutes
+        labelSecond.text = "00"
+        
+    }
+    func start() {
+        
+        startTime = Date().timeIntervalSinceReferenceDate - elapsed
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        
+    }
+    
+    func stop() {
+        
+        elapsed = Date().timeIntervalSinceReferenceDate - startTime
+        timer?.invalidate()
+        
+    }
+    
+    @objc func updateCounter() {
+        
+        // Calculate total time since timer started in seconds
+        time = Date().timeIntervalSinceReferenceDate - startTime
+        
+        // Calculate minutes
+        let minutes = Int(time / 60.0)
+        time -= (TimeInterval(minutes) * 60)
+        let minutes2 = quarterTime - minutes - 1
+        
+        // Calculate seconds
+        let seconds = Int(59.0) - Int(time)
+        time -= TimeInterval(seconds)
+        
+        if(minutes2 == 0 && seconds == 0){
+            stop()
+        }
+        
+        // Format time vars with leading zero
+        let strMinutes = String(format: "%02d", minutes2)
+        let strSeconds = String(format: "%02d", seconds)
+        
+        // Add time vars to relevant labels
+        labelMinute.text = strMinutes
+        labelSecond.text = strSeconds
+        
+    }
+   @IBAction func dismiss(_ sender: UIButton) {
+      dismiss(animated: true, completion: nil)
+   }
 }
