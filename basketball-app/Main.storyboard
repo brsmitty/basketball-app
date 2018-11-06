@@ -2414,6 +2414,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="settingsDots"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-VB-FRC" userLabel="kpiButton">
+                                <rect key="frame" x="564" y="696" width="116" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scheduleRect_1" translatesAutoresizingMaskIntoConstraints="NO" id="Twf-Mw-Ai7">
                                 <rect key="frame" x="20" y="105" width="509" height="142"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2465,15 +2474,6 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-VB-FRC" userLabel="kpiButton">
-                                <rect key="frame" x="564" y="696" width="116" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
@@ -3067,6 +3067,15 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn4-i3-J56" userLabel="kpiButton">
+                                <rect key="frame" x="563" y="696" width="118" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navScheduleBar" translatesAutoresizingMaskIntoConstraints="NO" id="I94-J3-unt">
                                 <rect key="frame" x="28" y="665" width="976" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3079,15 +3088,6 @@
                                     <action selector="goBack:" destination="wie-Xy-O0x" eventType="touchUpInside" id="Pu4-pF-RMU"/>
                                     <action selector="goBack:" destination="poq-ee-9Ka" eventType="touchUpInside" id="pDw-Ze-47E"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn4-i3-J56" userLabel="kpiButton">
-                                <rect key="frame" x="563" y="696" width="118" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3184,6 +3184,15 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWB-qW-g7X" userLabel="kpiButton">
+                                <rect key="frame" x="567" y="696" width="113" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navPlaybookBar" translatesAutoresizingMaskIntoConstraints="NO" id="oSN-Ke-arq">
                                 <rect key="frame" x="28" y="665" width="976" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3196,15 +3205,6 @@
                                     <action selector="goBack:" destination="wie-Xy-O0x" eventType="touchUpInside" id="hpK-Bf-vQZ"/>
                                     <action selector="goBack:" destination="5be-5p-u9r" eventType="touchUpInside" id="qQr-cU-2ZY"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWB-qW-g7X" userLabel="kpiButton">
-                                <rect key="frame" x="567" y="696" width="113" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3274,12 +3274,12 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FiU-no-Emh"/>
-        <segue reference="QSQ-J0-xoi"/>
-        <segue reference="7C8-E9-oft"/>
-        <segue reference="ag0-m2-vyN"/>
+        <segue reference="Gdc-D2-q3f"/>
+        <segue reference="T0b-Oa-zQb"/>
+        <segue reference="ROk-aD-Cin"/>
+        <segue reference="5E9-9j-04f"/>
         <segue reference="aCz-M9-az0"/>
         <segue reference="Vuy-KR-7OI"/>
-        <segue reference="h23-EV-ejH"/>
+        <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>
 </document>
