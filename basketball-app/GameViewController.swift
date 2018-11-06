@@ -71,8 +71,32 @@ class GameViewController: UIViewController {
       gameSummaryButton.layer.cornerRadius = 5
       techFoulButton.layer.cornerRadius = 5
       
+      
+      // circular all images
+      roundImages()
     }
 
+   func roundImages(){
+      imagePlayer1.layer.masksToBounds = false
+      imagePlayer1.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer1.clipsToBounds = true
+      
+      imagePlayer2.layer.masksToBounds = false
+      imagePlayer2.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer2.clipsToBounds = true
+      
+      imagePlayer3.layer.masksToBounds = false
+      imagePlayer3.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer3.clipsToBounds = true
+      
+      imagePlayer4.layer.masksToBounds = false
+      imagePlayer4.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer4.clipsToBounds = true
+      
+      imagePlayer5.layer.masksToBounds = false
+      imagePlayer5.layer.cornerRadius = imagePlayer1.frame.size.width/2
+      imagePlayer5.clipsToBounds = true
+   }
     // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
     
     func getRoster(){

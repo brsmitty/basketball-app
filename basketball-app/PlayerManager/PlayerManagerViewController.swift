@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
    // MARK: Properties
    @IBOutlet weak var tableView: UITableView!
@@ -41,6 +41,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBOutlet weak var deflectionCell: UILabel!
    @IBOutlet weak var blockCell: UILabel!
    @IBOutlet weak var chargeCell: UILabel!
+   @IBOutlet weak var backButton: UIButton!
    
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
@@ -81,6 +82,15 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       self.tableView.dataSource = self
       self.tableView.delegate = self
       
+      playerWeightText.delegate = self
+      playerWeightText.tag = 14
+      playerClassText.delegate = self
+      playerClassText.tag = 4
+      playerHeightText.delegate = self
+      playerHeightText.tag = 3
+      playerPositionText.delegate = self
+      playerPositionText.tag = 2
+      
       let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
       tap.cancelsTouchesInView = false
       self.view.addGestureRecognizer(tap)
@@ -89,6 +99,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       editButton.layer.cornerRadius = 5
       cancelButton.layer.cornerRadius = 5
       
+      playerImage.layer.masksToBounds = false
+      playerImage.layer.cornerRadius = playerImage.frame.size.width/2
+      playerImage.clipsToBounds = true
    }
    
    override func didReceiveMemoryWarning() {
@@ -158,11 +171,11 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let image = snapshot.childSnapshot(forPath: "photo").value as! String
             
             //let imageData:NSData = NSData.init(contentsOf: image)
-//            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
-//            let decodedImage:UIImage = UIImage(data:imageData)!
-            let imageUrl = NSURL(fileURLWithPath: String(image.suffix(image.count - 7)))
-            let imageData:NSData = NSData.init(contentsOf:imageUrl as URL)!
-            let decodedImage:UIImage = UIImage(data:imageData as Data)!
+            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
+            let decodedImage:UIImage = UIImage(data:imageData)!
+//            let imageUrl = NSURL(fileURLWithPath: String(image.suffix(image.count - 7)))
+//            let imageData:NSData = NSData.init(contentsOf:imageUrl as URL)!
+//            let decodedImage:UIImage = UIImage(data:imageData as Data)!
             
             let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: decodedImage, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             
@@ -243,6 +256,16 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   func setBackButton(to on: Bool){
+      if(on){
+         backButton.isEnabled = true
+         backButton.isHidden = false
+      }else{
+         backButton.isEnabled = false
+         backButton.isHidden = true
+      }
+   }
+   
    // Sets reset button functionality
    func resetButtonState(){
       tableView.allowsSelection = true
@@ -251,6 +274,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       setEditButton(to: false)
       setSaveButton(to: false)
       setCancelButton(to: false)
+      setBackButton(to: true)
    }
    
    // Grabs all stats from the player
@@ -356,9 +380,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-//      let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
-//      let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
-      let strImage:String = playerImageURL.absoluteString!
+      let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
+      let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
+//      let strImage:String = playerImageURL.absoluteString!
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
       let pid = uid + "-" + String(count)
@@ -647,19 +671,57 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       })
    }
    
+   func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+      
+      let cgimage = image.cgImage!
+      let contextImage: UIImage = UIImage(cgImage: cgimage)
+      let contextSize: CGSize = contextImage.size
+      var posX: CGFloat = 0.0
+      var posY: CGFloat = 0.0
+      var cgwidth: CGFloat = CGFloat(width)
+      var cgheight: CGFloat = CGFloat(height)
+      
+      // See what size is longer and create the center off of that
+      if contextSize.width > contextSize.height {
+         posX = ((contextSize.width - contextSize.height) / 2)
+         posY = 0
+         cgwidth = contextSize.height
+         cgheight = contextSize.height
+      } else {
+         posX = 0
+         posY = ((contextSize.height - contextSize.width) / 2)
+         cgwidth = contextSize.width
+         cgheight = contextSize.width
+      }
+      
+      let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
+      
+      // Create bitmap image from context using the rect
+      let imageRef: CGImage = cgimage.cropping(to: rect)!
+      
+      // Create a new image based on the imageRef and rotate back to the original orientation
+      let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+      
+      return image
+   }
+   
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
       
-      let imageURL = info[UIImagePickerControllerImageURL] as! NSURL
-      playerImageURL = imageURL
-      guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
-         fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+//      let imageURL = info[UIImagePickerControllerImageURL] as! NSURL
+//      playerImageURL = imageURL
+      if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage{
+         playerImage.image = cropToBounds(image: editedImage, width: 180, height: 180)
       }
-      print(selectedImage)
+      else if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+         playerImage.image = cropToBounds(image: selectedImage, width: 180, height: 180)
+      }
+      
+      //print(selectedImage)
 //    playerImage.layer.masksToBounds = true
 //    playerImage.clipsToBounds = true
-      playerImage.contentMode = .scaleAspectFit
-      playerImage.image = selectedImage
-        
+//      playerImage.contentMode = .scaleAspectFit
+//      playerImage.image = selectedImage
+      
       
       dismiss(animated: true, completion: {
          self.tableView.allowsSelection = false
@@ -698,6 +760,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       setEditButton(to: false)
       setSaveButton(to: true)
       setCancelButton(to: true)
+      setBackButton(to: false)
       tableView.deselectRow(at: currentPath, animated: false)
       
       // reset current index path
@@ -745,7 +808,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action:UIAlertAction) in
          if UIImagePickerController.isSourceTypeAvailable(.camera){
             imagePickerController.sourceType = .camera
-            imagePickerController.allowsEditing = false
+            imagePickerController.allowsEditing = true
             self.present(imagePickerController, animated: true)
          }else{
             print("No available camera")
@@ -769,9 +832,37 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
       self.present(actionSheet, animated: true, completion: nil)
       
-      
-      
    }
+   
+   // MARK: TextFieldDelegate
+   
+   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+      
+      if(textField.tag == 14){
+         let maxLength = 3
+         let currentString: NSString = textField.text! as NSString
+         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+         let disallowedCharacterSet = NSCharacterSet(charactersIn: "0123456789").inverted
+         let replacementStringIsLegal = string.rangeOfCharacter(from: disallowedCharacterSet) == nil
+         
+         return newString.length <= maxLength && replacementStringIsLegal
+      }
+      return false
+   }
+   
 
+   func textFieldDidBeginEditing(_ textField: UITextField) {
+      if(textField.tag == 2){
+         textField.text = positionNames[0]
+      }else if(textField.tag == 3){
+         textField.text = heights[0]
+      }else if(textField.tag == 4){
+         textField.text = ranks[0]
+      }
+   }
+   
+   @IBAction func goBack(_ sender: UIButton) {
+      dismiss(animated: false, completion: nil)
+   }
 }
 
