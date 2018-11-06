@@ -559,14 +559,12 @@ class GameViewController: UIViewController {
         startTime = Date().timeIntervalSinceReferenceDate - elapsed
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         
-        
     }
     
     func stop() {
         
         elapsed = Date().timeIntervalSinceReferenceDate - startTime
         timer?.invalidate()
-        
         
     }
     
@@ -591,12 +589,10 @@ class GameViewController: UIViewController {
         // Format time vars with leading zero
         let strMinutes = String(format: "%02d", minutes2)
         let strSeconds = String(format: "%02d", seconds)
-        //let strMilliseconds = String(format: "%02d", milliseconds)
         
         // Add time vars to relevant labels
         labelMinute.text = strMinutes
         labelSecond.text = strSeconds
-        //labelMillisecond.text = strMilliseconds
         
     }
 }
