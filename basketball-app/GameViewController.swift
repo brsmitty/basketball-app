@@ -167,12 +167,13 @@ class GameViewController: UIViewController {
         }
         self.gameState["roster"] = players
         self.gameState["bench"] = players
+        self.gameState["active"] = [Player?](repeating: nil, count: 5)
         populateBench()
     }
 
     func populateBench(){
         var y = 0
-        for player in gameState["bench"] as! [Player] {
+        for _ in gameState["bench"] as! [Player] {
             let image = UIImage(named: "Kevin")
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
@@ -195,62 +196,103 @@ class GameViewController: UIViewController {
     @IBAction func handleSubstitutionGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: containerView)
         if let view = recognizer.view {
-            view.center = CGPoint(x:view.center.x + translation.x,
-                                  y:view.center.y + translation.y)
-        }
-        if recognizer.state == .began { //get coordinates of the pan start
-            self.panStartPoint = recognizer.location(in: benchView)
-        }
-        if recognizer.state == .ended { //get coordinates of the pan end and determine if it was a pass or shot
-            self.panEndPoint = recognizer.location(in: containerView)
-            let activePlayers = gameState["active"] as! [Player]
-            let benchPlayers = gameState["bench"] as! [Player]
-            let benchIndex = getPlayerIndex(from: "bench", point: self.panStartPoint)
-            let activeIndex = getPlayerIndex(from: "active", point: self.panEndPoint)
-            let playerSubbingIn = benchPlayers[benchIndex]
-            let playerSubbingOut = activePlayers[activeIndex]
-            self.substitutePlayer(in: playerSubbingIn, out: playerSubbingOut)
+            view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
         }
         recognizer.setTranslation(CGPoint.zero, in: self.view)
+        if recognizer.state == .began {
+            self.panStartPoint = recognizer.location(in: benchView)
+        }
+        if recognizer.state == .ended {
+            self.panEndPoint = recognizer.location(in: containerView)
+            var activePlayers = [Player?](repeating: nil, count: 5)
+            var index = 0
+            for player in gameState["active"] as! [Player?] {
+                activePlayers[index] = player
+                index += 1
+            }
+            var benchPlayers = gameState["bench"] as! [Player]
+            let benchIndex = getBenchPlayerIndex(point: self.panStartPoint)
+            let activeIndex = getActivePlayerIndex(point: self.panEndPoint)
+            if (activeIndex != 999) {
+                let playerSubbingIn = benchPlayers[benchIndex]
+                let playerSubbingOut = activePlayers[activeIndex]
+                activePlayers[activeIndex] = playerSubbingIn
+                if (playerSubbingOut != nil) {
+                    benchPlayers[benchIndex] = playerSubbingOut!
+                    /*let image = UIImage(named: "Lebron")
+                    let imageView = UIImageView(image: image!)
+                    let newY = Int(self.panStartPoint.y) - Int(benchPictureHeight / 2)
+                    imageView.frame = CGRect(x: 0, y: newY, width: 100, height: benchPictureHeight)
+                    let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
+                    imageView.isUserInteractionEnabled = true
+                    imageView.addGestureRecognizer(panGesture)
+                    benchView.insertSubview(imageView, at: benchIndex)*/
+                }
+                else {
+                    benchPlayers.remove(at: benchIndex)
+                    var i = 0
+                    for view in benchView.subviews {
+                        if i >= 2 + benchIndex {
+                            let newY = Int(view.frame.minY) - benchPictureHeight
+                            view.frame = CGRect(x: 0, y: newY, width: 100, height: benchPictureHeight)
+                        }
+                        i += 1
+                    }
+                }
+                
+                getPlayerImage(index: activeIndex).image = UIImage(named: "Kevin")
+                view.removeGestureRecognizer(recognizer)
+                recognizer.view?.removeFromSuperview()
+                gameState["active"] = activePlayers
+                gameState["bench"] = benchPlayers
+            }
+            else {
+                recognizer.view?.center = self.panStartPoint
+            }
+        }
     }
     
-    func getPlayerIndex(from: String, point: CGPoint) -> Int {
+    func getBenchPlayerIndex(point: CGPoint) -> Int {
         var index = 0
-        for player in gameState[from] as! [Player] {
-            
+        for _ in gameState["bench"] as! [Player] {
+            let y = CGFloat((index + 1) * benchPictureHeight)
+            if point.y <= y {
+                self.panStartPoint = CGPoint(x: benchWidth / 2, y: y - CGFloat(benchPictureHeight / 2))
+                print(self.panStartPoint)
+                return index
+            }
             index += 1
         }
         return index
     }
     
-    func substitutePlayer(in: Player, out: Player) {
-        
+    func getActivePlayerIndex(point: CGPoint) -> Int {
+        var index = 1
+        for _ in boxRects {
+            if boxRects[index].contains(point) {
+                return index - 1
+            }
+            index += 1
+            if index > 5 { return 999 }
+        }
+        return 999
     }
     
-    //handles passing swipe gestures from player to player, as well as layup swipe gestures from player to hoop
-    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        if true {//if gameState["began"] as! Bool {
-            guard recognizer.view != nil else {return}
-            let player = recognizer.view!
-            let translation = recognizer.translation(in: containerView)
-            
-            if recognizer.state == .began { //get coordinates of the pan start
-                self.panStartPoint = player.center
-            }
-            if recognizer.state == .ended { //get coordinates of the pan end and determine if it was a pass or shot
-                self.panEndPoint = CGPoint(x: panStartPoint.x + translation.x, y: panStartPoint.y + translation.y)
-                let startIndex = determineBoxIndex(point: self.panStartPoint)
-                let endingIndex = determineBoxIndex(point: self.panEndPoint)
-                
-                if (endingIndex == 0) { //shot
-                    handleShot(playerIndex: startIndex)
-                }
-                else if (endingIndex != 999) { //pass
-                    handlePass(passingPlayerIndex: startIndex, receivingPlayerIndex: endingIndex)
-                }
-            }
+    func getPlayerImage(index: Int) -> UIImageView {
+        switch (index) {
+            case 0: return imagePlayer1
+            case 1: return imagePlayer2
+            case 2: return imagePlayer3
+            case 3: return imagePlayer4
+            case 4: return imagePlayer5
+            default: return imagePlayer1
         }
     }
+    
+    @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
+        print(tapHandler.name)
+    }
+    
     
     //long press detected, display offensive player options
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
@@ -315,10 +357,6 @@ class GameViewController: UIViewController {
             UIAlertAction in
             self.handleJumpBall(point: point, index: index)
         }
-        let subPlayerBtn = UIAlertAction(title: "Sub", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-            self.subPlayer(index: index, point: point)
-        }
         if (fullLineup()){
             if (gameState["began"] as! Bool){
                 popupForOffensivePlayerOptions.addAction(turnoverBtn)
@@ -326,7 +364,6 @@ class GameViewController: UIViewController {
             }
             popupForOffensivePlayerOptions.addAction(jumpBallBtn)
         }
-        popupForOffensivePlayerOptions.addAction(subPlayerBtn)
         let popover = popupForOffensivePlayerOptions.popoverPresentationController
         popover?.sourceView = view
         popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
@@ -541,41 +578,8 @@ class GameViewController: UIViewController {
         print("Success: personal foul recorded for \(self.activePlayerObjects[index - 1]!.firstName), team foul number \(gameState["teamFouls"]!)")
     }
     
-    //player sub detected, display bench players and update active[String] accordingly
-    func subPlayer(index: Int, point: CGPoint){
-        let popupForBenchedPlayersToSub = UIAlertController(title: "Bench", message: "", preferredStyle: .actionSheet)
-        var benchPlayer: UIAlertAction
-        for player in gameState["roster"] as! NSDictionary {
-            let dict = player.value as! NSDictionary
-            if (!isActive(pid: dict["pid"] as! String)){
-                let fname = dict["fname"] as! String
-                let lname = dict["lname"] as! String
-                let pid = dict["pid"] as! String
-                benchPlayer = UIAlertAction(title: "\(fname) \(lname)", style: UIAlertActionStyle.default) {
-                    UIAlertAction in
-                    self.activePlayerIdStrings[index - 1] = pid
-                    
-                    var subbed = "no one"
-                    if (self.activePlayerObjects[index - 1] != nil){
-                        subbed = self.activePlayerObjects[index - 1]!.firstName
-                    }
-                    
-                    print("Success: \(fname) subbed in, \(subbed) was benched")
-                    
-                    self.activePlayerObjects[index - 1] = self.getPlayerObject(pid: pid)
-                    if (self.fullLineup()) { self.createNewLineup() }
-                }
-                popupForBenchedPlayersToSub.addAction(benchPlayer)
-            }
-        }
-        let popover = popupForBenchedPlayersToSub.popoverPresentationController
-        popover?.sourceView = view
-        popover?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
-        present(popupForBenchedPlayersToSub, animated: true)
-    }
-    
-    func getPlayerObject(pid: String) -> Player{
-        for player in gameState["roster"] as! [Player]{
+    func getPlayerObject(pid: String) -> Player {
+        for player in gameState["roster"] as! [Player] {
             if (player.playerId == pid){
                 return player
             }
@@ -648,29 +652,22 @@ class GameViewController: UIViewController {
         time = 0
         elapsed = 0
         
-        
         // Reset all labels
         let strMinutes = String(format: "%02d", quarterTime)
         labelMinute.text = strMinutes
         labelSecond.text = "00"
-        
     }
     func start() {
-        
         startTime = Date().timeIntervalSinceReferenceDate - elapsed
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        
     }
     
     func stop() {
-        
         elapsed = Date().timeIntervalSinceReferenceDate - startTime
         timer?.invalidate()
-        
     }
     
     @objc func updateCounter() {
-        
         // Calculate total time since timer started in seconds
         time = Date().timeIntervalSinceReferenceDate - startTime
         
@@ -694,9 +691,9 @@ class GameViewController: UIViewController {
         // Add time vars to relevant labels
         labelMinute.text = strMinutes
         labelSecond.text = strSeconds
-        
     }
-   @IBAction func dismiss(_ sender: UIButton) {
-      dismiss(animated: true, completion: nil)
-   }
+    
+    @IBAction func dismiss(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }

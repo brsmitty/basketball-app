@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2097,11 +2097,10 @@
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="qzs-D5-kX9">
-                                        <rect key="frame" x="136" y="366" width="86" height="86"/>
+                                        <rect key="frame" x="92" y="106" width="86" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="bd5-OU-xAH" appends="YES" id="seu-ZZ-c27"/>
                                             <outletCollection property="gestureRecognizers" destination="CG7-jB-azx" appends="YES" id="YiP-Gp-ncU"/>
                                             <outletCollection property="gestureRecognizers" destination="ykg-yv-m9l" appends="YES" id="w00-lo-STo"/>
                                         </connections>
@@ -2111,7 +2110,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="cAe-hd-hUA" appends="YES" id="dn7-qf-eEC"/>
                                             <outletCollection property="gestureRecognizers" destination="Rgt-dx-MXi" appends="YES" id="QH3-6I-oOD"/>
                                             <outletCollection property="gestureRecognizers" destination="tlo-IJ-sdo" appends="YES" id="U9i-Y5-fby"/>
                                         </connections>
@@ -2121,7 +2119,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="aum-kl-6a9" appends="YES" id="17V-rS-ouW"/>
                                             <outletCollection property="gestureRecognizers" destination="9dE-7D-Wd5" appends="YES" id="5fa-Xp-ZCX"/>
                                             <outletCollection property="gestureRecognizers" destination="DSP-C5-V5P" appends="YES" id="VNJ-ea-uN9"/>
                                         </connections>
@@ -2131,7 +2128,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="mZy-Hn-wwd" appends="YES" id="IDT-rv-8Ez"/>
                                             <outletCollection property="gestureRecognizers" destination="EK9-5C-5Ub" appends="YES" id="dHY-ft-QMl"/>
                                             <outletCollection property="gestureRecognizers" destination="Eer-yp-dmc" appends="YES" id="UU4-vA-Zgz"/>
                                         </connections>
@@ -2233,16 +2229,6 @@
                                             <segue destination="Gp3-rY-qcn" kind="embed" id="JP8-mt-yTk"/>
                                         </connections>
                                     </containerView>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
-                                        <rect key="frame" x="103" y="106" width="86" height="86"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="PC4-by-xec" appends="YES" id="ppI-SU-nuM"/>
-                                            <outletCollection property="gestureRecognizers" destination="TD6-4R-inY" appends="YES" id="2DT-50-f6g"/>
-                                            <outletCollection property="gestureRecognizers" destination="5IH-Js-rtQ" appends="YES" id="J2A-zH-hE4"/>
-                                        </connections>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mrh-u5-GF0">
                                         <rect key="frame" x="479" y="8" width="27" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2257,6 +2243,15 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
+                                        <rect key="frame" x="128" y="366" width="86" height="86"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="TD6-4R-inY" appends="YES" id="2DT-50-f6g"/>
+                                            <outletCollection property="gestureRecognizers" destination="5IH-Js-rtQ" appends="YES" id="J2A-zH-hE4"/>
+                                        </connections>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -2305,31 +2300,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="bd5-OU-xAH" userLabel="Player 1 Pan">
-                    <connections>
-                        <action selector="handlePan:" destination="jGW-SO-mMU" id="b3R-1i-WIm"/>
-                    </connections>
-                </panGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="PC4-by-xec" userLabel="Player 2 Pan">
-                    <connections>
-                        <action selector="handlePan:" destination="jGW-SO-mMU" id="1kd-L2-3gi"/>
-                    </connections>
-                </panGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="cAe-hd-hUA" userLabel="Player 3 Pan">
-                    <connections>
-                        <action selector="handlePan:" destination="jGW-SO-mMU" id="sgn-Mo-QIH"/>
-                    </connections>
-                </panGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="aum-kl-6a9" userLabel="Player 4 Pan">
-                    <connections>
-                        <action selector="handlePan:" destination="jGW-SO-mMU" id="zyT-Mi-nEY"/>
-                    </connections>
-                </panGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="mZy-Hn-wwd" userLabel="Player 5 Pan">
-                    <connections>
-                        <action selector="handlePan:" destination="jGW-SO-mMU" id="UwL-Lr-cEc"/>
-                    </connections>
-                </panGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="CG7-jB-azx" userLabel="Player 1 Long Press">
                     <connections>
                         <action selector="handleLongPress:" destination="jGW-SO-mMU" id="sQu-vB-srE"/>
@@ -2355,30 +2325,34 @@
                         <action selector="handleLongPress:" destination="jGW-SO-mMU" id="Bmi-Me-uGM"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer id="dCX-mh-O30" userLabel="Hoop Tap"/>
+                <tapGestureRecognizer id="dCX-mh-O30" userLabel="Hoop Tap">
+                    <connections>
+                        <action selector="handleTap:" destination="jGW-SO-mMU" id="kHL-Sw-U26"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <tapGestureRecognizer id="ykg-yv-m9l" userLabel="Player 1 Tap">
                     <connections>
-                        <action selector="handleDribble:" destination="jGW-SO-mMU" id="fE6-y0-87g"/>
+                        <action selector="handleTap:" destination="jGW-SO-mMU" id="dIE-je-wcT"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="5IH-Js-rtQ" userLabel="Player 2 Tap">
                     <connections>
-                        <action selector="handleDribble:" destination="jGW-SO-mMU" id="GdV-UG-F3k"/>
+                        <action selector="handleTap:" destination="jGW-SO-mMU" id="Qsa-Qf-2aI"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="tlo-IJ-sdo" userLabel="Player 3 Tap">
                     <connections>
-                        <action selector="handleDribble:" destination="jGW-SO-mMU" id="UuT-M5-scz"/>
+                        <action selector="handleTap:" destination="jGW-SO-mMU" id="xFe-tS-a2M"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="DSP-C5-V5P" userLabel="Player 4 Tap">
                     <connections>
-                        <action selector="handleDribble:" destination="jGW-SO-mMU" id="sZo-te-dXk"/>
+                        <action selector="handleTap:" destination="jGW-SO-mMU" id="V10-wf-gBp"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="Eer-yp-dmc" userLabel="Player 5 Tap">
                     <connections>
-                        <action selector="handleDribble:" destination="jGW-SO-mMU" id="qwl-7h-IZP"/>
+                        <action selector="handleTap:" destination="jGW-SO-mMU" id="wT6-nH-3Sb"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="JcN-i5-noS" userLabel="Container Tap">
@@ -3316,25 +3290,25 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="Board" width="1944" height="1633"/>
+        <image name="Board" width="1944" height="1633.5"/>
         <image name="Default" width="1524" height="976"/>
-        <image name="Image" width="6030" height="1080"/>
+        <image name="Image" width="1447.199951171875" height="259.20001220703125"/>
         <image name="VerifiedBall" width="458" height="458"/>
         <image name="backArrow" width="49" height="68"/>
-        <image name="ballIconV2" width="333" height="341"/>
-        <image name="benchLabel" width="167" height="98"/>
+        <image name="ballIconV2" width="333.5" height="341"/>
+        <image name="benchLabel" width="167" height="98.5"/>
         <image name="blankBlueTable" width="1069" height="1108"/>
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
         <image name="lineupBar" width="2732" height="144"/>
         <image name="lineupManagerBar" width="2732" height="144"/>
         <image name="navGameBar" width="233" height="233"/>
         <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="navPlaybookBar" width="2559" height="245"/>
-        <image name="navPlayerManageBar" width="2559" height="245"/>
-        <image name="navScheduleBar" width="2559" height="245"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
+        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
+        <image name="navScheduleBar" width="2559.5" height="245.5"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
         <image name="scheduleBar" width="2732" height="144"/>
