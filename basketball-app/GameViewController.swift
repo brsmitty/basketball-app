@@ -405,6 +405,7 @@ class GameViewController: UIViewController {
     func handleJumpball(index: Int){
         if (gameState["began"] as! Bool == false){
             gameState["began"] = true
+            start()
             gameState["ballIndex"] = index
             let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
             let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
