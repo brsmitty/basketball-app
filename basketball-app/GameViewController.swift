@@ -17,8 +17,11 @@ class GameViewController: UIViewController {
     var startTime: Double = 0
     var time: Double = 0
     var elapsed: Double = 0
-    var status: Bool = false
+    var status: Bool = true
     var quarterTime: Int = 10
+    var firebaseRef:DatabaseReference?
+    var databaseHandle:DatabaseHandle?
+     var uid: String = ""
     let storage = UserDefaults.standard
     var gameState: [String: Any] = ["began": false,
                                     "transitioning": false,
@@ -78,6 +81,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserId()
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
@@ -92,13 +96,53 @@ class GameViewController: UIViewController {
       gameSummaryButton.layer.cornerRadius = 5
       techFoulButton.layer.cornerRadius = 5
       
-        
-        let strMinutes = String(format: "%02d", quarterTime)
-        labelMinute.text = strMinutes
+        //Set the timer
+        let strMinutes = String(format: "%02d", self.quarterTime)
+        self.labelMinute.text = strMinutes
+        getTimerSet()
         labelSecond.text = "00"
+        
       
       // circular all images
       roundImages()
+    }
+    
+    func getUserId(){
+        // Get the user id and set it to the user id global variable
+        Auth.auth().addStateDidChangeListener() { auth, user in
+            if user != nil {
+                guard let uId = user?.uid else {return}
+                self.uid = uId
+            }
+        }
+    }
+    
+    func gameIsUsers(_ lid:String)-> Bool{
+        
+        var isUsers = false
+        
+        let lineupId = lid.prefix(28)
+        isUsers = lineupId == uid
+        
+        return isUsers
+    }
+    
+    func getTimerSet(){
+        firebaseRef = Database.database().reference()
+        databaseHandle = firebaseRef?.child("timer").observe(.childAdded, with: { (snapshot) in
+            
+            // If the player is one of the users players add it to the table
+            if(self.gameIsUsers(snapshot.key)){
+                // take data from the snapshot and add a player object
+                var temp = 0
+                temp = snapshot.childSnapshot(forPath: "quarter").value as! Int
+                if(temp != 0){
+                    self.quarterTime = temp
+                    let strMinutes = String(format: "%02d", self.quarterTime)
+                    self.labelMinute.text = strMinutes
+                }
+            }
+        })
     }
 
    func roundImages(){
@@ -583,6 +627,7 @@ class GameViewController: UIViewController {
     func restart(){
         // Invalidate timer
         timer?.invalidate()
+        status = true
         
         // Reset timer variables
         startTime = 0
@@ -594,14 +639,19 @@ class GameViewController: UIViewController {
         labelMinute.text = strMinutes
         labelSecond.text = "00"
     }
+    
     func start() {
+        if(status){
         startTime = Date().timeIntervalSinceReferenceDate - elapsed
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        status = false
+        }
     }
     
     func stop() {
         elapsed = Date().timeIntervalSinceReferenceDate - startTime
         timer?.invalidate()
+        status = true
     }
     
     @objc func updateCounter() {
