@@ -338,6 +338,7 @@ class GameViewController: UIViewController {
             let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possession"] = "offense"
                 self.gameState["possessionArrow"] = "defense"
+                self.addBorderToActivePlayer(index)
             }
             let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possessionArrow"] = "offense"
@@ -367,6 +368,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
+        print(gameState["ballIndex"] as! Int)
         benchView.isHidden = true
         if gameState["began"] as! Bool {
             if let view = tapHandler.view {
@@ -374,7 +376,7 @@ class GameViewController: UIViewController {
                     case 0: shoot()
                         break;
                     case 1, 2, 3, 4, 5:
-                        if gameState["ballIndex"] as! Int == view.tag { dribble() }
+                        if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
                         else { pass(to: view.tag) }
                         break;
                     default: break;
@@ -404,6 +406,7 @@ class GameViewController: UIViewController {
     }
     
     func pass(to: Int) {
+        print("PASSING TO \(to)")
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player?]
         let passer = active[index]!
@@ -474,7 +477,6 @@ class GameViewController: UIViewController {
         present(reboundAlert, animated: true)
     }
     
-    //long press detected, display offensive player options
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
         benchView.isHidden = true
         let point = touchHandler.location(in: containerView)
@@ -492,14 +494,6 @@ class GameViewController: UIViewController {
             }
         }
         return false
-    }
-    
-    //pass detected, record and update ballIndex
-    func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
-        if passingPlayerIndex - 1 == gameState["ballIndex"] as! Int {
-            gameState["assistingPlayerIndex"] = passingPlayerIndex - 1
-            gameState["ballIndex"] = receivingPlayerIndex - 1
-        }
     }
     
     //turnover recorded, change possession
