@@ -27,7 +27,6 @@ class ShotChartViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "gameviewSegue" {
             if let gameView = segue.destination as? GameViewController {
-                self.gameState["transitioning"] = true
                 gameView.gameState = self.gameState
             }
         }
@@ -47,19 +46,41 @@ class ShotChartViewController: UIViewController {
             if assistIndex != 999 {
                 let assister = active[assistIndex]
                 assister.updateAssists(assists: 1)
+                self.pushPlaySequence(event: "\(active[assistIndex].firstName) got the assist")
             }
+            let shot = (location.x, location.y, true)
+            var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
+            shots.append(shot)
+            self.gameState["shots"] = shots
+            self.gameState["transitionState"] = "madeShot"
+            let index = self.gameState["ballIndex"] as! Int
+            var active = self.gameState["active"] as! [Player]
+            self.pushPlaySequence(event: "\(active[index].firstName) made the shot")
             self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
         }
         let missed = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) { UIAlertAction in
             shooter.updateTwoPointAttempt(attempted: 1)
+            let shot = (location.x, location.y, false)
+            var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
+            shots.append(shot)
+            self.gameState["shots"] = shots
+            self.gameState["transitionState"] = "missedShot"
+            let index = self.gameState["ballIndex"] as! Int
+            var active = self.gameState["active"] as! [Player]
+            self.pushPlaySequence(event: "\(active[index].firstName) missed the shot")
             self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
         }
         shotAlert.addAction(made)
         shotAlert.addAction(missed)
         shotAlert.popoverPresentationController?.sourceView = view
-        shotAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(), size: CGSize.init())
+        shotAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: location, size: CGSize.init())
         present(shotAlert, animated: false)
     }
     
+    func pushPlaySequence(event: String) {
+        var playSequence = gameState["playSequence"] as! [String]
+        playSequence.append(event)
+        gameState["playSequence"] = playSequence
+    }
     
 }

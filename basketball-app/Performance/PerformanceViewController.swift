@@ -26,5 +26,10 @@ class PerformanceViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+   
+   
+   @IBAction func goBack(_ sender: UIButton) {
+      dismiss(animated: false, completion: nil)
+   }
+   
 }

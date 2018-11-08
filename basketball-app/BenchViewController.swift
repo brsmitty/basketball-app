@@ -1,5 +1,5 @@
 //
-//  kpiViewController.swift
+//  BenchViewController.swift
 //  basketball-app
 //
 //  Created by Mike White on 11/7/18.
@@ -8,7 +8,14 @@
 
 import UIKit
 
-class kpiViewController: UIViewController {
+protocol SlideBenchDelegate{
+   func slideBenchSelectedAtIndex(_ index: Int32)
+}
+
+class BenchViewController: UIViewController {
+   
+   var benchButton: UIButton!
+   var delegate: SlideBenchDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +34,4 @@ class kpiViewController: UIViewController {
     }
     */
 
-   @IBAction func goBack(_ sender: UIButton) {
-      dismiss(animated: false, completion: nil)
-   }
 }
