@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jGW-SO-mMU">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -2226,26 +2226,29 @@
             </objects>
             <point key="canvasLocation" x="2777" y="124"/>
         </scene>
-        <!--Layup View Controller-->
-        <scene sceneID="M4g-Ew-Nc6">
+        <!--Freethrow View Controller-->
+        <scene sceneID="6X7-dh-MyU">
             <objects>
-                <viewController id="GJf-Rq-iBH" customClass="LayupViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="V3Z-P7-bh2">
+                <viewController id="X2n-cM-7pe" customClass="FreethrowViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e8c-Lb-Bfd">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="h1M-Jt-aX4">
+                            <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="eEr-hS-mAQ">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="4UJ-NJ-rP9"/>
+                        <viewLayoutGuide key="safeArea" id="4Jm-o5-vkw"/>
                     </view>
+                    <connections>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue2" id="jBy-OJ-BIB"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Bg-J4-UhL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a4B-nI-3wj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495.5078125" y="-2457.03125"/>
+            <point key="canvasLocation" x="2492" y="-2541"/>
         </scene>
         <!--Shot Chart View Controller-->
         <scene sceneID="68h-q4-66P">
@@ -2265,7 +2268,8 @@
                         <viewLayoutGuide key="safeArea" id="oVR-gZ-DDj"/>
                     </view>
                     <connections>
-                        <outlet property="chartView" destination="SN0-TH-S5j" id="BHb-rt-UaD"/>
+                        <outlet property="chartView" destination="SN0-TH-S5j" id="ePo-RN-OiS"/>
+                        <outlet property="view" destination="SN0-TH-S5j" id="GTf-tB-bvJ"/>
                         <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue" id="atr-rx-Imt"/>
                     </connections>
                 </viewController>
@@ -2552,7 +2556,7 @@
                         <outlet property="techFoulButton" destination="fo8-Oe-kHR" id="I2g-u2-fWu"/>
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
                         <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" id="Kov-4w-Yr5"/>
-                        <segue destination="GJf-Rq-iBH" kind="presentation" identifier="freethrowSegue" id="SJv-Yq-Kco"/>
+                        <segue destination="X2n-cM-7pe" kind="show" identifier="freethrowSegue" id="iIY-nF-rbF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3610,6 +3614,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.050980392156862744" blue="0.10196078431372549" alpha="0.5" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="7jb-dt-Ktl"/>
                     </view>
                     <connections>
                         <outlet property="logoutButton" destination="0Ex-GA-KJP" id="zmi-z7-8hB"/>
@@ -3635,17 +3640,17 @@
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
         <image name="lineupBar" width="2732" height="144"/>
         <image name="lineupManagerBar" width="2732" height="144"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559" height="245"/>
+        <image name="navKPIBar" width="2559.5" height="245.5"/>
         <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="navPerformanceBar" width="2559" height="245"/>
-        <image name="navPlaybookBar" width="2559" height="245"/>
-        <image name="navPlayerManageBar" width="2559" height="245"/>
-        <image name="navScheduleBar" width="2559" height="245"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="navPerformanceBar" width="2559.5" height="245.5"/>
+        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
+        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
+        <image name="navScheduleBar" width="2559.5" height="245.5"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
@@ -3656,16 +3661,11 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="T0b-Oa-zQb"/>
-        <segue reference="6q6-o3-KoC"/>
-        <segue reference="Kov-4w-Yr5"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
-        <segue reference="lf4-xB-O0T"/>
-        <segue reference="5E9-9j-04f"/>
+        <segue reference="7C8-E9-oft"/>
+        <segue reference="jBy-OJ-BIB"/>
         <segue reference="aCz-M9-az0"/>
-        <segue reference="Hk5-iD-FNH"/>
-        <segue reference="iVv-Kb-jLk"/>
         <segue reference="oRO-wQ-aRf"/>
         <segue reference="chn-OD-mNE"/>
         <segue reference="Vuy-KR-7OI"/>

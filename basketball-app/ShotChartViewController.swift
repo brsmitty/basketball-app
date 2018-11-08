@@ -11,12 +11,11 @@ import UIKit
 class ShotChartViewController: UIViewController {
     
     var gameState: [String: Any] = [:]
+    @IBOutlet weak var chartView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    @IBOutlet weak var chartView: UIImageView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
