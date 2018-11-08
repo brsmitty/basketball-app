@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27123B592193C35600541774 /* kpiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* kpiViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
 		274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A641D2164051700F0F4E7 /* LoginTextField.swift */; };
@@ -110,6 +111,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27123B582193C35600541774 /* kpiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kpiViewController.swift; sourceTree = "<group>"; };
 		27185E192173EE1800B69950 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		27185E222174370F00B69950 /* userAuth.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuth.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
@@ -257,6 +259,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		27123B572193C34700541774 /* KPI */ = {
+			isa = PBXGroup;
+			children = (
+				27123B582193C35600541774 /* kpiViewController.swift */,
+			);
+			path = KPI;
+			sourceTree = "<group>";
+		};
 		27185E1B2173F3D100B69950 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +389,7 @@
 		63C79FCD21403291006726C3 /* basketball-app */ = {
 			isa = PBXGroup;
 			children = (
+				27123B572193C34700541774 /* KPI */,
 				27B1F9492191F6E100D0351B /* Performance */,
 				630E2C67216E672600881C1F /* Playbook.pdf */,
 				630E2C65216E66C800881C1F /* Assets.xcassets */,
@@ -816,6 +827,7 @@
 				27C7D11121894360000EE098 /* PlaybookMasterViewController.swift in Sources */,
 				274A64302165B9E500F0F4E7 /* VerifiedViewController.swift in Sources */,
 				27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */,
+				27123B592193C35600541774 /* kpiViewController.swift in Sources */,
 				630E66EE21766973005EF4EB /* GameCell.swift in Sources */,
 				6346B811214AB765000B0B6E /* UserModel.swift in Sources */,
 				275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */,

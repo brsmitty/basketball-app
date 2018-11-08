@@ -41,6 +41,10 @@ class Player: NSObject {
     var personalFoul:Int
     var techFoul:Int
     var chargesTaken:Int
+    
+    var active: Bool = false
+    var hasBall: Bool = false
+    var numberOfDribbles: Int = 0
    
    // MARK: Initialization
    
@@ -172,6 +176,10 @@ class Player: NSObject {
     
     func updateSteals(steals: Int){
         self.steals += steals
+    }
+    
+    func dribble(){
+        self.numberOfDribbles += 1
     }
     
     func firebaseSync(tid: String, pid: String, data: NSDictionary){

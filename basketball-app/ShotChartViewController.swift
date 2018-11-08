@@ -14,40 +14,51 @@ class ShotChartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(gameState)
     }
     
     @IBOutlet weak var chartView: UIImageView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let position = touch.location(in: chartView)
-            saveShotLocation(position: position)
+            saveShot(location: touch.location(in: chartView))
         }
     }
     
-    func saveShotLocation(position: CGPoint){
-        let popupForShotOutcome = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
-        let madeShot = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-            print(position.x)
-            print(position.y)
-            UIView.setAnimationsEnabled(false)
-            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gameviewSegue" {
+            if let gameView = segue.destination as? GameViewController {
+                self.gameState["transitioning"] = true
+                gameView.gameState = self.gameState
+            }
         }
-        let missedShot = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-            print(position.x)
-            print(position.y)
-            UIView.setAnimationsEnabled(false)
-            self.performSegue(withIdentifier: "backToGameViewSegue", sender: nil)
+    }
+    
+    func saveShot(location: CGPoint){
+        let index = gameState["ballIndex"] as! Int
+        var active = gameState["active"] as! [Player]
+        let shooter = active[index]
+        let shotAlert = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
+        UIView.setAnimationsEnabled(false)
+        let made = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) { UIAlertAction in
+            shooter.updatePoints(points: 2)
+            shooter.updateTwoPointMade(made: 1)
+            shooter.updateTwoPointAttempt(attempted: 1)
+            let assistIndex = self.gameState["assistingPlayerIndex"] as! Int
+            if assistIndex != 999 {
+                let assister = active[assistIndex]
+                assister.updateAssists(assists: 1)
+            }
+            self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
         }
-        popupForShotOutcome.addAction(madeShot)
-        popupForShotOutcome.addAction(missedShot)
-        let popover = popupForShotOutcome.popoverPresentationController
-        popover?.sourceView = view
-        popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
-        present(popupForShotOutcome, animated: true)
+        let missed = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) { UIAlertAction in
+            shooter.updateTwoPointAttempt(attempted: 1)
+            self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
+        }
+        shotAlert.addAction(made)
+        shotAlert.addAction(missed)
+        shotAlert.popoverPresentationController?.sourceView = view
+        shotAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(), size: CGSize.init())
+        present(shotAlert, animated: false)
     }
     
     
