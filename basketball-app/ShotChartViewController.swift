@@ -20,7 +20,7 @@ class ShotChartViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            saveShot(location: touch.location(in: chartView))
+            saveShot(location: touch.location(in: self.view))
         }
     }
     
