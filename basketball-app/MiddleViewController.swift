@@ -22,7 +22,9 @@ class MiddleViewController: UIViewController {
     @IBOutlet weak var NGDetail: UILabel!
     @IBOutlet weak var NGDate: UILabel!
     
-    @IBOutlet weak var NGTitle: UILabel!
+   @IBOutlet var mainView: UIView!
+   @IBOutlet weak var settingsView: UIView!
+   @IBOutlet weak var NGTitle: UILabel!
     var admin: Bool = false
     // holds the player reference to firebase
     var playRef:DatabaseReference?
@@ -56,6 +58,7 @@ class MiddleViewController: UIViewController {
                 self.uid = uId
             }
         }
+      settingsView.isHidden = true
         getGames()
     }
     
@@ -134,15 +137,6 @@ class MiddleViewController: UIViewController {
     }
     */
 
-   @IBAction func logout(_ sender: UIButton) {
-      let firebaseAuth = Auth.auth()
-      do {
-         try firebaseAuth.signOut()
-         self.performSegue(withIdentifier: "logoutSegue", sender: nil)
-      } catch let signOutError as NSError {
-         print ("Error signing out: %@", signOutError)
-      }
-   }
     
     @IBAction func toggleAdmin(_ sender: UIButton) {
         print("value on entrance" + String(admin) + "\n")
@@ -177,4 +171,32 @@ class MiddleViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
+   @IBAction func openSettings(_ sender: UIButton) {
+      settingsView.isHidden = false
+      
+      self.settingsView.frame = CGRect(x: 0, y: -settingsView.frame.height, width: settingsView.frame.width, height: settingsView.frame.height)
+      self.view.layoutIfNeeded()
+      
+      UIView.animate(withDuration: 0.3, animations: {
+         self.settingsView.frame = CGRect(x: 0, y: 0, width: self.settingsView.frame.width, height: self.settingsView.frame.height)
+         self.view.layoutIfNeeded()
+      })
+   }
+   
+   @IBAction func closeSettings(_ sender: UITapGestureRecognizer){
+
+      if (sender.location(in: mainView).y > settingsView.frame.height){
+         if(!settingsView.isHidden){
+            UIView.animate(withDuration: 0.3, animations: {
+               self.settingsView.frame = CGRect(x: 0, y: -self.settingsView.frame.height, width: self.settingsView.frame.width, height: self.settingsView.frame.height)
+               self.view.layoutIfNeeded()
+            }, completion: {(finished) -> Void in
+               self.settingsView.isHidden = true
+            })
+         }
+      }
+         
+      
+   }
+
 }
