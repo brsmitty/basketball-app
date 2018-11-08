@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
     var quarterTime: Int = 10
     let storage = UserDefaults.standard
     var gameState: [String: Any] = ["began": false,
-                                    "transitioning": false,
+                                    "transitionState": "init",
                                     "possession": "",
                                     "possessionArrow": "",
                                     "teamFouls": 0,
@@ -48,7 +48,7 @@ class GameViewController: UIViewController {
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
     let boxWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
-    let benchPictureHeight : Int = 50 //constant for the width of the hit box for a player
+    let benchPictureHeight : Int = 100 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -72,8 +72,10 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         benchView.isHidden = true
-        if (gameState["transitioning"] as! Bool) { handleRebound() }
-        else { getRosterFromFirebase() }
+        let state = gameState["transitionState"] as! String
+        if (state == "missedShot") { handleRebound() }
+        else if (state == "madeShot") { switchToDefense() }
+        else if (state == "init" ) { getRosterFromFirebase() }
     }
     
     override func viewDidLoad() {
@@ -188,6 +190,12 @@ class GameViewController: UIViewController {
             let image = UIImage(named: "Kevin")
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
+         imageView.contentMode = .scaleAspectFit
+         
+         imageView.layer.masksToBounds = false
+         imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
+         imageView.clipsToBounds = true
+         
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(panGesture)
@@ -198,10 +206,24 @@ class GameViewController: UIViewController {
     
     @IBAction func showBench(_ sender: UIButton) {
         benchView.isHidden = false
+
+      benchView.frame = CGRect(x: -self.benchWidth, y:0, width: self.benchWidth, height: 595)
+      UIView.animate(withDuration: 0.3, animations: {
+         self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchWidth, height: 595)
+         self.view.layoutIfNeeded()
+      })
     }
     
     @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
-        if (sender.location(in: containerView).x > benchWidth) { benchView.isHidden = true }
+        if (sender.location(in: containerView).x > benchWidth) {
+         UIView.animate(withDuration: 0.3, animations: {
+            self.benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
+            self.view.layoutIfNeeded()
+         }, completion: {(finished) -> Void in
+            self.benchView.isHidden = true
+         })
+         
+      }
     }
     
     @IBAction func handleSubstitutionGesture(recognizer: UIPanGestureRecognizer) {
@@ -295,7 +317,7 @@ class GameViewController: UIViewController {
         let offenseAlert = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
         let turnover = UIAlertAction(title: "Turnover", style: UIAlertActionStyle.default) { UIAlertAction in self.handleTurnover(index: index) }
         let foul = UIAlertAction(title: "Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(index: index) }
-        let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpBall(point: point, index: index) }
+        let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(point: point, index: index) }
         if (fullLineup()){
             offenseAlert.addAction(jumpball)
             if (gameState["began"] as! Bool){
@@ -306,6 +328,33 @@ class GameViewController: UIViewController {
         offenseAlert.popoverPresentationController?.sourceView = view
         offenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
         present(offenseAlert, animated: false)
+    }
+    
+    func handleJumpball(point: CGPoint, index: Int){
+        if (gameState["began"] as! Bool == false){
+            gameState["began"] = true
+            gameState["ballIndex"] = index - 1
+            let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
+            let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.gameState["possession"] = "offense"
+                self.gameState["possessionArrow"] = "defense"
+                self.addBorderToActivePlayer(index)
+            }
+            let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.gameState["possessionArrow"] = "offense"
+                self.switchToDefense()
+            }
+            jumpballAlert.addAction(lost)
+            jumpballAlert.addAction(won)
+            jumpballAlert.popoverPresentationController?.sourceView = view
+            jumpballAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
+            present(jumpballAlert, animated: false)
+        }
+        else{
+            gameState["possession"] = gameState["possessionArrow"]
+            if (gameState["possessionArrow"] as! String == "defense"){ gameState["possessionArrow"] = "offense" }
+            else if (gameState["possessionArrow"] as! String == "offense"){ gameState["possessionArrow"] = "defense" }
+        }
     }
     
     func fullLineup() -> Bool {
@@ -319,15 +368,19 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
-        if let view = tapHandler.view {
-            switch (view.tag){
-                case 0: shoot()
-                    break;
-                case 1, 2, 3, 4, 5:
-                    if gameState["ballIndex"] as! Int == view.tag { dribble() }
-                    else { pass(to: view.tag) }
-                    break;
-                default: break;
+        print(gameState["ballIndex"] as! Int)
+        benchView.isHidden = true
+        if gameState["began"] as! Bool {
+            if let view = tapHandler.view {
+                switch (view.tag){
+                    case 0: shoot()
+                        break;
+                    case 1, 2, 3, 4, 5:
+                        if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
+                        else { pass(to: view.tag) }
+                        break;
+                    default: break;
+                }
             }
         }
     }
@@ -340,7 +393,6 @@ class GameViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "shotchartSegue" {
             if let shotChartView = segue.destination as? ShotChartViewController {
-                print(gameState)
                 shotChartView.gameState = self.gameState
             }
         }
@@ -348,53 +400,85 @@ class GameViewController: UIViewController {
     
     func dribble() {
         let index = gameState["ballIndex"] as! Int
-        var active = gameState["active"] as! [Player]
-        let dribbler = active[index]
+        var active = gameState["active"] as! [Player?]
+        let dribbler = active[index]!
         dribbler.dribble()
     }
     
     func pass(to: Int) {
+        print("PASSING TO \(to)")
         let index = gameState["ballIndex"] as! Int
+        var active = gameState["active"] as! [Player?]
+        let passer = active[index]!
         gameState["ballIndex"] = to
-        
-        var active = gameState["active"] as! [Player]
-        let passer = active[index]
-        let passedTo = active[to]
-        
-        //record pass for passer
+        gameState["assistingPlayerIndex"] = index
+        addBorderToActivePlayer(to)
+        passer.pass()
     }
+   
+   func addBorderToActivePlayer(_ player: Int){
+      
+      resetAllPlayerBorders()
+      
+      switch(player){
+      case 1:
+         imagePlayer1.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer1.layer.borderWidth = 4
+         break
+      case 2:
+         imagePlayer2.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer2.layer.borderWidth = 4
+         break
+      case 3:
+         imagePlayer3.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer3.layer.borderWidth = 4
+         break
+      case 4:
+         imagePlayer4.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer4.layer.borderWidth = 4
+         break
+      case 5:
+         imagePlayer5.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer5.layer.borderWidth = 4
+         break
+      default:
+         break
+      }
+   }
+   
+   func resetAllPlayerBorders(){
+      imagePlayer1.layer.borderWidth = 0
+      imagePlayer2.layer.borderWidth = 0
+      imagePlayer3.layer.borderWidth = 0
+      imagePlayer4.layer.borderWidth = 0
+      imagePlayer5.layer.borderWidth = 0
+   }
     
     func handleRebound(){
-        let popupForRebound = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
-        
+        let reboundAlert = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
         var activePlayer: UIAlertAction
         var i = 0
-        for player in activePlayerObjects {
+        for player in gameState["active"] as! [Player?] {
             let fname = player?.firstName
             let lname = player?.lastName
-            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) {
-                UIAlertAction in
+            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) { UIAlertAction in
                 player?.updateOffRebounds(rebounds: 1)
                 self.gameState["ballIndex"] = i
-                print("Success: offensive rebound recorded for \(fname!)")
             }
-            popupForRebound.addAction(activePlayer)
+            reboundAlert.addAction(activePlayer)
             i += 1
         }
-        
-        let defensiveRebound = UIAlertAction(title: "No", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-            print("Success: recognized defensive rebound")
+        let defensive = UIAlertAction(title: "No", style: UIAlertActionStyle.default) { UIAlertAction in
+            
         }
-        popupForRebound.addAction(defensiveRebound)
-        let popover = popupForRebound.popoverPresentationController
-        popover?.sourceView = view
-        popover?.sourceRect = CGRect.init(origin: imageHoop.center, size: CGSize.init())
-        present(popupForRebound, animated: true)
+        reboundAlert.addAction(defensive)
+        reboundAlert.popoverPresentationController?.sourceView = view
+        reboundAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: imageHoop.center, size: CGSize.init())
+        present(reboundAlert, animated: true)
     }
     
-    //long press detected, display offensive player options
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
+        benchView.isHidden = true
         let point = touchHandler.location(in: containerView)
         let index = touchHandler.view?.tag ?? 0
         if touchHandler.state == .began {
@@ -412,19 +496,11 @@ class GameViewController: UIViewController {
         return false
     }
     
-    //pass detected, record and update ballIndex
-    func handlePass(passingPlayerIndex: Int, receivingPlayerIndex: Int){
-        if passingPlayerIndex - 1 == gameState["ballIndex"] as! Int {
-            gameState["assistingPlayerIndex"] = passingPlayerIndex - 1
-            gameState["ballIndex"] = receivingPlayerIndex - 1
-        }
-    }
-    
     //turnover recorded, change possession
     func handleTurnover(index: Int){
         let playerObject = self.activePlayerObjects[index - 1]! as Player
         playerObject.updateTurnovers(turnovers: 1)
-        gameState["possession"] = "defense"
+        switchToDefense()
     }
     
     @IBAction func handleCharge(_ sender: UIButton) {
@@ -461,31 +537,8 @@ class GameViewController: UIViewController {
         present(popupForTechFoul, animated: true)
     }
     
-    //jump ball recorded, determine outcome and set possession accordingly
-    func handleJumpBall(point: CGPoint, index: Int){
-        if (gameState["began"] as! Bool == false){
-            gameState["began"] = true
-            gameState["ballIndex"] = index - 1
-            let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
-            let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
-                self.gameState["possession"] = "offense"
-                self.gameState["possessionArrow"] = "defense"
-            }
-            let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
-                self.gameState["possession"] = "defense"
-                self.gameState["possessionArrow"] = "offense"
-            }
-            jumpballAlert.addAction(lost)
-            jumpballAlert.addAction(won)
-            jumpballAlert.popoverPresentationController?.sourceView = view
-            jumpballAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
-            present(jumpballAlert, animated: false)
-        }
-        else{
-            gameState["possession"] = gameState["possessionArrow"]
-            if (gameState["possessionArrow"] as! String == "defense"){ gameState["possessionArrow"] = "offense" }
-            else if (gameState["possessionArrow"] as! String == "offense"){ gameState["possessionArrow"] = "defense" }
-        }
+    func switchToDefense() {
+        
     }
     
     @IBAction func showGameSummary(_ sender: UIButton) {

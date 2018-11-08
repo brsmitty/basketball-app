@@ -726,37 +726,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
-   // if let imgUrl = info[UIImagePickerControllerImageURL] as? URL{
-    //    let imgName = imgUrl.lastPathComponent
-       // let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-      //  let localPath = documentDirectory?.appending(imgName)
-        
-        //let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        //let data = UIImagePNGRepresentation(image)! as NSData
-        //data.write(toFile: localPath!, atomically: true)
-        //let imageData = NSData(contentsOfFile: localPath!)!
-      //  let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)
-        //playerImageURL = String(contentsOf: photoURL)
-        
-    //}
-    
-    //  guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
-   //      fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
-      
-//      let imageURL = info[UIImagePickerControllerImageURL] as! NSURL
-//      playerImageURL = imageURL
+
       if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage{
          playerImage.image = cropToBounds(image: editedImage, width: 180, height: 180)
       }
       else if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
          playerImage.image = cropToBounds(image: selectedImage, width: 180, height: 180)
       }
-      
-      //print(selectedImage)
-//    playerImage.layer.masksToBounds = true
-//    playerImage.clipsToBounds = true
-//      playerImage.contentMode = .scaleAspectFit
-//      playerImage.image = selectedImage
       
       
       dismiss(animated: true, completion: {
