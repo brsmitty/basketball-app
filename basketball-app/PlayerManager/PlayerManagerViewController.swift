@@ -45,8 +45,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBOutlet weak var backButton: UIButton!
    
    // Holds the path to the current row highlighed in the table view
-    var active: Bool = false
-    var hasBall: Bool = false
    var currentPath = IndexPath()
    // setup an array that holds all the players
    var players:[Player] = [Player]()

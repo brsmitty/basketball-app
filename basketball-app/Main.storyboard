@@ -2049,7 +2049,7 @@
                     </view>
                     <connections>
                         <outlet property="chartView" destination="SN0-TH-S5j" id="BHb-rt-UaD"/>
-                        <segue destination="jGW-SO-mMU" kind="show" identifier="backToGameViewSegue" id="atr-rx-Imt"/>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue" id="atr-rx-Imt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLe-Cd-oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2096,7 +2096,7 @@
                                             <outletCollection property="gestureRecognizers" destination="dCX-mh-O30" appends="YES" id="XWR-1e-g4o"/>
                                         </connections>
                                     </imageView>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="qzs-D5-kX9">
+                                    <imageView tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="qzs-D5-kX9">
                                         <rect key="frame" x="92" y="106" width="86" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -2105,7 +2105,7 @@
                                             <outletCollection property="gestureRecognizers" destination="ykg-yv-m9l" appends="YES" id="w00-lo-STo"/>
                                         </connections>
                                     </imageView>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-Y0-kG6">
+                                    <imageView tag="3" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-Y0-kG6">
                                         <rect key="frame" x="474" y="488" width="86" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -2114,7 +2114,7 @@
                                             <outletCollection property="gestureRecognizers" destination="tlo-IJ-sdo" appends="YES" id="U9i-Y5-fby"/>
                                         </connections>
                                     </imageView>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="iFf-z6-Xqm">
+                                    <imageView tag="4" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="iFf-z6-Xqm">
                                         <rect key="frame" x="814" y="366" width="86" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -2123,7 +2123,7 @@
                                             <outletCollection property="gestureRecognizers" destination="DSP-C5-V5P" appends="YES" id="VNJ-ea-uN9"/>
                                         </connections>
                                     </imageView>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-G9-3Xm">
+                                    <imageView tag="5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-G9-3Xm">
                                         <rect key="frame" x="840" y="106" width="86" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -2243,7 +2243,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
+                                    <imageView tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-NZ-y2M">
                                         <rect key="frame" x="128" y="366" width="86" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -2295,8 +2295,8 @@
                         <outlet property="outOfBoundsButton" destination="oTz-Nb-7Gl" id="vjA-pa-5ho"/>
                         <outlet property="techFoulButton" destination="fo8-Oe-kHR" id="I2g-u2-fWu"/>
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
-                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotChartSegue" id="Kov-4w-Yr5"/>
-                        <segue destination="GJf-Rq-iBH" kind="presentation" identifier="layupSegue" id="SJv-Yq-Kco"/>
+                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" id="Kov-4w-Yr5"/>
+                        <segue destination="GJf-Rq-iBH" kind="presentation" identifier="freethrowSegue" id="SJv-Yq-Kco"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3318,7 +3318,6 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kov-4w-Yr5"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
         <segue reference="7C8-E9-oft"/>
