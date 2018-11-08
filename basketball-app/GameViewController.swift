@@ -48,7 +48,7 @@ class GameViewController: UIViewController {
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
     let boxWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
-    let benchPictureHeight : Int = 50 //constant for the width of the hit box for a player
+    let benchPictureHeight : Int = 100 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -190,6 +190,12 @@ class GameViewController: UIViewController {
             let image = UIImage(named: "Kevin")
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
+         imageView.contentMode = .scaleAspectFit
+         
+         imageView.layer.masksToBounds = false
+         imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
+         imageView.clipsToBounds = true
+         
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(panGesture)
@@ -200,10 +206,24 @@ class GameViewController: UIViewController {
     
     @IBAction func showBench(_ sender: UIButton) {
         benchView.isHidden = false
+
+      benchView.frame = CGRect(x: -self.benchWidth, y:0, width: self.benchWidth, height: 595)
+      UIView.animate(withDuration: 0.3, animations: {
+         self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchWidth, height: 595)
+         self.view.layoutIfNeeded()
+      })
     }
     
     @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
-        if (sender.location(in: containerView).x > benchWidth) { benchView.isHidden = true }
+        if (sender.location(in: containerView).x > benchWidth) {
+         UIView.animate(withDuration: 0.3, animations: {
+            self.benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
+            self.view.layoutIfNeeded()
+         }, completion: {(finished) -> Void in
+            self.benchView.isHidden = true
+         })
+         
+      }
     }
     
     @IBAction func handleSubstitutionGesture(recognizer: UIPanGestureRecognizer) {
@@ -389,8 +409,47 @@ class GameViewController: UIViewController {
         let passer = active[index]!
         gameState["ballIndex"] = to
         gameState["assistingPlayerIndex"] = index
+        addBorderToActivePlayer(to)
         passer.pass()
     }
+   
+   func addBorderToActivePlayer(_ player: Int){
+      
+      resetAllPlayerBorders()
+      
+      switch(player){
+      case 1:
+         imagePlayer1.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer1.layer.borderWidth = 4
+         break
+      case 2:
+         imagePlayer2.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer2.layer.borderWidth = 4
+         break
+      case 3:
+         imagePlayer3.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer3.layer.borderWidth = 4
+         break
+      case 4:
+         imagePlayer4.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer4.layer.borderWidth = 4
+         break
+      case 5:
+         imagePlayer5.layer.borderColor = UIColor.cyan.cgColor
+         imagePlayer5.layer.borderWidth = 4
+         break
+      default:
+         break
+      }
+   }
+   
+   func resetAllPlayerBorders(){
+      imagePlayer1.layer.borderWidth = 0
+      imagePlayer2.layer.borderWidth = 0
+      imagePlayer3.layer.borderWidth = 0
+      imagePlayer4.layer.borderWidth = 0
+      imagePlayer5.layer.borderWidth = 0
+   }
     
     func handleRebound(){
         let reboundAlert = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
