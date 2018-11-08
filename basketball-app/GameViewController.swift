@@ -190,7 +190,7 @@ class GameViewController: UIViewController {
             let image = UIImage(named: "Kevin")
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
-         imageView.contentMode = .scaleAspectFit
+         imageView.contentMode = .scaleAspectFill
          
          imageView.layer.masksToBounds = false
          imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2

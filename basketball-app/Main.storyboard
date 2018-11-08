@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iQa-d8-Vh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -100,6 +100,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wEY-6f-4T0"/>
                     </view>
+                    <size key="freeformSize" width="1024" height="768"/>
                     <connections>
                         <outlet property="emailField" destination="wa5-gQ-4Bi" id="zak-07-XRW"/>
                         <outlet property="sendButton" destination="xzI-jw-qFS" id="iO3-fe-jl5"/>
@@ -109,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="-793" y="-970"/>
         </scene>
-        <!--User Auth View Controller-->
+        <!--UserAuthViewController-->
         <scene sceneID="8ka-rJ-bbR">
             <objects>
-                <viewController id="7nf-nr-9D1" customClass="UserAuthViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7nf-nr-9D1" userLabel="UserAuthViewController" customClass="UserAuthViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wjh-fT-mbf">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -241,6 +242,7 @@
                         <viewLayoutGuide key="safeArea" id="tTw-6Q-4gf"/>
                     </view>
                     <navigationItem key="navigationItem" id="eX0-B4-QYH"/>
+                    <size key="freeformSize" width="1024" height="768"/>
                     <connections>
                         <outlet property="loginButton" destination="Ssz-zT-Axf" id="ZKx-4U-ZoG"/>
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
@@ -411,6 +413,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d9i-Mk-iJR"/>
                     </view>
+                    <size key="freeformSize" width="1024" height="768"/>
                     <connections>
                         <outlet property="passwordMatchLabel" destination="kr3-Bc-VsJ" id="1Gu-Qb-OyV"/>
                         <outlet property="registerEmail" destination="ERZ-nu-Nad" id="fWw-5P-paL"/>
@@ -1393,6 +1396,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cJ7-1R-al7"/>
                     </view>
+                    <size key="freeformSize" width="1024" height="768"/>
                     <connections>
                         <segue destination="ZpI-uQ-bK5" kind="show" identifier="verifiedSegue" animates="NO" id="gec-7C-NVC"/>
                     </connections>
@@ -1443,6 +1447,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C6V-gX-PPx"/>
                     </view>
+                    <size key="freeformSize" width="1024" height="768"/>
                     <connections>
                         <segue destination="iQa-d8-Vh0" kind="show" identifier="registerSegue" id="Tvv-NR-hec"/>
                     </connections>
@@ -1558,10 +1563,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fOs-9V-cSv"/>
                     </view>
+                    <size key="freeformSize" width="1024" height="768"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mpV-wT-Cxs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="929" y="123"/>
+            <point key="canvasLocation" x="928.71093749999989" y="122.65625"/>
         </scene>
         <!--Kpi View Controller-->
         <scene sceneID="OPn-OE-PgN">
@@ -2277,6 +2283,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yPj-gI-Lzf"/>
                     </view>
+                    <size key="freeformSize" width="1024" height="768"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m20-WE-mXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2610,16 +2617,6 @@
                                     <segue destination="jGW-SO-mMU" kind="show" id="5E9-9j-04f"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVT-Vt-ugL">
-                                <rect key="frame" x="20" y="30" width="62" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Logout"/>
-                                <connections>
-                                    <action selector="logout:" destination="iQa-d8-Vh0" eventType="touchUpInside" id="8bm-LX-gfp"/>
-                                    <segue destination="7nf-nr-9D1" kind="show" identifier="logoutSegue" id="9D4-EJ-t0G"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-hT-E1h" userLabel="performanceButton">
                                 <rect key="frame" x="167" y="696" width="166" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2654,9 +2651,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbm-eb-8sO" userLabel="settingsButton">
-                                <rect key="frame" x="985" y="30" width="8" height="35"/>
+                                <rect key="frame" x="960" y="25" width="50" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="settingsDots"/>
+                                <connections>
+                                    <action selector="openSettings:" destination="iQa-d8-Vh0" eventType="touchUpInside" id="5sc-7X-JMh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-VB-FRC" userLabel="kpiButton">
                                 <rect key="frame" x="564" y="696" width="116" height="71"/>
@@ -2670,6 +2669,10 @@
                                     <segue destination="XMH-rb-sfj" kind="show" animates="NO" id="Hk5-iD-FNH"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingsDots" translatesAutoresizingMaskIntoConstraints="NO" id="78c-w4-FeY">
+                                <rect key="frame" x="967" y="30" width="37" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scheduleRect_1" translatesAutoresizingMaskIntoConstraints="NO" id="Twf-Mw-Ai7">
                                 <rect key="frame" x="20" y="105" width="509" height="142"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2721,9 +2724,19 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bG-PW-Rm8">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="156"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="THY-ha-0ml" kind="embed" id="w9n-Na-m35"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="BCo-Wv-CLx" appends="YES" id="HC2-rL-o8V"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1024" height="768"/>
@@ -2731,9 +2744,16 @@
                         <outlet property="NGDate" destination="i5n-OY-epb" id="nbW-et-DsS"/>
                         <outlet property="NGDetail" destination="wOK-uX-67y" id="HTZ-pF-vPu"/>
                         <outlet property="NGTitle" destination="HUg-jf-n21" id="PGj-Cu-MnB"/>
+                        <outlet property="settingsView" destination="0bG-PW-Rm8" id="668-qE-9xO"/>
+                        <outlet property="view" destination="EFW-7U-Bjg" id="hZE-L3-ffh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHV-jI-tWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="BCo-Wv-CLx">
+                    <connections>
+                        <action selector="closeSettings:" destination="iQa-d8-Vh0" id="NzE-dR-2zg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1899.6093749999998" y="-782.03125"/>
         </scene>
@@ -3515,7 +3535,53 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5l-PW-ekX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1359" y="-1196"/>
+            <point key="canvasLocation" x="1341" y="-1343"/>
+        </scene>
+        <!--Drop Down View Controller-->
+        <scene sceneID="0xN-ep-8Q4">
+            <objects>
+                <viewController id="THY-ha-0ml" customClass="DropDownViewController" customModule="basketball_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JbC-It-l8c">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="156"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ex-GA-KJP">
+                                <rect key="frame" x="77" y="80" width="222" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.90196078430000004" green="0.5450980392" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <state key="normal" title="LOGOUT">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="editPlayerInfo:" destination="wie-Xy-O0x" eventType="touchUpInside" id="2ou-Lf-WST"/>
+                                    <action selector="logout:" destination="THY-ha-0ml" eventType="touchUpInside" id="G4g-hV-8ON"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1o-t4-Orz">
+                                <rect key="frame" x="456" y="80" width="222" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <state key="normal" title="SETTINGS">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="XSy-ZY-hla" kind="show" animates="NO" id="dNw-BM-WdI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.050980392156862744" blue="0.10196078431372549" alpha="0.5" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="logoutButton" destination="0Ex-GA-KJP" id="zmi-z7-8hB"/>
+                        <outlet property="settingsButton" destination="F1o-t4-Orz" id="XRv-Wg-0Oe"/>
+                        <segue destination="7nf-nr-9D1" kind="show" identifier="logoutSegue" id="R7p-6i-deX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ylr-ZX-pE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="781" y="-731"/>
         </scene>
     </scenes>
     <resources>
@@ -3531,17 +3597,17 @@
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759.5"/>
+        <image name="kpiRect_1" width="1369" height="759"/>
         <image name="lineupBar" width="2732" height="144"/>
         <image name="lineupManagerBar" width="2732" height="144"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559.5" height="245.5"/>
+        <image name="navKPIBar" width="2559" height="245"/>
         <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559.5" height="244"/>
-        <image name="navPerformanceBar" width="2559.5" height="245.5"/>
-        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
-        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
-        <image name="navScheduleBar" width="2559.5" height="245.5"/>
+        <image name="navMainBar" width="2559" height="244"/>
+        <image name="navPerformanceBar" width="2559" height="245"/>
+        <image name="navPlaybookBar" width="2559" height="245"/>
+        <image name="navPlayerManageBar" width="2559" height="245"/>
+        <image name="navScheduleBar" width="2559" height="245"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
@@ -3552,21 +3618,14 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MIB-jk-0aI"/>
-        <segue reference="xqL-oL-XaF"/>
-        <segue reference="7C8-E9-oft"/>
-        <segue reference="HBU-gg-SPg"/>
-        <segue reference="W8M-Sy-CPF"/>
-        <segue reference="qSa-7c-GpM"/>
-        <segue reference="CAV-lt-Azo"/>
-        <segue reference="Kov-4w-Yr5"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
-        <segue reference="atr-rx-Imt"/>
+        <segue reference="6q6-o3-KoC"/>
+        <segue reference="5E9-9j-04f"/>
         <segue reference="aCz-M9-az0"/>
-        <segue reference="oRO-wQ-aRf"/>
-        <segue reference="chn-OD-mNE"/>
+        <segue reference="Hk5-iD-FNH"/>
+        <segue reference="iVv-Kb-jLk"/>
         <segue reference="Vuy-KR-7OI"/>
-        <segue reference="9D4-EJ-t0G"/>
+        <segue reference="R7p-6i-deX"/>
     </inferredMetricsTieBreakers>
 </document>
