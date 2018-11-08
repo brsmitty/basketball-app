@@ -3531,17 +3531,17 @@
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
         <image name="lineupBar" width="2732" height="144"/>
         <image name="lineupManagerBar" width="2732" height="144"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559" height="245"/>
+        <image name="navKPIBar" width="2559.5" height="245.5"/>
         <image name="navLineupBar" width="2559" height="244"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="navPerformanceBar" width="2559" height="245"/>
-        <image name="navPlaybookBar" width="2559" height="245"/>
-        <image name="navPlayerManageBar" width="2559" height="245"/>
-        <image name="navScheduleBar" width="2559" height="245"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="navPerformanceBar" width="2559.5" height="245.5"/>
+        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
+        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
+        <image name="navScheduleBar" width="2559.5" height="245.5"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
@@ -3559,6 +3559,13 @@
         <segue reference="W8M-Sy-CPF"/>
         <segue reference="qSa-7c-GpM"/>
         <segue reference="CAV-lt-Azo"/>
+        <segue reference="Kov-4w-Yr5"/>
+        <segue reference="Gdc-D2-q3f"/>
+        <segue reference="T0b-Oa-zQb"/>
+        <segue reference="atr-rx-Imt"/>
+        <segue reference="aCz-M9-az0"/>
+        <segue reference="oRO-wQ-aRf"/>
+        <segue reference="chn-OD-mNE"/>
         <segue reference="Vuy-KR-7OI"/>
         <segue reference="9D4-EJ-t0G"/>
     </inferredMetricsTieBreakers>
