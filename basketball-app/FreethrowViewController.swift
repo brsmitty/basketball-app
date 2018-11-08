@@ -14,10 +14,11 @@ class FreethrowViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIView.setAnimationsEnabled(false)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
+        if let _ = touches.first {
             self.performSegue(withIdentifier: "gameviewSegue2", sender: nil)
         }
     }

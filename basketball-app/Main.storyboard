@@ -2234,7 +2234,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="eEr-hS-mAQ">
+                            <imageView contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="eEr-hS-mAQ">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -2258,7 +2258,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-TH-S5j">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-TH-S5j">
                                 <rect key="frame" x="-23" y="0.0" width="1061" height="790"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -3664,7 +3664,7 @@
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
         <segue reference="7C8-E9-oft"/>
-        <segue reference="jBy-OJ-BIB"/>
+        <segue reference="atr-rx-Imt"/>
         <segue reference="aCz-M9-az0"/>
         <segue reference="oRO-wQ-aRf"/>
         <segue reference="chn-OD-mNE"/>
