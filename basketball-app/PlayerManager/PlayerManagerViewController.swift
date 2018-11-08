@@ -171,8 +171,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
+            //let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
             
+            let imageName = (fnameSnap.value as! String) + (lnameSnap.value as! String) + "image"
+            let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
             let imageURL: URL = URL(fileURLWithPath: imagePath)
             
             //let imageData:NSData = NSData.init(contentsOf: image)
