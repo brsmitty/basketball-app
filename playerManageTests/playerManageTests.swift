@@ -29,8 +29,24 @@ class playerManageTests: XCTestCase {
    
    func testAddFivePlayers() {
       
+//      let app = XCUIApplication()
+//
+//      let loginButton = app.buttons["LOGIN"]
+//
+//      let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
+//      let loginText = bgElementsQuery.children(matching: .textField).element
+//      loginText.tap()
+//      loginText.typeText("kewlmike3@gmail.com")
+//      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+//
+//
+//      let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
+//      secureTextField.tap()
+//      secureTextField.typeText("Michael")
+//      app.buttons["Go"].tap()
+//      XCTAssertEqual(loginButton.value as! String, "")
+//      loginButton.tap()
       
-      let app = XCUIApplication()
       app.otherElements.containing(.image, identifier:"welcomeBar").children(matching: .button).element(boundBy: 3).tap()
       
       let addButton = app.buttons["ADD PLAYER"]

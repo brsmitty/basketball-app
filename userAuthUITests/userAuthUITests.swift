@@ -242,7 +242,7 @@ class userAuthUITests: XCTestCase {
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
       secureTextField.tap()
-      secureTextField.typeText("michael7")
+      secureTextField.typeText("Michael")
       app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
       loginButton.tap()
