@@ -71,13 +71,13 @@ class GameViewController: UIViewController {
         else if (state == "missedShot") {
             populateBench()
             populateActive()
-            gameState["transitionState"] = "offensiveBoard"
+            handleRebound()
         }
         else if (state == "madeShot") {
+            gameState["transitionState"] = "inProgress"
             populateBench()
             populateActive()
             switchToDefense()
-            gameState["transitionState"] = "inProgress"
         }
     }
     
@@ -191,6 +191,13 @@ class GameViewController: UIViewController {
     }
 
     func populateBench(){
+        var i = 0
+        for view in benchView.subviews {
+            if i >= 1 {
+                view.removeFromSuperview()
+            }
+            i += 1
+        }
         var y = 0
         for player in gameState["bench"] as! [Player] {
             let image = player.photo
@@ -209,7 +216,7 @@ class GameViewController: UIViewController {
     }
     
     func populateActive() {
-        let playerImages = [imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4, imagePlayer5]
+        var playerImages = [imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4, imagePlayer5]
         var i = 0
         for player in gameState["active"] as! [Player] {
             playerImages[i]!.image = player.photo
@@ -246,7 +253,7 @@ class GameViewController: UIViewController {
         if recognizer.state == .began {
             self.panStartPoint = recognizer.location(in: benchView)
         }
-        if recognizer.state == .ended {
+        if recognizer.state == .ended { //drag gesture has ended
             self.panEndPoint = recognizer.location(in: containerView)
             var activePlayers = [Player?](repeating: nil, count: 5)
             var index = 0
@@ -266,21 +273,11 @@ class GameViewController: UIViewController {
                 }
                 else {
                     benchPlayers.remove(at: benchIndex)
-                    var i = 0
-                    for view in benchView.subviews {
-                        if i >= 2 + benchIndex {
-                            let newY = Int(view.frame.minY) - benchPictureHeight
-                            view.frame = CGRect(x: 0, y: newY, width: 100, height: benchPictureHeight)
-                        }
-                        i += 1
-                    }
                 }
-                
                 getPlayerImage(index: activeIndex).image = activePlayers[activeIndex]?.photo
-                view.removeGestureRecognizer(recognizer)
-                recognizer.view?.removeFromSuperview()
                 gameState["active"] = activePlayers
                 gameState["bench"] = benchPlayers
+                populateBench()
             }
             else {
                 recognizer.view?.center = self.panStartPoint
@@ -437,21 +434,13 @@ class GameViewController: UIViewController {
     
     func handleRebound(){
         let reboundAlert = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
-        var activePlayer: UIAlertAction
-        var i = 0
-        for player in gameState["active"] as! [Player?] {
-            let fname = player?.firstName
-            let lname = player?.lastName
-            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) { UIAlertAction in
-                player?.updateOffRebounds(rebounds: 1)
-                self.gameState["ballIndex"] = i
-            }
-            reboundAlert.addAction(activePlayer)
-            i += 1
+        let offensive = UIAlertAction(title: "No", style: UIAlertActionStyle.default) { UIAlertAction in
+            self.gameState["transitionState"] = "offensiveBoard"
         }
         let defensive = UIAlertAction(title: "No", style: UIAlertActionStyle.default) { UIAlertAction in
-            
+            self.switchToDefense()
         }
+        reboundAlert.addAction(offensive)
         reboundAlert.addAction(defensive)
         reboundAlert.popoverPresentationController?.sourceView = view
         reboundAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: imageHoop.center, size: CGSize.init())
