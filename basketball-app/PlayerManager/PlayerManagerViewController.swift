@@ -169,16 +169,26 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let positionSnap = snapshot.childSnapshot(forPath: "position")
             let rankSnap = snapshot.childSnapshot(forPath: "rank")
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            let image = snapshot.childSnapshot(forPath: "photo").value as! String
+            //let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
+            
+            let imageName = (fnameSnap.value as! String) + (lnameSnap.value as! String) + "image"
+            let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+            let imageURL: URL = URL(fileURLWithPath: imagePath)
             
             //let imageData:NSData = NSData.init(contentsOf: image)
-            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
-            let decodedImage:UIImage = UIImage(data:imageData)!
+//            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
+//            let decodedImage:UIImage = UIImage(data:imageData)!
 //            let imageUrl = NSURL(fileURLWithPath: String(image.suffix(image.count - 7)))
 //            let imageData:NSData = NSData.init(contentsOf:imageUrl as URL)!
 //            let decodedImage:UIImage = UIImage(data:imageData as Data)!
             
-            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: nil, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
+            guard FileManager.default.fileExists(atPath: imagePath),
+               let imageData: Data = try? Data(contentsOf: imageURL),
+               let image: UIImage = UIImage(data: imageData, scale: UIScreen.main.scale) else {
+                  return
+            }
+            
+            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: image, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
             
             let help = String(snapshot.key.suffix(snapshot.key.count - 29))
             if(!self.counts.contains(Int(help)!)){
@@ -381,9 +391,17 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-      let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
-      let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
+     // let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
+      //let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
 //      let strImage:String = playerImageURL.absoluteString!
+      
+      let imageName = firstName + lastName + "image"
+      let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+      let imageURL: URL = URL(fileURLWithPath: imagePath)
+      
+      // Store the image
+      try? UIImagePNGRepresentation(playerImage.image!)?.write(to: imageURL)
+      
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
       let pid = uid + "-" + String(count)
@@ -397,7 +415,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                         "tid": tid,
                                        "fname": firstName,
                                        "lname": lastName,
-                                       "photo": playerImageURL,
+                                       "photo": imagePath,
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
