@@ -12,13 +12,15 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class GameViewController: UIViewController {
-    
     weak var timer: Timer?
     var startTime: Double = 0
     var time: Double = 0
     var elapsed: Double = 0
-    var status: Bool = false
+    var status: Bool = true
     var quarterTime: Int = 10
+    var firebaseRef:DatabaseReference?
+    var databaseHandle:DatabaseHandle?
+     var uid: String = ""
     let storage = UserDefaults.standard
     var gameState: [String: Any] = ["began": false,
                                     "transitionState": "init",
@@ -39,10 +41,6 @@ class GameViewController: UIViewController {
                                     "lineups": [],
                                     "playSequence": [],
                                     "shots": []]
-    
-    var activePlayerIdStrings = [String?](repeating: nil, count: 5) //String array of the PIDs of all 5 players on the floor currently, starts as nil until intial subs are made
-    var activePlayerObjects = [Player?](repeating: nil, count: 5) //parallel to active, contains all player objects
-    
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
     var panEndPoint = CGPoint() //end point of any given pan gesture
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
@@ -52,7 +50,6 @@ class GameViewController: UIViewController {
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
-    
     @IBOutlet weak var labelSecond: UILabel!
     @IBOutlet weak var labelMinute: UILabel!
     @IBOutlet weak var courtView: UIImageView! //court image outlet
@@ -73,13 +70,23 @@ class GameViewController: UIViewController {
         super.viewWillAppear(animated)
         benchView.isHidden = true
         let state = gameState["transitionState"] as! String
-        if (state == "missedShot") { handleRebound() }
-        else if (state == "madeShot") { switchToDefense() }
-        else if (state == "init" ) { getRosterFromFirebase() }
+        if (state == "init" ) { getRosterFromFirebase() }
+        else if (state == "missedShot") {
+            populateBench()
+            populateActive()
+            handleRebound()
+        }
+        else if (state == "madeShot") {
+            gameState["transitionState"] = "inProgress"
+            populateBench()
+            populateActive()
+            switchToDefense()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserId()
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
@@ -87,20 +94,57 @@ class GameViewController: UIViewController {
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
 
+        chargeButton.layer.cornerRadius = 5
+        timeoutButton.layer.cornerRadius = 5
+        benchButton.layer.cornerRadius = 5
+        gameSummaryButton.layer.cornerRadius = 5
+        techFoulButton.layer.cornerRadius = 5
+        outOfBoundsButton.layer.cornerRadius = 5
       
-      chargeButton.layer.cornerRadius = 5
-      timeoutButton.layer.cornerRadius = 5
-      benchButton.layer.cornerRadius = 5
-      gameSummaryButton.layer.cornerRadius = 5
-      techFoulButton.layer.cornerRadius = 5
-      
-        
-        let strMinutes = String(format: "%02d", quarterTime)
-        labelMinute.text = strMinutes
+        //Set the timer
+        let strMinutes = String(format: "%02d", self.quarterTime)
+        self.labelMinute.text = strMinutes
+        getTimerSet()
         labelSecond.text = "00"
-      
-      // circular all images
-      roundImages()
+        roundImages()
+    }
+    
+    func getUserId(){
+        // Get the user id and set it to the user id global variable
+        Auth.auth().addStateDidChangeListener() { auth, user in
+            if user != nil {
+                guard let uId = user?.uid else {return}
+                self.uid = uId
+            }
+        }
+    }
+    
+    func gameIsUsers(_ lid:String)-> Bool{
+        
+        var isUsers = false
+        
+        let lineupId = lid.prefix(28)
+        isUsers = lineupId == uid
+        
+        return isUsers
+    }
+    
+    func getTimerSet(){
+        firebaseRef = Database.database().reference()
+        databaseHandle = firebaseRef?.child("timer").observe(.childAdded, with: { (snapshot) in
+            
+            // If the player is one of the users players add it to the table
+            if(self.gameIsUsers(snapshot.key)){
+                // take data from the snapshot and add a player object
+                var temp = 0
+                temp = snapshot.childSnapshot(forPath: "quarter").value as! Int
+                if(temp != 0){
+                    self.quarterTime = temp
+                    let strMinutes = String(format: "%02d", self.quarterTime)
+                    self.labelMinute.text = strMinutes
+                }
+            }
+        })
     }
 
    func roundImages(){
@@ -124,16 +168,14 @@ class GameViewController: UIViewController {
       imagePlayer5.layer.cornerRadius = imagePlayer1.frame.size.width/2
       imagePlayer5.clipsToBounds = true
    }
-    // FIREBASE READ & WRITE FUNCTIONS ///////////////////////////////////////////////
+    
     
     func getRosterFromFirebase(){
-        //grab persistently stored TID, pull roster from firebase
         var roster : [String: Any] = [:]
         let tid = storage.string(forKey: "tid")!
         let firebaseRef = Database.database().reference()
         firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
             var value = snapshot.value as? [String: Any]
-            //fill roster dictionary with appropriate player values from firebase (key = PID, value = nested player dictionary)
             if value == nil { value = [:] }
             for v in value! {
                 let key = v.key
@@ -149,9 +191,20 @@ class GameViewController: UIViewController {
         var players : [Player] = []
         for player in roster {
             let p = player.value as! [String: Any]
+
+            let imageName = (p["fname"] as! String) + (p["lname"] as! String) + "image"
+            let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+            let imageURL: URL = URL(fileURLWithPath: imagePath)
+            guard FileManager.default.fileExists(atPath: imagePath),
+                let imageData: Data = try? Data(contentsOf: imageURL),
+                let image: UIImage = UIImage(data: imageData, scale: UIScreen.main.scale) else {
+                    return
+            }
+            let photo = image
+            
             let playerObject = Player(firstName: p["fname"] as! String,
                            lastName: p["lname"] as! String,
-                           photo: nil,
+                           photo: photo,
                            position: p["position"] as! String,
                            height: p["height"] as! String,
                            weight: p["weight"] as! String,
@@ -183,19 +236,38 @@ class GameViewController: UIViewController {
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
         populateBench()
     }
+    
+    func pushPlaySequence(event: String) {
+        var playSequence = gameState["playSequence"] as! [String]
+        playSequence.append(event)
+        gameState["playSequence"] = playSequence
+    }
+    
+    func printPlaySequence() -> String {
+        var playSequence = ""
+        for event in gameState["playSequence"] as! [String] {
+            playSequence += event + "\n"
+        }
+        return playSequence
+    }
 
     func populateBench(){
+        var i = 0
+        for view in benchView.subviews {
+            if i >= 1 {
+                view.removeFromSuperview()
+            }
+            i += 1
+        }
         var y = 0
-        for _ in gameState["bench"] as! [Player] {
-            let image = UIImage(named: "Kevin")
+        for player in gameState["bench"] as! [Player] {
+            let image = player.photo
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
-         imageView.contentMode = .scaleAspectFill
-         
-         imageView.layer.masksToBounds = false
-         imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
-         imageView.clipsToBounds = true
-         
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.masksToBounds = false
+            imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
+            imageView.clipsToBounds = true
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(panGesture)
@@ -204,26 +276,33 @@ class GameViewController: UIViewController {
         }
     }
     
+    func populateActive() {
+        var playerImages = [imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4, imagePlayer5]
+        var i = 0
+        for player in gameState["active"] as! [Player] {
+            playerImages[i]!.image = player.photo
+            i += 1
+        }
+    }
+    
     @IBAction func showBench(_ sender: UIButton) {
         benchView.isHidden = false
-
-      benchView.frame = CGRect(x: -self.benchWidth, y:0, width: self.benchWidth, height: 595)
-      UIView.animate(withDuration: 0.3, animations: {
-         self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchWidth, height: 595)
-         self.view.layoutIfNeeded()
-      })
+        benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchWidth, height: 595)
+            self.view.layoutIfNeeded()
+        })
     }
     
     @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
         if (sender.location(in: containerView).x > benchWidth) {
-         UIView.animate(withDuration: 0.3, animations: {
-            self.benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
-            self.view.layoutIfNeeded()
-         }, completion: {(finished) -> Void in
-            self.benchView.isHidden = true
-         })
-         
-      }
+            UIView.animate(withDuration: 0.3, animations: {
+                self.benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
+                self.view.layoutIfNeeded()
+            }, completion: {(finished) -> Void in
+                self.benchView.isHidden = true
+            })
+        }
     }
     
     @IBAction func handleSubstitutionGesture(recognizer: UIPanGestureRecognizer) {
@@ -235,7 +314,7 @@ class GameViewController: UIViewController {
         if recognizer.state == .began {
             self.panStartPoint = recognizer.location(in: benchView)
         }
-        if recognizer.state == .ended {
+        if recognizer.state == .ended { //drag gesture has ended
             self.panEndPoint = recognizer.location(in: containerView)
             var activePlayers = [Player?](repeating: nil, count: 5)
             var index = 0
@@ -250,26 +329,18 @@ class GameViewController: UIViewController {
                 let playerSubbingIn = benchPlayers[benchIndex]
                 let playerSubbingOut = activePlayers[activeIndex]
                 activePlayers[activeIndex] = playerSubbingIn
+                pushPlaySequence(event: "\(playerSubbingIn.firstName) subbed in")
                 if (playerSubbingOut != nil) {
                     benchPlayers[benchIndex] = playerSubbingOut!
+                    pushPlaySequence(event: "\(playerSubbingOut!.firstName) subbed out")
                 }
                 else {
                     benchPlayers.remove(at: benchIndex)
-                    var i = 0
-                    for view in benchView.subviews {
-                        if i >= 2 + benchIndex {
-                            let newY = Int(view.frame.minY) - benchPictureHeight
-                            view.frame = CGRect(x: 0, y: newY, width: 100, height: benchPictureHeight)
-                        }
-                        i += 1
-                    }
                 }
-                
-                getPlayerImage(index: activeIndex).image = UIImage(named: "Kevin")
-                view.removeGestureRecognizer(recognizer)
-                recognizer.view?.removeFromSuperview()
+                getPlayerImage(index: activeIndex).image = activePlayers[activeIndex]?.photo
                 gameState["active"] = activePlayers
                 gameState["bench"] = benchPlayers
+                populateBench()
             }
             else {
                 recognizer.view?.center = self.panStartPoint
@@ -313,47 +384,63 @@ class GameViewController: UIViewController {
         }
     }
     
-    func presentOffensiveOptions(point: CGPoint, index: Int){
+    func presentOffensiveOptions(index: Int){
         let offenseAlert = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
-        let turnover = UIAlertAction(title: "Turnover", style: UIAlertActionStyle.default) { UIAlertAction in self.handleTurnover(index: index) }
         let foul = UIAlertAction(title: "Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(index: index) }
-        let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(point: point, index: index) }
+        let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(index: index) }
         if (fullLineup()){
             offenseAlert.addAction(jumpball)
             if (gameState["began"] as! Bool){
-                offenseAlert.addAction(turnover)
                 offenseAlert.addAction(foul)
             }
         }
         offenseAlert.popoverPresentationController?.sourceView = view
-        offenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
+        let c = getPlayerImage(index: index).center
+        let y = CGFloat(c.y + 100)
+        let p = CGPoint(x: c.x, y: y)
+        offenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
         present(offenseAlert, animated: false)
     }
     
-    func handleJumpball(point: CGPoint, index: Int){
+    func handleJumpball(index: Int){
         if (gameState["began"] as! Bool == false){
             gameState["began"] = true
-            gameState["ballIndex"] = index - 1
+            start()
+            gameState["ballIndex"] = index
             let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
             let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possession"] = "offense"
                 self.gameState["possessionArrow"] = "defense"
                 self.addBorderToActivePlayer(index)
+                let active = self.gameState["active"] as! [Player]
+                self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
             }
             let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possessionArrow"] = "offense"
+                let active = self.gameState["active"] as! [Player]
+                self.pushPlaySequence(event: "\(active[index].firstName) lost the jump ball")
                 self.switchToDefense()
             }
             jumpballAlert.addAction(lost)
             jumpballAlert.addAction(won)
             jumpballAlert.popoverPresentationController?.sourceView = view
-            jumpballAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: CGPoint.init(x: point.x, y: point.y + 50), size: CGSize.init())
+            let c = getPlayerImage(index: index).center
+            let y = CGFloat(c.y + 100)
+            let p = CGPoint(x: c.x, y: y)
+            jumpballAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
             present(jumpballAlert, animated: false)
         }
         else{
             gameState["possession"] = gameState["possessionArrow"]
-            if (gameState["possessionArrow"] as! String == "defense"){ gameState["possessionArrow"] = "offense" }
-            else if (gameState["possessionArrow"] as! String == "offense"){ gameState["possessionArrow"] = "defense" }
+            if (gameState["possessionArrow"] as! String == "defense"){
+                self.pushPlaySequence(event: "jump ball, possession goes to the opponent")
+                gameState["possessionArrow"] = "offense"
+                switchToDefense()
+            }
+            else if (gameState["possessionArrow"] as! String == "offense"){
+                gameState["possessionArrow"] = "defense"
+                self.pushPlaySequence(event: "jump ball, possession goes to your team")
+            }
         }
     }
     
@@ -368,16 +455,24 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
-        print(gameState["ballIndex"] as! Int)
         benchView.isHidden = true
         if gameState["began"] as! Bool {
             if let view = tapHandler.view {
                 switch (view.tag){
-                    case 0: shoot()
+                    case 5: shoot()
                         break;
-                    case 1, 2, 3, 4, 5:
-                        if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
-                        else { pass(to: view.tag) }
+                    case 0, 1, 2, 3, 4:
+                        if (gameState["transitionState"] as! String == "offensiveBoard") {
+                            addBorderToActivePlayer(view.tag)
+                            gameState["ballIndex"] = view.tag
+                            let active = gameState["active"] as! [Player]
+                            self.pushPlaySequence(event: "\(active[view.tag].firstName) got the offensive board")
+                            gameState["transitionState"] = "inProgress"
+                        }
+                        else {
+                            if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
+                            else { pass(to: view.tag) }
+                        }
                         break;
                     default: break;
                 }
@@ -403,10 +498,10 @@ class GameViewController: UIViewController {
         var active = gameState["active"] as! [Player?]
         let dribbler = active[index]!
         dribbler.dribble()
+        self.pushPlaySequence(event: "\(active[index]!.firstName) dribbled")
     }
     
     func pass(to: Int) {
-        print("PASSING TO \(to)")
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player?]
         let passer = active[index]!
@@ -414,63 +509,19 @@ class GameViewController: UIViewController {
         gameState["assistingPlayerIndex"] = index
         addBorderToActivePlayer(to)
         passer.pass()
+        self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
     }
-   
-   func addBorderToActivePlayer(_ player: Int){
-      
-      resetAllPlayerBorders()
-      
-      switch(player){
-      case 1:
-         imagePlayer1.layer.borderColor = UIColor.cyan.cgColor
-         imagePlayer1.layer.borderWidth = 4
-         break
-      case 2:
-         imagePlayer2.layer.borderColor = UIColor.cyan.cgColor
-         imagePlayer2.layer.borderWidth = 4
-         break
-      case 3:
-         imagePlayer3.layer.borderColor = UIColor.cyan.cgColor
-         imagePlayer3.layer.borderWidth = 4
-         break
-      case 4:
-         imagePlayer4.layer.borderColor = UIColor.cyan.cgColor
-         imagePlayer4.layer.borderWidth = 4
-         break
-      case 5:
-         imagePlayer5.layer.borderColor = UIColor.cyan.cgColor
-         imagePlayer5.layer.borderWidth = 4
-         break
-      default:
-         break
-      }
-   }
-   
-   func resetAllPlayerBorders(){
-      imagePlayer1.layer.borderWidth = 0
-      imagePlayer2.layer.borderWidth = 0
-      imagePlayer3.layer.borderWidth = 0
-      imagePlayer4.layer.borderWidth = 0
-      imagePlayer5.layer.borderWidth = 0
-   }
     
     func handleRebound(){
         let reboundAlert = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
-        var activePlayer: UIAlertAction
-        var i = 0
-        for player in gameState["active"] as! [Player?] {
-            let fname = player?.firstName
-            let lname = player?.lastName
-            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) { UIAlertAction in
-                player?.updateOffRebounds(rebounds: 1)
-                self.gameState["ballIndex"] = i
-            }
-            reboundAlert.addAction(activePlayer)
-            i += 1
+        let offensive = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) { UIAlertAction in
+            self.gameState["transitionState"] = "offensiveBoard"
         }
         let defensive = UIAlertAction(title: "No", style: UIAlertActionStyle.default) { UIAlertAction in
-            
+            self.pushPlaySequence(event: "opponent got the defensive board")
+            self.switchToDefense()
         }
+        reboundAlert.addAction(offensive)
         reboundAlert.addAction(defensive)
         reboundAlert.popoverPresentationController?.sourceView = view
         reboundAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: imageHoop.center, size: CGSize.init())
@@ -479,86 +530,97 @@ class GameViewController: UIViewController {
     
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
         benchView.isHidden = true
-        let point = touchHandler.location(in: containerView)
         let index = touchHandler.view?.tag ?? 0
         if touchHandler.state == .began {
-            presentOffensiveOptions(point: point, index: index)
+            presentOffensiveOptions(index: index)
         }
-    }
-    
-    //return whether player is on the floor currently or not
-    func isActive(pid: String) -> Bool{
-        for player in activePlayerIdStrings {
-            if (player == pid){
-                return true
-            }
-        }
-        return false
-    }
-    
-    //turnover recorded, change possession
-    func handleTurnover(index: Int){
-        let playerObject = self.activePlayerObjects[index - 1]! as Player
-        playerObject.updateTurnovers(turnovers: 1)
-        switchToDefense()
-    }
-    
-    @IBAction func handleCharge(_ sender: UIButton) {
-        if gameState["began"] as! Bool {
-            let playerObject = activePlayerObjects[gameState["ballIndex"] as! Int]! as Player
-            playerObject.updatePersonalFouls(fouls: 1)
-        }
-    }
-    
-    @IBAction func handleTechFoul(_ sender: UIButton) {
-        let position = panEndPoint
-        let popupForTechFoul = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
-        
-        var activePlayer: UIAlertAction
-        for player in activePlayerObjects {
-            let fname = player?.firstName
-            let lname = player?.lastName
-            activePlayer = UIAlertAction(title: "\(fname!) \(lname!)", style: UIAlertActionStyle.default) {
-                UIAlertAction in
-                player?.updateTechFouls(fouls: 1)
-                print("Success: techincal foul recorded for \(fname!)")
-            }
-            popupForTechFoul.addAction(activePlayer)
-        }
-        
-        let coachOption = UIAlertAction(title: "Coach", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-            print("Success: recognized coach technical foul")
-        }
-        popupForTechFoul.addAction(coachOption)
-        let popover = popupForTechFoul.popoverPresentationController
-        popover?.sourceView = view
-        popover?.sourceRect = CGRect.init(origin: position, size: CGSize.init())
-        present(popupForTechFoul, animated: true)
-    }
-    
-    func switchToDefense() {
-        
-    }
-    
-    @IBAction func showGameSummary(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func handleOutOfBounds(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func handleTimeout(_ sender: UIButton) {
-        
     }
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(index: Int){
-        let playerObject = self.activePlayerObjects[index - 1]! as Player
-        playerObject.updatePersonalFouls(fouls: 1)
-        let fouls = gameState["teamFouls"] as! Int
-        gameState["teamFouls"] = fouls + 1
+        
+    }
+    
+    @IBAction func handleCharge(_ sender: UIButton) {
+        if gameState["began"] as! Bool {
+            let active = gameState["active"] as! [Player]
+            let player = active[gameState["ballIndex"] as! Int]
+            player.updateChargesTaken(charges: 1)
+            self.pushPlaySequence(event: "\(active[gameState["ballIndex"] as! Int].firstName) charged")
+            switchToDefense()
+        }
+    }
+    
+    @IBAction func handleTechFoul(_ sender: UIButton) {
+        if gameState["began"] as! Bool {
+            let techAlert = UIAlertController(title: "Technical Foul", message: "", preferredStyle: .actionSheet)
+            var activePlayer: UIAlertAction
+            for player in gameState["active"] as! [Player] {
+                activePlayer = UIAlertAction(title: "\(player.firstName) \(player.lastName)", style: UIAlertActionStyle.default) { UIAlertAction in
+                    player.updateTechFouls(fouls: 1)
+                    self.pushPlaySequence(event: "technical foul on \(player.firstName)")
+                }
+                techAlert.addAction(activePlayer)
+            }
+            
+            let coach = UIAlertAction(title: "Coach", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "technical foul on coach")
+            }
+            techAlert.addAction(coach)
+            techAlert.popoverPresentationController?.sourceView = view
+            techAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: chargeButton.center, size: CGSize.init())
+            present(techAlert, animated: false)
+        }
+    }
+    
+    @IBAction func handleOutOfBounds(_ sender: UIButton) {
+        if gameState["began"] as! Bool {
+            let outOfBoundsAlert = UIAlertController(title: "Last Touched By", message: "", preferredStyle: .actionSheet)
+            let own = UIAlertAction(title: "Our Team", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "out of bounds on your team")
+                self.switchToDefense()
+            }
+            let opponent = UIAlertAction(title: "Opponent", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "out of bounds on the opponent")
+            }
+            outOfBoundsAlert.addAction(own)
+            outOfBoundsAlert.addAction(opponent)
+            outOfBoundsAlert.popoverPresentationController?.sourceView = view
+            outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: outOfBoundsButton.center, size: CGSize.init())
+            present(outOfBoundsAlert, animated: false)
+        }
+    }
+    
+    @IBAction func handleTimeout(_ sender: UIButton) {
+        if gameState["began"] as! Bool {
+            let timeoutAlert = UIAlertController(title: "Timeout", message: "", preferredStyle: .actionSheet)
+            let full = UIAlertAction(title: "60-second", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "full timeout called")
+            }
+            let half = UIAlertAction(title: "30-second", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "half timeout called")
+            }
+            timeoutAlert.addAction(full)
+            timeoutAlert.addAction(half)
+            timeoutAlert.popoverPresentationController?.sourceView = view
+            timeoutAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: timeoutButton.center, size: CGSize.init())
+            present(timeoutAlert, animated: false)
+        }
+    }
+    
+    @IBAction func showGameSummary(_ sender: UIButton) {
+        if gameState["began"] as! Bool {
+            print(printPlaySequence())
+        }
+    }
+    
+    func switchToDefense() {
+        self.pushPlaySequence(event: "offensive possession ended, switching to defense")
+        let defenseAlert = UIAlertController(title: "Possession Changed to Defense", message: "This is where the view on the screen will change to handle the defensive possession which was triggered. For now, just click 'Ok' to keep messing around with the offensive possessions until defense is implemented.", preferredStyle: .actionSheet)
+        defenseAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { UIAlertAction in })
+        defenseAlert.popoverPresentationController?.sourceView = view
+        defenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: containerView.center, size: CGSize.init())
+        present(defenseAlert, animated: false)
     }
     
     func getPlayerObject(pid: String) -> Player {
@@ -572,57 +634,84 @@ class GameViewController: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    //FIREBASE DATA SYNC FUNCTIONALITY BELOW
-    
-    func syncAllPlayerObjectsToFirebase(){
-        syncSinglePlayerObjectToFirebase(index: 1)
-        syncSinglePlayerObjectToFirebase(index: 2)
-        syncSinglePlayerObjectToFirebase(index: 3)
-        syncSinglePlayerObjectToFirebase(index: 4)
-        syncSinglePlayerObjectToFirebase(index: 5)
-        print("Success: player data recorded in remote database")
+    func addBorderToActivePlayer(_ player: Int){
+        
+        resetAllPlayerBorders()
+        
+        switch(player){
+        case 0:
+            imagePlayer1.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer1.layer.borderWidth = 4
+            break
+        case 1:
+            imagePlayer2.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer2.layer.borderWidth = 4
+            break
+        case 2:
+            imagePlayer3.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer3.layer.borderWidth = 4
+            break
+        case 3:
+            imagePlayer4.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer4.layer.borderWidth = 4
+            break
+        case 4:
+            imagePlayer5.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer5.layer.borderWidth = 4
+            break
+        default:
+            break
+        }
     }
     
-    @IBAction func sync(_ sender: UIButton) {
-        syncAllPlayerObjectsToFirebase()
+    func resetAllPlayerBorders(){
+        imagePlayer1.layer.borderWidth = 0
+        imagePlayer2.layer.borderWidth = 0
+        imagePlayer3.layer.borderWidth = 0
+        imagePlayer4.layer.borderWidth = 0
+        imagePlayer5.layer.borderWidth = 0
     }
+    
+    
+    
+
     
     func syncSinglePlayerObjectToFirebase(index: Int){
-        let playerObject = self.activePlayerObjects[index - 1]! as Player
-        let playerData : [String: Any] = ["pid":  playerObject.playerId,
-                                          "tid": playerObject.teamId,
-                                          "fname": playerObject.firstName,
-                                          "lname": playerObject.lastName,
-                                          "photo": "",
-                                          "height": playerObject.height,
-                                          "weight": playerObject.weight,
-                                          "rank": playerObject.rank,
-                                          "position": playerObject.position,
-                                          "points": playerObject.points,
-                                          "assists": playerObject.assists,
-                                          "turnovers": playerObject.turnovers,
-                                          "threePtAtt": playerObject.threePtAtt,
-                                          "twoPtAtt": playerObject.twoPtAtt,
-                                          "threePtMade": playerObject.threePtMade,
-                                          "twoPtMade": playerObject.twoPtMade,
-                                          "ftAtt": playerObject.ftAtt,
-                                          "ftMade": playerObject.ftMade,
-                                          "offRebounds": playerObject.offRebounds,
-                                          "defRebounds": playerObject.defRebounds,
-                                          "steals": playerObject.steals,
-                                          "blocks": playerObject.blocks,
-                                          "deflections": playerObject.deflections,
-                                          "personalFoul": playerObject.personalFoul,
-                                          "techFoul": playerObject.techFoul,
-                                          "chargesTaken": playerObject.chargesTaken]
+        var data: [[String: Any]] = []
+        var tid = ""
+        for playerObject in self.gameState["roster"] as! [Player] {
+            tid = playerObject.teamId
+            let playerData : [String: Any] = ["pid":  playerObject.playerId,
+                                              "tid": playerObject.teamId,
+                                              "fname": playerObject.firstName,
+                                              "lname": playerObject.lastName,
+                                              "photo": "",
+                                              "height": playerObject.height,
+                                              "weight": playerObject.weight,
+                                              "rank": playerObject.rank,
+                                              "position": playerObject.position,
+                                              "points": playerObject.points,
+                                              "assists": playerObject.assists,
+                                              "turnovers": playerObject.turnovers,
+                                              "threePtAtt": playerObject.threePtAtt,
+                                              "twoPtAtt": playerObject.twoPtAtt,
+                                              "threePtMade": playerObject.threePtMade,
+                                              "twoPtMade": playerObject.twoPtMade,
+                                              "ftAtt": playerObject.ftAtt,
+                                              "ftMade": playerObject.ftMade,
+                                              "offRebounds": playerObject.offRebounds,
+                                              "defRebounds": playerObject.defRebounds,
+                                              "steals": playerObject.steals,
+                                              "blocks": playerObject.blocks,
+                                              "deflections": playerObject.deflections,
+                                              "personalFoul": playerObject.personalFoul,
+                                              "techFoul": playerObject.techFoul,
+                                              "chargesTaken": playerObject.chargesTaken]
+            data.append(playerData)
+        }
         let firebaseRef = Database.database().reference(withPath: "teams")
-        let teamRosterRef = firebaseRef.child(playerObject.teamId).child("roster")
-        teamRosterRef.child(playerObject.playerId).setValue(playerData)
+        let teamRosterRef = firebaseRef.child(tid).child("roster")
+        teamRosterRef.setValue(data)
     }
     
     
@@ -636,6 +725,7 @@ class GameViewController: UIViewController {
     func restart(){
         // Invalidate timer
         timer?.invalidate()
+        status = true
         
         // Reset timer variables
         startTime = 0
@@ -647,14 +737,19 @@ class GameViewController: UIViewController {
         labelMinute.text = strMinutes
         labelSecond.text = "00"
     }
+    
     func start() {
+        if(status){
         startTime = Date().timeIntervalSinceReferenceDate - elapsed
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        status = false
+        }
     }
     
     func stop() {
         elapsed = Date().timeIntervalSinceReferenceDate - startTime
         timer?.invalidate()
+        status = true
     }
     
     @objc func updateCounter() {
