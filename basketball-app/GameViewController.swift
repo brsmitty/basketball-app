@@ -419,6 +419,7 @@ class GameViewController: UIViewController {
                             gameState["ballIndex"] = view.tag
                             let active = gameState["active"] as! [Player]
                             self.pushPlaySequence(event: "\(active[view.tag].firstName) got the offensive board")
+                            gameState["transitionState"] = "inProgress"
                         }
                         else {
                             if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
