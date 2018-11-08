@@ -24,7 +24,7 @@ class MasterViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
     
    @IBOutlet weak var barNav: UINavigationItem!
-   var games: [Game] = []
+    var games: [Game] = []
     var titleSender : String?
     // holds the player reference to firebase
     var playRef:DatabaseReference?
@@ -32,9 +32,7 @@ class MasterViewController: UITableViewController{
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
     var uid: String = ""
-    var deletedPlayNum: Int = 0
-    // holds if a player was recently deleted
-    var recentlyDeleted: Bool = false
+ 
    @IBOutlet weak var syncButton: UIBarButtonItem!
    
     override func viewWillAppear(_ animated: Bool) {

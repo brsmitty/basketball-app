@@ -2274,13 +2274,51 @@
                     <view key="view" contentMode="scaleToFill" id="ONs-De-XjE">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set Timer To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzU-D3-Yd7">
+                                <rect key="frame" x="141" y="113" width="110" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ipC-UX-Gmg">
+                                <rect key="frame" x="259" y="119" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dA4-RZ-ybe">
+                                <rect key="frame" x="350" y="295" width="98" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButton:" destination="XSy-ZY-hla" eventType="touchUpInside" id="Xki-L8-Xap"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" id="lf4-xB-O0T"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZM6-t1-Eo5">
+                                <rect key="frame" x="336" y="119" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yPj-gI-Lzf"/>
                     </view>
+                    <connections>
+                        <outlet property="timerLabel" destination="ipC-UX-Gmg" id="HVz-oJ-tn9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m20-WE-mXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="929" y="-1705"/>
+            <point key="canvasLocation" x="928.71093749999989" y="-1705.46875"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="Ns0-DN-6jC">
@@ -2657,6 +2695,9 @@
                                 <rect key="frame" x="985" y="30" width="8" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="settingsDots"/>
+                                <connections>
+                                    <segue destination="XSy-ZY-hla" kind="show" id="kn0-9u-uS0"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-VB-FRC" userLabel="kpiButton">
                                 <rect key="frame" x="564" y="696" width="116" height="71"/>
@@ -3555,9 +3596,11 @@
         <segue reference="Kov-4w-Yr5"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
-        <segue reference="7C8-E9-oft"/>
-        <segue reference="atr-rx-Imt"/>
+        <segue reference="lf4-xB-O0T"/>
+        <segue reference="5E9-9j-04f"/>
         <segue reference="aCz-M9-az0"/>
+        <segue reference="Hk5-iD-FNH"/>
+        <segue reference="iVv-Kb-jLk"/>
         <segue reference="oRO-wQ-aRf"/>
         <segue reference="chn-OD-mNE"/>
         <segue reference="Vuy-KR-7OI"/>
