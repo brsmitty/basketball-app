@@ -37,9 +37,40 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         timerLabel.inputView = timerPicker
         timerPicker.dataSource = self
         timerPicker.delegate = self
+        timerLabel.text = "10"
+        getTimerLabel()
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    func gameIsUsers(_ lid:String)-> Bool{
+        
+        var isUsers = false
+        
+        let lineupId = lid.prefix(28)
+        isUsers = lineupId == uid
+        
+        return isUsers
+    }
+    
+    func getTimerLabel(){
+        playRef = Database.database().reference()
+        databaseHandle = playRef?.child("timer").observe(.childAdded, with: { (snapshot) in
+            
+            // If the player is one of the users players add it to the table
+            if(self.gameIsUsers(snapshot.key)){
+                // take data from the snapshot and add a player object
+                var temp = 0
+                temp = snapshot.childSnapshot(forPath: "quarter").value as! Int
+                if(temp != 0){
+                    let strMinutes = String(format: "%02d", temp)
+                    self.timerLabel.text = strMinutes
+                    self.minutes = temp
+                }
+            }
+        })
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
