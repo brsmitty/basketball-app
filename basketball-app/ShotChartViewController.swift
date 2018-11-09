@@ -11,16 +11,16 @@ import UIKit
 class ShotChartViewController: UIViewController {
     
     var gameState: [String: Any] = [:]
+    @IBOutlet weak var chartView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //displayShots()
     }
-    
-    @IBOutlet weak var chartView: UIImageView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            saveShot(location: touch.location(in: chartView))
+            saveShot(location: touch.location(in: self.view))
         }
     }
     
@@ -75,6 +75,17 @@ class ShotChartViewController: UIViewController {
         shotAlert.popoverPresentationController?.sourceView = view
         shotAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: location, size: CGSize.init())
         present(shotAlert, animated: false)
+    }
+    
+    func displayShots() {
+        let shots = gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
+        for shot in shots {
+            let label = UILabel(frame: CGRect.init(origin: CGPoint.init(x: shot.x, y: shot.y), size: CGSize.init()))
+            if shot.made { label.text = "o" }
+            else { label.text = "x" }
+            label.layer.zPosition = 10
+            chartView.addSubview(label)
+        }
     }
     
     func pushPlaySequence(event: String) {

@@ -120,12 +120,9 @@ class GameViewController: UIViewController {
     }
     
     func gameIsUsers(_ lid:String)-> Bool{
-        
         var isUsers = false
-        
         let lineupId = lid.prefix(28)
         isUsers = lineupId == uid
-        
         return isUsers
     }
     
@@ -491,6 +488,11 @@ class GameViewController: UIViewController {
                 shotChartView.gameState = self.gameState
             }
         }
+        else if segue.identifier == "freethrowSegue" {
+            if let freethrowView = segue.destination as? FreethrowViewController {
+                freethrowView.gameState = self.gameState
+            }
+        }
     }
     
     func dribble() {
@@ -538,7 +540,7 @@ class GameViewController: UIViewController {
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(index: Int){
-        
+        self.performSegue(withIdentifier: "freethrowSegue", sender: nil)
     }
     
     @IBAction func handleCharge(_ sender: UIButton) {
@@ -568,7 +570,10 @@ class GameViewController: UIViewController {
             }
             techAlert.addAction(coach)
             techAlert.popoverPresentationController?.sourceView = view
-            techAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: chargeButton.center, size: CGSize.init())
+            let c = techFoulButton.center
+            let y = CGFloat(c.y + 100)
+            let p = CGPoint(x: c.x, y: y)
+            techAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
             present(techAlert, animated: false)
         }
     }
@@ -586,7 +591,10 @@ class GameViewController: UIViewController {
             outOfBoundsAlert.addAction(own)
             outOfBoundsAlert.addAction(opponent)
             outOfBoundsAlert.popoverPresentationController?.sourceView = view
-            outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: outOfBoundsButton.center, size: CGSize.init())
+            let c = outOfBoundsButton.center
+            let y = CGFloat(c.y + 100)
+            let p = CGPoint(x: c.x, y: y)
+            outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
             present(outOfBoundsAlert, animated: false)
         }
     }
@@ -603,20 +611,26 @@ class GameViewController: UIViewController {
             timeoutAlert.addAction(full)
             timeoutAlert.addAction(half)
             timeoutAlert.popoverPresentationController?.sourceView = view
-            timeoutAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: timeoutButton.center, size: CGSize.init())
+            let c = timeoutButton.center
+            let y = CGFloat(c.y + 100)
+            let p = CGPoint(x: c.x, y: y)
+            timeoutAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
             present(timeoutAlert, animated: false)
         }
     }
     
     @IBAction func showGameSummary(_ sender: UIButton) {
         if gameState["began"] as! Bool {
-            print(printPlaySequence())
+            let playAlert = UIAlertController(title: "Plays", message: self.printPlaySequence(), preferredStyle: .alert)
+            playAlert.popoverPresentationController?.sourceView = view
+            playAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: view.center, size: CGSize.init())
+            present(playAlert, animated: false)
         }
     }
     
     func switchToDefense() {
         self.pushPlaySequence(event: "offensive possession ended, switching to defense")
-        let defenseAlert = UIAlertController(title: "Possession Changed to Defense", message: "This is where the view on the screen will change to handle the defensive possession which was triggered. For now, just click 'Ok' to keep messing around with the offensive possessions until defense is implemented.", preferredStyle: .actionSheet)
+        let defenseAlert = UIAlertController(title: "Possession Changed to Defense", message: "This is where the view on the screen will change to handle the defensive possession which was triggered. For now, just click 'Ok' to keep messing around with the offensive possessions until defense is implemented.", preferredStyle: .alert)
         defenseAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { UIAlertAction in })
         defenseAlert.popoverPresentationController?.sourceView = view
         defenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: containerView.center, size: CGSize.init())
