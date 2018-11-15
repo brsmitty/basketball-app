@@ -36,7 +36,7 @@ class ShotChartViewController: UIViewController {
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player]
         let shooter = active[index]
-        let shotAlert = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .actionSheet)
+        let shotAlert = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .alert)
         UIView.setAnimationsEnabled(false)
         let made = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) { UIAlertAction in
             shooter.updatePoints(points: 2)
@@ -58,7 +58,7 @@ class ShotChartViewController: UIViewController {
             self.pushPlaySequence(event: "\(active[index].firstName) made the shot")
             self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
         }
-        let missed = UIAlertAction(title: "Missed", style: UIAlertActionStyle.default) { UIAlertAction in
+        let missed = UIAlertAction(title: "Missed", style: UIAlertActionStyle.destructive) { UIAlertAction in
             shooter.updateTwoPointAttempt(attempted: 1)
             let shot = (location.x, location.y, false)
             var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]

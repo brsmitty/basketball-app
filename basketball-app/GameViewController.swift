@@ -337,6 +337,7 @@ class GameViewController: UIViewController {
                 getPlayerImage(index: activeIndex).image = activePlayers[activeIndex]?.photo
                 gameState["active"] = activePlayers
                 gameState["bench"] = benchPlayers
+                if (fullLineup()) { saveLineup() }
                 populateBench()
             }
             else {
@@ -451,6 +452,23 @@ class GameViewController: UIViewController {
         return true
     }
     
+    func saveLineup () {
+        var lineup: [String] = [];
+        for player in gameState["active"] as! [Player] {
+            lineup.append(player.playerId)
+        }
+        var lineups = gameState["lineups"] as! [[String]];
+        lineups.append(lineup);
+        gameState["lineups"] = lineups;
+        print(lineups);
+    }
+    
+    func isNewLineup() -> Bool {
+        var new = true;
+        
+        return new;
+    }
+    
     @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
         benchView.isHidden = true
         if gameState["began"] as! Bool {
@@ -515,11 +533,11 @@ class GameViewController: UIViewController {
     }
     
     func handleRebound(){
-        let reboundAlert = UIAlertController(title: "Offensive Rebound?", message: "", preferredStyle: .actionSheet)
-        let offensive = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) { UIAlertAction in
+        let reboundAlert = UIAlertController(title: "Rebound", message: "", preferredStyle: .alert)
+        let offensive = UIAlertAction(title: "Offensive", style: UIAlertActionStyle.default) { UIAlertAction in
             self.gameState["transitionState"] = "offensiveBoard"
         }
-        let defensive = UIAlertAction(title: "No", style: UIAlertActionStyle.default) { UIAlertAction in
+        let defensive = UIAlertAction(title: "Defensive", style: UIAlertActionStyle.destructive) { UIAlertAction in
             self.pushPlaySequence(event: "opponent got the defensive board")
             self.switchToDefense()
         }
