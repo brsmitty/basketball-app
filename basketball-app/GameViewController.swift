@@ -622,6 +622,7 @@ class GameViewController: UIViewController {
     @IBAction func showGameSummary(_ sender: UIButton) {
         if gameState["began"] as! Bool {
             let playAlert = UIAlertController(title: "Plays", message: self.printPlaySequence(), preferredStyle: .alert)
+            playAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { UIAlertAction in })
             playAlert.popoverPresentationController?.sourceView = view
             playAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: view.center, size: CGSize.init())
             present(playAlert, animated: false)
