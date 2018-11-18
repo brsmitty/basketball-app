@@ -11,6 +11,7 @@
 		27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B5A2193D56D00541774 /* BenchViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
+		2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */; };
 		27472F42219481F2009BBC96 /* DropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27472F41219481F2009BBC96 /* DropDownViewController.swift */; };
 		274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A641D2164051700F0F4E7 /* LoginTextField.swift */; };
 		274A64262164451E00F0F4E7 /* userAuthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A64252164451E00F0F4E7 /* userAuthUITests.swift */; };
@@ -95,6 +96,7 @@
 		27123B5A2193D56D00541774 /* BenchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchViewController.swift; sourceTree = "<group>"; };
 		27185E192173EE1800B69950 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
+		2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		27472F41219481F2009BBC96 /* DropDownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownViewController.swift; sourceTree = "<group>"; };
 		27472F4921948D19009BBC96 /* loginUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginUnitTests.swift; sourceTree = "<group>"; };
 		27472F4B21948D19009BBC96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				27B1F94C2192231300D0351B /* SettingsViewController.swift */,
 				27123B5A2193D56D00541774 /* BenchViewController.swift */,
 				27472F41219481F2009BBC96 /* DropDownViewController.swift */,
+				2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */,
 			);
 			path = "basketball-app";
 			sourceTree = "<group>";
@@ -698,6 +701,7 @@
 				6346B813214AB76E000B0B6E /* TeamModel.swift in Sources */,
 				27472F42219481F2009BBC96 /* DropDownViewController.swift in Sources */,
 				275F46C62157E76E004E6ED7 /* LineupManagerViewController.swift in Sources */,
+				2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */,
 				2786CCCE2144B571003539A2 /* Player.swift in Sources */,
 				27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */,
 				271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */,

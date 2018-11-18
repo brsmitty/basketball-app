@@ -60,7 +60,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    var databaseHandle:DatabaseHandle?
    // holds the users unique user ID
    var uid: String = ""
-    var tid: String = ""
+   var tid: String = ""
+   let positionPicker = UIPickerView()
+   let heightPicker = UIPickerView()
+   let classPicker = UIPickerView()
    
    //var playerImageURL = NSURL.init()
    
@@ -171,7 +174,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let pidSnap = snapshot.childSnapshot(forPath: "pid")
             //let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
             
-            let imageName = (fnameSnap.value as! String) + (lnameSnap.value as! String) + "image"
+            let fname = (fnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
+            let lname = (lnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
+            let imageName = fname + lname + "image"
             let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
             let imageURL: URL = URL(fileURLWithPath: imagePath)
             
@@ -395,6 +400,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       //let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
 //      let strImage:String = playerImageURL.absoluteString!
       
+      firstName = firstName.replacingOccurrences(of: " ", with: "_")
+      lastName = lastName.replacingOccurrences(of: " ", with: "_")
       let imageName = firstName + lastName + "image"
       let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
       let imageURL: URL = URL(fileURLWithPath: imagePath)
@@ -449,7 +456,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    // Creates the position picker
    func createPositionPicker(){
-      let positionPicker = UIPickerView()
       positionPicker.delegate = self
       playerPositionText.inputView = positionPicker
       positionPicker.tag = 0
@@ -457,7 +463,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    // Creates the height picker
    func createHeightPicker(){
-      let heightPicker = UIPickerView()
       heightPicker.delegate = self
       playerHeightText.inputView = heightPicker
       heightPicker.tag = 1
@@ -465,7 +470,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    // Creates the class picker
    func createClassPicker(){
-      let classPicker = UIPickerView()
       classPicker.delegate = self
       playerClassText.inputView = classPicker
       classPicker.tag = 2
@@ -615,13 +619,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       default:
          break
       }
-      
-
    }
    
    // MARK: UITableViewDelegate
    
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      
+      resetButtonState()
       playerImage.image = players[indexPath.row].photo
       playerFirstNameText.text = players[indexPath.row].firstName
       playerLastNameText.text = players[indexPath.row].lastName
@@ -634,6 +638,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
       currentPath = indexPath
       setEditButton(to: true)
+      
       
    }
    
@@ -766,7 +771,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBAction func addPlayer(_ sender: Any) {
       
       // disable all other functions of the user until save or cancel button is clicked
-      tableView.allowsSelection = false
       setEditPlayerFields(to: true)
       setAddButton(to: false)
       setEditButton(to: false)
@@ -864,12 +868,27 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
 
    func textFieldDidBeginEditing(_ textField: UITextField) {
+      let text = textField.text
+      var pos = 0
       if(textField.tag == 2){
-         textField.text = positionNames[0]
+         if(!(text?.isEmpty)!){
+            pos = positionNames.firstIndex(of: text!)!
+         }
+         positionPicker.selectRow(pos, inComponent: 0, animated: false)
+         textField.text = positionNames[pos]
+         
       }else if(textField.tag == 3){
-         textField.text = heights[0]
+         if(!(text?.isEmpty)!){
+            pos = heights.firstIndex(of: text!)!
+         }
+         heightPicker.selectRow(pos, inComponent: 0, animated: false)
+         textField.text = heights[pos]
       }else if(textField.tag == 4){
-         textField.text = ranks[0]
+         if(!(text?.isEmpty)!){
+            pos = ranks.firstIndex(of: text!)!
+         }
+         classPicker.selectRow(pos, inComponent: 0, animated: false)
+         textField.text = ranks[pos]
       }
    }
    

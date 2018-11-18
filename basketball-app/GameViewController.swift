@@ -519,6 +519,8 @@ class GameViewController: UIViewController {
         let dribbler = active[index]!
         dribbler.dribble()
         self.pushPlaySequence(event: "\(active[index]!.firstName) dribbled")
+      
+      dribbleBorderRipple(index)
     }
     
     func pass(to: Int) {
@@ -666,30 +668,54 @@ class GameViewController: UIViewController {
     }
     
     
-    
+   func dribbleBorderRipple(_ player: Int){
+         switch(player){
+         case 0:
+            self.imagePlayer1.dribble()
+            print("here")
+            break
+         case 1:
+            self.imagePlayer2.dribble()
+            break
+         case 2:
+            self.imagePlayer3.dribble()
+            break
+         case 3:
+            self.imagePlayer4.dribble()
+            break
+         case 4:
+            self.imagePlayer5.dribble()
+            break
+         default:
+            break
+      }
+      
+   }
+   
+   
     func addBorderToActivePlayer(_ player: Int){
         
         resetAllPlayerBorders()
         
         switch(player){
         case 0:
-            imagePlayer1.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer1.layer.borderColor = UIColor.orange.cgColor
             imagePlayer1.layer.borderWidth = 4
             break
         case 1:
-            imagePlayer2.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer2.layer.borderColor = UIColor.orange.cgColor
             imagePlayer2.layer.borderWidth = 4
             break
         case 2:
-            imagePlayer3.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer3.layer.borderColor = UIColor.orange.cgColor
             imagePlayer3.layer.borderWidth = 4
             break
         case 3:
-            imagePlayer4.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer4.layer.borderColor = UIColor.orange.cgColor
             imagePlayer4.layer.borderWidth = 4
             break
         case 4:
-            imagePlayer5.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer5.layer.borderColor = UIColor.orange.cgColor
             imagePlayer5.layer.borderWidth = 4
             break
         default:
