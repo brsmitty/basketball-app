@@ -22,6 +22,7 @@ class GameViewController: UIViewController {
     var databaseHandle:DatabaseHandle?
      var uid: String = ""
     let storage = UserDefaults.standard
+    var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
     var gameState: [String: Any] = ["began": false,
                                     "transitionState": "init",
                                     "possession": "",
@@ -29,6 +30,7 @@ class GameViewController: UIViewController {
                                     "teamFouls": 0,
                                     "ballIndex": 999,
                                     "assistingPlayerIndex": 999,
+                                    "stateIndex": -1,
                                     "startTime": 0.0,
                                     "time": 0.0,
                                     "elapsed": 0.0,
@@ -48,6 +50,8 @@ class GameViewController: UIViewController {
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchPictureHeight : Int = 100 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
+    @IBOutlet weak var homeFouls: UILabel!
+    @IBOutlet weak var gameStateBoard: UILabel!
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var labelSecond: UILabel!
@@ -107,6 +111,7 @@ class GameViewController: UIViewController {
         getTimerSet()
         labelSecond.text = "00"
         roundImages()
+        gameStateBoard.text = states[0]
     }
     
     func getUserId(){
@@ -401,9 +406,14 @@ class GameViewController: UIViewController {
     }
     
     func handleJumpball(index: Int){
+        if(status){
+            restart()
+            self.gameState["stateIndex"] = self.gameState["stateIndex"] as! Int + 1
+            gameStateBoard.text = states[self.gameState["stateIndex"] as! Int]
+        }
+        start()
         if (gameState["began"] as! Bool == false){
             gameState["began"] = true
-            start()
             gameState["ballIndex"] = index
             let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
             let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
@@ -773,9 +783,9 @@ class GameViewController: UIViewController {
     
     func start() {
         if(status){
-        startTime = Date().timeIntervalSinceReferenceDate - elapsed
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        status = false
+            startTime = Date().timeIntervalSinceReferenceDate - elapsed
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+            status = false
         }
     }
     
@@ -800,6 +810,7 @@ class GameViewController: UIViewController {
         
         if(minutes2 == 0 && seconds == 0){
             stop()
+            status = true
         }
         
         // Format time vars with leading zero
@@ -811,7 +822,9 @@ class GameViewController: UIViewController {
         labelSecond.text = strSeconds
     }
     
+    
     @IBAction func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    
 }
