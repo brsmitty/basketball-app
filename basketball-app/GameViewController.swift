@@ -34,7 +34,7 @@ class GameViewController: UIViewController {
                                     "time": 0.0,
                                     "elapsed": 0.0,
                                     "status": false,
-                                    "quarterTime": 10,
+                                    "homeScore": 0,
                                     "timer": Timer(),
                                     "roster": [],
                                     "active": [],
@@ -49,6 +49,7 @@ class GameViewController: UIViewController {
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchPictureHeight : Int = 100 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
+    @IBOutlet weak var homeScore: UILabel!
     @IBOutlet weak var homeFouls: UILabel!
     @IBOutlet weak var gameStateBoard: UILabel!
     @IBOutlet weak var benchView: UIView!
@@ -86,7 +87,12 @@ class GameViewController: UIViewController {
             switchToDefense()
         }
         if (gameState["began"] as! Bool){
-            print(self.gameState["startTime"] as! Double)
+            if((gameState["homeScore"] as! Int) < 10){
+                self.homeScore.text! = "0" + String(gameState["homeScore"] as! Int)
+            }
+            else{
+                self.homeScore.text! = String(gameState["homeScore"] as! Int)
+            }
             self.time = gameState["time"] as! Double
             self.elapsed = gameState["elapsed"] as! Double
             self.status = true

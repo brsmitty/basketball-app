@@ -40,6 +40,8 @@ class ShotChartViewController: UIViewController {
         let shotAlert = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .alert)
         UIView.setAnimationsEnabled(false)
         let made = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) { UIAlertAction in
+            let temp = self.gameState["homeScore"] as! Int
+            self.gameState["homeScore"] = temp + 2
             shooter.updatePoints(points: 2)
             shooter.updateTwoPointMade(made: 1)
             shooter.updateTwoPointAttempt(attempted: 1)

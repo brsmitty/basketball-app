@@ -2533,6 +2533,20 @@
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9YL-4a-cyq">
+                                        <rect key="frame" x="681" y="13" width="42" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBC-NC-zNk">
+                                        <rect key="frame" x="307" y="13" width="42" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -2567,6 +2581,7 @@
                         <outlet property="gameStateBoard" destination="NBQ-lO-3IS" id="aXB-4a-uU0"/>
                         <outlet property="gameSummaryButton" destination="xIM-ms-1os" id="14O-wC-gJZ"/>
                         <outlet property="homeFouls" destination="gwf-zI-r0O" id="EC5-nt-tvM"/>
+                        <outlet property="homeScore" destination="gBC-NC-zNk" id="F6Y-18-Af7"/>
                         <outlet property="imageHoop" destination="5TN-P3-RuZ" id="B5e-28-3x0"/>
                         <outlet property="imagePlayer1" destination="qzs-D5-kX9" id="RSy-Or-szh"/>
                         <outlet property="imagePlayer2" destination="9Yj-NZ-y2M" id="u0p-1I-MCi"/>
