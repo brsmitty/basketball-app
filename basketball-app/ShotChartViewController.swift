@@ -32,6 +32,7 @@ class ShotChartViewController: UIViewController {
         }
     }
     
+    
     func saveShot(location: CGPoint){
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player]

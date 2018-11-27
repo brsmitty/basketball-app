@@ -13,7 +13,6 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     weak var timer: Timer?
-    var startTime: Double = 0
     var time: Double = 0
     var elapsed: Double = 0
     var status: Bool = true
@@ -85,6 +84,13 @@ class GameViewController: UIViewController {
             populateBench()
             populateActive()
             switchToDefense()
+        }
+        if (gameState["began"] as! Bool){
+            print(self.gameState["startTime"] as! Double)
+            self.time = gameState["time"] as! Double
+            self.elapsed = gameState["elapsed"] as! Double
+            self.status = true
+            start()
         }
     }
     
@@ -511,13 +517,23 @@ class GameViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         if segue.identifier == "shotchartSegue" {
             if let shotChartView = segue.destination as? ShotChartViewController {
+                stop()
+                self.gameState["time"] = self.time
+                self.gameState["elapsed"] = self.elapsed
+                self.gameState["status"] = self.status
+                print(self.gameState["startTime"] as! Double)
                 shotChartView.gameState = self.gameState
             }
         }
         else if segue.identifier == "freethrowSegue" {
             if let freethrowView = segue.destination as? FreethrowViewController {
+                stop()
+                self.gameState["time"] = self.time
+                self.gameState["elapsed"] = self.elapsed
+                self.gameState["status"] = self.status
                 freethrowView.gameState = self.gameState
             }
         }
@@ -771,7 +787,7 @@ class GameViewController: UIViewController {
         status = true
         
         // Reset timer variables
-        startTime = 0
+        gameState["startTime"] = 0
         time = 0
         elapsed = 0
         
@@ -783,21 +799,23 @@ class GameViewController: UIViewController {
     
     func start() {
         if(status){
-            startTime = Date().timeIntervalSinceReferenceDate - elapsed
+            gameState["startTime"] = Date().timeIntervalSinceReferenceDate - elapsed
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
             status = false
         }
     }
     
     func stop() {
-        elapsed = Date().timeIntervalSinceReferenceDate - startTime
+        let temp = gameState["startTime"] as! Double
+        elapsed = Date().timeIntervalSinceReferenceDate - temp
         timer?.invalidate()
         status = true
     }
     
     @objc func updateCounter() {
         // Calculate total time since timer started in seconds
-        time = Date().timeIntervalSinceReferenceDate - startTime
+        let temp = gameState["startTime"] as! Double
+        time = Date().timeIntervalSinceReferenceDate - temp
         
         // Calculate minutes
         let minutes = Int(time / 60.0)
