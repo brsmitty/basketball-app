@@ -110,4 +110,31 @@ class ShotChartViewController: UIViewController {
         gameState["playSequence"] = playSequence
     }
     
+    func determineThreePoint(location: CGPoint) -> Bool{
+        var value = false
+        if(location.y > 594.5){
+            value = true
+        }
+        else{
+            if(location.x < 101.5 || location.x > 927.5){
+                value = true
+            }
+            else{
+                if(location.x < 521){
+                    let temp = 1.47 * location.x + 151.58
+                    if(temp < location.y){
+                        value = true
+                    }
+                }
+                else{
+                    let temp = -1.64 * location.x + 1794.67
+                    if(temp < location.y){
+                        value = true
+                    }
+                }
+            }
+        }
+        return value
+    }
+    
 }

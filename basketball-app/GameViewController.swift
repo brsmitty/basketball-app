@@ -13,7 +13,6 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController {
     weak var timer: Timer?
-    var startTime: Double = 0
     var time: Double = 0
     var elapsed: Double = 0
     var status: Bool = true
@@ -22,6 +21,7 @@ class GameViewController: UIViewController {
     var databaseHandle:DatabaseHandle?
     var uid: String = ""
     let storage = UserDefaults.standard
+    var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
     struct foulObject {
         var player: Player
         var numberOfShots: Int
@@ -36,11 +36,13 @@ class GameViewController: UIViewController {
                                     "oppTeamFouls": 0,
                                     "ballIndex": 999,
                                     "assistingPlayerIndex": 999,
+                                    "stateIndex": -1,
+                                    "quarterIndex": "1ST",
                                     "startTime": 0.0,
                                     "time": 0.0,
                                     "elapsed": 0.0,
                                     "status": false,
-                                    "quarterTime": 10,
+                                    "homeScore": 0,
                                     "timer": Timer(),
                                     "roster": [],
                                     "active": [],
@@ -62,6 +64,9 @@ class GameViewController: UIViewController {
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchPictureHeight : Int = 100 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
+    @IBOutlet weak var homeScore: UILabel!
+    @IBOutlet weak var homeFouls: UILabel!
+    @IBOutlet weak var gameStateBoard: UILabel!
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var labelSecond: UILabel!
@@ -97,7 +102,19 @@ class GameViewController: UIViewController {
             populateActive()
             switchToDefense()
         }
-        else if (state == "freethrow") {
+        if (gameState["began"] as! Bool){
+            if((gameState["homeScore"] as! Int) < 10){
+                self.homeScore.text! = "0" + String(gameState["homeScore"] as! Int)
+            }
+            else{
+                self.homeScore.text! = String(gameState["homeScore"] as! Int)
+            }
+            gameStateBoard.text = gameState["quarterIndex"] as? String
+            self.time = gameState["time"] as! Double
+            self.elapsed = gameState["elapsed"] as! Double
+            self.status = true
+            start()
+        } else if (state == "freethrow") {
             gameState["transitionState"] = "inProgress"
             populateBench()
             populateActive()
@@ -127,6 +144,7 @@ class GameViewController: UIViewController {
         getTimerSet()
         labelSecond.text = "00"
         roundImages()
+        gameStateBoard.text = states[0]
         
         if (gameState["possession"] as! String == "defense") {
             switchToDefense()
@@ -434,9 +452,15 @@ class GameViewController: UIViewController {
     }
     
     func handleJumpball(index: Int){
+        if(status){
+            restart()
+            self.gameState["stateIndex"] = self.gameState["stateIndex"] as! Int + 1
+            gameStateBoard.text = states[self.gameState["stateIndex"] as! Int]
+            self.gameState["quarterIndex"] = gameStateBoard.text
+        }
+        start()
         if (gameState["began"] as! Bool == false){
             gameState["began"] = true
-            start()
             gameState["ballIndex"] = index
             let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
             let won = UIAlertAction(title: "Won", style: UIAlertActionStyle.default) { UIAlertAction in
@@ -539,13 +563,23 @@ class GameViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         if segue.identifier == "shotchartSegue" {
             if let shotChartView = segue.destination as? ShotChartViewController {
+                stop()
+                self.gameState["time"] = self.time
+                self.gameState["elapsed"] = self.elapsed
+                self.gameState["status"] = self.status
+                print(self.gameState["startTime"] as! Double)
                 shotChartView.gameState = self.gameState
             }
         }
         else if segue.identifier == "freethrowSegue" {
             if let freethrowView = segue.destination as? FreethrowViewController {
+                stop()
+                self.gameState["time"] = self.time
+                self.gameState["elapsed"] = self.elapsed
+                self.gameState["status"] = self.status
                 freethrowView.gameState = self.gameState
             }
         }
@@ -873,7 +907,7 @@ class GameViewController: UIViewController {
         status = true
         
         // Reset timer variables
-        startTime = 0
+        gameState["startTime"] = 0
         time = 0
         elapsed = 0
         
@@ -885,14 +919,15 @@ class GameViewController: UIViewController {
     
     func start() {
         if(status){
-        startTime = Date().timeIntervalSinceReferenceDate - elapsed
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        status = false
+            gameState["startTime"] = Date().timeIntervalSinceReferenceDate - elapsed
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+            status = false
         }
     }
     
     func stop() {
-        elapsed = Date().timeIntervalSinceReferenceDate - startTime
+        let temp = gameState["startTime"] as! Double
+        elapsed = Date().timeIntervalSinceReferenceDate - temp
         timer?.invalidate()
         status = true
         resetAllPlayerBorders()
@@ -900,7 +935,8 @@ class GameViewController: UIViewController {
     
     @objc func updateCounter() {
         // Calculate total time since timer started in seconds
-        time = Date().timeIntervalSinceReferenceDate - startTime
+        let temp = gameState["startTime"] as! Double
+        time = Date().timeIntervalSinceReferenceDate - temp
         
         // Calculate minutes
         let minutes = Int(time / 60.0)
@@ -913,6 +949,7 @@ class GameViewController: UIViewController {
         
         if(minutes2 == 0 && seconds == 0){
             stop()
+            status = true
         }
         
         // Format time vars with leading zero
@@ -923,6 +960,7 @@ class GameViewController: UIViewController {
         labelMinute.text = strMinutes
         labelSecond.text = strSeconds
     }
+    
     
     @IBAction func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -1015,5 +1053,4 @@ class GameViewController: UIViewController {
             }
         }
     }
-    
 }
