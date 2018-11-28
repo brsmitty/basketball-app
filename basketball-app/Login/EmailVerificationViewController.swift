@@ -13,6 +13,7 @@ import Firebase
 class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!
+   var AuthU = Auth.auth()
    
     override func viewDidLoad() {
         super.viewDidLoad()

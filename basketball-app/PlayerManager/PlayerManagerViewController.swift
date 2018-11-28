@@ -86,6 +86,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       self.tableView.dataSource = self
       self.tableView.delegate = self
       
+      tableView.layer.borderWidth = 2
+      tableView.layer.borderColor = UIColor(red:0.70, green:0.70, blue:0.70, alpha:0.2).cgColor
+      tableView.layer.cornerRadius = 5
+      
       playerWeightText.delegate = self
       playerWeightText.tag = 14
       playerClassText.delegate = self
