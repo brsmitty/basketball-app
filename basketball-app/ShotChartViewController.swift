@@ -42,6 +42,7 @@ class ShotChartViewController: UIViewController {
         if segue.identifier == "gameviewSegue" || segue.identifier == "gameviewSeg" {
             if let gameView = segue.destination as? GameViewController {
                 gameView.gameState = self.gameState
+                dismiss(animated: false, completion: nil)
             }
         }
     }
@@ -87,7 +88,7 @@ class ShotChartViewController: UIViewController {
         for shot in shots {
             let label = UILabel()
             var container = UIView()
-            container = UIView(frame: CGRect(x: shot.x, y: shot.y, width: 200, height: 200))
+            container = UIView(frame: CGRect(x: shot.x, y: shot.y, width: 20, height: 20))
             if shot.made {
                 label.text = "o"
                 label.textColor = .green
@@ -100,10 +101,6 @@ class ShotChartViewController: UIViewController {
             container.addSubview(label)
             self.view.addSubview(container)
             self.view.bringSubview(toFront: container)
-            
-            //let label = UILabel(frame: CGRect.init(origin: CGPoint.init(x: shot.x, y: shot.y), size: CGSize.init()))
-            //self.view.addSubview(label)
-            //self.view.bringSubview(toFront: label)
         }
     }
     

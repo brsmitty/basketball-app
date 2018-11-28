@@ -50,7 +50,11 @@ class GameViewController: UIViewController {
                                     "shots": [],
                                     "oppCharges": 0,
                                     "score": 0,
-                                    "oppScore": 0]
+                                    "oppScore": 0,
+                                    "halfTimeouts": 2,
+                                    "fullTimeouts": 3,
+                                    "oppHalfTimeouts": 2,
+                                    "oppFullTimeouts": 3]
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
     var panEndPoint = CGPoint() //end point of any given pan gesture
     let boxHeight : CGFloat = 100.0 //constant for the height of the hit box for a player
@@ -252,13 +256,19 @@ class GameViewController: UIViewController {
         self.gameState["roster"] = players
         self.gameState["bench"] = players
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
+        
+        self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
+        populateActive()
+        
         populateBench()
     }
     
+    @IBOutlet weak var displayLabel: UILabel!
     func pushPlaySequence(event: String) {
         var playSequence = gameState["playSequence"] as! [String]
         playSequence.append(event)
         gameState["playSequence"] = playSequence
+        displayLabel.text = event
     }
     
     func printPlaySequence() -> String {
@@ -519,8 +529,13 @@ class GameViewController: UIViewController {
     }
     
     func shoot() {
-        UIView.setAnimationsEnabled(false)
-        self.performSegue(withIdentifier: "shotchartSegue", sender: nil)
+        if (gameState["possession"] as! String == "offense") {
+            UIView.setAnimationsEnabled(false)
+            self.performSegue(withIdentifier: "shotchartSegue", sender: nil)
+        }
+        else {
+            
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -536,27 +551,34 @@ class GameViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
-        
-    }
-    
     func dribble() {
-        let index = gameState["ballIndex"] as! Int
-        var active = gameState["active"] as! [Player?]
-        let dribbler = active[index]!
-        dribbler.dribble()
-        self.pushPlaySequence(event: "\(active[index]!.firstName) dribbled")
+        if (gameState["possession"] as! String == "offense") {
+            let index = gameState["ballIndex"] as! Int
+            var active = gameState["active"] as! [Player?]
+            let dribbler = active[index]!
+            dribbler.dribble()
+            addBorderToActivePlayer(index)
+            self.pushPlaySequence(event: "\(active[index]!.firstName) dribbled")
+        }
+        else {
+            
+        }
     }
     
     func pass(to: Int) {
-        let index = gameState["ballIndex"] as! Int
-        var active = gameState["active"] as! [Player?]
-        let passer = active[index]!
-        gameState["ballIndex"] = to
-        gameState["assistingPlayerIndex"] = index
-        addBorderToActivePlayer(to)
-        passer.pass()
-        self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
+        if (gameState["possession"] as! String == "offense") {
+            let index = gameState["ballIndex"] as! Int
+            var active = gameState["active"] as! [Player?]
+            let passer = active[index]!
+            gameState["ballIndex"] = to
+            gameState["assistingPlayerIndex"] = index
+            addBorderToActivePlayer(to)
+            passer.pass()
+            self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
+        }
+        else {
+            
+        }
     }
     
     func handleRebound(){
@@ -644,63 +666,89 @@ class GameViewController: UIViewController {
     @IBAction func handleTurnover(_ sender: UIButton) {
         let possession = gameState["possession"] as! String
         if (possession == "offense") {
+            switchToDefense()
             
         }
         else if (possession == "defense"){
-            
+            switchToOffense()
         }
     }
     
     @IBAction func handleOutOfBounds(_ sender: UIButton) {
         if gameState["began"] as! Bool {
-            let possession = gameState["possession"] as! String
-            if (possession == "offense") {
-                let outOfBoundsAlert = UIAlertController(title: "Last Touched By", message: "", preferredStyle: .actionSheet)
-                let own = UIAlertAction(title: "Our Team", style: UIAlertActionStyle.default) { UIAlertAction in
-                    self.pushPlaySequence(event: "out of bounds on your team")
+            let outOfBoundsAlert = UIAlertController(title: "Last Touched By", message: "", preferredStyle: .actionSheet)
+            let own = UIAlertAction(title: "Our Team", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "out of bounds on your team")
+                let possession = self.gameState["possession"] as! String
+                if (possession == "offense") {
                     self.switchToDefense()
                 }
-                let opponent = UIAlertAction(title: "Opponent", style: UIAlertActionStyle.default) { UIAlertAction in
-                    self.pushPlaySequence(event: "out of bounds on the opponent")
+                else if (possession == "defense") {
+                    self.stop()
+                    
                 }
-                outOfBoundsAlert.addAction(own)
-                outOfBoundsAlert.addAction(opponent)
-                outOfBoundsAlert.popoverPresentationController?.sourceView = view
-                let c = outOfBoundsButton.center
-                let y = CGFloat(c.y + 100)
-                let p = CGPoint(x: c.x, y: y)
-                outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
-                present(outOfBoundsAlert, animated: false)
             }
-            else if (possession == "defense") {
-                
+            let opponent = UIAlertAction(title: "Opponent", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.pushPlaySequence(event: "out of bounds on the opponent")
+                let possession = self.gameState["possession"] as! String
+                if (possession == "offense") {
+                    self.stop()
+                }
+                else if (possession == "defense") {
+                    self.switchToOffense()
+                }
             }
+            outOfBoundsAlert.addAction(own)
+            outOfBoundsAlert.addAction(opponent)
+            outOfBoundsAlert.popoverPresentationController?.sourceView = view
+            let c = outOfBoundsButton.center
+            let y = CGFloat(c.y + 100)
+            let p = CGPoint(x: c.x, y: y)
+            outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
+            present(outOfBoundsAlert, animated: false)
         }
     }
     
     @IBAction func handleTimeout(_ sender: UIButton) {
         if gameState["began"] as! Bool {
             let possession = gameState["possession"] as! String
+            
+            let fullTimeouts = self.gameState["fullTimeouts"] as! Int
+            let oppFullTimeouts = self.gameState["oppFullTimeouts"] as! Int
+            let halfTimeouts = self.gameState["halfTimeouts"] as! Int
+            let oppHalfTimeouts = self.gameState["oppHalfTimeouts"] as! Int
+            
             let timeoutAlert = UIAlertController(title: "Timeout", message: "", preferredStyle: .actionSheet)
             let full = UIAlertAction(title: "60-second", style: UIAlertActionStyle.default) { UIAlertAction in
                 if (possession == "offense") {
                     self.pushPlaySequence(event: "full timeout called")
+                    self.stop()
+                    self.gameState["fullTimeouts"] = fullTimeouts - 1
                 }
                 else if (possession == "defense") {
                     self.pushPlaySequence(event: "full timeout called by opponent")
+                    self.stop()
+                    self.gameState["oppFullTimeouts"] = oppFullTimeouts - 1
                 }
             }
             let half = UIAlertAction(title: "30-second", style: UIAlertActionStyle.default) { UIAlertAction in
                 if (possession == "offense") {
                     self.pushPlaySequence(event: "half timeout called")
-                    
+                    self.stop()
+                    self.gameState["halfTimeouts"] = halfTimeouts - 1
                 }
                 else if (possession == "defense") {
                     self.pushPlaySequence(event: "half timeout called by opponent")
+                    self.stop()
+                    self.gameState["oppHalfTimeouts"] = oppHalfTimeouts - 1
                 }
             }
-            timeoutAlert.addAction(full)
-            timeoutAlert.addAction(half)
+            
+            let hasFullTimeouts = (possession == "offense" && fullTimeouts > 0) || (possession == "defense" && oppFullTimeouts > 0)
+            let hasHalfTimeouts = (possession == "offense" && halfTimeouts > 0) || (possession == "defense" && oppHalfTimeouts > 0)
+            
+            if (hasFullTimeouts) { timeoutAlert.addAction(full) }
+            if (hasHalfTimeouts) { timeoutAlert.addAction(half) }
             timeoutAlert.popoverPresentationController?.sourceView = view
             let c = timeoutButton.center
             let y = CGFloat(c.y + 100)
@@ -847,6 +895,7 @@ class GameViewController: UIViewController {
         elapsed = Date().timeIntervalSinceReferenceDate - startTime
         timer?.invalidate()
         status = true
+        resetAllPlayerBorders()
     }
     
     @objc func updateCounter() {
@@ -889,16 +938,24 @@ class GameViewController: UIViewController {
         self.pushPlaySequence(event: "defensive possession ended, switching to offense")
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
         gameState["possession"] = "offense"
+        imageHoop.center.y -= 400
         imagePlayer1.center.y -= 400
         imagePlayer2.center.y += 100
         imagePlayer3.center.y += 350
         imagePlayer4.center.y += 100
         imagePlayer5.center.y -= 400
+        boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+        if (gameState["fullTimeouts"] as! Int == 0 && gameState["halfTimeouts"] as! Int == 0) {
+            timeoutButton.isEnabled = false
+        }
+        else {
+            timeoutButton.isEnabled = true
+        }
     }
     
     
@@ -907,10 +964,9 @@ class GameViewController: UIViewController {
         if (onOffense){
             
         }
-        else{
+        else {
             
         }
-        
     }
     
     // DEFENSE BELOW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -918,19 +974,28 @@ class GameViewController: UIViewController {
     
     
     func switchToDefense() {
-        self.pushPlaySequence(event: "offensive possession ended, switching to defense")
+        self.pushPlaySequence(event: "switch to defense")
+        resetAllPlayerBorders()
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
         gameState["possession"] = "defense"
+        imageHoop.center.y += 400
         imagePlayer1.center.y += 400
         imagePlayer2.center.y -= 100
         imagePlayer3.center.y -= 350
         imagePlayer4.center.y -= 100
         imagePlayer5.center.y += 400
+        boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[3] = CGRect.init(x: imagePlayer3.frame.origin.x, y: imagePlayer3.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[4] = CGRect.init(x: imagePlayer4.frame.origin.x, y: imagePlayer4.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[5] = CGRect.init(x: imagePlayer5.frame.origin.x, y: imagePlayer5.frame.origin.y, width: boxWidth, height: boxHeight)
+        if (gameState["oppFullTimeouts"] as! Int == 0 && gameState["oppHalfTimeouts"] as! Int == 0) {
+            timeoutButton.isEnabled = false
+        }
+        else {
+            timeoutButton.isEnabled = true
+        }
     }
     
     @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
@@ -938,7 +1003,6 @@ class GameViewController: UIViewController {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
                 player.updateSteals(steals: 1)
-                print("stolen")
             }
         }
     }
@@ -948,8 +1012,6 @@ class GameViewController: UIViewController {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
                 player.updateDeflections(deflections: 1)
-                print("deflected")
-                
             }
         }
     }

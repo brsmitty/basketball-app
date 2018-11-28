@@ -2588,6 +2588,13 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqT-Vr-s3P">
+                                        <rect key="frame" x="91" y="8" width="183" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -2619,6 +2626,7 @@
                         <outlet property="chargeButton" destination="O1Y-oQ-2ZA" id="Vcr-gB-xQQ"/>
                         <outlet property="containerView" destination="wki-LE-FuN" id="3E8-9k-oiy"/>
                         <outlet property="courtView" destination="e8w-3j-jDJ" id="TbL-r5-K5H"/>
+                        <outlet property="displayLabel" destination="QqT-Vr-s3P" id="mnW-4K-tIk"/>
                         <outlet property="gameSummaryButton" destination="xIM-ms-1os" id="14O-wC-gJZ"/>
                         <outlet property="imageHoop" destination="5TN-P3-RuZ" id="B5e-28-3x0"/>
                         <outlet property="imagePlayer1" destination="qzs-D5-kX9" id="RSy-Or-szh"/>
