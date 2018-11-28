@@ -40,8 +40,6 @@ class ShotChartViewController: UIViewController {
         let shotAlert = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .alert)
         UIView.setAnimationsEnabled(false)
         let made = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) { UIAlertAction in
-            let temp = self.gameState["homeScore"] as! Int
-            self.gameState["homeScore"] = temp + 2
             shooter.updatePoints(points: 2)
             shooter.updateTwoPointMade(made: 1)
             shooter.updateTwoPointAttempt(attempted: 1)
@@ -50,6 +48,16 @@ class ShotChartViewController: UIViewController {
                 let assister = active[assistIndex]
                 assister.updateAssists(assists: 1)
                 self.pushPlaySequence(event: "\(active[assistIndex].firstName) got the assist")
+            }
+            print(location.x)
+            print(location.y)
+            if(self.determineThreePoint(location: location)){
+                let temp = self.gameState["homeScore"] as! Int
+                self.gameState["homeScore"] = temp + 3
+            }
+            else{
+                let temp = self.gameState["homeScore"] as! Int
+                self.gameState["homeScore"] = temp + 2
             }
             let shot = (location.x, location.y, true)
             var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
@@ -95,6 +103,33 @@ class ShotChartViewController: UIViewController {
         var playSequence = gameState["playSequence"] as! [String]
         playSequence.append(event)
         gameState["playSequence"] = playSequence
+    }
+    
+    func determineThreePoint(location: CGPoint) -> Bool{
+        var value = false
+        if(location.y > 594.5){
+            value = true
+        }
+        else{
+            if(location.x < 101.5 || location.x > 927.5){
+                value = true
+            }
+            else{
+                if(location.x < 521){
+                    let temp = 1.47 * location.x + 151.58
+                    if(temp < location.y){
+                        value = true
+                    }
+                }
+                else{
+                    let temp = -1.64 * location.x + 1794.67
+                    if(temp < location.y){
+                        value = true
+                    }
+                }
+            }
+        }
+        return value
     }
     
 }

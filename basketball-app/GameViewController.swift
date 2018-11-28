@@ -30,6 +30,7 @@ class GameViewController: UIViewController {
                                     "ballIndex": 999,
                                     "assistingPlayerIndex": 999,
                                     "stateIndex": -1,
+                                    "quarterIndex": "1ST",
                                     "startTime": 0.0,
                                     "time": 0.0,
                                     "elapsed": 0.0,
@@ -93,6 +94,7 @@ class GameViewController: UIViewController {
             else{
                 self.homeScore.text! = String(gameState["homeScore"] as! Int)
             }
+            gameStateBoard.text = gameState["quarterIndex"] as? String
             self.time = gameState["time"] as! Double
             self.elapsed = gameState["elapsed"] as! Double
             self.status = true
@@ -422,6 +424,7 @@ class GameViewController: UIViewController {
             restart()
             self.gameState["stateIndex"] = self.gameState["stateIndex"] as! Int + 1
             gameStateBoard.text = states[self.gameState["stateIndex"] as! Int]
+            self.gameState["quarterIndex"] = gameStateBoard.text
         }
         start()
         if (gameState["began"] as! Bool == false){
