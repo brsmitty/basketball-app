@@ -52,6 +52,7 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       
       textField.resignFirstResponder()
+      sendResetLink(sendButton)
       return true
    }
 

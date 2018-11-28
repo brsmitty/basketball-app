@@ -173,7 +173,28 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
     }
    
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      textField.resignFirstResponder()
+      switch(textField.tag){
+         case 0:
+            loginPass.becomeFirstResponder()
+            break
+      case 1:
+         textField.resignFirstResponder()
+         loginClicked(UIGestureRecognizer.touchesBegan(UIGestureRecognizer.init()))
+      case 2:
+         registerPass.becomeFirstResponder()
+         break
+      case 3:
+         registerPassCheck.becomeFirstResponder()
+         break
+      case 4:
+         teamName.becomeFirstResponder()
+         break
+      case 5:
+         registerClicked(UIGestureRecognizer.touchesBegan(UIGestureRecognizer.init()))
+         break
+      default:
+         break
+      }
       return true
    }
    

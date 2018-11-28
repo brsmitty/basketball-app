@@ -9,7 +9,7 @@
 import XCTest
 
 class playerManageTests: XCTestCase {
-
+   let app = XCUIApplication()
    override func setUp() {
       // Put setup code here. This method is called before the invocation of each test method in the class.
       
@@ -17,36 +17,54 @@ class playerManageTests: XCTestCase {
       continueAfterFailure = false
       
       // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-      XCUIApplication().launch()
       
       // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+      app.launch()
+      
+      login()
+      
+   }
+   
+   private func login(){
+      let loginButton = app.buttons["LOGIN"]
+      
+      let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
+      let loginText = bgElementsQuery.children(matching: .textField).element
+      loginText.tap()
+      loginText.typeText("123@gmail.com")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+      
+      let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
+      secureTextField.typeText("123123")
+      app.buttons["Go"].tap()
+      XCTAssertEqual(loginButton.value as! String, "")
+   }
+   
+   private func waitForElementToAppear(element: XCUIElement,
+                                       file: String = #file, line: UInt = #line) {
+      let existsPredicate = NSPredicate(format: "exists == true")
+      expectation(for: existsPredicate,
+                  evaluatedWith: element, handler: nil)
+      
+      waitForExpectations(timeout: 5) { (error) -> Void in
+         if (error != nil) {
+            let message = "Failed to find \(element) after 5 seconds."
+            self.recordFailure(withDescription: message,
+                               inFile: file, atLine: Int(line), expected: true)
+         }
+      }
    }
    
    override func tearDown() {
       // Put teardown code here. This method is called after the invocation of each test method in the class.
+      app.terminate()
    }
    
    
    func testAddFivePlayers() {
       
-//      let app = XCUIApplication()
-//
-//      let loginButton = app.buttons["LOGIN"]
-//
-//      let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
-//      let loginText = bgElementsQuery.children(matching: .textField).element
-//      loginText.tap()
-//      loginText.typeText("kewlmike3@gmail.com")
-//      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//
-//
-//      let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
-//      secureTextField.tap()
-//      secureTextField.typeText("Michael")
-//      app.buttons["Go"].tap()
-//      XCTAssertEqual(loginButton.value as! String, "")
-//      loginButton.tap()
-      
+     waitForElementToAppear(element: app.otherElements.containing(.image, identifier:"welcomeBar").children(matching: .button).element(boundBy: 3))
+
       app.otherElements.containing(.image, identifier:"welcomeBar").children(matching: .button).element(boundBy: 3).tap()
       
       let addButton = app.buttons["ADD PLAYER"]
@@ -62,12 +80,12 @@ class playerManageTests: XCTestCase {
       let positionTextField = app.textFields["Position"]
       positionTextField.tap()
       
-      app.pickerWheels["Point-Guard"].swipeLeft()
+      app.pickerWheels["Point-Guard"].adjust(toPickerWheelValue: "Small-Forward")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       let heightTextField = app.textFields["Height"]
       heightTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "6'7\"")
       
       let weightTextField = app.textFields["Weight"]
       weightTextField.tap()
@@ -75,7 +93,7 @@ class playerManageTests: XCTestCase {
       
       let rankTextField = app.textFields["Rank"]
       rankTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "Junior")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       let saveButton = app.buttons["SAVE"]
@@ -89,17 +107,17 @@ class playerManageTests: XCTestCase {
       
       positionTextField.tap()
       
-      app.pickerWheels["Point-Guard"].swipeLeft()
+      app.pickerWheels["Point-Guard"].adjust(toPickerWheelValue: "Point-Guard")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       heightTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "5'11\"")
       
       weightTextField.tap()
-      weightTextField.typeText("155")
+      weightTextField.typeText("245")
       
       rankTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "Senior")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       saveButton.tap()
@@ -112,17 +130,17 @@ class playerManageTests: XCTestCase {
       
       positionTextField.tap()
       
-      app.pickerWheels["Point-Guard"].swipeLeft()
+      app.pickerWheels["Point-Guard"].adjust(toPickerWheelValue: "Point-Guard")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       heightTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "5'11\"")
       
       weightTextField.tap()
       weightTextField.typeText("245")
       
       rankTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "Senior")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       saveButton.tap()
@@ -135,17 +153,17 @@ class playerManageTests: XCTestCase {
       
       positionTextField.tap()
       
-      app.pickerWheels["Point-Guard"].swipeLeft()
+      app.pickerWheels["Point-Guard"].adjust(toPickerWheelValue: "Point-Guard")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       heightTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "5'11\"")
       
       weightTextField.tap()
       weightTextField.typeText("245")
       
       rankTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "Senior")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       saveButton.tap()
@@ -158,17 +176,17 @@ class playerManageTests: XCTestCase {
       
       positionTextField.tap()
       
-      app.pickerWheels["Point-Guard"].swipeLeft()
+      app.pickerWheels["Point-Guard"].adjust(toPickerWheelValue: "Point-Guard")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       heightTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["5'0\""]/*[[".pickers.pickerWheels[\"5'0\\\"\"]",".pickerWheels[\"5'0\\\"\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "5'11\"")
       
       weightTextField.tap()
       weightTextField.typeText("245")
       
       rankTextField.tap()
-      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeLeft()
+      app/*@START_MENU_TOKEN@*/.pickerWheels["Freshmen"]/*[[".pickers.pickerWheels[\"Freshmen\"]",".pickerWheels[\"Freshmen\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.adjust(toPickerWheelValue: "Senior")
       app.toolbars["Toolbar"].buttons["Done"].tap()
       
       saveButton.tap()

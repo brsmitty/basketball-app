@@ -7,8 +7,17 @@
 //
 
 import XCTest
+@testable import Pods_basketball_app
 
 class userAuthUITests: XCTestCase {
+      let app = XCUIApplication()
+   private var topLevelUIUtilities: TopLevelUIUtilities!
+   
+   func test_title_is_emailVerif(){
+      let storyboard = UIStoryboard(name: "Mail", bundle: nil)
+      let emailVerif = storyboard.instantiateInitialViewController() as! EmailVerificationViewController
+      
+   }
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -17,297 +26,292 @@ class userAuthUITests: XCTestCase {
         continueAfterFailure = false
 
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+      app.launch()
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+      app.terminate()
     }
    
-   func testUserRegistrationWithValidEmailPasswordAndTeamName(){
+   private func waitForElementToAppear(element: XCUIElement,
+                                       file: String = #file, line: UInt = #line) {
+      let existsPredicate = NSPredicate(format: "exists == true")
+      expectation(for: existsPredicate,
+                  evaluatedWith: element, handler: nil)
       
-      let app = XCUIApplication()
+      waitForExpectations(timeout: 5) { (error) -> Void in
+         if (error != nil) {
+            let message = "Failed to find \(element) after 5 seconds."
+            self.recordFailure(withDescription: message,
+                                              inFile: file, atLine: Int(line), expected: true)
+         }
+      }
+   }
+   
+   func test1UserRegistrationWithValidEmailPasswordAndTeamName(){
+      
+
       app.buttons["REGISTER"].tap()
       
       let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
       element.children(matching: .textField).element(boundBy: 0).tap()
-      element.children(matching: .textField).element(boundBy: 0).typeText("mkwhite401@gmail.com")
+      element.children(matching: .textField).element(boundBy: 0).typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = element.children(matching: .secureTextField).element(boundBy: 0)
-      secureTextField.tap()
-      secureTextField.typeText("michael7")
+      secureTextField.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField2 = element.children(matching: .secureTextField).element(boundBy: 1)
-      secureTextField2.tap()
-      secureTextField2.typeText("michael7")
+      secureTextField2.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let textField = element.children(matching: .textField).element(boundBy: 1)
-      textField.tap()
-      textField.typeText("Gators")
+      textField.typeText("numbers")
       app.buttons["Go"].tap()
       
-      app.buttons["REGISTER"].tap()
+      waitForElementToAppear(element: app.buttons["Resend Code"])
+      
+      topLevelUIUtilities = TopLevelUIUtilities<UIViewController>()
+      topLevelUIUtilities.createUser()
+      
+      waitForElementToAppear(element: app.staticTexts["Verified!"])
+
       
    }
    
-   func testUserRegistrationWithInValidEmail(){
+   func test2UserRegistrationWithInValidEmail(){
       
-      let app = XCUIApplication()
       app.buttons["REGISTER"].tap()
       
       let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
       element.children(matching: .textField).element(boundBy: 0).tap()
-      element.children(matching: .textField).element(boundBy: 0).typeText("mkwhite401.com")
+      element.children(matching: .textField).element(boundBy: 0).typeText("123.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = element.children(matching: .secureTextField).element(boundBy: 0)
-      secureTextField.tap()
-      secureTextField.typeText("michael7")
+      secureTextField.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField2 = element.children(matching: .secureTextField).element(boundBy: 1)
-      secureTextField2.tap()
-      secureTextField2.typeText("michael7")
+      secureTextField2.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let textField = element.children(matching: .textField).element(boundBy: 1)
-      textField.tap()
-      textField.typeText("Gators")
+      textField.typeText("numbers")
       app.buttons["Go"].tap()
       
-      app.buttons["REGISTER"].tap()
-      
-      XCTAssertTrue(app.alerts["Registration Failed"].exists)
+      waitForElementToAppear(element: app.alerts["Registration Failed"])
       app.alerts["Registration Failed"].buttons["OK"].tap()
       
    }
    
-   func testUserRegistrationWithEmptyEmail(){
+   func test3UserRegistrationWithEmptyEmail(){
       
-      let app = XCUIApplication()
       app.buttons["REGISTER"].tap()
       
       let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
       element.children(matching: .textField).element(boundBy: 0).tap()
       element.children(matching: .textField).element(boundBy: 0).typeText("")
-      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = element.children(matching: .secureTextField).element(boundBy: 0)
       secureTextField.tap()
-      secureTextField.typeText("michael7")
+      secureTextField.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField2 = element.children(matching: .secureTextField).element(boundBy: 1)
-      secureTextField2.tap()
-      secureTextField2.typeText("michael7")
+      secureTextField2.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let textField = element.children(matching: .textField).element(boundBy: 1)
-      textField.tap()
-      textField.typeText("Gators")
+      textField.typeText("numbers")
       app.buttons["Go"].tap()
       
-      app.buttons["REGISTER"].tap()
       
       XCTAssertTrue(app.alerts["Registration Failed"].exists)
       app.alerts["Registration Failed"].buttons["OK"].tap()
       
    }
    
-   func testUserRegistrationWithInValidPassword(){
+   func test4UserRegistrationWithInValidPassword(){
       
-      let app = XCUIApplication()
       app.buttons["REGISTER"].tap()
       
       let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
       element.children(matching: .textField).element(boundBy: 0).tap()
-      element.children(matching: .textField).element(boundBy: 0).typeText("mkwhite401@gmail.com")
+      element.children(matching: .textField).element(boundBy: 0).typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = element.children(matching: .secureTextField).element(boundBy: 0)
-      secureTextField.tap()
-      secureTextField.typeText("michael")
+      secureTextField.typeText("1231")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField2 = element.children(matching: .secureTextField).element(boundBy: 1)
-      secureTextField2.tap()
-      secureTextField2.typeText("michael7")
+      secureTextField2.typeText("123123")
+      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let textField = element.children(matching: .textField).element(boundBy: 1)
-      textField.tap()
-      textField.typeText("Gators")
+      textField.typeText("numbers")
       app.buttons["Go"].tap()
       
-      app.buttons["REGISTER"].tap()
       
       XCTAssertTrue(app.alerts["Registration Failed"].exists)
       app.alerts["Registration Failed"].buttons["OK"].tap()
       
    }
    
-   func testUserRegistrationWithInValidPasswordMatch(){
+   func test5UserRegistrationWithInValidPasswordMatch(){
       
-      let app = XCUIApplication()
       app.buttons["REGISTER"].tap()
       
       let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
       element.children(matching: .textField).element(boundBy: 0).tap()
-      element.children(matching: .textField).element(boundBy: 0).typeText("mkwhite401@gmail.com")
+      element.children(matching: .textField).element(boundBy: 0).typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = element.children(matching: .secureTextField).element(boundBy: 0)
       secureTextField.tap()
-      secureTextField.typeText("michael7")
+      secureTextField.typeText("123123")
       
       let secureTextField2 = element.children(matching: .secureTextField).element(boundBy: 1)
       secureTextField2.tap()
-      secureTextField2.typeText("michael")
+      secureTextField2.typeText("12")
       
       let textField = element.children(matching: .textField).element(boundBy: 1)
       textField.tap()
-      textField.typeText("Gators")
+      textField.typeText("numbers")
       app.buttons["Go"].tap()
       
-      app.buttons["REGISTER"].tap()
       
       XCTAssertTrue(app.alerts["Registration Failed"].exists)
       app.alerts["Registration Failed"].buttons["OK"].tap()
       
    }
    
-   func testUserRegistrationWithInValidTeamName(){
+   func test6UserRegistrationWithInValidTeamName(){
       
-      let app = XCUIApplication()
       app.buttons["REGISTER"].tap()
       
       let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
       element.children(matching: .textField).element(boundBy: 0).tap()
-      element.children(matching: .textField).element(boundBy: 0).typeText("mkwhite401@gmail.com")
+      element.children(matching: .textField).element(boundBy: 0).typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = element.children(matching: .secureTextField).element(boundBy: 0)
       secureTextField.tap()
-      secureTextField.typeText("michael7")
+      secureTextField.typeText("123123")
       
       let secureTextField2 = element.children(matching: .secureTextField).element(boundBy: 1)
       secureTextField2.tap()
-      secureTextField2.typeText("michael7")
+      secureTextField2.typeText("123123")
       
       let textField = element.children(matching: .textField).element(boundBy: 1)
       textField.tap()
       textField.typeText("")
       app.buttons["Go"].tap()
       
-      app.buttons["REGISTER"].tap()
-      
       XCTAssertTrue(app.alerts["Registration Failed"].exists)
       app.alerts["Registration Failed"].buttons["OK"].tap()
       
    }
    
-   func testForgotPasswordWithValidEmail(){
+   func test7ForgotPasswordWithValidEmail(){
       
-      let app = XCUIApplication()
       app.buttons["Forgot your Password?"].tap()
       app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.tap()
-      app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.typeText("kewlmike3@gmail.com")
+      app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Done"]/*[[".keyboards.buttons[\"Done\"]",".buttons[\"Done\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-      app.buttons["SEND LINK"].tap()
       app.alerts["Reset Link Sent!"].buttons["OK"].tap()
       
    }
    
-   func testForgotPasswordWithInValidEmail(){
+   func test8ForgotPasswordWithInValidEmail(){
       
-      let app = XCUIApplication()
       app.buttons["Forgot your Password?"].tap()
       app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.tap()
-      app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.typeText("mkwhite401@gmail.com")
+      app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element.typeText("12@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Done"]/*[[".keyboards.buttons[\"Done\"]",".buttons[\"Done\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-      app.buttons["SEND LINK"].tap()
       XCTAssertTrue(app.alerts["Reset Failed"].exists)
       app.alerts["Reset Failed"].buttons["OK"].tap()
       
    }
    
-   func testLoginWithValidEmail(){
+   func test9LoginWithValidEmail(){
       
       
-      let app = XCUIApplication()
       let loginButton = app.buttons["LOGIN"]
       
       let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
       let loginText = bgElementsQuery.children(matching: .textField).element
       loginText.tap()
-      loginText.typeText("kewlmike3@gmail.com")
+      loginText.typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
-      secureTextField.tap()
-      secureTextField.typeText("Michael")
+      secureTextField.typeText("123123")
       app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
-      loginButton.tap()
       
    }
    
-   func testLoginWithInvalidEmail(){
+   func test10LoginWithInvalidEmail(){
       
-      let app = XCUIApplication()
       let loginButton = app.buttons["LOGIN"]
       
       let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
       let loginText = bgElementsQuery.children(matching: .textField).element
       loginText.tap()
-      loginText.typeText("kewlmike@gmail.com")
+      loginText.typeText("12@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
-      secureTextField.tap()
-      secureTextField.typeText("michael")
+
+      secureTextField.typeText("123123")
       app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
-      loginButton.tap()
+
       XCTAssertTrue(app.alerts["Sign In Failed"].exists)
       app.alerts["Sign In Failed"].buttons["OK"].tap()
       XCTAssertTrue(loginButton.exists)
    }
    
-   func testLoginWithInvalidPassword(){
+   func test11LoginWithInvalidPassword(){
       
-      let app = XCUIApplication()
       let loginButton = app.buttons["LOGIN"]
       
       let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
       let loginText = bgElementsQuery.children(matching: .textField).element
       loginText.tap()
-      loginText.typeText("kewlmike3@gmail.com")
+      loginText.typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
-      secureTextField.tap()
+
       secureTextField.typeText("EFHIWE")
       app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
-      loginButton.tap()
+
       XCTAssertTrue(app.alerts["Sign In Failed"].exists)
       app.alerts["Sign In Failed"].buttons["OK"].tap()
       XCTAssertTrue(loginButton.exists)
    }
    
-   func testLoginWithEmptyPassword(){
+   func test12LoginWithEmptyPassword(){
       
-      let app = XCUIApplication()
       let loginButton = app.buttons["LOGIN"]
       
       let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
       let loginText = bgElementsQuery.children(matching: .textField).element
       loginText.tap()
-      loginText.typeText("kewlmike3@gmail.com")
+      loginText.typeText("123@gmail.com")
       app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
-      secureTextField.tap()
+
       secureTextField.typeText("")
-      app.buttons["Go"].tap()
       XCTAssertEqual(loginButton.value as! String, "")
       loginButton.tap()
       XCTAssertTrue(app.alerts["Sign In Failed"].exists)
@@ -315,45 +319,40 @@ class userAuthUITests: XCTestCase {
       XCTAssertTrue(loginButton.exists)
    }
    
-   func testLoginWithEmptyEmail(){
+   func test13LoginWithEmptyEmail(){
       
-      let app = XCUIApplication()
       let loginButton = app.buttons["LOGIN"]
       
       let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
       let loginText = bgElementsQuery.children(matching: .textField).element
       loginText.tap()
       loginText.typeText("")
-      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
       secureTextField.tap()
-      secureTextField.typeText("michael7")
-      app.buttons["Go"].tap()
-      XCTAssertEqual(loginButton.value as! String, "")
+      secureTextField.typeText("123123")
       loginButton.tap()
+      XCTAssertEqual(loginButton.value as! String, "")
+
       XCTAssertTrue(app.alerts["Sign In Failed"].exists)
       app.alerts["Sign In Failed"].buttons["OK"].tap()
       XCTAssertTrue(loginButton.exists)
    }
    
-   func testLoginWithEmptyEmailAndPassword(){
+   func test14LoginWithEmptyEmailAndPassword(){
       
-      let app = XCUIApplication()
       let loginButton = app.buttons["LOGIN"]
       
       let bgElementsQuery = app.otherElements.containing(.image, identifier:"BG")
       let loginText = bgElementsQuery.children(matching: .textField).element
       loginText.tap()
       loginText.typeText("")
-      app/*@START_MENU_TOKEN@*/.buttons["Continue"]/*[[".keyboards.buttons[\"Continue\"]",".buttons[\"Continue\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
       
       let secureTextField = bgElementsQuery.children(matching: .secureTextField).element
       secureTextField.tap()
       secureTextField.typeText("")
-      app.buttons["Go"].tap()
-      XCTAssertEqual(loginButton.value as! String, "")
       loginButton.tap()
+      XCTAssertEqual(loginButton.value as! String, "")
       XCTAssertTrue(app.alerts["Sign In Failed"].exists)
       app.alerts["Sign In Failed"].buttons["OK"].tap()
       XCTAssertTrue(loginButton.exists)
@@ -361,7 +360,6 @@ class userAuthUITests: XCTestCase {
 
    func testNavigationLinks(){
       
-      let app = XCUIApplication()
       app.buttons["Forgot your Password?"].tap()
       
       let backToLoginButton = app.buttons["< Back to Login"]

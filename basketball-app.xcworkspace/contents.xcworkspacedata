@@ -2,10 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:lineupUI_Test/lineupUI_Test.swift">
-   </FileRef>
-   <FileRef
-      location = "group:basketball-app.xcodeproj">
+      location = "container:basketball-app.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     weak var timer: Timer?
     var time: Double = 0
     var elapsed: Double = 0
@@ -64,6 +64,8 @@ class GameViewController: UIViewController {
     let benchWidth : CGFloat = 100.0 //constant for the width of the hit box for a player
     let benchPictureHeight : Int = 100 //constant for the width of the hit box for a player
     var boxRects : [CGRect] = [CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init(), CGRect.init()] //array of rectangles for hit boxes of hoop, PG, SG, SF, PF, C
+   var currentPath = IndexPath()
+   var paths:[IndexPath] = [IndexPath]()
     @IBOutlet weak var homeScore: UILabel!
     @IBOutlet weak var homeFouls: UILabel!
     @IBOutlet weak var gameStateBoard: UILabel!
@@ -84,10 +86,13 @@ class GameViewController: UIViewController {
     @IBOutlet weak var gameSummaryButton: UIButton!
     @IBOutlet weak var turnoverButton: UIButton!
     @IBOutlet weak var outOfBoundsButton: UIButton!
-
+   @IBOutlet weak var tableView: UITableView!
+   
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         benchView.isHidden = true
+      
         let state = gameState["transitionState"] as! String
         if (state == "init" ) { getRosterFromFirebase() }
         else if (state == "missedShot") {
@@ -144,6 +149,9 @@ class GameViewController: UIViewController {
         getTimerSet()
         labelSecond.text = "00"
         roundImages()
+      
+      tableView.delegate = self
+      tableView.dataSource = self
         gameStateBoard.text = states[0]
         
         if (gameState["possession"] as! String == "defense") {
@@ -270,6 +278,11 @@ class GameViewController: UIViewController {
                            chargesTaken: p["chargesTaken"] as! Int)
             players.append(playerObject)
             i += 1
+         
+         self.currentPath = IndexPath(row:players.count - 1, section: 0)
+         
+         paths.append(self.currentPath)
+         
         }
         self.gameState["roster"] = players
         self.gameState["bench"] = players
@@ -279,6 +292,9 @@ class GameViewController: UIViewController {
         populateActive()
         
         populateBench()
+      self.tableView.beginUpdates()
+      self.tableView.insertRows(at: self.paths, with: .automatic)
+      self.tableView.endUpdates()
     }
     
     @IBOutlet weak var displayLabel: UILabel!
@@ -315,8 +331,9 @@ class GameViewController: UIViewController {
             imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
             imageView.clipsToBounds = true
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
-            imageView.isUserInteractionEnabled = true
-            imageView.addGestureRecognizer(panGesture)
+         // MARK: fkeasjnfejkoiawejfoiawejfaw
+         imageView.isUserInteractionEnabled = true
+         imageView.addGestureRecognizer(panGesture)
             benchView.addSubview(imageView)
             y += benchPictureHeight
         }
@@ -335,15 +352,15 @@ class GameViewController: UIViewController {
         benchView.isHidden = false
         benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
         UIView.animate(withDuration: 0.3, animations: {
-            self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchWidth, height: 595)
+            self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchView.frame.width, height: 595)
             self.view.layoutIfNeeded()
         })
     }
     
     @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
-        if (sender.location(in: containerView).x > benchWidth) {
+        if (sender.location(in: containerView).x > benchView.frame.width) {
             UIView.animate(withDuration: 0.3, animations: {
-                self.benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
+                self.benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchView.frame.width, height: 595)
                 self.view.layoutIfNeeded()
             }, completion: {(finished) -> Void in
                 self.benchView.isHidden = true
@@ -364,6 +381,8 @@ class GameViewController: UIViewController {
             self.panEndPoint = recognizer.location(in: containerView)
             var activePlayers = [Player?](repeating: nil, count: 5)
             var index = 0
+         self.currentPath = IndexPath(row: index, section: 0)
+         tableView.deleteRows(at: [self.currentPath], with: .fade)
             for player in gameState["active"] as! [Player?] {
                 activePlayers[index] = player
                 index += 1
@@ -586,6 +605,13 @@ class GameViewController: UIViewController {
     }
     
     func dribble() {
+        let index = gameState["ballIndex"] as! Int
+        var active = gameState["active"] as! [Player?]
+        let dribbler = active[index]!
+        dribbler.dribble()
+        self.pushPlaySequence(event: "\(active[index]!.firstName) dribbled")
+      
+      dribbleBorderRipple(index)
         if (gameState["possession"] as! String == "offense") {
             let index = gameState["ballIndex"] as! Int
             var active = gameState["active"] as! [Player?]
@@ -812,30 +838,53 @@ class GameViewController: UIViewController {
     }
     
     
-    
+   func dribbleBorderRipple(_ player: Int){
+         switch(player){
+         case 0:
+            self.imagePlayer1.dribble()
+            break
+         case 1:
+            self.imagePlayer2.dribble()
+            break
+         case 2:
+            self.imagePlayer3.dribble()
+            break
+         case 3:
+            self.imagePlayer4.dribble()
+            break
+         case 4:
+            self.imagePlayer5.dribble()
+            break
+         default:
+            break
+      }
+      
+   }
+   
+   
     func addBorderToActivePlayer(_ player: Int){
         
         resetAllPlayerBorders()
         
         switch(player){
         case 0:
-            imagePlayer1.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer1.layer.borderColor = UIColor.orange.cgColor
             imagePlayer1.layer.borderWidth = 4
             break
         case 1:
-            imagePlayer2.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer2.layer.borderColor = UIColor.orange.cgColor
             imagePlayer2.layer.borderWidth = 4
             break
         case 2:
-            imagePlayer3.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer3.layer.borderColor = UIColor.orange.cgColor
             imagePlayer3.layer.borderWidth = 4
             break
         case 3:
-            imagePlayer4.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer4.layer.borderColor = UIColor.orange.cgColor
             imagePlayer4.layer.borderWidth = 4
             break
         case 4:
-            imagePlayer5.layer.borderColor = UIColor.cyan.cgColor
+            imagePlayer5.layer.borderColor = UIColor.orange.cgColor
             imagePlayer5.layer.borderWidth = 4
             break
         default:
@@ -965,6 +1014,32 @@ class GameViewController: UIViewController {
     @IBAction func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+   
+   
+   
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      currentPath = indexPath
+   }
+   
+   func numberOfSections(in tableView: UITableView) -> Int {
+      return 1
+   }
+   
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let playerCell = "PlayerCell"
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: playerCell, for: indexPath) as? BenchTableViewCell
+         else{
+            fatalError("Dequeued cell was not of type BenchTableViewCell")
+      }
+      cell.photoImageView.image = (gameState["bench"]as! [Player])[indexPath.row].photo
+      
+      return cell
+   }
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      
+      let players = gameState["bench"] as! [Player]
+      return players.count
+   }
     
     func player(i: Int) -> Player {
         let players = gameState["active"] as! [Player]
