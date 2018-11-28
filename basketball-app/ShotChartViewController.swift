@@ -12,90 +12,95 @@ class ShotChartViewController: UIViewController {
     
     var gameState: [String: Any] = [:]
     @IBOutlet weak var chartView: UIImageView!
+    var shotLocation: CGPoint = CGPoint.init()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //displayShots()
+        displayShots()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            saveShot(location: touch.location(in: self.view))
+            shotLocation = touch.location(in: self.view)
+            shotSelect(location: shotLocation)
         }
+    }
+    
+    @IBAction func shotSelect (location: CGPoint) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let resultVC = storyboard.instantiateViewController(withIdentifier: "shotPopover") as! ShotChartViewController
+        resultVC.modalPresentationStyle = .popover
+        resultVC.popoverPresentationController?.sourceView = view
+        resultVC.popoverPresentationController?.sourceRect = CGRect.init(origin: location, size: CGSize.init())
+        resultVC.gameState = gameState
+        resultVC.shotLocation = shotLocation
+        self.present(resultVC, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "gameviewSegue" {
+        if segue.identifier == "gameviewSegue" || segue.identifier == "gameviewSeg" {
             if let gameView = segue.destination as? GameViewController {
                 gameView.gameState = self.gameState
+                dismiss(animated: false, completion: nil)
             }
         }
     }
     
-    
-    func saveShot(location: CGPoint){
+    @IBAction func madeShot(_ sender: UIButton) {
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player]
         let shooter = active[index]
-        let shotAlert = UIAlertController(title: "Shot Outcome", message: "", preferredStyle: .alert)
-        UIView.setAnimationsEnabled(false)
-        let made = UIAlertAction(title: "Made", style: UIAlertActionStyle.default) { UIAlertAction in
-            shooter.updatePoints(points: 2)
-            shooter.updateTwoPointMade(made: 1)
-            shooter.updateTwoPointAttempt(attempted: 1)
-            let assistIndex = self.gameState["assistingPlayerIndex"] as! Int
-            if assistIndex != 999 {
-                let assister = active[assistIndex]
-                assister.updateAssists(assists: 1)
-                self.pushPlaySequence(event: "\(active[assistIndex].firstName) got the assist")
-            }
-            print(location.x)
-            print(location.y)
-            if(self.determineThreePoint(location: location)){
-                let temp = self.gameState["homeScore"] as! Int
-                self.gameState["homeScore"] = temp + 3
-            }
-            else{
-                let temp = self.gameState["homeScore"] as! Int
-                self.gameState["homeScore"] = temp + 2
-            }
-            let shot = (location.x, location.y, true)
-            var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
-            shots.append(shot)
-            self.gameState["shots"] = shots
-            self.gameState["transitionState"] = "madeShot"
-            let index = self.gameState["ballIndex"] as! Int
-            var active = self.gameState["active"] as! [Player]
-            self.pushPlaySequence(event: "\(active[index].firstName) made the shot")
-            self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
+        shooter.updatePoints(points: 2)
+        shooter.updateTwoPointMade(made: 1)
+        shooter.updateTwoPointAttempt(attempted: 1)
+        let assistIndex = self.gameState["assistingPlayerIndex"] as! Int
+        if assistIndex != 999 {
+            let assister = active[assistIndex]
+            assister.updateAssists(assists: 1)
+            self.pushPlaySequence(event: "\(active[assistIndex].firstName) got the assist")
         }
-        let missed = UIAlertAction(title: "Missed", style: UIAlertActionStyle.destructive) { UIAlertAction in
-            shooter.updateTwoPointAttempt(attempted: 1)
-            let shot = (location.x, location.y, false)
-            var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
-            shots.append(shot)
-            self.gameState["shots"] = shots
-            self.gameState["transitionState"] = "missedShot"
-            let index = self.gameState["ballIndex"] as! Int
-            var active = self.gameState["active"] as! [Player]
-            self.pushPlaySequence(event: "\(active[index].firstName) missed the shot")
-            self.performSegue(withIdentifier: "gameviewSegue", sender: nil)
-        }
-        shotAlert.addAction(made)
-        shotAlert.addAction(missed)
-        shotAlert.popoverPresentationController?.sourceView = view
-        shotAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: location, size: CGSize.init())
-        present(shotAlert, animated: false)
+        let shot = (shotLocation.x, shotLocation.y, true)
+        var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
+        shots.append(shot)
+        self.gameState["shots"] = shots
+        self.gameState["transitionState"] = "madeShot"
+        self.pushPlaySequence(event: "\(shooter.firstName) made the shot")
+        self.performSegue(withIdentifier: "gameviewSeg", sender: nil)
+    }
+    
+    @IBAction func missedShot(_ sender: UIButton) {
+        let index = gameState["ballIndex"] as! Int
+        var active = gameState["active"] as! [Player]
+        let shooter = active[index]
+        shooter.updateTwoPointAttempt(attempted: 1)
+        let shot = (shotLocation.x, shotLocation.y, false)
+        var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
+        shots.append(shot)
+        self.gameState["shots"] = shots
+        self.gameState["transitionState"] = "missedShot"
+        self.pushPlaySequence(event: "\(shooter.firstName) missed the shot")
+        self.performSegue(withIdentifier: "gameviewSeg", sender: nil)
     }
     
     func displayShots() {
         let shots = gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
         for shot in shots {
-            let label = UILabel(frame: CGRect.init(origin: CGPoint.init(x: shot.x, y: shot.y), size: CGSize.init()))
-            if shot.made { label.text = "o" }
-            else { label.text = "x" }
-            label.layer.zPosition = 10
-            chartView.addSubview(label)
+            let label = UILabel()
+            var container = UIView()
+            container = UIView(frame: CGRect(x: shot.x, y: shot.y, width: 20, height: 20))
+            if shot.made {
+                label.text = "o"
+                label.textColor = .green
+            }
+            else {
+                label.text = "x"
+                label.textColor = .red
+            }
+            label.frame = container.frame
+            container.addSubview(label)
+            self.view.addSubview(container)
+            self.view.bringSubview(toFront: container)
         }
     }
     
