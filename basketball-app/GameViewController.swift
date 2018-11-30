@@ -288,8 +288,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.gameState["bench"] = players
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
         
-        self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
-        populateActive()
+        //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
+        //populateActive()
         
         populateBench()
       self.tableView.beginUpdates()
@@ -669,6 +669,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func handleFoul(player: Player){
         gameState["fouledPlayer"] = player
         let teamFouls = gameState["teamFouls"] as! Int
+        gameState["teamFouls"] = teamFouls + 1
+        if((gameState["teamFouls"] as! Int) < 9){
+            self.homeFouls.text! = "0" + String(teamFouls + 1)
+        }
+        else{
+            self.homeScore.text! = String(teamFouls + 1)
+        }
         if (teamFouls >= 7) {
             gameState["fouledPlayer"] = player
         }
@@ -680,6 +687,14 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func handleTechFoul(index: Int) {
         if gameState["began"] as! Bool {
+            let teamFouls = gameState["teamFouls"] as! Int
+            gameState["teamFouls"] = teamFouls + 1
+            if((gameState["teamFouls"] as! Int) < 9){
+                self.homeFouls.text! = "0" + String(teamFouls + 1)
+            }
+            else{
+                self.homeScore.text! = String(teamFouls + 1)
+            }
             gameState["fouledPlayerIndex"] = 999
             let techAlert = UIAlertController(title: "Turnover", message: "", preferredStyle: .actionSheet)
             var activePlayer: UIAlertAction

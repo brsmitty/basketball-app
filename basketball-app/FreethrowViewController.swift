@@ -65,6 +65,8 @@ class FreethrowViewController: UIViewController {
     }
     
     @IBAction func madeShots(_ sender: UIButton) {
+        let score = gameState["homeScore"] as! Int
+        gameState["homeScore"] = score + 1
         let offense = gameState["possession"] as! String == "offense"
         if (offense) {
             var score = gameState["score"] as! Int

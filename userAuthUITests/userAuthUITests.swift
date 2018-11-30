@@ -15,7 +15,7 @@ class userAuthUITests: XCTestCase {
    
    func test_title_is_emailVerif(){
       let storyboard = UIStoryboard(name: "Mail", bundle: nil)
-      let emailVerif = storyboard.instantiateInitialViewController() as! EmailVerificationViewController
+      //let emailVerif = storyboard.instantiateInitialViewController() as! EmailVerificationViewController
       
    }
 
