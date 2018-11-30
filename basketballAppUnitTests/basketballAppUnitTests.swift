@@ -10,7 +10,7 @@ import XCTest
 import UIKit
 @testable import basketballApp
 
-class basketballAppUnitTests: XCTestCase {
+class userAuthUnitTests: XCTestCase {
 
    var viewController: UserAuthViewController!
    
@@ -40,9 +40,19 @@ class basketballAppUnitTests: XCTestCase {
       }
    }
    
-   func testButtonsAreThere(){
+   func testButtonsAreThereWithFormatting(){
       
+      // Buttons
       XCTAssert(viewController.loginButton.isEnabled)
+      XCTAssert(viewController.registerButton.isEnabled)
+      XCTAssertEqual(viewController.loginButton.layer.cornerRadius, 5)
+      XCTAssertEqual(viewController.registerButton.layer.cornerRadius, 5)
+      
+      // Text Fields
+      XCTAssert(viewController.loginPass.isEnabled)
+      XCTAssertEqual(viewController.loginPass.layer.cornerRadius, 5)
+      XCTAssert(viewController.loginEmail.isEnabled)
+      XCTAssertEqual(viewController.loginEmail.layer.cornerRadius, 5)
    }
 
 }

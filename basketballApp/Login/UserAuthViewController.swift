@@ -24,7 +24,8 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
-    
+   @IBOutlet var forgotYourPassword: UIButton!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
       
