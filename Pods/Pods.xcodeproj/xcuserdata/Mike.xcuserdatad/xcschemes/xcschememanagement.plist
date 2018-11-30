@@ -29,7 +29,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-basketball-app.xcscheme</key>
+		<key>Pods-basketballApp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-basketballAppUnitTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

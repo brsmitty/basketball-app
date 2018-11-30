@@ -11,11 +11,11 @@
 		27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B5A2193D56D00541774 /* BenchViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
+		271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F234B21B0B37700848C2D /* basketballAppUnitTests.swift */; };
 		2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */; };
 		2730FDE521A10DA80003F4B8 /* BenchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */; };
 		27472F42219481F2009BBC96 /* DropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27472F41219481F2009BBC96 /* DropDownViewController.swift */; };
 		274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A641D2164051700F0F4E7 /* LoginTextField.swift */; };
-		274A64262164451E00F0F4E7 /* userAuthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A64252164451E00F0F4E7 /* userAuthUITests.swift */; };
 		274A642E2165B92500F0F4E7 /* EmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */; };
 		274A64302165B9E500F0F4E7 /* VerifiedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */; };
 		275F46C22157D37B004E6ED7 /* LineupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */; };
@@ -25,16 +25,15 @@
 		276B46D72177D86B00D565C4 /* DefaultUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46D62177D86B00D565C4 /* DefaultUITextField.swift */; };
 		2786CCCE2144B571003539A2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
 		278756C22188FAAB0010CC6F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278756C12188FAAB0010CC6F /* ScheduleViewController.swift */; };
-		27A1D30C21AE63840023599C /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A1D30B21AE63840023599C /* helper.swift */; };
-		27A1D30E21AE63A60023599C /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A1D30D21AE63A60023599C /* helper.swift */; };
 		27A1D31021AE6A040023599C /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A1D30D21AE63A60023599C /* helper.swift */; };
 		27B1F94B2191F6F500D0351B /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B1F94A2191F6F500D0351B /* PerformanceViewController.swift */; };
 		27B1F94D2192231300D0351B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B1F94C2192231300D0351B /* SettingsViewController.swift */; };
 		27C7D11121894360000EE098 /* PlaybookMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C7D11021894360000EE098 /* PlaybookMasterViewController.swift */; };
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
-		27FC62D621790B6600DE6B08 /* playerManageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC62D521790B6600DE6B08 /* playerManageTests.swift */; };
 		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
+		4299E35EB4917BC10A83445E /* Pods_basketballApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */; };
+		54C388910D71C1FC22B0F3FC /* Pods_basketballAppUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC8CDFFF33D0CD46D360075 /* Pods_basketballAppUnitTests.framework */; };
 		630E2C66216E66C800881C1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C65216E66C800881C1F /* Assets.xcassets */; };
 		630E2C68216E672600881C1F /* Playbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C67216E672600881C1F /* Playbook.pdf */; };
 		630E66EB21766973005EF4EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630E66E621766973005EF4EB /* ViewController.swift */; };
@@ -60,61 +59,41 @@
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
-		987B3085217834E10010F3A6 /* gestureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B3084217834E10010F3A6 /* gestureUITests.swift */; };
-		987B3093217840280010F3A6 /* subPlayersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B3092217840280010F3A6 /* subPlayersUITests.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		274A64282164451E00F0F4E7 /* PBXContainerItemProxy */ = {
+		271F234E21B0B37700848C2D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63C79FC321403291006726C3 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 63C79FCA21403291006726C3;
-			remoteInfo = "basketball-app";
-		};
-		27FC62D821790B6600DE6B08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63C79FC321403291006726C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63C79FCA21403291006726C3;
-			remoteInfo = "basketball-app";
-		};
-		987B3087217834E10010F3A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63C79FC321403291006726C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63C79FCA21403291006726C3;
-			remoteInfo = "basketball-app";
-		};
-		987B3095217840280010F3A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63C79FC321403291006726C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63C79FCA21403291006726C3;
-			remoteInfo = "basketball-app";
+			remoteInfo = basketballApp;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A509FAEACC1CBBD15198521 /* Pods-basketballAppUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		27123B582193C35600541774 /* kpiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kpiViewController.swift; sourceTree = "<group>"; };
 		27123B5A2193D56D00541774 /* BenchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchViewController.swift; sourceTree = "<group>"; };
 		27185E192173EE1800B69950 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
+		271F234921B0B37700848C2D /* basketballAppUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = basketballAppUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		271F234B21B0B37700848C2D /* basketballAppUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = basketballAppUnitTests.swift; sourceTree = "<group>"; };
+		271F234D21B0B37700848C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchTableViewCell.swift; sourceTree = "<group>"; };
 		27472F41219481F2009BBC96 /* DropDownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownViewController.swift; sourceTree = "<group>"; };
 		27472F4921948D19009BBC96 /* loginUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginUnitTests.swift; sourceTree = "<group>"; };
 		27472F4B21948D19009BBC96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		274A641D2164051700F0F4E7 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
-		274A64232164451E00F0F4E7 /* userAuthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAuthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		274A64252164451E00F0F4E7 /* userAuthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAuthUITests.swift; sourceTree = "<group>"; };
 		274A64272164451E00F0F4E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewController.swift; sourceTree = "<group>"; };
 		274A642F2165B9E500F0F4E7 /* VerifiedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiedViewController.swift; sourceTree = "<group>"; };
 		275F46C12157D37B004E6ED7 /* LineupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupTableViewCell.swift; sourceTree = "<group>"; };
-		275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineupManagerViewController.swift; path = "basketball-app/Lineup/LineupManagerViewController.swift"; sourceTree = SOURCE_ROOT; };
+		275F46C52157E76E004E6ED7 /* LineupManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineupManagerViewController.swift; path = basketballApp/Lineup/LineupManagerViewController.swift; sourceTree = SOURCE_ROOT; };
 		275F46C721580D4D004E6ED7 /* LineupEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupEditorViewController.swift; sourceTree = "<group>"; };
 		275F46C921585833004E6ED7 /* DropDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTableViewCell.swift; sourceTree = "<group>"; };
 		276B46CC21766D8E00D565C4 /* lineupUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineupUITest.swift; sourceTree = "<group>"; };
@@ -131,11 +110,11 @@
 		27C7D11021894360000EE098 /* PlaybookMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookMasterViewController.swift; sourceTree = "<group>"; };
 		27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerViewController.swift; sourceTree = "<group>"; };
 		27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
-		27FC62D321790B6600DE6B08 /* playerManageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = playerManageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FC62D521790B6600DE6B08 /* playerManageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerManageTests.swift; sourceTree = "<group>"; };
 		27FC62D721790B6600DE6B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27FC62E321790B8500DE6B08 /* lineupManageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineupManageTests.swift; sourceTree = "<group>"; };
 		27FC62E521790B8500DE6B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53716CBAC7F13DB9FDBEFD22 /* Pods-basketballAppUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		630E2C65216E66C800881C1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		630E2C67216E672600881C1F /* Playbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Playbook.pdf; sourceTree = "<group>"; };
 		630E66E621766973005EF4EB /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,40 +132,36 @@
 		6351C2C721A8913C00BF63F6 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		6351C2C921A8915200BF63F6 /* Possession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Possession.swift; sourceTree = "<group>"; };
 		6368B40521760B2A004E30DA /* FreethrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreethrowViewController.swift; sourceTree = "<group>"; };
-		63C79FCB21403291006726C3 /* basketball-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basketball-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63C79FCB21403291006726C3 /* basketballApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = basketballApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD821403292006726C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63C79FDA21403292006726C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63C79FE2214033A8006726C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63E879732146D21600B1A458 /* UserAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
+		83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
 		98588C60216511E300DA226C /* PlaybookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookCell.swift; sourceTree = "<group>"; };
 		987822E42191488600808AC4 /* TimerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTest.swift; sourceTree = "<group>"; };
-		987B3082217834E10010F3A6 /* gestureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gestureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		987B3084217834E10010F3A6 /* gestureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gestureUITests.swift; sourceTree = "<group>"; };
 		987B3086217834E10010F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		987B3090217840280010F3A6 /* subPlayersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = subPlayersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		987B3092217840280010F3A6 /* subPlayersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subPlayersUITests.swift; sourceTree = "<group>"; };
 		987B3094217840280010F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookViewController.swift; sourceTree = "<group>"; };
 		98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
+		AC8853B9C37BCF6FB4FEDB6E /* Pods-basketballApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp.debug.xcconfig"; sourceTree = "<group>"; };
+		BDC8CDFFF33D0CD46D360075 /* Pods_basketballAppUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballAppUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.debug.xcconfig"; sourceTree = "<group>"; };
+		CCECF9872790A126060E60C3 /* Pods-basketballApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp.release.xcconfig"; sourceTree = "<group>"; };
 		D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		274A64202164451E00F0F4E7 /* Frameworks */ = {
+		271F234621B0B37700848C2D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		27FC62D021790B6600DE6B08 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				54C388910D71C1FC22B0F3FC /* Pods_basketballAppUnitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,20 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		987B307F217834E10010F3A6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		987B308D217840280010F3A6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4299E35EB4917BC10A83445E /* Pods_basketballApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */,
+				83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */,
+				BDC8CDFFF33D0CD46D360075 /* Pods_basketballAppUnitTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -228,6 +192,10 @@
 			children = (
 				BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */,
 				D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */,
+				AC8853B9C37BCF6FB4FEDB6E /* Pods-basketballApp.debug.xcconfig */,
+				CCECF9872790A126060E60C3 /* Pods-basketballApp.release.xcconfig */,
+				53716CBAC7F13DB9FDBEFD22 /* Pods-basketballAppUnitTests.debug.xcconfig */,
+				1A509FAEACC1CBBD15198521 /* Pods-basketballAppUnitTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -249,6 +217,15 @@
 				63E879732146D21600B1A458 /* UserAuthViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		271F234A21B0B37700848C2D /* basketballAppUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				271F234B21B0B37700848C2D /* basketballAppUnitTests.swift */,
+				271F234D21B0B37700848C2D /* Info.plist */,
+			);
+			path = basketballAppUnitTests;
 			sourceTree = "<group>";
 		};
 		27472F4821948D19009BBC96 /* loginUnitTests */ = {
@@ -342,7 +319,7 @@
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
-				63C79FCD21403291006726C3 /* basketball-app */,
+				63C79FCD21403291006726C3 /* basketballApp */,
 				274A64242164451E00F0F4E7 /* userAuthUITests */,
 				987B3083217834E10010F3A6 /* gestureUITests */,
 				987B3091217840280010F3A6 /* subPlayersUITests */,
@@ -350,6 +327,7 @@
 				27FC62D421790B6600DE6B08 /* playerManageTests */,
 				27FC62E221790B8500DE6B08 /* lineupManageTests */,
 				27472F4821948D19009BBC96 /* loginUnitTests */,
+				271F234A21B0B37700848C2D /* basketballAppUnitTests */,
 				63C79FCC21403291006726C3 /* Products */,
 				165C386DCD297A94D812A1E2 /* Pods */,
 				000C9FD9583F679DDB3773CB /* Frameworks */,
@@ -359,16 +337,13 @@
 		63C79FCC21403291006726C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63C79FCB21403291006726C3 /* basketball-app.app */,
-				274A64232164451E00F0F4E7 /* userAuthUITests.xctest */,
-				987B3082217834E10010F3A6 /* gestureUITests.xctest */,
-				987B3090217840280010F3A6 /* subPlayersUITests.xctest */,
-				27FC62D321790B6600DE6B08 /* playerManageTests.xctest */,
+				63C79FCB21403291006726C3 /* basketballApp.app */,
+				271F234921B0B37700848C2D /* basketballAppUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		63C79FCD21403291006726C3 /* basketball-app */ = {
+		63C79FCD21403291006726C3 /* basketballApp */ = {
 			isa = PBXGroup;
 			children = (
 				27123B572193C34700541774 /* KPI */,
@@ -406,7 +381,7 @@
 				6351C2C721A8913C00BF63F6 /* Action.swift */,
 				6351C2C921A8915200BF63F6 /* Possession.swift */,
 			);
-			path = "basketball-app";
+			path = basketballApp;
 			sourceTree = "<group>";
 		};
 		987B3083217834E10010F3A6 /* gestureUITests */ = {
@@ -443,45 +418,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		274A64222164451E00F0F4E7 /* userAuthUITests */ = {
+		271F234821B0B37700848C2D /* basketballAppUnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 274A642A2164451E00F0F4E7 /* Build configuration list for PBXNativeTarget "userAuthUITests" */;
+			buildConfigurationList = 271F235021B0B37700848C2D /* Build configuration list for PBXNativeTarget "basketballAppUnitTests" */;
 			buildPhases = (
-				274A641F2164451E00F0F4E7 /* Sources */,
-				274A64202164451E00F0F4E7 /* Frameworks */,
-				274A64212164451E00F0F4E7 /* Resources */,
+				941D757068624B44B5401738 /* [CP] Check Pods Manifest.lock */,
+				271F234521B0B37700848C2D /* Sources */,
+				271F234621B0B37700848C2D /* Frameworks */,
+				271F234721B0B37700848C2D /* Resources */,
+				505D4D226D113BBA182C8700 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				274A64292164451E00F0F4E7 /* PBXTargetDependency */,
+				271F234F21B0B37700848C2D /* PBXTargetDependency */,
 			);
-			name = userAuthUITests;
-			productName = userAuthUITests;
-			productReference = 274A64232164451E00F0F4E7 /* userAuthUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
+			name = basketballAppUnitTests;
+			productName = basketballAppUnitTests;
+			productReference = 271F234921B0B37700848C2D /* basketballAppUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		27FC62D221790B6600DE6B08 /* playerManageTests */ = {
+		63C79FCA21403291006726C3 /* basketballApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27FC62DC21790B6600DE6B08 /* Build configuration list for PBXNativeTarget "playerManageTests" */;
-			buildPhases = (
-				27FC62CF21790B6600DE6B08 /* Sources */,
-				27FC62D021790B6600DE6B08 /* Frameworks */,
-				27FC62D121790B6600DE6B08 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				27FC62D921790B6600DE6B08 /* PBXTargetDependency */,
-			);
-			name = playerManageTests;
-			productName = playerManageTests;
-			productReference = 27FC62D321790B6600DE6B08 /* playerManageTests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
-		63C79FCA21403291006726C3 /* basketball-app */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63C79FDD21403292006726C3 /* Build configuration list for PBXNativeTarget "basketball-app" */;
+			buildConfigurationList = 63C79FDD21403292006726C3 /* Build configuration list for PBXNativeTarget "basketballApp" */;
 			buildPhases = (
 				8BA2040971163FDCCD130DC7 /* [CP] Check Pods Manifest.lock */,
 				63C79FC721403291006726C3 /* Sources */,
@@ -493,46 +452,10 @@
 			);
 			dependencies = (
 			);
-			name = "basketball-app";
+			name = basketballApp;
 			productName = "basketball-app";
-			productReference = 63C79FCB21403291006726C3 /* basketball-app.app */;
+			productReference = 63C79FCB21403291006726C3 /* basketballApp.app */;
 			productType = "com.apple.product-type.application";
-		};
-		987B3081217834E10010F3A6 /* gestureUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 987B308B217834E10010F3A6 /* Build configuration list for PBXNativeTarget "gestureUITests" */;
-			buildPhases = (
-				987B307E217834E10010F3A6 /* Sources */,
-				987B307F217834E10010F3A6 /* Frameworks */,
-				987B3080217834E10010F3A6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				987B3088217834E10010F3A6 /* PBXTargetDependency */,
-			);
-			name = gestureUITests;
-			productName = gestureUITests;
-			productReference = 987B3082217834E10010F3A6 /* gestureUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
-		987B308F217840280010F3A6 /* subPlayersUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 987B3097217840280010F3A6 /* Build configuration list for PBXNativeTarget "subPlayersUITests" */;
-			buildPhases = (
-				987B308C217840280010F3A6 /* Sources */,
-				987B308D217840280010F3A6 /* Frameworks */,
-				987B308E217840280010F3A6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				987B3096217840280010F3A6 /* PBXTargetDependency */,
-			);
-			name = subPlayersUITests;
-			productName = subPlayersUITests;
-			productReference = 987B3090217840280010F3A6 /* subPlayersUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -544,28 +467,16 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "David Zucco";
 				TargetAttributes = {
-					274A64222164451E00F0F4E7 = {
-						CreatedOnToolsVersion = 10.0;
-						TestTargetID = 63C79FCA21403291006726C3;
-					};
-					27FC62D221790B6600DE6B08 = {
+					271F234821B0B37700848C2D = {
 						CreatedOnToolsVersion = 10.0;
 						TestTargetID = 63C79FCA21403291006726C3;
 					};
 					63C79FCA21403291006726C3 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
-					987B3081217834E10010F3A6 = {
-						CreatedOnToolsVersion = 10.0;
-						TestTargetID = 63C79FCA21403291006726C3;
-					};
-					987B308F217840280010F3A6 = {
-						CreatedOnToolsVersion = 10.0;
-						TestTargetID = 63C79FCA21403291006726C3;
-					};
 				};
 			};
-			buildConfigurationList = 63C79FC621403291006726C3 /* Build configuration list for PBXProject "basketball-app" */;
+			buildConfigurationList = 63C79FC621403291006726C3 /* Build configuration list for PBXProject "basketballApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -578,24 +489,14 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				63C79FCA21403291006726C3 /* basketball-app */,
-				274A64222164451E00F0F4E7 /* userAuthUITests */,
-				987B3081217834E10010F3A6 /* gestureUITests */,
-				987B308F217840280010F3A6 /* subPlayersUITests */,
-				27FC62D221790B6600DE6B08 /* playerManageTests */,
+				63C79FCA21403291006726C3 /* basketballApp */,
+				271F234821B0B37700848C2D /* basketballAppUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		274A64212164451E00F0F4E7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		27FC62D121790B6600DE6B08 /* Resources */ = {
+		271F234721B0B37700848C2D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -614,23 +515,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		987B3080217834E10010F3A6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		987B308E217840280010F3A6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		505D4D226D113BBA182C8700 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8BA2040971163FDCCD130DC7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -642,7 +553,29 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-basketball-app-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-basketballApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		941D757068624B44B5401738 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-basketballAppUnitTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -655,7 +588,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -670,27 +603,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		274A641F2164451E00F0F4E7 /* Sources */ = {
+		271F234521B0B37700848C2D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				274A64262164451E00F0F4E7 /* userAuthUITests.swift in Sources */,
-				27A1D30E21AE63A60023599C /* helper.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		27FC62CF21790B6600DE6B08 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				27FC62D621790B6600DE6B08 /* playerManageTests.swift in Sources */,
-				27A1D30C21AE63840023599C /* helper.swift in Sources */,
+				271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,44 +669,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		987B307E217834E10010F3A6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				987B3085217834E10010F3A6 /* gestureUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		987B308C217840280010F3A6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				987B3093217840280010F3A6 /* subPlayersUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		274A64292164451E00F0F4E7 /* PBXTargetDependency */ = {
+		271F234F21B0B37700848C2D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 63C79FCA21403291006726C3 /* basketball-app */;
-			targetProxy = 274A64282164451E00F0F4E7 /* PBXContainerItemProxy */;
-		};
-		27FC62D921790B6600DE6B08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63C79FCA21403291006726C3 /* basketball-app */;
-			targetProxy = 27FC62D821790B6600DE6B08 /* PBXContainerItemProxy */;
-		};
-		987B3088217834E10010F3A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63C79FCA21403291006726C3 /* basketball-app */;
-			targetProxy = 987B3087217834E10010F3A6 /* PBXContainerItemProxy */;
-		};
-		987B3096217840280010F3A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63C79FCA21403291006726C3 /* basketball-app */;
-			targetProxy = 987B3095217840280010F3A6 /* PBXContainerItemProxy */;
+			target = 63C79FCA21403291006726C3 /* basketballApp */;
+			targetProxy = 271F234E21B0B37700848C2D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -799,11 +691,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		274A642B2164451E00F0F4E7 /* Debug */ = {
+		271F235121B0B37700848C2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53716CBAC7F13DB9FDBEFD22 /* Pods-basketballAppUnitTests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = userAuthUITests/Info.plist;
+				INFOPLIST_FILE = basketballAppUnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -812,19 +706,21 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.userAuthUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.basketballAppUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/basketballApp.app/basketballApp";
 			};
 			name = Debug;
 		};
-		274A642C2164451E00F0F4E7 /* Release */ = {
+		271F235221B0B37700848C2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A509FAEACC1CBBD15198521 /* Pods-basketballAppUnitTests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = userAuthUITests/Info.plist;
+				INFOPLIST_FILE = basketballAppUnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -832,52 +728,11 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.userAuthUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.basketballAppUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Release;
-		};
-		27FC62DA21790B6600DE6B08 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = playerManageTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.playerManageTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Debug;
-		};
-		27FC62DB21790B6600DE6B08 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = playerManageTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.playerManageTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/basketballApp.app/basketballApp";
 			};
 			name = Release;
 		};
@@ -997,18 +852,18 @@
 		};
 		63C79FDE21403292006726C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */;
+			baseConfigurationReference = AC8853B9C37BCF6FB4FEDB6E /* Pods-basketballApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
 				DEVELOPMENT_TEAM = ZK4J5PT8J5;
-				INFOPLIST_FILE = "basketball-app/Info.plist";
+				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.davidzucco.basketball-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.davidzucco.basketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1017,128 +872,37 @@
 		};
 		63C79FDF21403292006726C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */;
+			baseConfigurationReference = CCECF9872790A126060E60C3 /* Pods-basketballApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
 				DEVELOPMENT_TEAM = ZK4J5PT8J5;
-				INFOPLIST_FILE = "basketball-app/Info.plist";
+				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.davidzucco.basketball-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.davidzucco.basketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
-		987B3089217834E10010F3A6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = gestureUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.gestureUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Debug;
-		};
-		987B308A217834E10010F3A6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = gestureUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.gestureUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Release;
-		};
-		987B3098217840280010F3A6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = subPlayersUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.subPlayersUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Debug;
-		};
-		987B3099217840280010F3A6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = subPlayersUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hanbigger.subPlayersUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "basketball-app";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		274A642A2164451E00F0F4E7 /* Build configuration list for PBXNativeTarget "userAuthUITests" */ = {
+		271F235021B0B37700848C2D /* Build configuration list for PBXNativeTarget "basketballAppUnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				274A642B2164451E00F0F4E7 /* Debug */,
-				274A642C2164451E00F0F4E7 /* Release */,
+				271F235121B0B37700848C2D /* Debug */,
+				271F235221B0B37700848C2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27FC62DC21790B6600DE6B08 /* Build configuration list for PBXNativeTarget "playerManageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27FC62DA21790B6600DE6B08 /* Debug */,
-				27FC62DB21790B6600DE6B08 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		63C79FC621403291006726C3 /* Build configuration list for PBXProject "basketball-app" */ = {
+		63C79FC621403291006726C3 /* Build configuration list for PBXProject "basketballApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63C79FDB21403292006726C3 /* Debug */,
@@ -1147,29 +911,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		63C79FDD21403292006726C3 /* Build configuration list for PBXNativeTarget "basketball-app" */ = {
+		63C79FDD21403292006726C3 /* Build configuration list for PBXNativeTarget "basketballApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63C79FDE21403292006726C3 /* Debug */,
 				63C79FDF21403292006726C3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		987B308B217834E10010F3A6 /* Build configuration list for PBXNativeTarget "gestureUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				987B3089217834E10010F3A6 /* Debug */,
-				987B308A217834E10010F3A6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		987B3097217840280010F3A6 /* Build configuration list for PBXNativeTarget "subPlayersUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				987B3098217840280010F3A6 /* Debug */,
-				987B3099217840280010F3A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

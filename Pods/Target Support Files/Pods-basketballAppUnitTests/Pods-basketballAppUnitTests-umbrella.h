@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_basketball_appVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_basketball_appVersionString[];
+FOUNDATION_EXPORT double Pods_basketballAppUnitTestsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_basketballAppUnitTestsVersionString[];
 
