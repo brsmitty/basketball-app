@@ -14,8 +14,13 @@ class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!
    var AuthU = Auth.auth()
+   @IBOutlet var descriptOne: UILabel!
+   @IBOutlet var descriptTwo: UILabel!
+   @IBOutlet var descriptThree: UILabel!
    
-    override func viewDidLoad() {
+   @IBOutlet var resendCodeButton: UIButton!
+   
+   override func viewDidLoad() {
         super.viewDidLoad()
         emailVerification()
     }

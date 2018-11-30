@@ -13,7 +13,7 @@
         <!--ResetPassword View Controller-->
         <scene sceneID="hq9-3B-Oyh">
             <objects>
-                <viewController id="j66-ou-ZWs" userLabel="ResetPassword View Controller" customClass="PasswordResetViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PasswordForgotPage" id="j66-ou-ZWs" userLabel="ResetPassword View Controller" customClass="PasswordResetViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o1g-U9-zfN">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,6 +102,8 @@
                     </view>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
+                        <outlet property="backToLoginButton" destination="QXD-xh-Lqo" id="zLZ-Yf-rsJ"/>
+                        <outlet property="descriptText" destination="0W1-Rb-8GN" id="NC1-YF-pad"/>
                         <outlet property="emailField" destination="wa5-gQ-4Bi" id="zak-07-XRW"/>
                         <outlet property="sendButton" destination="xzI-jw-qFS" id="iO3-fe-jl5"/>
                     </connections>
@@ -186,7 +188,7 @@
                                     <constraint firstAttribute="height" constant="119" id="NdW-7N-0G0"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Of App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ta-Xl-rTN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LUDIS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ta-Xl-rTN">
                                 <rect key="frame" x="445.5" y="257" width="133" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="133" id="Hw0-Sa-TKS"/>
@@ -244,7 +246,9 @@
                     <navigationItem key="navigationItem" id="eX0-B4-QYH"/>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
-                        <outlet property="forgotYourPassword" destination="qKb-gf-7eX" id="5aA-Kl-bha"/>
+                        <outlet property="appName" destination="1ta-Xl-rTN" id="bt2-OP-45A"/>
+                        <outlet property="ballIcon" destination="qP4-8h-pky" id="ZjV-KF-Jyi"/>
+                        <outlet property="forgotYourPassword" destination="qKb-gf-7eX" id="ZNW-cq-N53"/>
                         <outlet property="loginButton" destination="Ssz-zT-Axf" id="ZKx-4U-ZoG"/>
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
                         <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
@@ -259,7 +263,7 @@
         <!--User Auth View Controller-->
         <scene sceneID="9Xr-24-lVb">
             <objects>
-                <viewController id="KmK-hO-VMD" customClass="UserAuthViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterPage" id="KmK-hO-VMD" customClass="UserAuthViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tg6-hg-cIh">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -416,6 +420,8 @@
                     </view>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
+                        <outlet property="backToLogin" destination="JFH-39-tpV" id="X6E-Xg-Xxu"/>
+                        <outlet property="createAccount" destination="AA0-CR-RQU" id="TqY-k9-hLa"/>
                         <outlet property="passwordMatchLabel" destination="kr3-Bc-VsJ" id="1Gu-Qb-OyV"/>
                         <outlet property="registerEmail" destination="ERZ-nu-Nad" id="fWw-5P-paL"/>
                         <outlet property="registerPass" destination="Vvb-fN-G2I" id="pbo-Eo-AQT"/>
@@ -433,7 +439,7 @@
         <!--EmailVerificationView Controller-->
         <scene sceneID="HeD-qj-jsv">
             <objects>
-                <viewController id="oDR-l3-YGm" userLabel="EmailVerificationView Controller" customClass="EmailVerificationViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmailVerifPage" id="oDR-l3-YGm" userLabel="EmailVerificationView Controller" customClass="EmailVerificationViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hkc-PO-ngS">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -506,6 +512,10 @@
                     </view>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
+                        <outlet property="descriptOne" destination="GHO-bk-W5z" id="n4u-Ge-17w"/>
+                        <outlet property="descriptThree" destination="QPh-jc-2U6" id="QEY-7X-8HM"/>
+                        <outlet property="descriptTwo" destination="cOx-JH-OB7" id="dk8-Ja-kiR"/>
+                        <outlet property="resendCodeButton" destination="dYi-pR-2D7" id="wiQ-gY-Ndo"/>
                         <segue destination="ZpI-uQ-bK5" kind="show" identifier="verifiedSegue" animates="NO" id="gec-7C-NVC"/>
                     </connections>
                 </viewController>

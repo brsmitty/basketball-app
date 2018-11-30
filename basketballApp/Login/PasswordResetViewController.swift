@@ -13,7 +13,13 @@ class PasswordResetViewController: UIViewController, UITextFieldDelegate {
 
    @IBOutlet weak var emailField: LoginTextField!
    
+
+   @IBOutlet var backToLoginButton: UIButton!
+   @IBOutlet var descriptText: UILabel!
    @IBOutlet weak var sendButton: UIButton!
+   
+   var AuthU = Auth.auth()
+   
    override func viewDidLoad() {
         super.viewDidLoad()
       

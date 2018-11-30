@@ -10,6 +10,11 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+enum AlertTypes{
+   case RegisterFailed
+   case None
+}
+
 class UserAuthViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
@@ -25,6 +30,13 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
    @IBOutlet var forgotYourPassword: UIButton!
+   @IBOutlet var backToLogin: UIButton!
+   
+   @IBOutlet var ballIcon: UIImageView!
+   @IBOutlet var appName: UILabel!
+   @IBOutlet var createAccount: UILabel!
+   
+   
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +127,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func registerClicked(_ sender: Any) {
+    @IBAction func registerClicked(_ sender: Any){
       
       if(registerEmail.text == ""){
          createAlert(with: "Registration Failed", and: "Email Required")
