@@ -18,7 +18,14 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var GameDate: UITextField!
     @IBOutlet weak var GameType: UITextField!
     @IBOutlet weak var Location: UITextField!
-    
+   
+   @IBOutlet var opponentLabel: UILabel!
+   @IBOutlet var locationLabel: UILabel!
+   @IBOutlet var typeLabel: UILabel!
+   @IBOutlet var dateLabel: UILabel!
+   @IBOutlet var timeLabel: UILabel!
+   @IBOutlet var detailLabel: UILabel!
+   
     private var locationPick = ["Home", "Away"]
     private var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament"]
     private var locationPicker = UIPickerView()

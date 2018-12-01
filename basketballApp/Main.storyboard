@@ -2205,6 +2205,12 @@
                         <outlet property="GameTime" destination="Lrp-ph-4ft" id="d7J-In-AyT"/>
                         <outlet property="GameType" destination="YGb-6u-ntg" id="1Dr-UB-DAC"/>
                         <outlet property="Location" destination="oWV-RT-DQK" id="MFZ-07-yuv"/>
+                        <outlet property="dateLabel" destination="bOv-JI-c7q" id="Tdg-j5-LN2"/>
+                        <outlet property="detailLabel" destination="ytW-gW-T8v" id="Dpl-NL-u62"/>
+                        <outlet property="locationLabel" destination="TMZ-ib-Le4" id="1jy-YC-Le2"/>
+                        <outlet property="opponentLabel" destination="de9-ct-SVP" id="bPp-P9-8AI"/>
+                        <outlet property="timeLabel" destination="GeI-cb-d3G" id="9gM-Iz-TVy"/>
+                        <outlet property="typeLabel" destination="nId-bZ-0v3" id="fnc-Ug-3Bm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H70-5t-aaT" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -15,6 +15,7 @@
 		271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235721B0E5C600848C2D /* registerUserUnitTests.swift */; };
 		271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */; };
 		271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */; };
+		271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235D21B1A9A500848C2D /* detailUnitTests.swift */; };
 		2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */; };
 		2730FDE521A10DA80003F4B8 /* BenchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */; };
 		27472F42219481F2009BBC96 /* DropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27472F41219481F2009BBC96 /* DropDownViewController.swift */; };
@@ -88,6 +89,7 @@
 		271F235721B0E5C600848C2D /* registerUserUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerUserUnitTests.swift; sourceTree = "<group>"; };
 		271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = passwordResetUnitTests.swift; sourceTree = "<group>"; };
 		271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailVerificationUnitTests.swift; sourceTree = "<group>"; };
+		271F235D21B1A9A500848C2D /* detailUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailUnitTests.swift; sourceTree = "<group>"; };
 		2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchTableViewCell.swift; sourceTree = "<group>"; };
 		27472F41219481F2009BBC96 /* DropDownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		271F234A21B0B37700848C2D /* basketballAppUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				271F235D21B1A9A500848C2D /* detailUnitTests.swift */,
 				271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */,
 				271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */,
 				271F235721B0E5C600848C2D /* registerUserUnitTests.swift */,
@@ -623,6 +626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */,
+				271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */,
 				271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */,
 				271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */,
 				271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */,
