@@ -10,7 +10,15 @@ import UIKit
 
 class ScheduleViewController: UIViewController {
 
-    override func viewDidLoad() {
+   @IBOutlet var gameTimeButton: UIButton!
+   @IBOutlet var mainMenuButton: UIButton!
+   @IBOutlet var playbookButton: UIButton!
+   @IBOutlet var playerManagerButton: UIButton!
+   @IBOutlet var scheduleButton: UIButton!
+   @IBOutlet var performanceButton: UIButton!
+   @IBOutlet var backButton: UIButton!
+   @IBOutlet var kpiButton: UIButton!
+   override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
