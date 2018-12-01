@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -802,7 +802,7 @@
         <!--Team Manager-->
         <scene sceneID="Ire-Lo-kJm">
             <objects>
-                <viewController title="Team Manager" id="wie-Xy-O0x" customClass="PlayerManagerViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaybookManager" title="Team Manager" id="wie-Xy-O0x" customClass="PlayerManagerViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r8a-YM-N5q">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1346,7 +1346,7 @@
         <!--Freethrow View Controller-->
         <scene sceneID="6X7-dh-MyU">
             <objects>
-                <viewController id="X2n-cM-7pe" customClass="FreethrowViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreeThrowView" id="X2n-cM-7pe" customClass="FreethrowViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e8c-Lb-Bfd">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1517,7 +1517,7 @@
         <!--Game View Controller-->
         <scene sceneID="Ns0-DN-6jC">
             <objects>
-                <viewController id="jGW-SO-mMU" customClass="GameViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameView" id="jGW-SO-mMU" customClass="GameViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EYA-Jy-z39">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1921,7 +1921,7 @@
         <!--MainMenu-->
         <scene sceneID="iNb-wP-Eb9">
             <objects>
-                <viewController id="iQa-d8-Vh0" userLabel="MainMenu" customClass="MiddleViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MiddleView" id="iQa-d8-Vh0" userLabel="MainMenu" customClass="MiddleViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EFW-7U-Bjg">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1939,7 +1939,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="wie-Xy-O0x" kind="show" animates="NO" id="aCz-M9-az0"/>
+                                    <segue destination="wie-Xy-O0x" kind="show" identifier="playerManagerSegue" animates="NO" id="aCz-M9-az0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVU-sl-Vh6" userLabel="gameTimeButton">
@@ -1951,7 +1951,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="5E9-9j-04f"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" identifier="gameTimeSegue" id="5E9-9j-04f"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-hT-E1h" userLabel="performanceButton">
@@ -1962,7 +1962,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" animates="NO" id="iVv-Kb-jLk"/>
+                                    <segue destination="gg5-YA-dpO" kind="show" identifier="performanceSegue" animates="NO" id="iVv-Kb-jLk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaa-it-2TP" userLabel="scheduleButton">
@@ -1973,7 +1973,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="poq-ee-9Ka" kind="show" animates="NO" id="T0b-Oa-zQb"/>
+                                    <segue destination="poq-ee-9Ka" kind="show" identifier="scheduleSegue" animates="NO" id="T0b-Oa-zQb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1y0-4h-KPL" userLabel="playbookButton">
@@ -1984,7 +1984,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="Gdc-D2-q3f"/>
+                                    <segue destination="5be-5p-u9r" kind="show" identifier="playbookSegue" animates="NO" id="Gdc-D2-q3f"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbm-eb-8sO" userLabel="settingsButton">
@@ -2003,7 +2003,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XMH-rb-sfj" kind="show" animates="NO" id="Hk5-iD-FNH"/>
+                                    <segue destination="XMH-rb-sfj" kind="show" identifier="kpiSegue" animates="NO" id="Hk5-iD-FNH"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingsDots" translatesAutoresizingMaskIntoConstraints="NO" id="78c-w4-FeY">
@@ -2065,7 +2065,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="156"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="THY-ha-0ml" kind="embed" id="w9n-Na-m35"/>
+                                    <segue destination="THY-ha-0ml" kind="embed" identifier="settingsSegue" id="w9n-Na-m35"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -2588,7 +2588,7 @@
         <!--Schedule View Controller-->
         <scene sceneID="5jh-DW-Da8">
             <objects>
-                <viewController id="poq-ee-9Ka" customClass="ScheduleViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Schedule" id="poq-ee-9Ka" customClass="ScheduleViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T8S-9p-YjS">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2711,7 +2711,7 @@
         <!--Playbook Master View Controller-->
         <scene sceneID="sxL-mk-ODi">
             <objects>
-                <viewController id="5be-5p-u9r" customClass="PlaybookMasterViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Playbook" id="5be-5p-u9r" customClass="PlaybookMasterViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J9s-x8-C0y">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2864,7 +2864,7 @@
             <objects>
                 <viewController id="Gp3-rY-qcn" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gK0-gT-G2k">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="731"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="W05-pH-FDa"/>
@@ -2967,25 +2967,25 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="Board" width="1944" height="1633"/>
+        <image name="Board" width="1944" height="1633.5"/>
         <image name="Default" width="1524" height="976"/>
-        <image name="Image" width="6030" height="1080"/>
+        <image name="Image" width="1447.199951171875" height="259.20001220703125"/>
         <image name="VerifiedBall" width="458" height="458"/>
         <image name="backArrow" width="49" height="68"/>
-        <image name="ballIconV2" width="333" height="341"/>
-        <image name="benchLabel" width="167" height="98"/>
+        <image name="ballIconV2" width="333.5" height="341"/>
+        <image name="benchLabel" width="167" height="98.5"/>
         <image name="blankBlueTable" width="1069" height="1108"/>
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759"/>
+        <image name="kpiRect_1" width="1369" height="759.5"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559" height="245"/>
-        <image name="navMainBar" width="2559" height="244"/>
-        <image name="navPerformanceBar" width="2559" height="245"/>
-        <image name="navPlaybookBar" width="2559" height="245"/>
-        <image name="navPlayerManageBar" width="2559" height="245"/>
-        <image name="navScheduleBar" width="2559" height="245"/>
+        <image name="navKPIBar" width="2559.5" height="245.5"/>
+        <image name="navMainBar" width="2559.5" height="244"/>
+        <image name="navPerformanceBar" width="2559.5" height="245.5"/>
+        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
+        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
+        <image name="navScheduleBar" width="2559.5" height="245.5"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
@@ -2996,11 +2996,11 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JP8-mt-yTk"/>
+        <segue reference="On0-Mz-bdU"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
-        <segue reference="6q6-o3-KoC"/>
-        <segue reference="Ffz-Pn-jBy"/>
+        <segue reference="7C8-E9-oft"/>
+        <segue reference="5E9-9j-04f"/>
         <segue reference="aCz-M9-az0"/>
         <segue reference="Hk5-iD-FNH"/>
         <segue reference="iVv-Kb-jLk"/>
