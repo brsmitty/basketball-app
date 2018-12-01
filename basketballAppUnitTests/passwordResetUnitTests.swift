@@ -67,21 +67,21 @@ class passwordResetUnitTests: XCTestCase {
       XCTAssert((viewController.view.gestureRecognizers?.capacity)! == 1)
    }
    
-   func testSendResetLink(){
-      
-      let email = "1230982186367185615328@gmail.com"
-      
-      let promise = expectation(description: "Alert was shown")
-      
-      viewController.AuthU.sendPasswordReset(withEmail: email){
-         (error) in
-         if error == nil{
-            promise.fulfill()
-         }else{
-            promise.fulfill()
-         }
-      }
-      waitForExpectations(timeout: 5, handler: nil)
-   }
+//   func testSendResetLink(){
+//      
+//      let email = "1230982186367185615328@gmail.com"
+//      
+//      let promise = expectation(description: "Alert was shown")
+//      
+//      viewController.AuthU.sendPasswordReset(withEmail: email){
+//         (error) in
+//         if error == nil{
+//            promise.fulfill()
+//         }else{
+//            promise.fulfill()
+//         }
+//      }
+//      waitForExpectations(timeout: 5, handler: nil)
+//   }
 
 }
