@@ -182,8 +182,8 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                 let tid = firebaseRef.child(user!.user.uid).child("tid").observeSingleEvent(of: .value, with: { (snapshot) in
                     let tid = snapshot.value!
                     let defaults = UserDefaults.standard
+                    defaults.set(user!.user.uid, forKey: "uid")
                     defaults.set(tid, forKey: "tid")
-                    print("TID: \(tid)")
                     self.performSegue(withIdentifier: "loginSegue", sender: nil)
                 }) { (error) in
                     print(error.localizedDescription)

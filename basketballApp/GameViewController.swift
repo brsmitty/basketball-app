@@ -106,6 +106,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             populateActive()
             switchToDefense()
         }
+        else if (state == "freethrow") {
+            gameState["transitionState"] = "inProgress"
+            populateBench()
+            populateActive()
+        }
         if (gameState["began"] as! Bool){
             if((gameState["homeScore"] as! Int) < 10){
                 self.homeScore.text! = "0" + String(gameState["homeScore"] as! Int)
@@ -118,10 +123,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.elapsed = gameState["elapsed"] as! Double
             self.status = true
             start()
-        } else if (state == "freethrow") {
-            gameState["transitionState"] = "inProgress"
-            populateBench()
-            populateActive()
         }
     }
     
@@ -234,9 +235,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func createPlayerObjectsFromRoster(roster: [String: Any]){
+        
         var i: Int = 0
         var players : [Player] = []
         for player in roster {
+
             let p = player.value as! [String: Any]
             
             let imageName = (p["fname"] as! String) + (p["lname"] as! String) + "image"
@@ -276,6 +279,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                       techFoul: p["techFoul"] as! Int,
                                       chargesTaken: p["chargesTaken"] as! Int)
             players.append(playerObject)
+            
             i += 1
             
             self.currentPath = IndexPath(row:players.count - 1, section: 0)
@@ -287,8 +291,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.gameState["bench"] = players
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
         
-        //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
-        //populateActive()
+        //REMOVE FOR DEMO///
+        self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
+        populateActive()
+        ////////////////////
         
         populateBench()
         self.tableView.beginUpdates()
