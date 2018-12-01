@@ -1829,7 +1829,6 @@
                         <outlet property="labelSecond" destination="iMf-kj-1p4" id="5rE-ex-bGi"/>
                         <outlet property="outOfBoundsButton" destination="oTz-Nb-7Gl" id="vjA-pa-5ho"/>
                         <outlet property="tableView" destination="TgK-ba-E8J" id="w4A-oG-Q3v"/>
-                        <outlet property="techFoulButton" destination="fo8-Oe-kHR" id="I2g-u2-fWu"/>
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
                         <outlet property="turnoverButton" destination="fo8-Oe-kHR" id="KqY-3f-tHM"/>
                         <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" id="Kov-4w-Yr5"/>
@@ -2081,8 +2080,17 @@
                         <outlet property="NGDate" destination="i5n-OY-epb" id="nbW-et-DsS"/>
                         <outlet property="NGDetail" destination="wOK-uX-67y" id="HTZ-pF-vPu"/>
                         <outlet property="NGTitle" destination="HUg-jf-n21" id="PGj-Cu-MnB"/>
+                        <outlet property="gameTimeBtn" destination="TVU-sl-Vh6" id="PAw-9b-w0K"/>
+                        <outlet property="kpiBtn" destination="CRA-VB-FRC" id="SLL-bF-J3d"/>
+                        <outlet property="performanceBtn" destination="nhD-hT-E1h" id="ioB-CN-kiv"/>
+                        <outlet property="playbookBtn" destination="1y0-4h-KPL" id="TPT-Gr-kCf"/>
+                        <outlet property="playerManagerBtn" destination="GMq-A8-vSY" id="JWi-tT-mDX"/>
+                        <outlet property="scheduleBtn" destination="xaa-it-2TP" id="QCV-bS-UGR"/>
+                        <outlet property="settingsBtn" destination="Jbm-eb-8sO" id="jH3-Yq-1DT"/>
                         <outlet property="settingsView" destination="0bG-PW-Rm8" id="668-qE-9xO"/>
+                        <outlet property="tapGesture" destination="BCo-Wv-CLx" id="oDb-1a-hoY"/>
                         <outlet property="view" destination="EFW-7U-Bjg" id="hZE-L3-ffh"/>
+                        <outlet property="welcomeBar" destination="abC-jw-g7o" id="9zV-lc-JkH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHV-jI-tWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2870,7 +2878,7 @@
             <objects>
                 <viewController id="Gp3-rY-qcn" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gK0-gT-G2k">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="731"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="580"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="W05-pH-FDa"/>
@@ -3002,7 +3010,7 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="On0-Mz-bdU"/>
+        <segue reference="JP8-mt-yTk"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
         <segue reference="7C8-E9-oft"/>
