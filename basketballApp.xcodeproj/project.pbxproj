@@ -66,8 +66,10 @@
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
+		98D39ABE21B2D484004ED224 /* gameViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D39ABD21B2D484004ED224 /* gameViewUnitTests.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
+		98FD37A421B315F6005A1505 /* shortChartViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD37A321B315F6005A1505 /* shortChartViewUnitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,8 +164,10 @@
 		987B3086217834E10010F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		987B3092217840280010F3A6 /* subPlayersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subPlayersUITests.swift; sourceTree = "<group>"; };
 		987B3094217840280010F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98D39ABD21B2D484004ED224 /* gameViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameViewUnitTests.swift; sourceTree = "<group>"; };
 		98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookViewController.swift; sourceTree = "<group>"; };
 		98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
+		98FD37A321B315F6005A1505 /* shortChartViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shortChartViewUnitTests.swift; sourceTree = "<group>"; };
 		AC8853B9C37BCF6FB4FEDB6E /* Pods-basketballApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BDC8CDFFF33D0CD46D360075 /* Pods_basketballAppUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballAppUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED4BA8B10FDE8897F574D2C /* Pods-basketball-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.debug.xcconfig"; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 				271F236321B3152200848C2D /* scheduleViewControllerTests.swift */,
 				271F236121B2E9D600848C2D /* scheduleMasterUnitTests.swift */,
 				271F235F21B2E55800848C2D /* newScheduleUnitTests.swift */,
+				98FD37A321B315F6005A1505 /* shortChartViewUnitTests.swift */,
+				98D39ABD21B2D484004ED224 /* gameViewUnitTests.swift */,
 				271F235D21B1A9A500848C2D /* detailUnitTests.swift */,
 				63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */,
 				271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */,
@@ -636,11 +642,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				271F236021B2E55900848C2D /* newScheduleUnitTests.swift in Sources */,
+				98FD37A421B315F6005A1505 /* shortChartViewUnitTests.swift in Sources */,
 				271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */,
 				271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */,
 				271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */,
 				271F236221B2E9D600848C2D /* scheduleMasterUnitTests.swift in Sources */,
 				63F817FC21B1C59F00D0BC0D /* middleViewUnitTests.swift in Sources */,
+				98D39ABE21B2D484004ED224 /* gameViewUnitTests.swift in Sources */,
 				271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */,
 				271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */,
 				271F236421B3152200848C2D /* scheduleViewControllerTests.swift in Sources */,

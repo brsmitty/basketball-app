@@ -12,12 +12,25 @@ import FirebaseAuth
 import FirebaseDatabase
 
 
-var schedules: [String] = []
-var times: [String] = []
-var dates: [Date] = []
-var locations: [String] = []
+
 
 class MiddleViewController: UIViewController {
+    
+    var schedules: [String] = []
+    var times: [String] = []
+    var dates: [Date] = []
+    var locations: [String] = []
+    
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var welcomeBar: UIImageView!
+    
+    @IBOutlet weak var kpiBtn: UIButton!
+    @IBOutlet weak var settingsBtn: UIButton!
+    @IBOutlet weak var playbookBtn: UIButton!
+    @IBOutlet weak var scheduleBtn: UIButton!
+    @IBOutlet weak var performanceBtn: UIButton!
+    @IBOutlet weak var gameTimeBtn: UIButton!
+    @IBOutlet weak var playerManagerBtn: UIButton!
     
     @IBOutlet weak var NGDetail: UILabel!
     @IBOutlet weak var NGDate: UILabel!
@@ -90,24 +103,24 @@ class MiddleViewController: UIViewController {
                     let gameDate = snapshot.childSnapshot(forPath: "gameDate")
                     let gameTime = snapshot.childSnapshot(forPath: "gameTime")
                     
-                    schedules.append(title.value as! String)
-                    times.append(gameTime.value as! String)
-                    locations.append(location.value as! String)
+                    self.schedules.append(title.value as! String)
+                    self.times.append(gameTime.value as! String)
+                    self.locations.append(location.value as! String)
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MM, dd, yyyy"
                     let date = dateFormatter.date(from: gameDate.value as! String)
-                    dates.append(date!)
+                    self.dates.append(date!)
                     
-                    if(schedules[0] != ""){
+                    if(self.schedules[0] != ""){
                         let temp = self.compareDates()
                         let currentDate = NSDate()
                         if(temp > currentDate as Date){
                             let dataFormatter = DateFormatter()
                             dataFormatter.dateFormat = "MM/dd/yyyy"
                             self.NGDate.text = dataFormatter.string(from: temp)
-                            let number = dates.index(of: temp)!
-                            self.NGTitle.text = schedules[number]
-                            let temp2 = locations[number] + " - " + times[number]
+                            let number = self.dates.index(of: temp)!
+                            self.NGTitle.text = self.schedules[number]
+                            let temp2 = self.locations[number] + " - " + self.times[number]
                             self.NGDetail.text = temp2
                         }
                     }

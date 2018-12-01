@@ -8,7 +8,7 @@
 
 import UIKit
 import FirebaseAuth
-import Firebase
+import FirebaseDatabase
 
 class EmailVerificationViewController: UIViewController {
 
