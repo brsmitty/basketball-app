@@ -38,9 +38,9 @@ class shortChartViewUnitTests: XCTestCase {
         }
     }
     
-    func testShotSelect(){
+    /*func testShotSelect(){
         var shotLocation: CGPoint = CGPoint.init()
         viewController.determineThreePoint
-    }
+    }*/
 
 }

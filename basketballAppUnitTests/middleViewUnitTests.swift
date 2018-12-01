@@ -41,7 +41,6 @@ class middleViewUnitTests: XCTestCase {
         XCTAssertNotNil(viewController.playerManagerBtn)
         XCTAssertNotNil(viewController.welcomeBar)
         XCTAssertNotNil(viewController.settingsView)
-        XCTAssertNotNil(viewController.mainView)
     }
     
     func testGestureRecognizerLoaded() {
