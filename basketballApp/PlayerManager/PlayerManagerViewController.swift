@@ -16,17 +16,21 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // MARK: Properties
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var playerImage: UIImageView!
+   
     var playerImageURL: String = ""
+   
    @IBOutlet weak var playerPositionText: UITextField!
    @IBOutlet weak var playerFirstNameText: UITextField!
    @IBOutlet weak var playerLastNameText: UITextField!
    @IBOutlet weak var playerHeightText: UITextField!
    @IBOutlet weak var playerWeightText: UITextField!
    @IBOutlet weak var playerClassText: UITextField!
+   
    @IBOutlet weak var saveButton: UIButton!
    @IBOutlet weak var editButton: UIButton!
    @IBOutlet weak var addButton: UIButton!
    @IBOutlet weak var cancelButton: UIButton!
+   
    @IBOutlet weak var pointsCell: UILabel!
    @IBOutlet weak var twoPoint: UILabel!
    @IBOutlet weak var threePoint: UILabel!
@@ -43,6 +47,15 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBOutlet weak var blockCell: UILabel!
    @IBOutlet weak var chargeCell: UILabel!
    @IBOutlet weak var backButton: UIButton!
+   @IBOutlet var poundsLabel: UILabel!
+   
+   @IBOutlet var gameTimeButton: UIButton!
+   @IBOutlet var mainMenuButton: UIButton!
+   @IBOutlet var performanceButton: UIButton!
+   @IBOutlet var scheduleButton: UIButton!
+   @IBOutlet var playbookButton: UIButton!
+   @IBOutlet var kpiButton: UIButton!
+   
    
    // Holds the path to the current row highlighed in the table view
    var currentPath = IndexPath()
@@ -99,6 +112,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerPositionText.delegate = self
       playerPositionText.tag = 2
       
+      playerPositionText.layer.cornerRadius = 5
+      playerFirstNameText.layer.cornerRadius = 5
+      playerLastNameText.layer.cornerRadius = 5
+      playerHeightText.layer.cornerRadius = 5
+      playerWeightText.layer.cornerRadius = 5
+      playerClassText.layer.cornerRadius = 5
+      
       let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
       tap.cancelsTouchesInView = false
       self.view.addGestureRecognizer(tap)
@@ -110,6 +130,19 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerImage.layer.masksToBounds = false
       playerImage.layer.cornerRadius = playerImage.frame.size.width/2
       playerImage.clipsToBounds = true
+   
+      self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+      
+      // Listen for keyboard events
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+   }
+   
+   deinit {
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
    }
    
    override func didReceiveMemoryWarning() {
@@ -184,12 +217,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
             let imageURL: URL = URL(fileURLWithPath: imagePath)
             
-            //let imageData:NSData = NSData.init(contentsOf: image)
-//            let imageData:Data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
-//            let decodedImage:UIImage = UIImage(data:imageData)!
-//            let imageUrl = NSURL(fileURLWithPath: String(image.suffix(image.count - 7)))
-//            let imageData:NSData = NSData.init(contentsOf:imageUrl as URL)!
-//            let decodedImage:UIImage = UIImage(data:imageData as Data)!
             
             guard FileManager.default.fileExists(atPath: imagePath),
                let imageData: Data = try? Data(contentsOf: imageURL),
@@ -201,22 +228,38 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             
             let help = String(snapshot.key.suffix(snapshot.key.count - 29))
             if(!self.counts.contains(Int(help)!)){
+               
                self.count = Int(help.prefix(help.count))!
                self.counts.append(self.count)
                self.count = self.count+1
                
-               self.currentPath = IndexPath(row:self.players.count, section: 0)
-               
-               self.players.append(player)
-               
-               
-               self.tableView.beginUpdates()
-               self.tableView.insertRows(at: [self.currentPath], with: .automatic)
-               self.tableView.endUpdates()
+               self.insertPlayerInTableView(player)
             }
             
          }
       })
+   }
+   
+   func insertPlayerInTableView(_ player: Player){
+      
+      self.currentPath = IndexPath(row:self.players.count, section: 0)
+      
+      self.players.append(player)
+      
+      
+      self.tableView.beginUpdates()
+      self.tableView.insertRows(at: [self.currentPath], with: .automatic)
+      self.tableView.endUpdates()
+   }
+   
+   @objc func keyboardWillChange(notification: Notification){
+      
+      if notification.name == Notification.Name.UIKeyboardWillChangeFrame || notification.name == Notification.Name.UIKeyboardWillShow{
+         
+         view.frame.origin.y = -170
+      }else {
+         view.frame.origin.y = 0
+      }
    }
    
    // Checks the player is one of the users
@@ -387,7 +430,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerRef.updateChildValues(playerData)
    }
    
-   // Creates a new player and stores their info in firebase
+   // Stores a new player's info in firebase
    func createNewPlayer(){
       
       var firstName = playerFirstNameText.text ?? "First"
@@ -400,9 +443,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       weight = weight == "" ? "Weight":weight
       var rank = playerClassText.text ?? "Class"
       rank = rank == "" ? "Class":rank
-     // let photoRep = UIImageJPEGRepresentation(playerImage.image!, 0.3)
-      //let strImage:String = (photoRep?.base64EncodedString(options: .lineLength64Characters))!
-//      let strImage:String = playerImageURL.absoluteString!
       
       firstName = firstName.replacingOccurrences(of: " ", with: "_")
       lastName = lastName.replacingOccurrences(of: " ", with: "_")
@@ -416,7 +456,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       var position = playerPositionText.text ?? "Position"
       position = position == "" ? "Position":position
       let pid = uid + "-" + String(count)
-      //self.count = self.count + 1
 
     
       let ref = Database.database().reference(withPath: "players")
