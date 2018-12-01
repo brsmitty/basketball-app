@@ -34,8 +34,8 @@ class FreethrowViewController: UIViewController {
         
         super.viewDidLoad()
         UIView.setAnimationsEnabled(false)
-        let i = gameState["fouledPlayerIndex"] as! Int
-        if (i == 999) {
+        let player = gameState["fouledPlayer"] as! Player
+        if (player == nil) {
             let playersAlert = UIAlertController(title: "Shooting", message: "", preferredStyle: .alert)
             var activePlayer: UIAlertAction
             for player in gameState["active"] as! [Player] {
@@ -49,9 +49,7 @@ class FreethrowViewController: UIViewController {
             present(playersAlert, animated: false)
         }
         else {
-            let players = gameState["active"] as! [Player]
-            shootingPlayer = players[i]
-            playerImage.image = shootingPlayer.photo
+            playerImage.image = player.photo
         }
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jGW-SO-mMU">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -1368,7 +1368,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="made3:" destination="X2n-cM-7pe" eventType="touchDown" id="5Dl-2N-Yii"/>
+                                    <action selector="madeShots:" destination="X2n-cM-7pe" eventType="touchDown" id="sT2-qm-M9P"/>
                                 </connections>
                             </button>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHX-ff-fL2">
@@ -1380,8 +1380,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="made2:" destination="X2n-cM-7pe" eventType="touchDown" id="uAq-nf-kfH"/>
-                                    <action selector="madeShots:" destination="X2n-cM-7pe" eventType="touchUpInside" id="ntR-Aa-9mb"/>
+                                    <action selector="madeShots:" destination="X2n-cM-7pe" eventType="touchDown" id="Yyd-oW-Ln3"/>
                                 </connections>
                             </button>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRo-wE-0wC">
@@ -1393,7 +1392,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="made0:" destination="X2n-cM-7pe" eventType="touchDown" id="Yuy-jB-bYp"/>
+                                    <action selector="madeShots:" destination="X2n-cM-7pe" eventType="touchDown" id="wYe-bx-VR2"/>
                                 </connections>
                             </button>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RzD-xd-hh1">
@@ -1405,7 +1404,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="made1:" destination="X2n-cM-7pe" eventType="touchDown" id="wsu-oJ-exc"/>
+                                    <action selector="madeShots:" destination="X2n-cM-7pe" eventType="touchDown" id="dfR-db-XG7"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9C-Pp-tv7">
@@ -2081,8 +2080,17 @@
                         <outlet property="NGDate" destination="i5n-OY-epb" id="nbW-et-DsS"/>
                         <outlet property="NGDetail" destination="wOK-uX-67y" id="HTZ-pF-vPu"/>
                         <outlet property="NGTitle" destination="HUg-jf-n21" id="PGj-Cu-MnB"/>
+                        <outlet property="gameTimeBtn" destination="TVU-sl-Vh6" id="PAw-9b-w0K"/>
+                        <outlet property="kpiBtn" destination="CRA-VB-FRC" id="SLL-bF-J3d"/>
+                        <outlet property="performanceBtn" destination="nhD-hT-E1h" id="ioB-CN-kiv"/>
+                        <outlet property="playbookBtn" destination="1y0-4h-KPL" id="TPT-Gr-kCf"/>
+                        <outlet property="playerManagerBtn" destination="GMq-A8-vSY" id="JWi-tT-mDX"/>
+                        <outlet property="scheduleBtn" destination="xaa-it-2TP" id="QCV-bS-UGR"/>
+                        <outlet property="settingsBtn" destination="Jbm-eb-8sO" id="jH3-Yq-1DT"/>
                         <outlet property="settingsView" destination="0bG-PW-Rm8" id="668-qE-9xO"/>
+                        <outlet property="tapGesture" destination="BCo-Wv-CLx" id="oDb-1a-hoY"/>
                         <outlet property="view" destination="EFW-7U-Bjg" id="hZE-L3-ffh"/>
+                        <outlet property="welcomeBar" destination="abC-jw-g7o" id="9zV-lc-JkH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHV-jI-tWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3003,10 +3011,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JP8-mt-yTk"/>
+        <segue reference="Gdd-rM-bAj"/>
+        <segue reference="On0-Mz-bdU"/>
         <segue reference="Gdc-D2-q3f"/>
         <segue reference="T0b-Oa-zQb"/>
-        <segue reference="7C8-E9-oft"/>
-        <segue reference="5E9-9j-04f"/>
+        <segue reference="6q6-o3-KoC"/>
+        <segue reference="jBy-OJ-BIB"/>
         <segue reference="aCz-M9-az0"/>
         <segue reference="Hk5-iD-FNH"/>
         <segue reference="iVv-Kb-jLk"/>

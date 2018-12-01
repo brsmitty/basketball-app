@@ -3,6 +3,7 @@
 //  basketballAppUnitTests
 //
 //  Created by Maggie Zhang on 12/1/18.
+
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
 
@@ -10,12 +11,10 @@ import XCTest
 @testable import basketballApp
 
 class gameViewUnitTests: XCTestCase {
-   
     var viewController: GameViewController!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         viewController = (storyboard.instantiateViewController(withIdentifier: "GameView") as! GameViewController)
         let _ = viewController.view
