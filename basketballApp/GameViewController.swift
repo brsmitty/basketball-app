@@ -291,8 +291,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
         
         //REMOVE FOR DEMO///
-        self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
-        populateActive()
+        //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
+        //populateActive()
         ////////////////////
         
         populateBench()
