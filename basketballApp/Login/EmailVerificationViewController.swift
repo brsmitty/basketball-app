@@ -14,6 +14,7 @@ class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!
    var AuthU = Auth.auth()
+   var DatabaseU = Database.database()
    @IBOutlet var descriptOne: UILabel!
    @IBOutlet var descriptTwo: UILabel!
    @IBOutlet var descriptThree: UILabel!

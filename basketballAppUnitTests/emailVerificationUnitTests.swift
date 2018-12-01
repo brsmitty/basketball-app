@@ -38,25 +38,32 @@ class emailVerificationUnitTests: XCTestCase {
       XCTAssert(viewController.descriptThree.isEnabled)
    }
    
-   func testCreateTeam(){
-      
-      viewController.AuthU.createUser(withEmail: "123764271778@gmail.com", password: "testPassword") { user, error in
-         if error == nil {
-            self.viewController.AuthU.signIn(withEmail: "123764271778@gmail.com", password: "testPassword") { user, error in
-               if let error = error, user == nil {
-                  XCTFail(error.localizedDescription)
-               }
-            }
-         }
-      }
-      
-      let uidFirst = UserDefaults.standard.string(forKey: "uid")
-      let tidFirst = UserDefaults.standard.string(forKey: "tid")
-
-      viewController.createUser()
-      
-      XCTAssertNotEqual(uidFirst, UserDefaults.standard.string(forKey: "uid"))
-      XCTAssertNotEqual(tidFirst, UserDefaults.standard.string(forKey: "tid"))
-   }
+//   func testCreateTeamData(){
+//      
+//      viewController.AuthU.createUser(withEmail: "123764271778@gmail.com", password: "testPassword") { user, error in
+//         if error == nil {
+//            self.viewController.AuthU.signIn(withEmail: "123764271778@gmail.com", password: "testPassword") { user, error in
+//               if let error = error, user == nil {
+//                  XCTFail(error.localizedDescription)
+//               }
+//            }
+//         }
+//      }
+//      
+//      let uidFirst = UserDefaults.standard.string(forKey: "uid")
+//      let tidFirst = UserDefaults.standard.string(forKey: "tid")
+//
+//      guard let uid = viewController.AuthU.currentUser?.uid else { return }
+//      let firebaseRef = viewController.DatabaseU.reference(withPath: "users")
+//      let userRef = firebaseRef.child(uid)
+//      let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
+//      let userData : [String: Any] = ["uid":  uid, "tid": tid]
+//      userRef.setValue(userData)
+//      viewController.createTeam(tid: tid)
+//      viewController.storePersistentData(uid: uid, tid: tid)
+//      
+//      XCTAssertNotEqual(uidFirst, UserDefaults.standard.string(forKey: "uid"))
+//      XCTAssertNotEqual(tidFirst, UserDefaults.standard.string(forKey: "tid"))
+//   }
 
 }
