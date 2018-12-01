@@ -5,7 +5,6 @@
 //  Created by David on 10/12/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
-
 import UIKit
 
 class ShotChartViewController: UIViewController {
@@ -42,12 +41,19 @@ class ShotChartViewController: UIViewController {
         if segue.identifier == "gameviewSegue" || segue.identifier == "gameviewSeg" {
             if let gameView = segue.destination as? GameViewController {
                 gameView.gameState = self.gameState
-                dismiss(animated: false, completion: nil)
+                //dismiss(animated: false, completion: nil)
             }
         }
     }
     
     @IBAction func madeShot(_ sender: UIButton) {
+        let temp = gameState["homeScore"] as! Int
+        if(determineThreePoint(location: shotLocation)){
+            gameState["homeScore"] = temp + 3
+        }
+        else{
+            gameState["homeScore"] = temp + 2
+        }
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player]
         let shooter = active[index]
