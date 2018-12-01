@@ -26,12 +26,12 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
    @IBOutlet var timeLabel: UILabel!
    @IBOutlet var detailLabel: UILabel!
    
-    private var locationPick = ["Home", "Away"]
-    private var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament"]
-    private var locationPicker = UIPickerView()
-    private var typePicker = UIPickerView()
-    private var datePicker = UIDatePicker()
-    private var timePicker = UIDatePicker()
+    internal var locationPick = ["Home", "Away"]
+    internal var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament"]
+    internal var locationPicker = UIPickerView()
+    internal var typePicker = UIPickerView()
+    internal var datePicker = UIDatePicker()
+    internal var timePicker = UIDatePicker()
     var game : Game?
     var location : String?
     var gameTitle : String?
@@ -123,6 +123,12 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture)
       
+      GameDetail.layer.cornerRadius = 5
+      GameOpponent.layer.cornerRadius = 5
+      GameTime.layer.cornerRadius = 5
+      GameDate.layer.cornerRadius = 5
+      GameType.layer.cornerRadius = 5
+      Location.layer.cornerRadius = 5
       
     }
    

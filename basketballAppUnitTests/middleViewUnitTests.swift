@@ -18,7 +18,6 @@ class middleViewUnitTests: XCTestCase {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         viewController = (storyboard.instantiateViewController(withIdentifier: "MiddleView") as! MiddleViewController)
         let _ = viewController.view
-        
     }
 
     override func tearDown() {
@@ -32,8 +31,20 @@ class middleViewUnitTests: XCTestCase {
         return filtered!.count > 0
     }
     
-    func testElementsLoadedWithFormatting() {
-        
+    func testElementsLoaded() {
+        XCTAssertNotNil(viewController.settingsBtn)
+        XCTAssertNotNil(viewController.kpiBtn)
+        XCTAssertNotNil(viewController.performanceBtn)
+        XCTAssertNotNil(viewController.playbookBtn)
+        XCTAssertNotNil(viewController.gameTimeBtn)
+        XCTAssertNotNil(viewController.scheduleBtn)
+        XCTAssertNotNil(viewController.playerManagerBtn)
+        XCTAssertNotNil(viewController.welcomeBar)
+        XCTAssertNotNil(viewController.settingsView)
+    }
+    
+    func testGestureRecognizerLoaded() {
+        XCTAssertNotNil(viewController.tapGesture)
     }
     
     func testPlayerManagerSegueExists() {
@@ -63,5 +74,19 @@ class middleViewUnitTests: XCTestCase {
     func testSettingsSegueExists() {
         XCTAssert(hasSegueWithIdentifier(id: "settingsSegue"))
     }
-
+    
+    func testOpenSettings() {
+        viewController.openSettings(viewController.settingsBtn)
+        XCTAssert(!viewController.settingsView.isHidden)
+    }
+    
+    func testCloseSettings() {
+        viewController.closeSettings(viewController.tapGesture)
+        XCTAssert(viewController.settingsView.isHidden)
+    }
+    
+    func testGameIsUsers() {
+        viewController.uid = "5fsdf238r2832848283482848234"
+        XCTAssert(viewController.gameIsUsers("5fsdf238r2832848283482848234-23"))
+    }
 }

@@ -11,6 +11,10 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class GameViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
+    @IBOutlet var playerOneLongPress: UILongPressGestureRecognizer!
+    
     weak var timer: Timer?
     var time: Double = 0
     var elapsed: Double = 0
@@ -106,6 +110,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             populateActive()
             switchToDefense()
         }
+        else if (state == "freethrow") {
+            gameState["transitionState"] = "inProgress"
+            populateBench()
+            populateActive()
+        }
         if (gameState["began"] as! Bool){
             if((gameState["homeScore"] as! Int) < 10){
                 self.homeScore.text! = "0" + String(gameState["homeScore"] as! Int)
@@ -118,10 +127,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.elapsed = gameState["elapsed"] as! Double
             self.status = true
             start()
-        } else if (state == "freethrow") {
-            gameState["transitionState"] = "inProgress"
-            populateBench()
-            populateActive()
         }
     }
     
@@ -195,23 +200,18 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func roundImages(){
-        imagePlayer1.layer.masksToBounds = false
         imagePlayer1.layer.cornerRadius = imagePlayer1.frame.size.width/2
         imagePlayer1.clipsToBounds = true
         
-        imagePlayer2.layer.masksToBounds = false
         imagePlayer2.layer.cornerRadius = imagePlayer1.frame.size.width/2
         imagePlayer2.clipsToBounds = true
         
-        imagePlayer3.layer.masksToBounds = false
         imagePlayer3.layer.cornerRadius = imagePlayer1.frame.size.width/2
         imagePlayer3.clipsToBounds = true
         
-        imagePlayer4.layer.masksToBounds = false
         imagePlayer4.layer.cornerRadius = imagePlayer1.frame.size.width/2
         imagePlayer4.clipsToBounds = true
         
-        imagePlayer5.layer.masksToBounds = false
         imagePlayer5.layer.cornerRadius = imagePlayer1.frame.size.width/2
         imagePlayer5.clipsToBounds = true
     }
@@ -234,9 +234,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func createPlayerObjectsFromRoster(roster: [String: Any]){
+        
         var i: Int = 0
         var players : [Player] = []
         for player in roster {
+
             let p = player.value as! [String: Any]
             
             let imageName = (p["fname"] as! String) + (p["lname"] as! String) + "image"
@@ -276,6 +278,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                       techFoul: p["techFoul"] as! Int,
                                       chargesTaken: p["chargesTaken"] as! Int)
             players.append(playerObject)
+            
             i += 1
             
             self.currentPath = IndexPath(row:players.count - 1, section: 0)
@@ -287,8 +290,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.gameState["bench"] = players
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
         
-        //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
-        //populateActive()
+        //REMOVE FOR DEMO///
+        self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
+        populateActive()
+        ////////////////////
         
         populateBench()
         self.tableView.beginUpdates()
@@ -326,7 +331,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
             imageView.contentMode = .scaleAspectFill
-            imageView.layer.masksToBounds = false
             imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
             imageView.clipsToBounds = true
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
@@ -540,7 +544,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func isNewLineup() -> Bool {
         var new = true;
-        
         return new;
     }
     
@@ -797,7 +800,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 if (possession == "offense") {
                     self.pushPlaySequence(event: "full timeout called")
                     self.stop()
-                    self.gameState["fullTimeouts"] = fullTimeouts - 1
+                    let temp = self.gameState["fullTimeouts"] as! Int
+                    self.gameState["fullTimeouts"] = temp - 1
                 }
                 else if (possession == "defense") {
                     self.pushPlaySequence(event: "full timeout called by opponent")

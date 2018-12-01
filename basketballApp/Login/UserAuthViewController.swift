@@ -178,8 +178,16 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                self.createAlert(with: "Sign In Failed", and: error.localizedDescription)
             }
             else {
-                
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                let firebaseRef = Database.database().reference(withPath: "users")
+                let tid = firebaseRef.child(user!.user.uid).child("tid").observeSingleEvent(of: .value, with: { (snapshot) in
+                    let tid = snapshot.value!
+                    let defaults = UserDefaults.standard
+                    defaults.set(user!.user.uid, forKey: "uid")
+                    defaults.set(tid, forKey: "tid")
+                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
             }
         }
       }

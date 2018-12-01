@@ -12,19 +12,12 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-var gameTitles: [String] = []
-var gameDates: [Date] = []
-var gameTimes: [String] = []
-var gameLocations: [String] = []
-var gameTypes: [String] = []
-var gameDetails : [String] = []
-var synced : [Bool] = []
-
 class MasterViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!
     
    @IBOutlet weak var barNav: UINavigationItem!
-    var games: [Game] = []
+   @IBOutlet var addButton: UIBarButtonItem!
+   var games: [Game] = []
     var titleSender : String?
     // holds the player reference to firebase
     var playRef:DatabaseReference?
@@ -32,6 +25,16 @@ class MasterViewController: UITableViewController{
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
     var uid: String = ""
+   
+   var gameTitles: [String] = []
+   var gameDates: [Date] = []
+   var gameTimes: [String] = []
+   var gameLocations: [String] = []
+   var gameTypes: [String] = []
+   var gameDetails : [String] = []
+   var synced : [Bool] = []
+   
+   let eventStore : EKEventStore = EKEventStore()
  
    @IBOutlet weak var syncButton: UIBarButtonItem!
    
@@ -70,11 +73,11 @@ class MasterViewController: UITableViewController{
         
     }
     
-    func gameIsUsers(_ lid:String)-> Bool{
+    func gameIsUsers(_ gid:String)-> Bool{
         var isUsers = false
         
-        let lineupId = lid.prefix(28)
-        isUsers = lineupId == uid
+        let gameId = gid.prefix(28)
+        isUsers = gameId == uid
         
         return isUsers
     }
@@ -94,28 +97,31 @@ class MasterViewController: UITableViewController{
                 let gameTime = snapshot.childSnapshot(forPath: "gameTime")
                 let gameDetail = snapshot.childSnapshot(forPath: "gameDetail")
                 
-                gameTitles.append(title.value as! String)
-                gameLocations.append(location.value as! String)
-                gameTypes.append(gameType.value as! String)
-                gameTimes.append(gameTime.value as! String)
-                gameDetails.append(gameDetail.value as! String)
-                synced.append(false)
+               self.gameTitles.append(title.value as! String)
+               self.gameLocations.append(location.value as! String)
+               self.gameTypes.append(gameType.value as! String)
+               self.gameTimes.append(gameTime.value as! String)
+               self.gameDetails.append(gameDetail.value as! String)
+               self.synced.append(false)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM, dd, yyyy"
                 let date = dateFormatter.date(from: gameDate.value as! String)
-                gameDates.append(date!)
+               self.gameDates.append(date!)
                 
                 let temp = Game(title: title.value as! String, detail: gameDate.value as! String)
                 
-                let currentPath = IndexPath(row:self.games.count, section: 0)
-                self.games.append(temp)
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [currentPath], with: .automatic)
-                self.tableView.endUpdates()
-                
+               self.insertGameInTableView(temp)
             }
         })
     }
+   
+   func insertGameInTableView(_ temp: Game){
+      let currentPath = IndexPath(row:self.games.count, section: 0)
+      self.games.append(temp)
+      self.tableView.beginUpdates()
+      self.tableView.insertRows(at: [currentPath], with: .automatic)
+      self.tableView.endUpdates()
+   }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return games.count
@@ -125,7 +131,7 @@ class MasterViewController: UITableViewController{
         let game = games[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell") as! GameCell
         cell.setGame(game: game)
-        
+      
         return cell
     }
     
@@ -207,28 +213,27 @@ class MasterViewController: UITableViewController{
     
     
     @IBAction func AddEvent(_ sender: UIButton) {
-        let eventStore : EKEventStore = EKEventStore()
         
         eventStore.requestAccess(to: .event) { (granted, error) in
             
             if (granted) && (error == nil) {
                 
-                let event:EKEvent = EKEvent(eventStore: eventStore)
+               let event:EKEvent = EKEvent(eventStore: self.eventStore)
                 
-                for titles in gameTitles{
-                    if(synced[gameTitles.index(of: titles)!] == false){
+               for titles in self.gameTitles{
+                  if(self.synced[self.gameTitles.index(of: titles)!] == false){
                     event.title = titles
-                    event.location = gameLocations[gameTitles.index(of: titles)!]
-                    event.startDate = gameDates[gameTitles.index(of: titles)!]
-                    event.endDate = gameDates[gameTitles.index(of: titles)!]
-                    event.notes = gameTypes[gameTitles.index(of: titles)!] + "\n" + gameDetails[gameTitles.index(of: titles)!]
-                    event.calendar = eventStore.defaultCalendarForNewEvents
+                     event.location = self.gameLocations[self.gameTitles.index(of: titles)!]
+                     event.startDate = self.gameDates[self.gameTitles.index(of: titles)!]
+                     event.endDate = self.gameDates[self.gameTitles.index(of: titles)!]
+                     event.notes = self.gameTypes[self.gameTitles.index(of: titles)!] + "\n" + self.gameDetails[self.gameTitles.index(of: titles)!]
+                     event.calendar = self.eventStore.defaultCalendarForNewEvents
                     do {
-                        try eventStore.save(event, span: .thisEvent)
+                     try self.eventStore.save(event, span: .thisEvent)
                     } catch let error as NSError {
                         print("failed to save event with error : \(error)")
                     }
-                    synced[gameTitles.index(of: titles)!] = true
+                     self.synced[self.gameTitles.index(of: titles)!] = true
                     print("Saved Event")
                 }
                 }

@@ -20,12 +20,18 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var GameType: UITextField!
     @IBOutlet weak var Location: UITextField!
     
-    private var locationPick = ["Home", "Away", "Netural"]
-    private var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament","Scrimmage"]
-    private var locationPicker = UIPickerView()
-    private var typePicker = UIPickerView()
-    private var datePicker = UIDatePicker()
-    private var timePicker = UIDatePicker()
+   @IBOutlet var opponentLabel: UILabel!
+   @IBOutlet var locationLabel: UILabel!
+   @IBOutlet var typeLabel: UILabel!
+   @IBOutlet var dateLabel: UILabel!
+   @IBOutlet var timeLabel: UILabel!
+   @IBOutlet var detailLabel: UILabel!
+   internal var locationPick = ["Home", "Away", "Netural"]
+    internal var typePick = ["Non-Conference", "Conference", "Playoff", "Tournament","Scrimmage"]
+    internal var locationPicker = UIPickerView()
+    internal var typePicker = UIPickerView()
+    internal var datePicker = UIDatePicker()
+    internal var timePicker = UIDatePicker()
     var game : Game?
     var location : String?
     var gameTitle : String?
@@ -110,6 +116,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
       GameDate.autocorrectionType = .no
       GameType.autocorrectionType = .no
       Location.autocorrectionType = .no
+      
+      GameOptionalDetail.layer.cornerRadius = 5
+      GameOpponent.layer.cornerRadius = 5
+      GameTime.layer.cornerRadius = 5
+      GameDate.layer.cornerRadius = 5
+      GameType.layer.cornerRadius = 5
+      Location.layer.cornerRadius = 5
     }
 
     override func didReceiveMemoryWarning() {

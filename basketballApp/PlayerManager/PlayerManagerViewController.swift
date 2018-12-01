@@ -680,8 +680,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
          players.remove(at: indexPath.row)
          tableView.deleteRows(at: [indexPath], with: .fade)
          defaultAllFields()
-         let ref = Database.database().reference(withPath: "players")
+         var ref = Database.database().reference(withPath: "players")
          ref.child(pid).removeValue()
+         ref = Database.database().reference(withPath: "teams")
+         ref.child(tid).child("roster").child(pid).removeValue()
       }
    }
    
