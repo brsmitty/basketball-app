@@ -25,6 +25,28 @@ class gameViewUnitTests: XCTestCase {
         viewController = nil
     }
     
+    func hasSegueWithIdentifier(id: String) -> Bool {
+        let segues = viewController.value(forKey: "storyboardSegueTemplates") as? [NSObject]
+        let filtered = segues?.filter({ $0.value(forKey: "identifier") as? String == id })
+        return filtered!.count > 0
+    }
+    
+    func testMenuSegueExists() {
+        XCTAssert(hasSegueWithIdentifier(id: "menuSegue"))
+    }
+    
+    func testBenchSegueExists() {
+        XCTAssert(hasSegueWithIdentifier(id: "benchSegue"))
+    }
+    
+    func testShotChartSegueExists() {
+        XCTAssert(hasSegueWithIdentifier(id: "shotchartSegue"))
+    }
+    
+    func testFreeThrowSegueExists() {
+        XCTAssert(hasSegueWithIdentifier(id: "freethrowSegue"))
+    }
+    
     func testPassingBall(){
         viewController.gameState["possession"] = "offense"
         var tempArray:[Player] = []
