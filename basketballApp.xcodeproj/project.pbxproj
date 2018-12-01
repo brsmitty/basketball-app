@@ -35,7 +35,6 @@
 		27C7D11121894360000EE098 /* PlaybookMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C7D11021894360000EE098 /* PlaybookMasterViewController.swift */; };
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
-		3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */; };
 		4299E35EB4917BC10A83445E /* Pods_basketballApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */; };
 		54C388910D71C1FC22B0F3FC /* Pods_basketballAppUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC8CDFFF33D0CD46D360075 /* Pods_basketballAppUnitTests.framework */; };
 		630E2C66216E66C800881C1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 630E2C65216E66C800881C1F /* Assets.xcassets */; };
@@ -60,6 +59,7 @@
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FE2214033A8006726C3 /* GoogleService-Info.plist */; };
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
+		63F817FC21B1C59F00D0BC0D /* middleViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
@@ -146,6 +146,7 @@
 		63C79FDA21403292006726C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63C79FE2214033A8006726C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63E879732146D21600B1A458 /* UserAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
+		63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewUnitTests.swift; sourceTree = "<group>"; };
 		83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
@@ -177,7 +178,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B66EF75673C162CD5C792A5 /* Pods_basketball_app.framework in Frameworks */,
 				4299E35EB4917BC10A83445E /* Pods_basketballApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				271F235D21B1A9A500848C2D /* detailUnitTests.swift */,
+				63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */,
 				271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */,
 				271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */,
 				271F235721B0E5C600848C2D /* registerUserUnitTests.swift */,
@@ -628,6 +629,7 @@
 				271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */,
 				271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */,
 				271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */,
+				63F817FC21B1C59F00D0BC0D /* middleViewUnitTests.swift in Sources */,
 				271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */,
 				271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */,
 			);
@@ -873,7 +875,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
-				DEVELOPMENT_TEAM = ZK4J5PT8J5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -893,7 +895,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
-				DEVELOPMENT_TEAM = ZK4J5PT8J5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
