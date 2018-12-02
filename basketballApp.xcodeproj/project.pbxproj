@@ -21,6 +21,7 @@
 		271F236421B3152200848C2D /* scheduleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236321B3152200848C2D /* scheduleViewControllerTests.swift */; };
 		271F236621B3270D00848C2D /* playerManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236521B3270D00848C2D /* playerManagerUnitTests.swift */; };
 		271F237021B4501E00848C2D /* basketballAppIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236F21B4501E00848C2D /* basketballAppIntegrationTests.swift */; };
+		271F237C21B4731200848C2D /* playbookUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F237B21B4731200848C2D /* playbookUnitTests.swift */; };
 		2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */; };
 		2730FDE521A10DA80003F4B8 /* BenchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */; };
 		27472F42219481F2009BBC96 /* DropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27472F41219481F2009BBC96 /* DropDownViewController.swift */; };
@@ -114,6 +115,7 @@
 		271F236D21B4501E00848C2D /* basketballAppIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = basketballAppIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		271F236F21B4501E00848C2D /* basketballAppIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = basketballAppIntegrationTests.swift; sourceTree = "<group>"; };
 		271F237121B4501E00848C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		271F237B21B4731200848C2D /* playbookUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playbookUnitTests.swift; sourceTree = "<group>"; };
 		2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchTableViewCell.swift; sourceTree = "<group>"; };
 		27472F41219481F2009BBC96 /* DropDownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 		271F234A21B0B37700848C2D /* basketballAppUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				271F237B21B4731200848C2D /* playbookUnitTests.swift */,
 				271F236521B3270D00848C2D /* playerManagerUnitTests.swift */,
 				271F236321B3152200848C2D /* scheduleViewControllerTests.swift */,
 				271F236121B2E9D600848C2D /* scheduleMasterUnitTests.swift */,
@@ -769,6 +772,7 @@
 				63B6EB2E21B3493600326966 /* playerManagerUnitTests.swift in Sources */,
 				271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */,
 				271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */,
+				271F237C21B4731200848C2D /* playbookUnitTests.swift in Sources */,
 				271F236221B2E9D600848C2D /* scheduleMasterUnitTests.swift in Sources */,
 				63F817FC21B1C59F00D0BC0D /* middleViewUnitTests.swift in Sources */,
 				98D39ABE21B2D484004ED224 /* gameViewUnitTests.swift in Sources */,

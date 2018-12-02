@@ -68,12 +68,6 @@ class scheduleViewControllerTests: XCTestCase {
    func testKPISegue(){
       XCTAssert(hasSegueWithIdentifier(id: "kpiSegue"))
    }
-
-   func testViewHasGesture(){
-      
-      // Assert the number of gestures the view has is 1
-      XCTAssert((viewController.view.gestureRecognizers?.capacity)! == 1)
-   }
    
    func testKeyboardShiftsViewUpAndBackDown(){
       let notification = UIResponder.keyboardWillChangeFrameNotification
