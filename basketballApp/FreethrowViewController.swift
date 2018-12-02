@@ -35,22 +35,18 @@ class FreethrowViewController: UIViewController {
         super.viewDidLoad()
         UIView.setAnimationsEnabled(false)
         let player = gameState["fouledPlayer"] as! Player
-        if (player == nil) {
-            let playersAlert = UIAlertController(title: "Shooting", message: "", preferredStyle: .alert)
-            var activePlayer: UIAlertAction
-            for player in gameState["active"] as! [Player] {
-                activePlayer = UIAlertAction(title: "\(player.firstName) \(player.lastName)", style: UIAlertActionStyle.default) { UIAlertAction in
-                    self.shootingPlayer = player
-                    self.playerImage.image = self.shootingPlayer.photo
-                }
-                playersAlert.addAction(activePlayer)
+        playerImage.image = player.photo
+        let playersAlert = UIAlertController(title: "Shooting", message: "", preferredStyle: .alert)
+        var activePlayer: UIAlertAction
+        for player in gameState["active"] as! [Player] {
+            activePlayer = UIAlertAction(title: "\(player.firstName) \(player.lastName)", style: UIAlertActionStyle.default) { UIAlertAction in
+                self.shootingPlayer = player
+                self.playerImage.image = self.shootingPlayer.photo
             }
-            playersAlert.popoverPresentationController?.sourceView = view
-            present(playersAlert, animated: false)
+            playersAlert.addAction(activePlayer)
         }
-        else {
-            playerImage.image = player.photo
-        }
+        playersAlert.popoverPresentationController?.sourceView = view
+        //present(playersAlert, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -79,17 +79,52 @@ class middleViewUnitTests: XCTestCase {
         viewController.openSettings(viewController.settingsBtn)
         XCTAssert(!viewController.settingsView.isHidden)
     }
-    
-   func testCloseSettings() {
-      viewController.closeSettings(viewController.tapGesture)
-      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-         XCTAssert(self.viewController.settingsView.isHidden)
-      })
-   }
-   
+
+    func testCloseSettings() {
+        viewController.closeSettings(viewController.tapGesture)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            XCTAssert(self.viewController.settingsView.isHidden)
+        })
+    }
     
     func testGameIsUsers() {
         viewController.uid = "5fsdf238r2832848283482848234"
         XCTAssert(viewController.gameIsUsers("5fsdf238r2832848283482848234-23"))
+    }
+    
+    func testGameIsNotUsers() {
+        viewController.uid = "5fsdf238r2832848283482848234"
+        XCTAssertFalse(viewController.gameIsUsers("777df238r2832848283482848234-23"))
+    }
+    
+    func testCompareDates() {
+        let testDate = Date(timeIntervalSinceNow: 20000)
+        viewController.dates.append(testDate)
+        let date = viewController.compareDates()
+        XCTAssertEqual(testDate, date)
+    }
+    
+    func testPopulateBoard() {
+        let c = NSDateComponents()
+        c.year = 2022
+        c.month = 8
+        c.day = 31
+        let date = NSCalendar(identifier: NSCalendar.Identifier.gregorian)?.date(from: c as DateComponents)
+        viewController.dates.append(date!)
+        let title = "MYschedule"
+        viewController.schedules.append(title)
+        let location = "Ohio"
+        viewController.locations.append(location)
+        let time = "10:30pm"
+        viewController.times.append(time)
+        
+        viewController.populateBoard()
+        
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "MM/dd/yyyy"
+        
+        XCTAssertEqual(viewController.NGDate.text, dataFormatter.string(from: date!))
+        XCTAssertEqual(viewController.NGTitle.text, title)
+        XCTAssertEqual(viewController.NGDetail.text, "\(location) - \(time)")
     }
 }

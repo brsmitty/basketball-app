@@ -301,4 +301,10 @@ class gameViewUnitTests: XCTestCase {
         XCTAssertEqual(viewController.status, false)
     }
     
+    func testSideBench(){
+        let temp = UIButton()
+        viewController.showBench(temp)
+        XCTAssertFalse(viewController.benchView.isHidden)
+        XCTAssertEqual(viewController.benchView.frame, CGRect(x: 0, y: 0, width: 100, height: 595))
+    }
 }

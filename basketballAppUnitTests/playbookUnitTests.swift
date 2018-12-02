@@ -10,24 +10,24 @@ import XCTest
 @testable import basketballApp
 
 class playbookUnitTests: XCTestCase {
-   
-   var viewController: PlaybookDetailViewController!
-   
-   override func setUp() {
-      super.setUp()
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      viewController = (storyboard.instantiateViewController(withIdentifier: "playbookDetailView") as! PlaybookDetailViewController)
-      let _ = viewController.view
-   }
-   override func tearDown() {
-      super.tearDown()
-      viewController = nil
-   }
+    var viewController: PlaybookDetailViewController!
 
-//   func testElementAndGestureLoaded() {
-//      XCTAssertNotNil(viewController.addButton)
-//      XCTAssertEqual(viewController.addButton.layer.cornerRadius, 5)
-//      //XCTAssertNotNil(viewController.view.gestureRecognizers!)
-//   }
-   
+    override func setUp() {
+        super.setUp()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        viewController = (storyboard.instantiateViewController(withIdentifier: "playbookDetailView") as! PlaybookDetailViewController)
+        let _ = viewController.view
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        viewController = nil
+    }
+    
+    func testElementAndGestureLoaded() {
+        XCTAssertNotNil(viewController.addButton)
+        XCTAssertEqual(viewController.addButton.layer.cornerRadius, 5)
+        XCTAssertNotNil(viewController.tapGesture)
+    }
+ 
 }

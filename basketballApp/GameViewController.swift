@@ -291,8 +291,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.gameState["active"] = [Player?](repeating: nil, count: 5)
         
         //REMOVE FOR DEMO///
-        //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
-        //populateActive()
+        self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
+        populateActive()
         ////////////////////
         
         populateBench()
@@ -697,8 +697,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             else{
                 self.homeScore.text! = String(teamFouls + 1)
             }
-            gameState["fouledPlayerIndex"] = 999
-            let techAlert = UIAlertController(title: "Turnover", message: "", preferredStyle: .actionSheet)
+            gameState["fouledPlayer"] = player(i: index)
+            self.performSegue(withIdentifier: "freethrowSegue", sender: nil)
+            /*let techAlert = UIAlertController(title: "Turnover", message: "", preferredStyle: .actionSheet)
             var activePlayer: UIAlertAction
             for player in gameState["active"] as! [Player] {
                 activePlayer = UIAlertAction(title: "\(player.firstName) \(player.lastName)", style: UIAlertActionStyle.default) { UIAlertAction in
@@ -718,7 +719,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let y = CGFloat(c.y + 100)
             let p = CGPoint(x: c.x, y: y)
             techAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
-            present(techAlert, animated: false)
+            present(techAlert, animated: false)*/
         }
     }
     
@@ -755,7 +756,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if gameState["began"] as! Bool {
             let outOfBoundsAlert = UIAlertController(title: "Last Touched By", message: "", preferredStyle: .actionSheet)
             let own = UIAlertAction(title: "Our Team", style: UIAlertActionStyle.default) { UIAlertAction in
-                self.pushPlaySequence(event: "out of bounds on your team")
+                self.pushPlaySequence(event: "OoB, poss. stays")
                 let possession = self.gameState["possession"] as! String
                 if (possession == "offense") {
                     self.switchToDefense()
@@ -766,7 +767,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
             let opponent = UIAlertAction(title: "Opponent", style: UIAlertActionStyle.default) { UIAlertAction in
-                self.pushPlaySequence(event: "out of bounds on the opponent")
+                self.pushPlaySequence(event: "OoB, poss. stays")
                 let possession = self.gameState["possession"] as! String
                 if (possession == "offense") {
                     self.stop()
@@ -1066,7 +1067,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func switchToOffense() {
-        self.pushPlaySequence(event: "defensive possession ended, switching to offense")
+        self.pushPlaySequence(event: "switch to offense")
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
         gameState["possession"] = "offense"
         imageHoop.center.y -= 400

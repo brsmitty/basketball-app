@@ -111,22 +111,26 @@ class MiddleViewController: UIViewController {
                     let date = dateFormatter.date(from: gameDate.value as! String)
                     self.dates.append(date!)
                     
-                    if(self.schedules[0] != ""){
-                        let temp = self.compareDates()
-                        let currentDate = NSDate()
-                        if(temp > currentDate as Date){
-                            let dataFormatter = DateFormatter()
-                            dataFormatter.dateFormat = "MM/dd/yyyy"
-                            self.NGDate.text = dataFormatter.string(from: temp)
-                            let number = self.dates.index(of: temp)!
-                            self.NGTitle.text = self.schedules[number]
-                            let temp2 = self.locations[number] + " - " + self.times[number]
-                            self.NGDetail.text = temp2
-                        }
-                    }
+                    self.populateBoard()
                 }
 
         })
+    }
+    
+    func populateBoard() {
+        if(self.schedules[0] != ""){
+            let temp = self.compareDates()
+            let currentDate = NSDate()
+            if(temp > currentDate as Date){
+                let dataFormatter = DateFormatter()
+                dataFormatter.dateFormat = "MM/dd/yyyy"
+                self.NGDate.text = dataFormatter.string(from: temp)
+                let number = self.dates.index(of: temp)!
+                self.NGTitle.text = self.schedules[number]
+                let temp2 = self.locations[number] + " - " + self.times[number]
+                self.NGDetail.text = temp2
+            }
+        }
     }
     
     func compareDates() -> Date{
