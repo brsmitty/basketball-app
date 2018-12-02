@@ -58,6 +58,8 @@
 		6351C2CA21A8915200BF63F6 /* Possession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351C2C921A8915200BF63F6 /* Possession.swift */; };
 		6368B40621760B2A004E30DA /* FreethrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368B40521760B2A004E30DA /* FreethrowViewController.swift */; };
 		6374F5622172514E00E3BBF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
+		63B6EB2C21B33F3700326966 /* playbookUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B6EB2B21B33F3700326966 /* playbookUnitTests.swift */; };
+		63B6EB2E21B3493600326966 /* playerManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B6EB2D21B3493600326966 /* playerManagerUnitTests.swift */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63C79FE3214033A9006726C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FE2214033A8006726C3 /* GoogleService-Info.plist */; };
@@ -148,6 +150,8 @@
 		6351C2C721A8913C00BF63F6 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		6351C2C921A8915200BF63F6 /* Possession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Possession.swift; sourceTree = "<group>"; };
 		6368B40521760B2A004E30DA /* FreethrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreethrowViewController.swift; sourceTree = "<group>"; };
+		63B6EB2B21B33F3700326966 /* playbookUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playbookUnitTests.swift; sourceTree = "<group>"; };
+		63B6EB2D21B3493600326966 /* playerManagerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerManagerUnitTests.swift; sourceTree = "<group>"; };
 		63C79FCB21403291006726C3 /* basketballApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = basketballApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD821403292006726C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -240,6 +244,8 @@
 		271F234A21B0B37700848C2D /* basketballAppUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				63B6EB2D21B3493600326966 /* playerManagerUnitTests.swift */,
+				63B6EB2B21B33F3700326966 /* playbookUnitTests.swift */,
 				271F236321B3152200848C2D /* scheduleViewControllerTests.swift */,
 				271F236121B2E9D600848C2D /* scheduleMasterUnitTests.swift */,
 				271F235F21B2E55800848C2D /* newScheduleUnitTests.swift */,
@@ -644,6 +650,7 @@
 				271F236021B2E55900848C2D /* newScheduleUnitTests.swift in Sources */,
 				98FD37A421B315F6005A1505 /* shortChartViewUnitTests.swift in Sources */,
 				271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */,
+				63B6EB2E21B3493600326966 /* playerManagerUnitTests.swift in Sources */,
 				271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */,
 				271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */,
 				271F236221B2E9D600848C2D /* scheduleMasterUnitTests.swift in Sources */,
@@ -651,6 +658,7 @@
 				98D39ABE21B2D484004ED224 /* gameViewUnitTests.swift in Sources */,
 				271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */,
 				271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */,
+				63B6EB2C21B33F3700326966 /* playbookUnitTests.swift in Sources */,
 				271F236421B3152200848C2D /* scheduleViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
