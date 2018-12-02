@@ -118,6 +118,16 @@
                ReferencedContainer = "container:basketballApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "271F236C21B4501D00848C2D"
+               BuildableName = "basketballAppIntegrationTests.xctest"
+               BlueprintName = "basketballAppIntegrationTests"
+               ReferencedContainer = "container:basketballApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-basketballAppIntegrationTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-basketballAppUnitTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>

@@ -61,6 +61,16 @@ class playerManagerUnitTests: XCTestCase {
       return player
    }
    
+   func populateFields(){
+      viewController.playerFirstNameText.text = "Lee"
+      viewController.playerLastNameText.text = "Light"
+      viewController.playerPositionText.text = "Point-Guard"
+      viewController.playerHeightText.text = "5'0\""
+      viewController.playerWeightText.text = "98"
+      viewController.playerClassText.text = "Freshman"
+      viewController.playerImage.image = UIImage(named: "Default")
+   }
+   
    func testElementsExistWithFormatting(){
       
       // Text Fields
@@ -137,10 +147,6 @@ class playerManagerUnitTests: XCTestCase {
       XCTAssert(hasSegueWithIdentifier(id: "gameView"))
    }
    
-   func testPlayerManagerSegue(){
-      XCTAssert(hasSegueWithIdentifier(id: "playerManager"))
-   }
-   
    func testPerformanceSegue(){
       XCTAssert(hasSegueWithIdentifier(id: "performanceSegue"))
    }
@@ -154,9 +160,8 @@ class playerManagerUnitTests: XCTestCase {
    }
    
    func testViewHasGesture(){
-      
       // Assert the number of gestures the view has is 1
-      XCTAssert((viewController.view.gestureRecognizers?.capacity)! == 1)
+      XCTAssert((viewController.view.gestureRecognizers?.capacity)! > 0)
    }
    
    func testKeyboardShiftsViewUpAndBackDown(){
@@ -434,17 +439,17 @@ class playerManagerUnitTests: XCTestCase {
    }
    
    func testCreatePositionPicker(){
-      // createPositionPicker is called on viewDidLoad
+      viewController.createPositionPicker()
       XCTAssertNotNil(viewController.positionPicker)
    }
    
    func testCreateHeightPicker(){
-      // createHeightPicker is called on viewDidLoad
+      viewController.createHeightPicker()
       XCTAssertNotNil(viewController.heightPicker)
    }
    
    func testCreateClassPicker(){
-      // createClassPicker is called on viewDidLoad
+      viewController.createClassPicker()
       XCTAssertNotNil(viewController.classPicker)
    }
    
@@ -462,6 +467,278 @@ class playerManagerUnitTests: XCTestCase {
       XCTAssertFalse(viewController.view.isFirstResponder)
    }
    
+   func testPickerNumberOfComponents(){
+      
+      XCTAssertEqual(viewController.numberOfComponents(in: viewController.positionPicker), 1)
+      XCTAssertEqual(viewController.numberOfComponents(in: viewController.heightPicker), 1)
+      XCTAssertEqual(viewController.numberOfComponents(in: viewController.classPicker), 1)
+   }
    
+   func testNumberOfRowsInPicker(){
+      viewController.createHeightPicker()
+      viewController.createClassPicker()
+      viewController.createPositionPicker()
+      XCTAssertEqual(viewController.pickerView(viewController.positionPicker, numberOfRowsInComponent: 1), viewController.positionNames.count)
+      XCTAssertEqual(viewController.pickerView(viewController.heightPicker, numberOfRowsInComponent: 1), viewController.heights.count)
+      XCTAssertEqual(viewController.pickerView(viewController.classPicker, numberOfRowsInComponent: 1), viewController.ranks.count)
+   }
+   
+   func testPickerTitleForRow(){
+      
+      viewController.createHeightPicker()
+      viewController.createClassPicker()
+      viewController.createPositionPicker()
+      
+      var i = 0
+      for name in viewController.heights {
+         XCTAssertEqual(viewController.pickerView(viewController.heightPicker, titleForRow: i, forComponent: 1), name)
+         i = i + 1
+      }
+      
+      var j = 0
+      for name in viewController.ranks {
+         XCTAssertEqual(viewController.pickerView(viewController.classPicker, titleForRow: j, forComponent: 1), name)
+         j = j + 1
+      }
+      
+      var k = 0
+      for name in viewController.positionNames {
+         XCTAssertEqual(viewController.pickerView(viewController.positionPicker, titleForRow: k, forComponent: 1), name)
+         k = k + 1
+      }
+   }
+   
+   func testDidSelectRowPicker(){
+      
+      viewController.createHeightPicker()
+      viewController.createClassPicker()
+      viewController.createPositionPicker()
+      
+      var i = 0
+      for _ in viewController.positionNames {
+         viewController.pickerView(viewController.positionPicker, didSelectRow: i, inComponent: 1)
+         XCTAssertEqual(viewController.selectedPosition, viewController.positionNames[i])
+         XCTAssertEqual(viewController.playerPositionText.text, viewController.selectedPosition)
+         i = i + 1
+      }
+      
+      var j = 0
+      for _ in viewController.heights {
+         viewController.pickerView(viewController.heightPicker, didSelectRow: j, inComponent: 1)
+         XCTAssertEqual(viewController.selectedHeight, viewController.heights[j])
+         XCTAssertEqual(viewController.playerHeightText.text, viewController.selectedHeight)
+         j = j + 1
+      }
+      
+      var k = 0
+      for _ in viewController.ranks {
+         viewController.pickerView(viewController.classPicker, didSelectRow: k, inComponent: 1)
+         XCTAssertEqual(viewController.selectedRank, viewController.ranks[k])
+         XCTAssertEqual(viewController.playerClassText.text, viewController.selectedRank)
+         k = k + 1
+      }
+   }
+   
+   func testDidSelectRowTable(){
+      let indexPath = IndexPath(row: viewController.players.count, section: 0)
+      CreatePlayerAndAddToTableView()
+      viewController.tableView(viewController.tableView, didSelectRowAt: indexPath)
+      
+      XCTAssertEqual(viewController.playerImage.image , viewController.players[indexPath.row].photo)
+      XCTAssertEqual(viewController.playerFirstNameText.text , viewController.players[indexPath.row].firstName)
+      XCTAssertEqual(viewController.playerLastNameText.text , viewController.players[indexPath.row].lastName)
+      XCTAssertEqual(viewController.playerHeightText.text , viewController.players[indexPath.row].height)
+      XCTAssertEqual(viewController.playerWeightText.text , viewController.players[indexPath.row].weight)
+      XCTAssertEqual(viewController.playerClassText.text , viewController.players[indexPath.row].rank)
+      XCTAssertEqual(viewController.playerPositionText.text , viewController.players[indexPath.row].position)
+      
+      XCTAssertTrue(viewController.editButton.isEnabled)
+      XCTAssertFalse(viewController.editButton.isHidden)
+      
+      XCTAssertEqual(viewController.pointsCell.text, String(0))
+      XCTAssertEqual(viewController.twoPoint.text, String(0))
+      XCTAssertEqual(viewController.threePoint.text, String(0))
+      XCTAssertEqual(viewController.oRebound.text, String(0))
+      XCTAssertEqual(viewController.pFouls.text, String(0))
+      XCTAssertEqual(viewController.assistsCell.text, String(0))
+      XCTAssertEqual(viewController.fGoalCell.text, String(0))
+      XCTAssertEqual(viewController.freeThrowPerc.text, String(0))
+      XCTAssertEqual(viewController.freeThrowMade.text, String(0))
+      XCTAssertEqual(viewController.tFoulCell.text, String(0))
+      XCTAssertEqual(viewController.stealsCell.text, String(0))
+      XCTAssertEqual(viewController.dRebound.text, String(0))
+      XCTAssertEqual(viewController.deflectionCell.text, String(0))
+      XCTAssertEqual(viewController.blockCell.text, String(0))
+      XCTAssertEqual(viewController.chargeCell.text, String(0))
+   }
+   
+   func testNumberOfSectionsInTableView(){
+      XCTAssertEqual(viewController.numberOfSections(in: viewController.tableView),1)
+   }
+   
+   func testNumberOfRowsInSectionForTableView(){
+      XCTAssertEqual(viewController.tableView(viewController.tableView, numberOfRowsInSection: 0),viewController.players.count)
+   }
+   
+   func testCellForRowInTableView(){
+      let indexPath = IndexPath(row: viewController.players.count, section: 0)
+      
+      CreatePlayerAndAddToTableView()
+      
+      XCTAssertEqual((viewController.tableView(viewController.tableView, cellForRowAt: indexPath)as! PlayerTableViewCell).nameLabel.text, "Lee Light")
+      XCTAssertEqual((viewController.tableView(viewController.tableView, cellForRowAt: indexPath)as! PlayerTableViewCell).photoImageView!.image, UIImage(named: "Default"))
+   }
+   
+   func testTableViewRowsAreEditable(){
+      
+      let indexPath = IndexPath(row: viewController.players.count, section: 0)
+      
+      CreatePlayerAndAddToTableView()
+      
+      XCTAssertTrue(viewController.tableView(viewController.tableView, canEditRowAt: indexPath))
+   }
+   
+   func testDeleteRowFromTableView(){
+      
+      let indexPath = IndexPath(row: viewController.players.count, section: 0)
+      
+      CreatePlayerAndAddToTableView()
+      
+      let numberOfRows = viewController.tableView.numberOfRows(inSection: 0)
+      
+      let playerNum = viewController.players.count
+      
+      XCTAssertEqual(viewController.removePlayer(indexPath, viewController.tableView),"Oac5aaqc6tULzR9KAB1WYUOLPfQW-4")
+      
+      XCTAssertNotEqual(numberOfRows, viewController.tableView.numberOfRows(inSection: 0))
+      XCTAssertNotEqual(playerNum, viewController.players.count)
+      
+      XCTAssertTrue(viewController.playerFirstNameText.text!.isEmpty)
+      XCTAssertTrue(viewController.playerLastNameText.text!.isEmpty)
+      XCTAssertTrue(viewController.playerHeightText.text!.isEmpty)
+      XCTAssertTrue(viewController.playerWeightText.text!.isEmpty)
+      XCTAssertTrue(viewController.playerClassText.text!.isEmpty)
+      XCTAssertTrue(viewController.playerPositionText.text!.isEmpty)
+      XCTAssertEqual(viewController.playerImage.image, UIImage(named: "Default"))
+      
+   }
+   
+   func testImagePickerDidCancel(){
+      
+      viewController.addPlayer(UIButton.init())
+      
+      viewController.imagePickerController.sourceType = .photoLibrary
+      viewController.present(viewController.imagePickerController, animated: false, completion: nil)
+      viewController.imagePickerController.viewDidLoad()
+      viewController.imagePickerControllerDidCancel(viewController.imagePickerController)
+      
+      XCTAssertFalse(viewController.addButton.isEnabled)
+      XCTAssertTrue(viewController.addButton.isHidden)
+      XCTAssertTrue(viewController.tableView.allowsSelection)
+      XCTAssertTrue(viewController.playerPositionText.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerFirstNameText.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerLastNameText.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerHeightText.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerWeightText.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerClassText.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerImage.isUserInteractionEnabled)
+      XCTAssertTrue(viewController.playerPositionText.isUserInteractionEnabled)
+      XCTAssertFalse(viewController.editButton.isEnabled)
+      XCTAssertTrue(viewController.editButton.isHidden)
+      XCTAssertTrue(viewController.saveButton.isEnabled)
+      XCTAssertFalse(viewController.saveButton.isHidden)
+      XCTAssertTrue(viewController.cancelButton.isEnabled)
+      XCTAssertFalse(viewController.cancelButton.isHidden)
+      
+   }
+   
+   func testCropToBounds(){
+      
+      XCTAssertEqual(viewController.cropToBounds(image: UIImage(named: "Default")!, width: 10, height: 10).cgImage!.width, 10)
+      XCTAssertEqual(viewController.cropToBounds(image: UIImage(named: "Default")!, width: 10, height: 10).cgImage!.height, 10)
+   }
+   
+   func testEditPlayerInfo(){
+      
+      viewController.editPlayerInfo(UIButton.init())
+      testSetEditPlayerFieldsTrue()
+      testSetSaveButtonToTrue()
+      testSetCancelButtonToTrue()
+      testSetAddButtonToFalse()
+      testSetEditButtonToFalse()
+      XCTAssertFalse(viewController.tableView.allowsSelection)
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+         XCTAssertTrue(self.viewController.playerFirstNameText.isFirstResponder)
+      })
+   }
+   
+   func testAddPlayer(){
+      viewController.addPlayer(UIButton.init())
+      testSetEditPlayerFieldsTrue()
+      testSetAddButtonToFalse()
+      testSetEditButtonToFalse()
+      testSetSaveButtonToTrue()
+      testSetCancelButtonToTrue()
+      testSetBackButtonToFalse()
+      testDefaultAllFields()
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+         XCTAssertTrue(self.viewController.playerFirstNameText.isFirstResponder)
+      })
+   }
+   
+   func testCancelPlayerManageWithNoCurrentPath(){
+      testResetButtonState()
+      testGrabPlayerFields()
+   }
+   
+   func testCancelPlayerManageWithCurrentPath(){
+      let indexPath = IndexPath(row: viewController.players.count, section: 0)
+      
+      CreatePlayerAndAddToTableView()
+      viewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+      viewController.editPlayerInfo(UIButton.init())
+      
+      viewController.cancelManage(UIButton.init())
+      testDefaultAllFields()
+   }
+   
+   func testSavePlayer(){
+      let indexPath = IndexPath(row: viewController.players.count, section: 0)
+      
+      CreatePlayerAndAddToTableView()
+      let player = CreatePlayer()
+      populateFields()
+      
+      viewController.currentPath = indexPath
+      viewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+      
+      viewController.savePlayer(UIButton.init())
+      
+      XCTAssertEqual(viewController.playerFirstNameText.text, player.firstName)
+      XCTAssertEqual(viewController.playerLastNameText.text, player.lastName)
+      XCTAssertEqual(viewController.playerHeightText.text, player.height)
+      XCTAssertEqual(viewController.playerWeightText.text, player.weight)
+      XCTAssertEqual(viewController.playerClassText.text, player.rank)
+      XCTAssertEqual(viewController.playerPositionText.text, player.position)
+      testResetButtonState()
+   }
+   
+   func testTextPopulatesForPositionPicker(){
+      viewController.textFieldDidBeginEditing(viewController.playerPositionText)
+      let text = viewController.playerPositionText.text
+      XCTAssertEqual(viewController.playerPositionText.text, viewController.positionNames[viewController.positionNames.firstIndex(of: text!)!])
+   }
+   
+   func testTextPopulatesForHeightPicker(){
+      viewController.textFieldDidBeginEditing(viewController.playerHeightText)
+      let text = viewController.playerHeightText.text
+      XCTAssertEqual(viewController.playerHeightText.text, viewController.heights[viewController.heights.firstIndex(of: text!)!])
+   }
+   
+   func testTextPopulatesForClassPicker(){
+      viewController.textFieldDidBeginEditing(viewController.playerClassText)
+      let text = viewController.playerClassText.text
+      XCTAssertEqual(viewController.playerClassText.text, viewController.ranks[viewController.ranks.firstIndex(of: text!)!])
+   }
    
 }

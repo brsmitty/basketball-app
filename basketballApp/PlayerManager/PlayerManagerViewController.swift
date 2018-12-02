@@ -77,6 +77,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    let positionPicker = UIPickerView()
    let heightPicker = UIPickerView()
    let classPicker = UIPickerView()
+   let imagePickerController = UIImagePickerController()
    
    //var playerImageURL = NSURL.init()
    
@@ -111,6 +112,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerHeightText.tag = 3
       playerPositionText.delegate = self
       playerPositionText.tag = 2
+      
+      imagePickerController.delegate = self
       
       playerPositionText.layer.cornerRadius = 5
       playerFirstNameText.layer.cornerRadius = 5
@@ -715,10 +718,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete{
-         let pid = players[indexPath.row].playerId
-         players.remove(at: indexPath.row)
-         tableView.deleteRows(at: [indexPath], with: .fade)
-         defaultAllFields()
+         let pid = removePlayer(indexPath, tableView)
          var ref = Database.database().reference(withPath: "players")
          ref.child(pid).removeValue()
          ref = Database.database().reference(withPath: "teams")
@@ -726,11 +726,19 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
    }
    
+   func removePlayer(_ indexPath:IndexPath, _ tableView:UITableView) -> String{
+      let pid = players[indexPath.row].playerId
+      players.remove(at: indexPath.row)
+      tableView.deleteRows(at: [indexPath], with: .fade)
+      defaultAllFields()
+      return pid
+   }
+   
    // MARK: UIImagePickerDelegate
    
    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
       dismiss(animated: true, completion:{
-         self.tableView.allowsSelection = false
+         self.tableView.allowsSelection = true
          self.setEditPlayerFields(to: true)
          self.setAddButton(to: false)
          self.setEditButton(to: false)
@@ -751,17 +759,17 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       var cgheight: CGFloat = CGFloat(height)
       
       // See what size is longer and create the center off of that
-      if contextSize.width > contextSize.height {
-         posX = ((contextSize.width - contextSize.height) / 2)
-         posY = 0
-         cgwidth = contextSize.height
-         cgheight = contextSize.height
-      } else {
-         posX = 0
-         posY = ((contextSize.height - contextSize.width) / 2)
-         cgwidth = contextSize.width
-         cgheight = contextSize.width
-      }
+//      if contextSize.width > contextSize.height {
+//         posX = ((contextSize.width - contextSize.height) / 2)
+//         posY = 0
+//         cgwidth = contextSize.height
+//         cgheight = contextSize.height
+//      } else {
+//         posX = 0
+//         posY = ((contextSize.height - contextSize.width) / 2)
+//         cgwidth = contextSize.width
+//         cgheight = contextSize.width
+//      }
       
       let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
       
@@ -860,17 +868,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
       view.endEditing(true)
       
-      let imagePickerController = UIImagePickerController()
-      
-      imagePickerController.delegate = self
-      
       let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
       
       actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action:UIAlertAction) in
          if UIImagePickerController.isSourceTypeAvailable(.camera){
-            imagePickerController.sourceType = .camera
-            imagePickerController.allowsEditing = true
-            self.present(imagePickerController, animated: true)
+            self.imagePickerController.sourceType = .camera
+            self.imagePickerController.allowsEditing = true
+            self.present(self.imagePickerController, animated: true)
          }else{
             print("No available camera")
          }
@@ -878,9 +882,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }))
       
       actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {(action:UIAlertAction) in
-         imagePickerController.sourceType = .photoLibrary
-         imagePickerController.allowsEditing = true
-         self.present(imagePickerController, animated: true)
+         self.imagePickerController.sourceType = .photoLibrary
+         self.imagePickerController.allowsEditing = true
+         self.present(self.imagePickerController, animated: true)
       }))
       
       actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
