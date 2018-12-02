@@ -45,17 +45,17 @@ class userAuthUnitTests: XCTestCase {
    func testElementsExistWithFormatting(){
       
       // Buttons
-      XCTAssert(viewController.loginButton.isEnabled)
-      XCTAssert(viewController.registerButton.isEnabled)
-      XCTAssert(viewController.forgotYourPassword.isEnabled)
+      XCTAssertNotNil(viewController.loginButton)
+      XCTAssertNotNil(viewController.registerButton)
+      XCTAssertNotNil(viewController.forgotYourPassword)
       XCTAssertEqual(viewController.loginButton.layer.cornerRadius, 5)
       XCTAssertEqual(viewController.registerButton.layer.cornerRadius, 5)
 
       
       // Text Fields
-      XCTAssert(viewController.loginPass.isEnabled)
+      XCTAssertNotNil(viewController.loginPass)
       XCTAssertEqual(viewController.loginPass.layer.cornerRadius, 5)
-      XCTAssert(viewController.loginEmail.isEnabled)
+      XCTAssertNotNil(viewController.loginEmail)
       XCTAssertEqual(viewController.loginEmail.layer.cornerRadius, 5)
       
       
@@ -93,5 +93,4 @@ class userAuthUnitTests: XCTestCase {
       
       XCTAssertNotEqual(framePosNow, framePos)
    }
-   
 }

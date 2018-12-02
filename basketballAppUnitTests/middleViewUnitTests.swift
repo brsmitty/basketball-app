@@ -79,7 +79,7 @@ class middleViewUnitTests: XCTestCase {
         viewController.openSettings(viewController.settingsBtn)
         XCTAssert(!viewController.settingsView.isHidden)
     }
-    
+
     func testCloseSettings() {
         viewController.closeSettings(viewController.tapGesture)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {

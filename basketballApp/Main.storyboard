@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jGW-SO-mMU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1090,7 +1090,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="ag0-m2-vyN"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" identifier="gameView" id="ag0-m2-vyN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmL-mR-0sG" userLabel="mainMenuButton">
@@ -1102,7 +1102,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="uDY-fm-6DA"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="mainMenu" animates="NO" id="uDY-fm-6DA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uk4-rk-xn9" userLabel="performanceButton">
@@ -1113,7 +1113,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" animates="NO" id="chn-OD-mNE"/>
+                                    <segue destination="gg5-YA-dpO" kind="show" identifier="performanceSegue" animates="NO" id="chn-OD-mNE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtq-Zb-R7R" userLabel="scheduleButton">
@@ -1124,7 +1124,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="poq-ee-9Ka" kind="show" animates="NO" id="QSQ-J0-xoi"/>
+                                    <segue destination="poq-ee-9Ka" kind="show" identifier="scheduleSegue" animates="NO" id="QSQ-J0-xoi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbi-xJ-LQ0" userLabel="playbookButton">
@@ -1135,7 +1135,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="FiU-no-Emh"/>
+                                    <segue destination="5be-5p-u9r" kind="show" identifier="playbook" animates="NO" id="FiU-no-Emh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKE-xk-8TI" userLabel="PlayerManagerButton">
@@ -1155,7 +1155,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XMH-rb-sfj" kind="show" animates="NO" id="oRO-wQ-aRf"/>
+                                    <segue destination="XMH-rb-sfj" kind="show" identifier="kpiSegue" animates="NO" id="oRO-wQ-aRf"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navPlayerManageBar" translatesAutoresizingMaskIntoConstraints="NO" id="0a7-Rc-89L">
@@ -1306,7 +1306,7 @@
                     <connections>
                         <outlet property="addButton" destination="uNa-IN-zTs" id="oG0-5a-LCL"/>
                         <outlet property="assistsCell" destination="9yv-Tl-V57" id="uqh-Ha-fIe"/>
-                        <outlet property="backButton" destination="KpT-Mv-ZUb" id="TbZ-7I-BYe"/>
+                        <outlet property="backButton" destination="KpT-Mv-ZUb" id="d1b-AR-UZf"/>
                         <outlet property="blockCell" destination="z67-Hx-531" id="GJN-UQ-Lg8"/>
                         <outlet property="cancelButton" destination="CEb-8k-kDH" id="UsC-jI-E0m"/>
                         <outlet property="chargeCell" destination="0W5-M7-e3s" id="gBz-cW-aGQ"/>
@@ -1316,8 +1316,13 @@
                         <outlet property="fGoalCell" destination="MmJ-Gz-rTI" id="NXJ-RW-cYP"/>
                         <outlet property="freeThrowMade" destination="tkT-Zq-lUN" id="yEc-ur-fQp"/>
                         <outlet property="freeThrowPerc" destination="sI6-df-mb6" id="Drb-F0-JM1"/>
+                        <outlet property="gameTimeButton" destination="JX6-Mz-0l2" id="cyB-5H-NbG"/>
+                        <outlet property="kpiButton" destination="7es-d6-6OR" id="rEn-nL-dab"/>
+                        <outlet property="mainMenuButton" destination="gmL-mR-0sG" id="l6o-38-JfP"/>
                         <outlet property="oRebound" destination="pdz-UF-8fy" id="gzZ-B8-fIF"/>
                         <outlet property="pFouls" destination="1GH-VK-CEK" id="FAQ-sa-oeJ"/>
+                        <outlet property="performanceButton" destination="Uk4-rk-xn9" id="eGB-9I-gok"/>
+                        <outlet property="playbookButton" destination="Wbi-xJ-LQ0" id="Ewc-9L-v6a"/>
                         <outlet property="playerClassText" destination="0Ei-nv-c45" id="acn-HJ-cVT"/>
                         <outlet property="playerFirstNameText" destination="D9f-tI-PeV" id="psg-Hi-Na4"/>
                         <outlet property="playerHeightText" destination="ELF-mw-Usr" id="LeB-Ib-YHc"/>
@@ -1326,7 +1331,9 @@
                         <outlet property="playerPositionText" destination="K7V-MB-L0M" id="hsj-vI-Oyn"/>
                         <outlet property="playerWeightText" destination="2S5-gC-5ix" id="oMo-rX-Tkv"/>
                         <outlet property="pointsCell" destination="gFK-c6-RAl" id="DZP-ic-g58"/>
+                        <outlet property="poundsLabel" destination="tkl-BR-Fl8" id="cMR-Tk-1cu"/>
                         <outlet property="saveButton" destination="dL3-Ai-5eb" id="ESZ-Yc-J3e"/>
+                        <outlet property="scheduleButton" destination="rtq-Zb-R7R" id="FyW-50-nPc"/>
                         <outlet property="stealsCell" destination="Ekj-xb-OBJ" id="w4q-j9-QRn"/>
                         <outlet property="tFoulCell" destination="OsI-vo-fCK" id="sSm-qG-OBL"/>
                         <outlet property="tableView" destination="0bl-vP-AAi" id="47V-5y-QBR"/>
@@ -2998,25 +3005,25 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="Board" width="1944" height="1633.5"/>
+        <image name="Board" width="1944" height="1633"/>
         <image name="Default" width="1524" height="976"/>
         <image name="Image" width="1421" height="237"/>
         <image name="VerifiedBall" width="458" height="458"/>
         <image name="backArrow" width="49" height="68"/>
-        <image name="ballIconV2" width="333.5" height="341"/>
-        <image name="benchLabel" width="167" height="98.5"/>
+        <image name="ballIconV2" width="333" height="341"/>
+        <image name="benchLabel" width="167" height="98"/>
         <image name="blankBlueTable" width="1069" height="1108"/>
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759.5"/>
+        <image name="kpiRect_1" width="1369" height="759"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559.5" height="245.5"/>
-        <image name="navMainBar" width="2559.5" height="244"/>
-        <image name="navPerformanceBar" width="2559.5" height="245.5"/>
-        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
-        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
-        <image name="navScheduleBar" width="2559.5" height="245.5"/>
+        <image name="navKPIBar" width="2559" height="245"/>
+        <image name="navMainBar" width="2559" height="244"/>
+        <image name="navPerformanceBar" width="2559" height="245"/>
+        <image name="navPlaybookBar" width="2559" height="245"/>
+        <image name="navPlayerManageBar" width="2559" height="245"/>
+        <image name="navScheduleBar" width="2559" height="245"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
@@ -3029,6 +3036,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JP8-mt-yTk"/>
+        <segue reference="Gdc-D2-q3f"/>
+        <segue reference="T0b-Oa-zQb"/>
+        <segue reference="uDY-fm-6DA"/>
+        <segue reference="5E9-9j-04f"/>
         <segue reference="FiU-no-Emh"/>
         <segue reference="QSQ-J0-xoi"/>
         <segue reference="uDY-fm-6DA"/>

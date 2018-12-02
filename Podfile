@@ -14,4 +14,9 @@ target 'basketballApp' do
       inherit! :search_paths
       pod 'Firebase'
     end
+
+    target 'basketballAppIntegrationTests' do
+      inherit! :search_paths
+      pod 'Firebase'
+    end
 end
