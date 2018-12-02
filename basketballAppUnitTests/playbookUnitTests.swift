@@ -24,10 +24,22 @@ class playbookUnitTests: XCTestCase {
       viewController = nil
    }
 
-//   func testElementAndGestureLoaded() {
-//      XCTAssertNotNil(viewController.addButton)
-//      XCTAssertEqual(viewController.addButton.layer.cornerRadius, 5)
-//      //XCTAssertNotNil(viewController.view.gestureRecognizers!)
-//   }
+   func testElementsExistWithFormatting(){
+      XCTAssertNotNil(viewController.addButton)
+      XCTAssertNotNil(viewController.nameLabel)
+      XCTAssertNotNil(viewController.fileLabel)
+      
+      XCTAssertNotNil(viewController.FileName)
+      XCTAssertNotNil(viewController.PlaybookName)
+      
+      XCTAssertEqual(viewController.PlaybookName.layer.cornerRadius, 5)
+      XCTAssertEqual(viewController.FileName.layer.cornerRadius, 5)
+      XCTAssertEqual(viewController.addButton.layer.cornerRadius, 5)
+      
+   }
+   
+   func testViewHasGesture(){
+      XCTAssertNotNil(viewController.view.gestureRecognizers)
+   }
    
 }

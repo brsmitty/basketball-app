@@ -11,11 +11,15 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-var storedPlaybooks : [String] = []
-var fileNames : [String] = []
+
 
 
 class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
+   
+   var storedPlaybooks : [String] = []
+   var fileNames : [String] = []
+   
+   
     func viewPdf(titleText: String) {
         let temp = fileNames[storedPlaybooks.index(of: titleText)!]
         if let url = Bundle.main.url(forResource: temp, withExtension: "pdf"){

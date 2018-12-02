@@ -16,8 +16,11 @@ class ShotChartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        displayShots()
     }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      displayShots()
+   }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {

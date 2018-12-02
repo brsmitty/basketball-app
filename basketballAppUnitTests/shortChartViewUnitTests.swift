@@ -16,7 +16,7 @@ class shortChartViewUnitTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        viewController = (storyboard.instantiateViewController(withIdentifier: "GameView") as! ShotChartViewController)
+        viewController = (storyboard.instantiateViewController(withIdentifier: "ShotChartViewController") as! ShotChartViewController)
         let _ = viewController.view
     }
     
@@ -25,9 +25,29 @@ class shortChartViewUnitTests: XCTestCase {
         viewController = nil
     }
     
-    /*func testShotSelect(){
-        var shotLocation: CGPoint = CGPoint.init()
-        viewController.determineThreePoint
-    }*/
+   func testThreePointShots1(){
+      var shotLocation: CGPoint = CGPoint.init()
+      shotLocation.x = 105
+      shotLocation.y = 100
+      XCTAssertFalse(viewController.determineThreePoint(location: shotLocation))
+   }
+   func testThreePointShots2(){
+      var shotLocation: CGPoint = CGPoint.init()
+      shotLocation.x = 100
+      shotLocation.y = 600
+      XCTAssertTrue(viewController.determineThreePoint(location: shotLocation))
+   }
+   func testThreePointShots3(){
+      var shotLocation: CGPoint = CGPoint.init()
+      shotLocation.x = 50
+      shotLocation.y = 100
+      XCTAssertTrue(viewController.determineThreePoint(location: shotLocation))
+   }
+   func testThreePointShots4(){
+      var shotLocation: CGPoint = CGPoint.init()
+      shotLocation.x = 550
+      shotLocation.y = 600
+      XCTAssertTrue(viewController.determineThreePoint(location: shotLocation))
+   }
 
 }
