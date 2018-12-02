@@ -13,17 +13,19 @@ class PlaybookDetailViewController: UIViewController{
     @IBOutlet weak var PlaybookName: UITextField!
     @IBOutlet weak var FileName: UITextField!
     
+    
    @IBOutlet weak var addButton: UIButton!
    var playbook : String?
     var fileName : String?
+    var tapGesture: UITapGestureRecognizer?
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
       addButton.layer.cornerRadius = 5
       
-      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
-      view.addGestureRecognizer(tapGesture)
+      tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.viewTapped(gestureRecognizer:)))
+      view.addGestureRecognizer(tapGesture!)
    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

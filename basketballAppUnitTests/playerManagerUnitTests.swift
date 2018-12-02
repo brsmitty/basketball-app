@@ -740,5 +740,5 @@ class playerManagerUnitTests: XCTestCase {
       let text = viewController.playerClassText.text
       XCTAssertEqual(viewController.playerClassText.text, viewController.ranks[viewController.ranks.firstIndex(of: text!)!])
    }
-   
+
 }
