@@ -158,31 +158,6 @@ class playerManagerUnitTests: XCTestCase {
    func testScheduleSegue(){
       XCTAssert(hasSegueWithIdentifier(id: "scheduleSegue"))
    }
-   
-   func testViewHasGesture(){
-      // Assert the number of gestures the view has is 1
-      XCTAssert((viewController.view.gestureRecognizers?.capacity)! > 0)
-   }
-   
-   func testKeyboardShiftsViewUpAndBackDown(){
-      let notification = UIResponder.keyboardWillChangeFrameNotification
-      
-      let framePos = viewController.view.frame.origin.y
-      
-      viewController.keyboardWillChange(notification: Notification(name: notification))
-      
-      XCTAssertNotEqual(framePos, viewController.view.frame.origin.y)
-      
-      let notificationBack = UIResponder.keyboardWillHideNotification
-      
-      let framePosNow = viewController.view.frame.origin.y
-      
-      viewController.keyboardWillChange(notification: Notification(name:notificationBack))
-      
-      XCTAssertNotEqual(framePosNow, viewController.view.frame.origin.y)
-      
-      XCTAssertNotEqual(framePosNow, framePos)
-   }
 
    func testSetEditPlayerFieldsFalse(){
       
@@ -654,8 +629,14 @@ class playerManagerUnitTests: XCTestCase {
    
    func testCropToBounds(){
       
-      XCTAssertEqual(viewController.cropToBounds(image: UIImage(named: "Default")!, width: 10, height: 10).cgImage!.width, 10)
-      XCTAssertEqual(viewController.cropToBounds(image: UIImage(named: "Default")!, width: 10, height: 10).cgImage!.height, 10)
+      var size = 0
+      if(UIImage(named: "Default")!.cgImage!.width < UIImage(named: "Default")!.cgImage!.height){
+         size = (UIImage(named: "Default")?.cgImage?.width)!
+      }else{
+         size = (UIImage(named: "Default")?.cgImage?.height)!
+      }
+      XCTAssertEqual(viewController.cropToBounds(image: UIImage(named: "Default")!, width: 10, height: 10).cgImage!.width, size)
+      XCTAssertEqual(viewController.cropToBounds(image: UIImage(named: "Default")!, width: 10, height: 10).cgImage!.height, size)
    }
    
    func testEditPlayerInfo(){

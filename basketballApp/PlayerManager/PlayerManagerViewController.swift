@@ -133,20 +133,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerImage.layer.masksToBounds = false
       playerImage.layer.cornerRadius = playerImage.frame.size.width/2
       playerImage.clipsToBounds = true
-   
-      self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
       
-      // Listen for keyboard events
-      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
    }
    
-   deinit {
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-   }
    
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
@@ -253,16 +242,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       self.tableView.beginUpdates()
       self.tableView.insertRows(at: [self.currentPath], with: .automatic)
       self.tableView.endUpdates()
-   }
-   
-   @objc func keyboardWillChange(notification: Notification){
-      
-      if notification.name == Notification.Name.UIKeyboardWillChangeFrame || notification.name == Notification.Name.UIKeyboardWillShow{
-         
-         view.frame.origin.y = -170
-      }else {
-         view.frame.origin.y = 0
-      }
    }
    
    // Checks the player is one of the users
@@ -759,17 +738,17 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       var cgheight: CGFloat = CGFloat(height)
       
       // See what size is longer and create the center off of that
-//      if contextSize.width > contextSize.height {
-//         posX = ((contextSize.width - contextSize.height) / 2)
-//         posY = 0
-//         cgwidth = contextSize.height
-//         cgheight = contextSize.height
-//      } else {
-//         posX = 0
-//         posY = ((contextSize.height - contextSize.width) / 2)
-//         cgwidth = contextSize.width
-//         cgheight = contextSize.width
-//      }
+      if contextSize.width > contextSize.height {
+         posX = ((contextSize.width - contextSize.height) / 2)
+         posY = 0
+         cgwidth = contextSize.height
+         cgheight = contextSize.height
+      } else {
+         posX = 0
+         posY = ((contextSize.height - contextSize.width) / 2)
+         cgwidth = contextSize.width
+         cgheight = contextSize.width
+      }
       
       let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
       
@@ -914,7 +893,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       }
       return false
    }
-   
 
    func textFieldDidBeginEditing(_ textField: UITextField) {
       let text = textField.text
