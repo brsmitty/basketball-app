@@ -59,6 +59,21 @@ class playbookViewControllerUnitTests: XCTestCase {
       
    }
    
-   
+   func testUnwind(){
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let VC = storyboard.instantiateViewController(withIdentifier: "playbookDetailView") as! PlaybookDetailViewController
+      
+      VC.fileName = "Test"
+      VC.playbook = "TestPlaybook"
+      
+      
+      let segue = UIStoryboardSegue(identifier: "playbookViewController", source: VC, destination: viewController)
+      
+      viewController.unwindToPlaybookList(sender: segue)
+      
+      XCTAssertEqual(viewController.storedPlaybooks[0], VC.playbook)
+      XCTAssertEqual(viewController.fileNames[0], VC.fileName)
+      XCTAssertEqual(viewController.PlaybookTableView.numberOfRows(inSection: 0), 1)
+   }
 
 }
