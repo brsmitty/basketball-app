@@ -63,6 +63,13 @@
 		6351C2C821A8913C00BF63F6 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351C2C721A8913C00BF63F6 /* Action.swift */; };
 		6351C2CA21A8915200BF63F6 /* Possession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6351C2C921A8915200BF63F6 /* Possession.swift */; };
 		6368B40621760B2A004E30DA /* FreethrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368B40521760B2A004E30DA /* FreethrowViewController.swift */; };
+		63698FA921B4853700526792 /* gameViewIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FA821B4853700526792 /* gameViewIntegrationTests.swift */; };
+		63698FAB21B49E4700526792 /* middleViewIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FAA21B49E4700526792 /* middleViewIntegrationTests.swift */; };
+		63698FAD21B49E5A00526792 /* playerManagerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FAC21B49E5A00526792 /* playerManagerIntegrationTests.swift */; };
+		63698FAF21B49E6B00526792 /* performanceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FAE21B49E6B00526792 /* performanceIntegrationTests.swift */; };
+		63698FB121B49E8200526792 /* kpiIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FB021B49E8200526792 /* kpiIntegrationTests.swift */; };
+		63698FB321B4A2AD00526792 /* playbookIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FB221B4A2AD00526792 /* playbookIntegrationTests.swift */; };
+		63698FB521B4A2BE00526792 /* scheduleIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63698FB421B4A2BE00526792 /* scheduleIntegrationTests.swift */; };
 		6374F5622172514E00E3BBF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2786CCD1214580B3003539A2 /* Main.storyboard */; };
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
@@ -168,6 +175,13 @@
 		6351C2C721A8913C00BF63F6 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		6351C2C921A8915200BF63F6 /* Possession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Possession.swift; sourceTree = "<group>"; };
 		6368B40521760B2A004E30DA /* FreethrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreethrowViewController.swift; sourceTree = "<group>"; };
+		63698FA821B4853700526792 /* gameViewIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameViewIntegrationTests.swift; sourceTree = "<group>"; };
+		63698FAA21B49E4700526792 /* middleViewIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewIntegrationTests.swift; sourceTree = "<group>"; };
+		63698FAC21B49E5A00526792 /* playerManagerIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerManagerIntegrationTests.swift; sourceTree = "<group>"; };
+		63698FAE21B49E6B00526792 /* performanceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = performanceIntegrationTests.swift; sourceTree = "<group>"; };
+		63698FB021B49E8200526792 /* kpiIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kpiIntegrationTests.swift; sourceTree = "<group>"; };
+		63698FB221B4A2AD00526792 /* playbookIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playbookIntegrationTests.swift; sourceTree = "<group>"; };
+		63698FB421B4A2BE00526792 /* scheduleIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduleIntegrationTests.swift; sourceTree = "<group>"; };
 		63C79FCB21403291006726C3 /* basketballApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = basketballApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C79FCE21403291006726C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63C79FD821403292006726C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -297,6 +311,13 @@
 		271F236E21B4501E00848C2D /* basketballAppIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				63698FB421B4A2BE00526792 /* scheduleIntegrationTests.swift */,
+				63698FB221B4A2AD00526792 /* playbookIntegrationTests.swift */,
+				63698FB021B49E8200526792 /* kpiIntegrationTests.swift */,
+				63698FAE21B49E6B00526792 /* performanceIntegrationTests.swift */,
+				63698FAC21B49E5A00526792 /* playerManagerIntegrationTests.swift */,
+				63698FAA21B49E4700526792 /* middleViewIntegrationTests.swift */,
+				63698FA821B4853700526792 /* gameViewIntegrationTests.swift */,
 				271F236F21B4501E00848C2D /* basketballAppIntegrationTests.swift */,
 				271F237121B4501E00848C2D /* Info.plist */,
 			);
@@ -791,6 +812,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				271F237021B4501E00848C2D /* basketballAppIntegrationTests.swift in Sources */,
+				63698FB121B49E8200526792 /* kpiIntegrationTests.swift in Sources */,
+				63698FB321B4A2AD00526792 /* playbookIntegrationTests.swift in Sources */,
+				63698FAD21B49E5A00526792 /* playerManagerIntegrationTests.swift in Sources */,
+				63698FAB21B49E4700526792 /* middleViewIntegrationTests.swift in Sources */,
+				63698FB521B4A2BE00526792 /* scheduleIntegrationTests.swift in Sources */,
+				63698FAF21B49E6B00526792 /* performanceIntegrationTests.swift in Sources */,
+				63698FA921B4853700526792 /* gameViewIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

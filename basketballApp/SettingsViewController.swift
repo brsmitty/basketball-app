@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
     var uid: String = ""
+    var tid: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

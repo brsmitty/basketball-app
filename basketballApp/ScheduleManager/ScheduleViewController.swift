@@ -18,6 +18,8 @@ class ScheduleViewController: UIViewController {
    @IBOutlet var performanceButton: UIButton!
    @IBOutlet var backButton: UIButton!
    @IBOutlet var kpiButton: UIButton!
+    var uid: String = ""
+    var tid: String = ""
    override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -45,4 +47,50 @@ class ScheduleViewController: UIViewController {
    @IBAction func goBack(_ sender: UIButton) {
       dismiss(animated: false, completion: nil)
    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "schedule" {
+            if let dest = segue.destination as? ScheduleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "playbook" {
+            if let dest = segue.destination as? PlaybookMasterViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "playerManager" {
+            if let dest = segue.destination as? PlayerManagerViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "gameView" {
+            if let dest = segue.destination as? GameViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "performanceSegue" {
+            if let dest = segue.destination as? PerformanceViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "kpiSegue" {
+            if let dest = segue.destination as? kpiViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "mainMenu" {
+            if let dest = segue.destination as? MiddleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+    }
 }

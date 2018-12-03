@@ -23,6 +23,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var firebaseRef:DatabaseReference?
     var databaseHandle:DatabaseHandle?
     var uid: String = ""
+    var tid: String = ""
     let storage = UserDefaults.standard
     var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
     struct foulObject {
@@ -604,6 +605,12 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 freethrowView.gameState = self.gameState
             }
         }
+        else if segue.identifier == "mainMenu" {
+            if let dest = segue.destination as? MiddleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
     }
     
     func dribble() {
@@ -1066,7 +1073,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func switchToOffense() {
-        self.pushPlaySequence(event: "defensive possession ended, switching to offense")
+        self.pushPlaySequence(event: "switch to offense")
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
         gameState["possession"] = "offense"
         imageHoop.center.y -= 400

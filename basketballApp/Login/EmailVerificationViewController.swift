@@ -18,6 +18,8 @@ class EmailVerificationViewController: UIViewController {
    @IBOutlet var descriptOne: UILabel!
    @IBOutlet var descriptTwo: UILabel!
    @IBOutlet var descriptThree: UILabel!
+    var uid: String = ""
+    var tid: String = ""
    
    @IBOutlet var resendCodeButton: UIButton!
    
@@ -90,6 +92,16 @@ class EmailVerificationViewController: UIViewController {
           }
       }
    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "verifiedSegue" {
+            if let dest = segue.destination as? VerifiedViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+    }
    
    
 

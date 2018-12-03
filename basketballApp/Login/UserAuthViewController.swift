@@ -36,7 +36,8 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
    @IBOutlet var appName: UILabel!
    @IBOutlet var createAccount: UILabel!
    
-   
+    var uid: String = ""
+    var tid: String = ""
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -275,5 +276,21 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
       view.endEditing(true)
    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "loginSegue" {
+            if let dest = segue.destination as? MiddleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        if segue.identifier == "verificationSegue" {
+            if let dest = segue.destination as? EmailVerificationViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+    }
 }
 

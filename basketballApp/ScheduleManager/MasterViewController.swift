@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController{
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
     var uid: String = ""
+    var tid: String = ""
    
    var gameTitles: [String] = []
    var gameDates: [Date] = []

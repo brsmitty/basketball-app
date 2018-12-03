@@ -11,6 +11,8 @@ import UIKit
 class VerifiedViewController: UIViewController {
 
    var verifiedTimer: Timer!
+    var uid: String = ""
+    var tid: String = ""
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +26,19 @@ class VerifiedViewController: UIViewController {
    }
 
    func verifiedWait(){
- 
+    
       self.verifiedTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.segueToMainMenu), userInfo: nil, repeats: true)
         
    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "registerSegue" {
+            if let dest = segue.destination as? MiddleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+    }
 
 }

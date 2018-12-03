@@ -20,6 +20,8 @@ class MiddleViewController: UIViewController {
     var times: [String] = []
     var dates: [Date] = []
     var locations: [String] = []
+    var uid: String = ""
+    var tid: String = ""
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var welcomeBar: UIImageView!
@@ -44,7 +46,6 @@ class MiddleViewController: UIViewController {
     // holds the database reference to firebase
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
-    var uid: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -211,5 +212,51 @@ class MiddleViewController: UIViewController {
          
       
    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "schedule" {
+            if let dest = segue.destination as? ScheduleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "playbook" {
+            if let dest = segue.destination as? PlaybookMasterViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "playerManager" {
+            if let dest = segue.destination as? PlayerManagerViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "gameView" {
+            if let dest = segue.destination as? GameViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "performanceSegue" {
+            if let dest = segue.destination as? PerformanceViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "kpiSegue" {
+            if let dest = segue.destination as? kpiViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+        else if segue.identifier == "mainMenu" {
+            if let dest = segue.destination as? MiddleViewController {
+                dest.uid = self.uid
+                dest.tid = self.tid
+            }
+        }
+    }
 
 }

@@ -18,6 +18,8 @@ class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
    
    var storedPlaybooks : [String] = []
    var fileNames : [String] = []
+    var uid: String = ""
+    var tid: String = ""
    
    
     func viewPdf(titleText: String) {

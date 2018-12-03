@@ -80,12 +80,12 @@ class middleViewUnitTests: XCTestCase {
         XCTAssert(!viewController.settingsView.isHidden)
     }
     
-   func testCloseSettings() {
-      viewController.closeSettings(viewController.tapGesture)
-      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-         XCTAssert(self.viewController.settingsView.isHidden)
-      })
-   }
+    /*func testCloseSettings() {
+        viewController.closeSettings(viewController.tapGesture)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            XCTAssert(self.viewController.settingsView.isHidden)
+        })
+    }*/
    
     
     func testGameIsUsers() {
