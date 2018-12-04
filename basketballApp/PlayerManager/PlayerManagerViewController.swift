@@ -402,9 +402,17 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       tableView.reloadRows(at: [currentPath], with: .none)
       let ref = Database.database().reference(withPath: "players")
       
+      let imageName = players[currentPath.row].firstName + players[currentPath.row].lastName + "image"
+      let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+      let imageURL: URL = URL(fileURLWithPath: imagePath)
+      
+      // Store the image
+      try? UIImagePNGRepresentation(players[currentPath.row].photo!)?.write(to: imageURL)
+      
       let playerRef = ref.child(players[currentPath.row].playerId)
       let playerData : [String: Any] = ["fname": players[currentPath.row].firstName,
                                         "lname": players[currentPath.row].lastName,
+                                        "photo": imagePath,
                                         "height": players[currentPath.row].height,
                                         "weight": players[currentPath.row].weight,
                                         "rank": players[currentPath.row].rank,
@@ -702,6 +710,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
          ref.child(pid).removeValue()
          ref = Database.database().reference(withPath: "teams")
          ref.child(tid).child("roster").child(pid).removeValue()
+         resetButtonState()
       }
    }
    

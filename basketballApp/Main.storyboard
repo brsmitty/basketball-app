@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7nf-nr-9D1">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1447,7 +1447,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-TH-S5j">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shotChart" translatesAutoresizingMaskIntoConstraints="NO" id="SN0-TH-S5j">
                                 <rect key="frame" x="-23" y="0.0" width="1061" height="790"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -3007,41 +3007,41 @@
     </scenes>
     <resources>
         <image name="BG" width="2732" height="2048"/>
-        <image name="Board" width="1944" height="1633.5"/>
+        <image name="Board" width="1944" height="1633"/>
         <image name="Default" width="1524" height="976"/>
         <image name="Image" width="1421" height="237"/>
         <image name="VerifiedBall" width="458" height="458"/>
         <image name="backArrow" width="49" height="68"/>
-        <image name="ballIconV2" width="333.5" height="341"/>
-        <image name="benchLabel" width="167" height="98.5"/>
+        <image name="ballIconV2" width="333" height="341"/>
+        <image name="benchLabel" width="167" height="98"/>
         <image name="blankBlueTable" width="1069" height="1108"/>
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
-        <image name="kpiRect_1" width="1369" height="759.5"/>
+        <image name="kpiRect_1" width="1369" height="759"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559.5" height="245.5"/>
-        <image name="navMainBar" width="2559.5" height="244"/>
-        <image name="navPerformanceBar" width="2559.5" height="245.5"/>
-        <image name="navPlaybookBar" width="2559.5" height="245.5"/>
-        <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
-        <image name="navScheduleBar" width="2559.5" height="245.5"/>
+        <image name="navKPIBar" width="2559" height="245"/>
+        <image name="navMainBar" width="2559" height="244"/>
+        <image name="navPerformanceBar" width="2559" height="245"/>
+        <image name="navPlaybookBar" width="2559" height="245"/>
+        <image name="navPlayerManageBar" width="2559" height="245"/>
+        <image name="navScheduleBar" width="2559" height="245"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
         <image name="scheduleBar" width="2732" height="144"/>
         <image name="scheduleRect_1" width="1369" height="375"/>
         <image name="settingsDots" width="16" height="62"/>
+        <image name="shotChart" width="2961" height="2144"/>
         <image name="teamPerfRect_1" width="1069" height="1263"/>
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Gdd-rM-bAj"/>
         <segue reference="JP8-mt-yTk"/>
         <segue reference="FiU-no-Emh"/>
         <segue reference="QSQ-J0-xoi"/>
         <segue reference="6q6-o3-KoC"/>
-        <segue reference="ag0-m2-vyN"/>
+        <segue reference="atr-rx-Imt"/>
         <segue reference="aCz-M9-az0"/>
         <segue reference="oRO-wQ-aRf"/>
         <segue reference="chn-OD-mNE"/>
