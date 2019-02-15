@@ -18,11 +18,27 @@ enum Statistic: String {
 class DBApi {
     static let sharedInstance = DBApi()
     let ref = Database.database().reference()
-    let uid: String = ""
+    var currentUserId: String = ""
     var currentGameId: String = ""
     
+    var pathToPlayers: String {
+        return "users/\(currentUserId)/players"
+    }
+    
+    var pathToGames: String {
+        return "users/\(currentUserId)/games"
+    }
+    
+    var pathtoCurrentGame: String {
+        return "users/\(currentUserId)/games/\(currentGameId)"
+    }
+    
+    var pathToTeam: String {
+        return "users/\(currentUserId)/team"
+    }
+    
     func storeStat(type: Statistic, value: Any?, pid: String, time: Double) {
-        let refStatsTable = Database.database().reference(withPath: "\(uid)/statistics")
+        let refStatsTable = Database.database().reference(withPath: "\(currentUserId)/statistics")
         let newStatId = refStatsTable.childByAutoId().key
         var statistic: [String: Any] = [
             "type": type.rawValue,
@@ -34,23 +50,40 @@ class DBApi {
             statistic.updateValue(points, forKey: "points")
         }
         
-        let childUpdates = ["/\(uid)/statistics/\(newStatId)": statistic]
+        let childUpdates = ["/\(currentUserId)/statistics/\(newStatId)": statistic]
         refStatsTable.updateChildValues(childUpdates)
     }
     
     func createPlayer(info: [String: Any]) {
-        let refPlayersTable = Database.database().reference(withPath: "\(uid)/players")
+        let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
         let newPlayerId = refPlayersTable.childByAutoId().key
         let player: [String: Any] = [
-            "user_id": uid,
-            "firstName": info["first_name"] as? String ?? "",
-            "lastName": info["last_name"] as? String ?? "",
-            "height": info["height"] as? Int ?? 0,
-            "weight": info["weight"] as? Int ?? 0,
-            "jersey": info["jersey"] as? Int ?? -1,
-            "player_id": newPlayerId
+            "user_id": currentUserId,
+            "fName": info["fname"] as? String ?? "",
+            "lName": info["lname"] as? String ?? "",
+            "height": info["height"] as? String ?? "",
+            "weight": info["weight"] as? String ?? "",
+            "rank": info["rank"] as? String ?? "",
+            "position": info["position"] as? String ?? ""
         ]
-        let childUpdates = ["/\(uid)/players/\(newPlayerId)": player]
+        let childUpdates = ["/\(newPlayerId)": player]
         refPlayersTable.updateChildValues(childUpdates)
+    }
+    
+    func getPlayers(completion: @escaping ([Player]) -> Void) {
+        let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
+        refPlayersTable.observeSingleEvent(of: .value) { snapshot in
+            if snapshot.value is NSNull {
+                print("no players in the database!!!")
+            }
+            var players = [Player]()
+            for player in snapshot.children {
+                let playerSnap = player as? DataSnapshot
+                let pid = playerSnap?.key ?? ""
+                let playerDict = playerSnap?.value as? [String: String?] ?? [:]
+                players.append(Player(dictionary: playerDict, id: pid))
+            }
+            completion(players)
+        }
     }
 }

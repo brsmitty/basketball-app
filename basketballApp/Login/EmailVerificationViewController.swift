@@ -54,6 +54,9 @@ class EmailVerificationViewController: UIViewController {
     
     func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        DBApi.sharedInstance.currentUserId = uid
+        
         let firebaseRef = Database.database().reference(withPath: "users")
         let userRef = firebaseRef.child(uid)
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")

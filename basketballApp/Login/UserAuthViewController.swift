@@ -182,6 +182,9 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                 let firebaseRef = Database.database().reference(withPath: "users")
                 let tid = firebaseRef.child(user!.user.uid).child("tid").observeSingleEvent(of: .value, with: { (snapshot) in
                     let tid = snapshot.value!
+                    
+                    DBApi.sharedInstance.currentUserId = user!.user.uid
+                    
                     let defaults = UserDefaults.standard
                     defaults.set(user!.user.uid, forKey: "uid")
                     defaults.set(tid, forKey: "tid")

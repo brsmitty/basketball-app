@@ -186,50 +186,56 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    // Will get player data from firebase
-   func getPlayers(){
-      // Set up the references
-      playerRef = Database.database().reference()
-      databaseHandle = playerRef?.child("players").observe(.childAdded, with: { (snapshot) in
-         
-         // If the player is one of the users players add it to the table
-         if(self.playerIsUsers(snapshot.key)){
-            // take data from the snapshot and add a player object
-            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
-            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
-            let heightSnap = snapshot.childSnapshot(forPath: "height")
-            let weightSnap = snapshot.childSnapshot(forPath: "weight")
-            let positionSnap = snapshot.childSnapshot(forPath: "position")
-            let rankSnap = snapshot.childSnapshot(forPath: "rank")
-            let pidSnap = snapshot.childSnapshot(forPath: "pid")
-            //let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
-            
-            let fname = (fnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
-            let lname = (lnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
-            let imageName = fname + lname + "image"
-            let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
-            let imageURL: URL = URL(fileURLWithPath: imagePath)
-            
-            
-            guard FileManager.default.fileExists(atPath: imagePath),
-               let imageData: Data = try? Data(contentsOf: imageURL),
-               let image: UIImage = UIImage(data: imageData, scale: UIScreen.main.scale) else {
-                  return
-            }
-            
-            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: image, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
-            
-            let help = String(snapshot.key.suffix(snapshot.key.count - 29))
-            if(!self.counts.contains(Int(help)!)){
-               
-               self.count = Int(help.prefix(help.count))!
-               self.counts.append(self.count)
-               self.count = self.count+1
-               
-               self.insertPlayerInTableView(player)
-            }
-            
-         }
-      })
+   func getPlayers() {
+    DBApi.sharedInstance.getPlayers { [weak self] players in
+        guard let s = self else { return }
+        s.players = players
+        s.tableView.reloadData()
+    }
+//
+//      // Set up the references
+//      playerRef = Database.database().reference()
+//      databaseHandle = playerRef?.child("players").observe(.childAdded, with: { (snapshot) in
+//
+//         // If the player is one of the users players add it to the table
+//         if(self.playerIsUsers(snapshot.key)){
+//            // take data from the snapshot and add a player object
+//            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
+//            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
+//            let heightSnap = snapshot.childSnapshot(forPath: "height")
+//            let weightSnap = snapshot.childSnapshot(forPath: "weight")
+//            let positionSnap = snapshot.childSnapshot(forPath: "position")
+//            let rankSnap = snapshot.childSnapshot(forPath: "rank")
+//            let pidSnap = snapshot.childSnapshot(forPath: "pid")
+//            //let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
+//
+//            let fname = (fnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
+//            let lname = (lnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
+//            let imageName = fname + lname + "image"
+//            let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+//            let imageURL: URL = URL(fileURLWithPath: imagePath)
+//
+//
+//            guard FileManager.default.fileExists(atPath: imagePath),
+//               let imageData: Data = try? Data(contentsOf: imageURL),
+//               let image: UIImage = UIImage(data: imageData, scale: UIScreen.main.scale) else {
+//                  return
+//            }
+//
+//            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: image, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
+//
+//            let help = String(snapshot.key.suffix(snapshot.key.count - 29))
+//            if(!self.counts.contains(Int(help)!)){
+//
+//               self.count = Int(help.prefix(help.count))!
+//               self.counts.append(self.count)
+//               self.count = self.count+1
+//
+//               self.insertPlayerInTableView(player)
+//            }
+//
+//         }
+//      })
    }
    
    func insertPlayerInTableView(_ player: Player){
@@ -325,21 +331,21 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    // Grabs all stats from the player
    func populateStats(with player: Player){
       
-      pointsCell.text = String(player.points)
-      twoPoint.text = String(player.twoPtMade)
-      threePoint.text = String(player.threePtMade)
-      oRebound.text = String(player.offRebounds)
-      pFouls.text = String(player.personalFoul)
-      assistsCell.text = String(player.assists)
-      fGoalCell.text = String(player.twoPtAtt)
-      freeThrowPerc.text = String(player.ftAtt)
-      freeThrowMade.text = String(player.ftMade)
-      tFoulCell.text = String(player.techFoul)
-      stealsCell.text = String(player.steals)
-      dRebound.text = String(player.defRebounds)
-      deflectionCell.text = String(player.deflections)
-      blockCell.text = String(player.blocks)
-      chargeCell.text = String(player.chargesTaken)
+      pointsCell.text = String(player.points ?? 0)
+      twoPoint.text = String(player.twoPtMade ?? 0)
+      threePoint.text = String(player.threePtMade ?? 0)
+      oRebound.text = String(player.offRebounds ?? 0)
+      pFouls.text = String(player.personalFoul ?? 0)
+      assistsCell.text = String(player.assists ?? 0)
+      fGoalCell.text = String(player.twoPtAtt ?? 0)
+      freeThrowPerc.text = String(player.ftAtt ?? 0)
+      freeThrowMade.text = String(player.ftMade ?? 0)
+      tFoulCell.text = String(player.techFoul ?? 0)
+      stealsCell.text = String(player.steals ?? 0)
+      dRebound.text = String(player.defRebounds ?? 0)
+      deflectionCell.text = String(player.deflections ?? 0)
+      blockCell.text = String(player.blocks ?? 0)
+      chargeCell.text = String(player.chargesTaken ?? 0)
       
    }
    
@@ -424,16 +430,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    func createNewPlayer(){
       
       var firstName = playerFirstNameText.text ?? "First"
-      firstName = firstName == "" ? "First":firstName
       var lastName = playerLastNameText.text ?? "Last"
-      lastName = lastName == "" ? "Last":lastName
-      var height = playerHeightText.text ?? "Height"
-      height = height == "" ? "Height":height
-      var weight = playerWeightText.text ?? "Weight"
-      weight = weight == "" ? "Weight":weight
-      var rank = playerClassText.text ?? "Class"
-      rank = rank == "" ? "Class":rank
-      
+      let height = playerHeightText.text ?? "Height"
+      let weight = playerWeightText.text ?? "Weight"
+      let rank = playerClassText.text ?? "Class"
+      let position = playerPositionText.text ?? "Position"
+    
       firstName = firstName.replacingOccurrences(of: " ", with: "_")
       lastName = lastName.replacingOccurrences(of: " ", with: "_")
       let imageName = firstName + lastName + "image"
@@ -442,43 +444,24 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       
       // Store the image
       try? UIImagePNGRepresentation(playerImage.image!)?.write(to: imageURL)
-      
-      var position = playerPositionText.text ?? "Position"
-      position = position == "" ? "Position":position
-      let pid = uid + "-" + String(count)
-
     
-      let ref = Database.database().reference(withPath: "players")
-
-      let playerRef = ref.child(pid)
-      let playerData : [String: Any] = ["pid":  pid,
-                                        "tid": tid,
-                                       "fname": firstName,
+//      let pid = uid + "-" + String(count)
+//
+//
+//      let ref = Database.database().reference(withPath: "players")
+//
+//      let playerRef = ref.child(pid)
+      let playerData : [String: Any] = ["fname": firstName,
                                        "lname": lastName,
-                                       "photo": imagePath,
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
-                                       "position": position,
-                                       "points": 0,
-                                       "assists": 0,
-                                       "turnovers": 0,
-                                       "threePtAtt": 0,
-                                       "twoPtAtt": 0,
-                                       "threePtMade": 0,
-                                       "twoPtMade": 0,
-                                       "ftAtt": 0,
-                                       "ftMade": 0,
-                                       "offRebounds": 0,
-                                       "defRebounds": 0,
-                                       "steals": 0,
-                                       "blocks": 0,
-                                       "deflections": 0,
-                                       "personalFoul": 0,
-                                        "techFoul": 0,
-                                       "chargesTaken": 0]
-      playerRef.setValue(playerData)
-        addPlayerToTeam(data: playerData, tid: tid)
+                                       "position": position]
+    
+        DBApi.sharedInstance.createPlayer(info: playerData)
+    
+//      playerRef.setValue(playerData)
+//        addPlayerToTeam(data: playerData, tid: tid)
    }
     
     func addPlayerToTeam(data: [String:Any], tid: String){
