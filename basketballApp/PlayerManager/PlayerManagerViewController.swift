@@ -458,7 +458,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "rank": rank,
                                        "position": position]
     
-        DBApi.sharedInstance.createPlayer(info: playerData)
+    DBApi.sharedInstance.createPlayer(info: playerData) { [weak self] in
+        guard let s = self else { return }
+        s.getPlayers()
+    }
     
 //      playerRef.setValue(playerData)
 //        addPlayerToTeam(data: playerData, tid: tid)

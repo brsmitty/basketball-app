@@ -9,17 +9,30 @@
 import Foundation
 import Firebase
 
-enum Statistic: String {
-    case score = "score"
-    case rebound = "rebound"
-    // etc...
+enum Statistic: Int {
+    case score2 = 0
+    case score3 = 1
+    case score2Attempt = 2
+    case score3Attempt = 4
+    case freeThrow = 8
+    case freeThrowAttempt = 16
+    case assist = 32
+    case turnover = 64
+    case offRebound = 128
+    case defRebound = 256
+    case steal = 518
+    case block = 1024
+    case deflection = 2048
+    case personalFoul = 4096
+    case techFoul = 8192
+    case chargeTaken = 16384
 }
 
 class DBApi {
     static let sharedInstance = DBApi()
     let ref = Database.database().reference()
     var currentUserId: String = ""
-    var currentGameId: String = ""
+    var currentGameId: String = "some-game-id"
     
     var pathToPlayers: String {
         return "users/\(currentUserId)/players"
@@ -37,26 +50,10 @@ class DBApi {
         return "users/\(currentUserId)/team"
     }
     
-    func storeStat(type: Statistic, value: Any?, pid: String, time: Double) {
-        let refStatsTable = Database.database().reference(withPath: "\(currentUserId)/statistics")
-        let newStatId = refStatsTable.childByAutoId().key
-        var statistic: [String: Any] = [
-            "type": type.rawValue,
-            "game_id": currentGameId,
-            "player_id": pid,
-            "time": time
-        ]
-        if type == .score, let points = value as? Int {
-            statistic.updateValue(points, forKey: "points")
-        }
-        
-        let childUpdates = ["/\(currentUserId)/statistics/\(newStatId)": statistic]
-        refStatsTable.updateChildValues(childUpdates)
-    }
-    
-    func createPlayer(info: [String: Any]) {
+    func createPlayer(info: [String: Any], completion: @escaping () -> Void) {
         let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
         let newPlayerId = refPlayersTable.childByAutoId().key
+        
         let player: [String: Any] = [
             "user_id": currentUserId,
             "fName": info["fname"] as? String ?? "",
@@ -66,8 +63,10 @@ class DBApi {
             "rank": info["rank"] as? String ?? "",
             "position": info["position"] as? String ?? ""
         ]
+        
         let childUpdates = ["/\(newPlayerId)": player]
         refPlayersTable.updateChildValues(childUpdates)
+        completion()
     }
     
     func getPlayers(completion: @escaping ([Player]) -> Void) {
@@ -85,5 +84,19 @@ class DBApi {
             }
             completion(players)
         }
+    }
+    
+    func storeStat(type: Statistic, pid: String, seconds: Double) {
+        let pathToStats = "\(pathToPlayers)/\(pid)/game-stats/\(currentGameId)/stats"
+        let refStatsTable = Database.database().reference(withPath: pathToStats)
+        let newStatId = refStatsTable.childByAutoId().key
+        
+        let statistic: [String: Any] = [
+            "type": type.rawValue,
+            "game-time": seconds
+        ]
+        
+        let childUpdates = ["/\(newStatId)": statistic]
+        refStatsTable.updateChildValues(childUpdates)
     }
 }
