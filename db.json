@@ -1,0 +1,98 @@
+{
+  "ingame-ba93b": {
+    "users": {
+      "some-user-id-oq8237d103dui1bedo18": {
+        "uid": "some-user-id",
+        "tid": "some-team-id",
+        "players": {
+          "some-player-id-d18o73g4hd9138odgo": {
+            "fName": "player's first name",
+            "lName": "player's last name",
+            "height": "6'0\"",
+            "weight": "180",
+            "position": "Point-Guard/Shooting-Guard/Small-Forward/Power-Forward/Center",
+            "rank": "Freshman/Sophomore/Junior/Senior",
+            "KPI": "(stat enum -- integer power of 2)",
+            "game-stats": {
+              "some-game-id-018237e123o8e": {
+                "stats": {
+                  "some-stat-id-21837eh102o39e8yu": {
+                    "type": "(stat enum -- integer power of 2)",
+                    "game-time": "(integer # of seconds into game)"
+                  },
+                  "some-other-stat-id-12o837eh10239e": {
+                    "type": 32,
+                    "game-time": 120
+                  },
+                  "some-other-stat-id-287hdu1028d792": {
+                    "type": 8,
+                    "game-time": 240
+                  },
+                  "some-other-stat-id-3847d1y3948e1y": { },
+                  "some-other-stat-id-2837e1y9238e7e": { }
+                }
+              },
+              "some-other-game-id-9283eh192": { },
+              "some-other-game-id-923874rh2": { }
+            }
+          },
+          "some-other-player-id-q2387egh1923e8": { },
+          "some-other-player-id-12i387hd12io82": { }
+        },
+        "games": {
+          "some-game-id-018237e123o8e": {
+            "title": "semi-finals",
+            "opponent": "Duke Blue Devils",
+            "court": "home",
+            "date": "MM/DD/YYYY",
+            "finished": true,
+            "lineups": {
+              "(sorted player-ids)playerIdA_playerIdB_playerIdC_playerIdD_playerIdE": {
+                "game-times": [
+                  {
+                    "start": 0,
+                    "end": 120
+                  },
+                  {
+                    "start": 600,
+                    "end": 780
+                  }
+                ]
+              },
+              "(sorted player-ids)playerIdA_playerIdB_playerIdD_playerIdF_playerIdG": {
+                "game-times": [
+                  {
+                    "start": 240,
+                    "end": 600
+                  },
+                  {
+                    "start": 780,
+                    "end": 1200
+                  }
+                ]
+              },
+              "(sorted player-ids)playerIdB_playerIdD_playerIdE_playerIdF_playerIdG": {
+                "game-times": [
+                  {
+                    "start": 120,
+                    "end": 240
+                  }
+                ]
+              },
+            }
+          },
+          "some-other-game-id": {
+            "title": "finals",
+            "opponent": "Golden State Warriors",
+            "court": "away",
+            "date": "MM/DD/YYYY",
+            "finished": false,
+            "lineups": null
+          },
+          "some-other-game-id": { },
+          "some-other-game-id": { }
+        }
+      }
+    }
+  }
+}
