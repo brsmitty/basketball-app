@@ -70,6 +70,22 @@ class DBApi {
         refPlayersTable.updateChildValues(childUpdates)
     }
     
+    func createGames(info: [String: Any]) {
+        let refGameTable = Database.database().reference(withPath: pathToGames)
+        let newGameId = refGameTable.childByAutoId().key
+        let game: [String: Any] = [
+            "user_id": currentUserId,
+            "title": info["title"] as? String ?? "",
+            "location": info["location"] as? String ?? "",
+            "gameType": info["gameType"] as? String ?? "",
+            "gameDate": info["gameDate"] as? String ?? "",
+            "gameTime": info["gameTime"] as? String ?? "",
+            "gameDetail": info["gameDetail"] as? String ?? ""
+        ]
+        let childUpdates = ["/\(newGameId)": game]
+        refGameTable.updateChildValues(childUpdates)
+    }
+    
     func getPlayers(completion: @escaping ([Player]) -> Void) {
         let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
         refPlayersTable.observeSingleEvent(of: .value) { snapshot in

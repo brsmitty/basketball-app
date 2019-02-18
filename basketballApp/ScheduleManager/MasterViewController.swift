@@ -194,20 +194,20 @@ class MasterViewController: UITableViewController{
             dataFormatter.dateFormat = "MM/dd/yyyy"
             let stringDate = dataFormatter.string(from: date)
             
-            var pid = ""
-                pid = uid + "-" + String(games.count)
+           // var pid = ""
+           //     pid = uid + "-" + String(games.count)
             
-            let ref = Database.database().reference(withPath: "games")
+          //  let ref = Database.database().reference(withPath: "games")
             
-            let playRef = ref.child(pid)
-            let playData : [String: Any] = ["pid":  pid,
-                                              "title": title,
+           // let playRef = ref.child(pid)
+            let playData : [String: Any] = ["title": title,
                                               "location": location,
                                               "gameType": gameType,
                                               "gameDate": stringDate,
                                               "gameTime": gameTime,
                                               "gameDetail": gameDetail]
-            playRef.setValue(playData)
+            DBApi.sharedInstance.createGames(info: playData)
+            //playRef.setValue(playData)
         }
     
     }

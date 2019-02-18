@@ -62,15 +62,7 @@ class EmailVerificationViewController: UIViewController {
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
         let userData : [String: Any] = ["uid":  uid, "tid": tid]
         userRef.setValue(userData)
-        createTeam(tid: tid)
         storePersistentData(uid: uid, tid: tid)
-    }
-    
-    func createTeam(tid: String){ // create team record for the newly created team of the newly created user
-        let firebaseRef = Database.database().reference(withPath: "teams")
-        let teamRef = firebaseRef.child(tid)
-        let teamData : [String: Any] = ["tid":  tid]
-        teamRef.setValue(teamData)
     }
     
     func storePersistentData(uid: String, tid: String){
