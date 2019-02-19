@@ -11,19 +11,7 @@
 		27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B5A2193D56D00541774 /* BenchViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
-		271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F234B21B0B37700848C2D /* basketballAppUnitTests.swift */; };
-		271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235721B0E5C600848C2D /* registerUserUnitTests.swift */; };
-		271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */; };
-		271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */; };
-		271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235D21B1A9A500848C2D /* detailUnitTests.swift */; };
-		271F236021B2E55900848C2D /* newScheduleUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235F21B2E55800848C2D /* newScheduleUnitTests.swift */; };
-		271F236221B2E9D600848C2D /* scheduleMasterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236121B2E9D600848C2D /* scheduleMasterUnitTests.swift */; };
-		271F236421B3152200848C2D /* scheduleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236321B3152200848C2D /* scheduleViewControllerTests.swift */; };
-		271F236621B3270D00848C2D /* playerManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236521B3270D00848C2D /* playerManagerUnitTests.swift */; };
 		271F237021B4501E00848C2D /* basketballAppIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236F21B4501E00848C2D /* basketballAppIntegrationTests.swift */; };
-		271F237C21B4731200848C2D /* playbookUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F237B21B4731200848C2D /* playbookUnitTests.swift */; };
-		271F237F21B47D3400848C2D /* playbookMasterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F237E21B47D3400848C2D /* playbookMasterUnitTests.swift */; };
-		271F238121B47E4200848C2D /* playbookViewControllerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F238021B47E4200848C2D /* playbookViewControllerUnitTests.swift */; };
 		2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE221A103D60003F4B8 /* UIImageViewExtension.swift */; };
 		2730FDE521A10DA80003F4B8 /* BenchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730FDE421A10DA80003F4B8 /* BenchTableViewCell.swift */; };
 		27472F42219481F2009BBC96 /* DropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27472F41219481F2009BBC96 /* DropDownViewController.swift */; };
@@ -45,6 +33,8 @@
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
 		3D1298B122177EE6006FE5AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D1298B022177EE6006FE5AA /* GoogleService-Info.plist */; };
 		3D52DBFF2214E0FA00C8AA0C /* DBApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */; };
+		3DFC438F221C81C6009B4A16 /* dbAPIUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC438E221C81C6009B4A16 /* dbAPIUnitTests.swift */; };
+		3DFC4391221C839C009B4A16 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786CCCD2144B571003539A2 /* Player.swift */; };
 		4299E35EB4917BC10A83445E /* Pods_basketballApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */; };
 		47CF1DBCEF3583CCE50A46C2 /* Pods_basketballAppIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFC72310F5A3F7B1D1A12BC /* Pods_basketballAppIntegrationTests.framework */; };
 		54C388910D71C1FC22B0F3FC /* Pods_basketballAppUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC8CDFFF33D0CD46D360075 /* Pods_basketballAppUnitTests.framework */; };
@@ -76,14 +66,11 @@
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
-		63F817FC21B1C59F00D0BC0D /* middleViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
-		98D39ABE21B2D484004ED224 /* gameViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D39ABD21B2D484004ED224 /* gameViewUnitTests.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
-		98FD37A421B315F6005A1505 /* shortChartViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD37A321B315F6005A1505 /* shortChartViewUnitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +147,8 @@
 		27FC62E521790B8500DE6B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D1298B022177EE6006FE5AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBApi.swift; sourceTree = "<group>"; };
+		3DFC438C221C6BCC009B4A16 /* db.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = db.json; sourceTree = "<group>"; };
+		3DFC438E221C81C6009B4A16 /* dbAPIUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dbAPIUnitTests.swift; sourceTree = "<group>"; };
 		53716CBAC7F13DB9FDBEFD22 /* Pods-basketballAppUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		630E2C65216E66C800881C1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		630E2C67216E672600881C1F /* Playbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Playbook.pdf; sourceTree = "<group>"; };
@@ -306,6 +295,7 @@
 				271F235721B0E5C600848C2D /* registerUserUnitTests.swift */,
 				271F234B21B0B37700848C2D /* basketballAppUnitTests.swift */,
 				271F234D21B0B37700848C2D /* Info.plist */,
+				3DFC438E221C81C6009B4A16 /* dbAPIUnitTests.swift */,
 			);
 			path = basketballAppUnitTests;
 			sourceTree = "<group>";
@@ -417,6 +407,7 @@
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
+				3DFC438C221C6BCC009B4A16 /* db.json */,
 				63C79FCD21403291006726C3 /* basketballApp */,
 				274A64242164451E00F0F4E7 /* userAuthUITests */,
 				987B3083217834E10010F3A6 /* gestureUITests */,
@@ -792,21 +783,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				271F236021B2E55900848C2D /* newScheduleUnitTests.swift in Sources */,
-				98FD37A421B315F6005A1505 /* shortChartViewUnitTests.swift in Sources */,
-				271F234C21B0B37700848C2D /* basketballAppUnitTests.swift in Sources */,
-				271F235E21B1A9A500848C2D /* detailUnitTests.swift in Sources */,
-				271F235A21B0F1C000848C2D /* passwordResetUnitTests.swift in Sources */,
-				271F237C21B4731200848C2D /* playbookUnitTests.swift in Sources */,
-				271F236221B2E9D600848C2D /* scheduleMasterUnitTests.swift in Sources */,
-				63F817FC21B1C59F00D0BC0D /* middleViewUnitTests.swift in Sources */,
-				98D39ABE21B2D484004ED224 /* gameViewUnitTests.swift in Sources */,
-				271F235C21B0FD8A00848C2D /* emailVerificationUnitTests.swift in Sources */,
-				271F235821B0E5C600848C2D /* registerUserUnitTests.swift in Sources */,
-				271F236621B3270D00848C2D /* playerManagerUnitTests.swift in Sources */,
-				271F237F21B47D3400848C2D /* playbookMasterUnitTests.swift in Sources */,
-				271F238121B47E4200848C2D /* playbookViewControllerUnitTests.swift in Sources */,
-				271F236421B3152200848C2D /* scheduleViewControllerTests.swift in Sources */,
+				3DFC438F221C81C6009B4A16 /* dbAPIUnitTests.swift in Sources */,
+				3DFC4391221C839C009B4A16 /* Player.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

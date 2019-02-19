@@ -28,11 +28,22 @@ enum Statistic: Int {
     case chargeTaken = 16384
 }
 
+extension DBApi {
+    static func lineupId(from playerIds: [String]) -> String? {
+        guard playerIds.count == 5 else { return nil }
+        let sorted = playerIds.sorted()
+        return sorted.joined(separator: "&")
+    }
+}
+
 class DBApi {
     static let sharedInstance = DBApi()
     let ref = Database.database().reference()
     var currentUserId: String = ""
-    var currentGameId: String = "some-game-id"
+    var currentGameId: String? = "some-game-id"
+    var currentLineup: (id: String, key: String, time: Int)?
+    var currentGameLineupIds: [String]?
+    var currentGameScore: Int = 0
     
     var pathToPlayers: String {
         return "users/\(currentUserId)/players"
@@ -42,15 +53,32 @@ class DBApi {
         return "users/\(currentUserId)/games"
     }
     
-    var pathtoCurrentGame: String {
-        return "users/\(currentUserId)/games/\(currentGameId)"
+    var pathtoCurrentGame: String? {
+        guard let gameId = currentGameId else { return nil }
+        return "users/\(currentUserId)/games/\(gameId)"
+    }
+    
+    var pathToCurrentGameLineups: String? {
+        guard let gameId = currentGameId else { return nil }
+        return "users/\(currentUserId)/games/\(gameId)/lineups"
+    }
+    
+    var pathToCurrentLineup: String? {
+        guard let gameId = currentGameId else { return nil }
+        guard let lineupId = currentLineup?.id else { return nil }
+        return "users/\(currentUserId)/games/\(gameId)/lineups/\(lineupId)"
     }
     
     var pathToTeam: String {
         return "users/\(currentUserId)/team"
     }
     
-    func createPlayer(info: [String: Any], completion: @escaping () -> Void) {
+    func pathToStats(for pid: String) -> String? {
+        guard let gameId = currentGameId else { return nil }
+        return "\(pathToPlayers)/\(pid)/game-stats/\(gameId)/stats"
+    }
+    
+    func createPlayer(info: [String: Any], completion: @escaping () -> Void) -> String {
         let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
         let newPlayerId = refPlayersTable.childByAutoId().key
         
@@ -67,9 +95,11 @@ class DBApi {
         let childUpdates = ["/\(newPlayerId)": player]
         refPlayersTable.updateChildValues(childUpdates)
         completion()
+        
+        return newPlayerId
     }
     
-    func createGames(info: [String: Any]) {
+    func createGames(info: [String: Any]) -> String {
         let refGameTable = Database.database().reference(withPath: pathToGames)
         let newGameId = refGameTable.childByAutoId().key
         let game: [String: Any] = [
@@ -79,10 +109,31 @@ class DBApi {
             "gameType": info["gameType"] as? String ?? "",
             "gameDate": info["gameDate"] as? String ?? "",
             "gameTime": info["gameTime"] as? String ?? "",
+            "score": 0,
+            "opponent-score": 0,
             "gameDetail": info["gameDetail"] as? String ?? ""
         ]
         let childUpdates = ["/\(newGameId)": game]
         refGameTable.updateChildValues(childUpdates)
+        
+        return newGameId
+    }
+    
+    func getGames(completion: @escaping ([[String: Any]]) -> Void) {
+        let refGameTable = Database.database().reference(withPath: pathToGames)
+        refGameTable.observeSingleEvent(of: .value) { snapshot in
+            if snapshot.value is NSNull {
+                print("no fames in the database")
+            }
+            var games = [[String: Any]]()
+            for game in snapshot.children {
+                let gameSnap = game as? DataSnapshot
+                var gameDict = gameSnap?.value as? [String: String?] ?? [:]
+                gameDict["game-id"] = gameSnap?.key ?? ""
+                games.append(gameDict)
+            }
+            completion(games)
+        }
     }
     
     func getPlayers(completion: @escaping ([Player]) -> Void) {
@@ -102,9 +153,9 @@ class DBApi {
         }
     }
     
-    func storeStat(type: Statistic, pid: String, seconds: Double) {
-        let pathToStats = "\(pathToPlayers)/\(pid)/game-stats/\(currentGameId)/stats"
-        let refStatsTable = Database.database().reference(withPath: pathToStats)
+    func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
+        guard let statsPath = pathToStats(for: pid) else { return nil }
+        let refStatsTable = Database.database().reference(withPath: statsPath)
         let newStatId = refStatsTable.childByAutoId().key
         
         let statistic: [String: Any] = [
@@ -114,5 +165,56 @@ class DBApi {
         
         let childUpdates = ["/\(newStatId)": statistic]
         refStatsTable.updateChildValues(childUpdates)
+        
+        adjustScore(type: type)
+        
+        return newStatId
+    }
+    
+    func adjustScore(type: Statistic) {
+        guard let gamePath = pathtoCurrentGame else { return }
+        
+        var points: Int
+        switch type {
+        case .freeThrow:
+            points = 1
+        case .score2:
+            points = 2
+        case .score3:
+            points = 3
+        default: return
+        }
+        currentGameScore += points
+        let refGameTable = Database.database().reference(withPath: gamePath)
+        
+        let childUpdates = ["/score": currentGameScore]
+        refGameTable.updateChildValues(childUpdates)
+    }
+    
+    func switchLineup(to newLineupId: String, at gameTimeInSeconds: Int) {
+        guard let lineupsPath = pathToCurrentGameLineups else { return }
+        
+        if let (currentLineupId, currentLineupKey, gameTime) = currentLineup {
+            if currentLineupId == newLineupId { return }
+            let refLineupsTable = Database.database().reference(withPath: "\(lineupsPath)/\(currentLineupId)")
+            
+            let endCurrentLineupTime: [String: Any] = [
+                "start": gameTime,
+                "end": gameTimeInSeconds
+            ]
+            let endCurrentChildUpdate = ["\(currentLineupKey)": endCurrentLineupTime]
+            refLineupsTable.updateChildValues(endCurrentChildUpdate)
+        }
+        
+        let refLineupsTable = Database.database().reference(withPath: "\(lineupsPath)/\(newLineupId)")
+        let newLineupChildId = refLineupsTable.childByAutoId().key
+        
+        let newLineupTime: [String: Any] = [
+            "start": gameTimeInSeconds,
+            "end": -1
+        ]
+        let newChildUpdate = ["\(newLineupChildId)": newLineupTime]
+        refLineupsTable.updateChildValues(newChildUpdate)
+        currentLineup = (newLineupId, newLineupChildId, gameTimeInSeconds)
     }
 }
