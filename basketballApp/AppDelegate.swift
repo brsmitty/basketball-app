@@ -51,8 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func testAddStat() {
-        DBApi.sharedInstance.storeStat(type: .score3, pid: "test-player-id", seconds: 10)
+    func testAddStat(time: Double) {
+        DBApi.sharedInstance.storeStat(type: .score3, pid: "test-player-id", seconds: time)
     }
     
     func testAddStatB() {
@@ -75,9 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         testPlayerCreate()
         testGameCreate()
-        testAddStat()
+        testAddStat(time: 20)
         testAddStatB()
         testAddStatc()
+        testAddStat(time: 140)
         
         DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["A", "B", "C", "D", "E"]) ?? "", at: 20)
         DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["A", "B", "G", "D", "E"]) ?? "", at: 50)
