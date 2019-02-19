@@ -98,6 +98,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         benchView.isHidden = true
         
         let state = gameState["transitionState"] as! String
+        print("The game state is \(state)")
         if (state == "init" ) { getRosterFromFirebase() }
         else if (state == "missedShot") {
             gameState["transitionState"] = "inProgress"
@@ -219,6 +220,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func getRosterFromFirebase(){
+        print("Getting roster")
         var roster : [String: Any] = [:]
         let tid = storage.string(forKey: "tid")!
         let firebaseRef = Database.database().reference()
@@ -328,6 +330,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         var y = 0
         for player in gameState["bench"] as! [Player] {
+            print("Adding player to bench")
             let image = player.photo
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
@@ -455,11 +458,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func presentOffensiveOptions(index: Int){
+        print("Offensive options")
         let offenseAlert = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
         let foul = UIAlertAction(title: "Personal Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(player: self.player(i: index)) }
         let techFoul = UIAlertAction(title: "Technical Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleTechFoul(index: index) }
         let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(index: index) }
         if (fullLineup()){
+            print("Line up is full")
             offenseAlert.addAction(jumpball)
             if (gameState["began"] as! Bool){
                 offenseAlert.addAction(foul)
@@ -504,7 +509,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             jumpballAlert.popoverPresentationController?.sourceView = view
             let c = getPlayerImage(index: index).center
             let y = CGFloat(c.y + 100)
-            let p = CGPoint(x: c.x, y: y)
+            let p = CGPoint(x: c.x,	 y: y)
             jumpballAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
             present(jumpballAlert, animated: false)
         }
@@ -549,6 +554,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
+        print("Screen was tapped")
         benchView.isHidden = true
         if gameState["began"] as! Bool {
             if let view = tapHandler.view {
@@ -556,6 +562,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 case 5: shoot()
                 break;
                 case 0, 1, 2, 3, 4:
+                    print("Transition state \(gameState["transitionState"]) Game state \(gameState["possession"])")
                     if (gameState["transitionState"] as! String == "offensiveBoard") {
                         addBorderToActivePlayer(view.tag)
                         gameState["ballIndex"] = view.tag
@@ -580,7 +587,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.performSegue(withIdentifier: "shotchartSegue", sender: nil)
         }
         else {
-            
+            print("Shoot for defense")
         }
     }
     
@@ -630,7 +637,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.pushPlaySequence(event: "\(active[index]!.firstName) dribbled")
         }
         else {
-            
+            print("Dribble for defense?")
         }
     }
     
@@ -646,7 +653,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
         }
         else {
-            
+            print("Pass for defense?")
         }
     }
     
@@ -670,8 +677,41 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         benchView.isHidden = true
         let index = touchHandler.view?.tag ?? 0
         if touchHandler.state == .began {
-            presentOffensiveOptions(index: index)
+            let possession = self.gameState["possession"] as! String
+            if (possession == "defense") {
+                presentDefensiveOptions(index: index)
+            }
+            else {
+                presentOffensiveOptions(index: index)
+            }
         }
+    }
+    func handleBlock(player: Player){
+        player.updateBlocks(blocks: 1)
+        self.pushPlaySequence(event: "\(player.firstName) blocked a shot.")
+    }
+    
+    func presentDefensiveOptions(index: Int){
+        let defenseAlert = UIAlertController(title: "Defensive Options", message: "", preferredStyle: .actionSheet)
+        let foul = UIAlertAction(title: "Personal Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(player: self.player(i: index)) }
+        let techFoul = UIAlertAction(title: "Technical Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleTechFoul(index: index) }
+        let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(index: index) }
+        let block = UIAlertAction(title: "Block", style: UIAlertActionStyle.default) { UIAlertAction in self.handleBlock(player: self.player(i: index)) }
+        
+        if (fullLineup()){
+            defenseAlert.addAction(jumpball)
+            if (gameState["began"] as! Bool){
+                defenseAlert.addAction(foul)
+                defenseAlert.addAction(techFoul)
+                defenseAlert.addAction(block)
+            }
+        }
+        defenseAlert.popoverPresentationController?.sourceView = view
+        let c = getPlayerImage(index: index).center
+        let y = CGFloat(c.y + 100)
+        let p = CGPoint(x: c.x, y: y)
+        defenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
+        present(defenseAlert, animated: false)
     }
     
     //foul detected, determine outcome and either change possession or record FT attempts/makes
@@ -1073,6 +1113,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func switchToOffense() {
+        print("Switching to offense")
         self.pushPlaySequence(event: "switch to offense")
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
         gameState["possession"] = "offense"
@@ -1112,6 +1153,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func switchToDefense() {
+        print("Switching to defense")
         self.pushPlaySequence(event: "switch to defense")
         resetAllPlayerBorders()
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
@@ -1137,6 +1179,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
+        print("Pinch updates steals")
         if gameState["began"] as! Bool {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
@@ -1146,6 +1189,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func handleSwipe(_ sender: UISwipeGestureRecognizer) {
+        print("swipe updates deflections")
         if gameState["began"] as! Bool {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
