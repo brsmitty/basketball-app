@@ -406,24 +406,24 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       players[currentPath.row].photo = playerImage.image ?? UIImage(named: "Default")
       
       tableView.reloadRows(at: [currentPath], with: .none)
-      let ref = Database.database().reference(withPath: "players")
-      
-      let imageName = players[currentPath.row].firstName + players[currentPath.row].lastName + "image"
-      let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
-      let imageURL: URL = URL(fileURLWithPath: imagePath)
-      
-      // Store the image
-      try? UIImagePNGRepresentation(players[currentPath.row].photo!)?.write(to: imageURL)
-      
-      let playerRef = ref.child(players[currentPath.row].playerId)
-      let playerData : [String: Any] = ["fname": players[currentPath.row].firstName,
-                                        "lname": players[currentPath.row].lastName,
-                                        "photo": imagePath,
-                                        "height": players[currentPath.row].height,
-                                        "weight": players[currentPath.row].weight,
-                                        "rank": players[currentPath.row].rank,
-                                        "position": players[currentPath.row].position]
-      playerRef.updateChildValues(playerData)
+    let ref = Database.database().reference(withPath: "users/\(uid)/players")
+    
+    let imageName = players[currentPath.row].firstName + players[currentPath.row].lastName + "image"
+    let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+    let imageURL: URL = URL(fileURLWithPath: imagePath)
+    
+    // Store the image
+    try? UIImagePNGRepresentation(players[currentPath.row].photo!)?.write(to: imageURL)
+    
+    let playerRef = ref.child(players[currentPath.row].playerId)
+    let playerData : [String: Any] = ["user_id": uid,
+                                      "fName": players[currentPath.row].firstName,
+                                      "lName": players[currentPath.row].lastName,
+                                      "height": players[currentPath.row].height,
+                                      "weight": players[currentPath.row].weight,
+                                      "rank": players[currentPath.row].rank,
+                                      "position": players[currentPath.row].position]
+    playerRef.updateChildValues(playerData)
    }
    
    // Stores a new player's info in firebase
@@ -689,16 +689,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       return true
    }
    
-   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-      if editingStyle == .delete{
-         let pid = removePlayer(indexPath, tableView)
-         var ref = Database.database().reference(withPath: "players")
-         ref.child(pid).removeValue()
-         ref = Database.database().reference(withPath: "teams")
-         ref.child(tid).child("roster").child(pid).removeValue()
-         resetButtonState()
-      }
-   }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let pid = removePlayer(indexPath, tableView)
+            var ref = Database.database().reference(withPath: "users/\(uid)/players")
+            ref.child(pid).removeValue()
+            resetButtonState()
+        }
+    }
    
    func removePlayer(_ indexPath:IndexPath, _ tableView:UITableView) -> String{
       let pid = players[indexPath.row].playerId
