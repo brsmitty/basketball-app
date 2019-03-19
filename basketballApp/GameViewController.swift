@@ -726,31 +726,22 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let block = UIAlertAction(title: "Block", style: UIAlertActionStyle.default) { UIAlertAction in self.handleBlock(player: self.player(i: index)) }
         
+        let rebound = UIAlertAction(title: "Rebound", style: UIAlertActionStyle.default) { UIAlertAction in self.handleDefensiveRebound(player: self.player(i: index)) }
+        
         
         if (fullLineup()){
-            
             defenseAlert.addAction(jumpball)
-            
             if (gameState["began"] as! Bool){
-                
                 defenseAlert.addAction(foul)
-                
                 defenseAlert.addAction(techFoul)
-                
                 defenseAlert.addAction(block)
-                
-                
-                
+                defenseAlert.addAction(rebound)
             }
-            
         }
         
         defenseAlert.popoverPresentationController?.sourceView = view
-        
         let c = getPlayerImage(index: index).center
-        
         let y = CGFloat(c.y + 100)
-        
         let p = CGPoint(x: c.x, y: y)
         
         defenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
@@ -832,11 +823,17 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-    
+    //begin defensive handling
     func handleBlock(player: Player) {
         if gameState["began"] as! Bool {
             _ = DBApi.sharedInstance.storeStat(type: .block, pid: player.playerId, seconds: timeSeconds)
             pushPlaySequence(event: "\(player.firstName) blocked a shot")
+        }
+    }
+    func handleDefensiveRebound(player: Player) {
+        if gameState["began"] as! Bool {
+            _ = DBApi.sharedInstance.storeStat(type: .defRebound, pid: player.playerId, seconds: timeSeconds)
+            pushPlaySequence(event: "\(player.firstName) rebounded a shot")
         }
     }
     
