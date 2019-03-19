@@ -689,13 +689,76 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func handleLongPress(_ touchHandler: UILongPressGestureRecognizer) {
+        
         benchView.isHidden = true
+        
         let index = touchHandler.view?.tag ?? 0
+        
         if touchHandler.state == .began {
-            presentOffensiveOptions(index: index)
+            
+            let possession = self.gameState["possession"] as! String
+            
+            if (possession == "defense") {
+                
+                presentDefensiveOptions(index: index)
+                
+            }
+                
+            else {
+                
+                presentOffensiveOptions(index: index)
+                
+            }
+            
         }
+        
+    }
+    func presentDefensiveOptions(index: Int){
+        
+        let defenseAlert = UIAlertController(title: "Defensive Options", message: "", preferredStyle: .actionSheet)
+        
+        let foul = UIAlertAction(title: "Personal Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(player: self.player(i: index)) }
+        
+        let techFoul = UIAlertAction(title: "Technical Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleTechFoul(index: index) }
+        
+        let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(index: index) }
+        
+        let block = UIAlertAction(title: "Block", style: UIAlertActionStyle.default) { UIAlertAction in self.handleBlock(player: self.player(i: index)) }
+        
+        
+        if (fullLineup()){
+            
+            defenseAlert.addAction(jumpball)
+            
+            if (gameState["began"] as! Bool){
+                
+                defenseAlert.addAction(foul)
+                
+                defenseAlert.addAction(techFoul)
+                
+                defenseAlert.addAction(block)
+                
+                
+                
+            }
+            
+        }
+        
+        defenseAlert.popoverPresentationController?.sourceView = view
+        
+        let c = getPlayerImage(index: index).center
+        
+        let y = CGFloat(c.y + 100)
+        
+        let p = CGPoint(x: c.x, y: y)
+        
+        defenseAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
+        
+        present(defenseAlert, animated: false)
+        
     }
     
+
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(player: Player){
         gameState["fouledPlayer"] = player
@@ -766,6 +829,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 gameState["oppCharges"] = opponentCharges + 1
                 switchToOffense()
             }
+        }
+    }
+    
+    func handleBlock(player: Player) {
+        if gameState["began"] as! Bool {
+            let blocks = gameState["blocks"] as! Int
+            gameState["blocks"] = blocks + 1
+            player.updateBlocks(blocks: 1)
+            
         }
     }
     
