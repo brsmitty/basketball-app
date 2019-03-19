@@ -219,19 +219,39 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func getRosterFromFirebase(){
-        var roster : [String: Any] = [:]
-        let tid = storage.string(forKey: "tid")!
-        let firebaseRef = Database.database().reference()
-        firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
-            var value = snapshot.value as? [String: Any]
-            if value == nil { value = [:] }
-            for v in value! {
-                let key = v.key
-                let val = v.value as! [String: Any]
-                roster[key] = val
+//        var roster : [String: Any] = [:]
+//        let tid = storage.string(forKey: "tid")!
+//        let firebaseRef = Database.database().reference()
+//        firebaseRef.child("teams").child(tid).child("roster").observeSingleEvent(of: .value, with: { (snapshot) in
+//            var value = snapshot.value as? [String: Any]
+//            if value == nil { value = [:] }
+//            for v in value! {
+//                let key = v.key
+//                let val = v.value as! [String: Any]
+//                roster[key] = val
+//            }
+//            self.createPlayerObjectsFromRoster(roster: roster)
+//        }) { (error) in print(error.localizedDescription) }
+        
+        DBApi.sharedInstance.getPlayers { [weak self] players in
+            guard let s = self else { return }
+            
+            s.gameState["roster"] = players
+            s.gameState["bench"] = players
+            s.gameState["active"] = [Player?](repeating: nil, count: 5)
+            
+            var indexPaths = [IndexPath]()
+            for i in 0..<players.count {
+                indexPaths.append(IndexPath(row: i, section: 0))
             }
-            self.createPlayerObjectsFromRoster(roster: roster)
-        }) { (error) in print(error.localizedDescription) }
+            s.paths = indexPaths
+            s.currentPath = indexPaths.last ?? IndexPath(row: 0, section: 0)
+            
+            s.populateBench()
+            s.tableView.beginUpdates()
+            s.tableView.insertRows(at: s.paths, with: .automatic)
+            s.tableView.endUpdates()
+        }
     }
     
     func createPlayerObjectsFromRoster(roster: [String: Any]){
@@ -287,19 +307,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             paths.append(self.currentPath)
             
         }
-        self.gameState["roster"] = players
-        self.gameState["bench"] = players
-        self.gameState["active"] = [Player?](repeating: nil, count: 5)
         
         //REMOVE FOR DEMO///
         //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
         //populateActive()
         ////////////////////
-        
-        populateBench()
-        self.tableView.beginUpdates()
-        self.tableView.insertRows(at: self.paths, with: .automatic)
-        self.tableView.endUpdates()
     }
     
     @IBOutlet weak var displayLabel: UILabel!
@@ -1073,6 +1085,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func switchToOffense() {
+        print("switching to offense")
         self.pushPlaySequence(event: "switch to offense")
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
         gameState["possession"] = "offense"
@@ -1112,6 +1125,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func switchToDefense() {
+        print("switching to defense")
         self.pushPlaySequence(event: "switch to defense")
         resetAllPlayerBorders()
         courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))

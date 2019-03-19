@@ -59,7 +59,7 @@ class Player: NSObject {
         weight = dictionary["weight"] as? String ?? ""
         position = dictionary["position"] as? String ?? ""
         rank = dictionary["rank"] as? String ?? ""
-        photo = nil
+        photo = UIImage(named: "Default")
     }
    
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
