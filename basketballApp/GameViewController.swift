@@ -417,9 +417,14 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let playerSubbingOut = activePlayers[activeIndex]
                 activePlayers[activeIndex] = playerSubbingIn
                 pushPlaySequence(event: "\(playerSubbingIn.firstName) subbed in")
+                //TODO delete after demo
+                DBApi.sharedInstance.storeStat(type: .substitutionIn, pid: "\(playerSubbingIn.playerId)", seconds: 60)
+
                 if (playerSubbingOut != nil) {
                     benchPlayers[benchIndex] = playerSubbingOut!
                     pushPlaySequence(event: "\(playerSubbingOut!.firstName) subbed out")
+                    //TODO delete after demo
+                    DBApi.sharedInstance.storeStat(type: .substitutionOut, pid: "\(playerSubbingIn.playerId)", seconds: 60)
                 }
                 else {
                     benchPlayers.remove(at: benchIndex)
@@ -512,11 +517,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.addBorderToActivePlayer(index)
                 let active = self.gameState["active"] as! [Player]
                 self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
+                //TODO delete after demo
+                DBApi.sharedInstance.storeStat(type: .jumpBallWon, pid: "\(active[index].playerId)", seconds: 60)
             }
             let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possessionArrow"] = "offense"
                 let active = self.gameState["active"] as! [Player]
                 self.pushPlaySequence(event: "\(active[index].firstName) lost the jump ball")
+                //TODO delete after demo
+                DBApi.sharedInstance.storeStat(type: .jumpBallLost, pid: "\(active[index].playerId)", seconds: 60)
                 self.switchToDefense()
             }
             jumpballAlert.addAction(lost)

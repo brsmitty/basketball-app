@@ -26,6 +26,10 @@ enum Statistic: Int {
     case personalFoul = 4096
     case techFoul = 8192
     case chargeTaken = 16384
+    case substitutionIn = 69
+    case substitutionOut = 70
+    case jumpBallWon = 72
+    case jumpBallLost = 73
 }
 
 extension DBApi {
@@ -123,7 +127,7 @@ class DBApi {
         let refGameTable = Database.database().reference(withPath: pathToGames)
         refGameTable.observeSingleEvent(of: .value) { snapshot in
             if snapshot.value is NSNull {
-                print("no fames in the database")
+                print("no games in the database")
             }
             var games = [[String: Any]]()
             for game in snapshot.children {
