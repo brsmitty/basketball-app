@@ -517,17 +517,16 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.gameState["possessionArrow"] = "defense"
                 self.addBorderToActivePlayer(index)
                 let active = self.gameState["active"] as! [Player]
-                _ = DBApi.sharedInstance.storeStat(type: Statistic, pid: active[index].playerId, seconds: self.timeSeconds)
+                _ = DBApi.sharedInstance.storeStat(type: Statistic.jumpBallWon, pid: active[index].playerId, seconds: self.timeSeconds)
                 self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
                 //TODO delete after demo
-                DBApi.sharedInstance.storeStat(type: .jumpBallWon, pid: "\(active[index].playerId)", seconds: 60)
             }
             let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possessionArrow"] = "offense"
                 let active = self.gameState["active"] as! [Player]
                 self.pushPlaySequence(event: "\(active[index].firstName) lost the jump ball")
                 //TODO delete after demo
-                DBApi.sharedInstance.storeStat(type: .jumpBallLost, pid: "\(active[index].playerId)", seconds: 60)
+                DBApi.sharedInstance.storeStat(type: .jumpBallLost, pid: "\(active[index].playerId)", seconds: self.timeSeconds)
                 self.switchToDefense()
             }
             jumpballAlert.addAction(lost)
@@ -766,6 +765,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         gameState["fouledPlayer"] = player
         let teamFouls = gameState["teamFouls"] as! Int
         gameState["teamFouls"] = teamFouls + 1
+        _ = DBApi.sharedInstance.storeStat(type: Statistic.techFoul, pid: player.playerId, seconds: self.timeSeconds)
         if((gameState["teamFouls"] as! Int) < 9){
             self.homeFouls.text! = "0" + String(teamFouls + 1)
         }
@@ -803,6 +803,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     else if (possession == "defense") {
                         
                     }
+                    _ = DBApi.sharedInstance.storeStat(type: Statistic.techFoul, pid: player.playerId, seconds: self.timeSeconds)
                     self.pushPlaySequence(event: "technical foul on \(player.firstName)")
                 }
                 techAlert.addAction(activePlayer)
@@ -823,6 +824,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let p = player(i: gameState["ballIndex"] as! Int)
                 p.updatePersonalFouls(fouls: 1)
                 self.pushPlaySequence(event: "\(p.firstName) charged")
+                _ = DBApi.sharedInstance.storeStat(type: Statistic.chargeTaken, pid: p.playerId, seconds: self.timeSeconds)
                 switchToDefense()
             }
             else if (possession == "defense") {
@@ -1111,6 +1113,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Calculate total time since timer started in seconds
         let temp = gameState["startTime"] as! Double
         time = Date().timeIntervalSinceReferenceDate - temp
+        gameState["timeSeconds"] = time
         timeSeconds = time
         
         // Calculate minutes

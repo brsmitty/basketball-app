@@ -51,22 +51,28 @@ class ShotChartViewController: UIViewController {
     
     @IBAction func madeShot(_ sender: UIButton) {
         let temp = gameState["homeScore"] as! Int
-        if(determineThreePoint(location: shotLocation)){
-            gameState["homeScore"] = temp + 3
-        }
-        else{
-            gameState["homeScore"] = temp + 2
-        }
+        
         let index = gameState["ballIndex"] as! Int
         var active = gameState["active"] as! [Player]
         let shooter = active[index]
+        
+        if(determineThreePoint(location: shotLocation)){
+            gameState["homeScore"] = temp + 3
+            _ = DBApi.sharedInstance.storeStat(type: Statistic.score3, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
+        }
+        else{
+            gameState["homeScore"] = temp + 2
+            _ = DBApi.sharedInstance.storeStat(type: Statistic.score2, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
+        }
         shooter.updatePoints(points: 2)
         shooter.updateTwoPointMade(made: 1)
         shooter.updateTwoPointAttempt(attempted: 1)
+        
         let assistIndex = self.gameState["assistingPlayerIndex"] as! Int
         if assistIndex != 999 {
             let assister = active[assistIndex]
             assister.updateAssists(assists: 1)
+            _ = DBApi.sharedInstance.storeStat(type: Statistic.assist, pid: assister.playerId, seconds: gameState["timeSeconds"] as! Double)
             self.pushPlaySequence(event: "\(active[assistIndex].firstName) got the assist")
         }
         let shot = (shotLocation.x, shotLocation.y, true)
@@ -83,6 +89,11 @@ class ShotChartViewController: UIViewController {
         var active = gameState["active"] as! [Player]
         let shooter = active[index]
         shooter.updateTwoPointAttempt(attempted: 1)
+        if(determineThreePoint(location: shotLocation)){
+            _ = DBApi.sharedInstance.storeStat(type: Statistic.score3Attempt, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
+        } else {
+            _ = DBApi.sharedInstance.storeStat(type: Statistic.score2Attempt, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
+        }
         let shot = (shotLocation.x, shotLocation.y, false)
         var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
         shots.append(shot)
