@@ -44,7 +44,7 @@ class ShotChartViewController: UIViewController {
         if segue.identifier == "gameviewSegue" || segue.identifier == "gameviewSeg" {
             if let gameView = segue.destination as? GameViewController {
                 gameView.gameState = self.gameState
-                //dismiss(animated: false, completion: nil)
+                dismiss(animated: false, completion: nil)
             }
         }
     }
@@ -75,7 +75,8 @@ class ShotChartViewController: UIViewController {
         self.gameState["shots"] = shots
         self.gameState["transitionState"] = "madeShot"
         self.pushPlaySequence(event: "\(shooter.firstName) made the shot")
-        self.performSegue(withIdentifier: "gameviewSeg", sender: nil)
+//        self.performSegue(withIdentifier: "gameviewSeg", sender: nil)
+        dismiss(animated: true)
     }
     
     @IBAction func missedShot(_ sender: UIButton) {
@@ -89,7 +90,8 @@ class ShotChartViewController: UIViewController {
         self.gameState["shots"] = shots
         self.gameState["transitionState"] = "missedShot"
         self.pushPlaySequence(event: "\(shooter.firstName) missed the shot")
-        self.performSegue(withIdentifier: "gameviewSeg", sender: nil)
+//        self.performSegue(withIdentifier: "gameviewSeg", sender: nil)
+        dismiss(animated: true)
     }
     
     func displayShots() {
