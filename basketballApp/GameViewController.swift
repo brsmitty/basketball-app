@@ -692,9 +692,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             addBorderToActivePlayer(to)
             passer.pass()
             self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
+            DBApi.sharedInstance.storeStat(type: .pass, pid: passer.playerId, seconds: timeSeconds)
         }
         else {
-            
+        
         }
     }
     

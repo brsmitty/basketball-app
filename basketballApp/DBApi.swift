@@ -30,6 +30,7 @@ enum Statistic: Int {
     case substitutionOut = 70
     case jumpBallWon = 72
     case jumpBallLost = 73
+    case pass = 74
 }
 
 extension DBApi {
