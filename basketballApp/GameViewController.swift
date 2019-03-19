@@ -26,6 +26,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tid: String = ""
     let storage = UserDefaults.standard
     var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
+    
     struct foulObject {
         var player: Player
         var numberOfShots: Int
@@ -92,10 +93,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var outOfBoundsButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    var offenseCourtTransform: CGAffineTransform?
+    var defenseCourtTransform: CGAffineTransform?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         benchView.isHidden = true
+        
+        offenseCourtTransform = courtView.transform
+        defenseCourtTransform = courtView.transform.rotated(by: .pi)
         
         let state = gameState["transitionState"] as! String
         if (state == "init" ) { getRosterFromFirebase() }
@@ -487,6 +493,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func handleJumpball(index: Int){
+        print("Possession: \(self.gameState["possession"] ?? "")")
+        print("Arrow     : \(self.gameState["possessionArrow"] ?? "")")
         if(status){
             restart()
             self.gameState["stateIndex"] = self.gameState["stateIndex"] as! Int + 1
@@ -525,11 +533,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if (gameState["possessionArrow"] as! String == "defense"){
                 self.pushPlaySequence(event: "jump ball, possession goes to the opponent")
                 gameState["possessionArrow"] = "offense"
+                
                 switchToDefense()
             }
             else if (gameState["possessionArrow"] as! String == "offense"){
                 gameState["possessionArrow"] = "defense"
                 self.pushPlaySequence(event: "jump ball, possession goes to your team")
+                
                 switchToOffense()
             }
         }
@@ -1087,14 +1097,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func switchToOffense() {
         print("switching to offense")
         self.pushPlaySequence(event: "switch to offense")
-        courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
+        courtView.transform = offenseCourtTransform ?? courtView.transform
+        
         gameState["possession"] = "offense"
-        imageHoop.center.y -= 400
-        imagePlayer1.center.y -= 400
-        imagePlayer2.center.y += 100
-        imagePlayer3.center.y += 350
-        imagePlayer4.center.y += 100
-        imagePlayer5.center.y -= 400
+        imageHoop.center.y = 129
+        imagePlayer1.center.y = 147
+        imagePlayer2.center.y = 407
+        imagePlayer3.center.y = 525
+        imagePlayer4.center.y = 407
+        imagePlayer5.center.y = 147
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
@@ -1128,14 +1139,14 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print("switching to defense")
         self.pushPlaySequence(event: "switch to defense")
         resetAllPlayerBorders()
-        courtView.transform = courtView.transform.rotated(by: CGFloat(Double.pi))
+        courtView.transform = defenseCourtTransform ?? courtView.transform
         gameState["possession"] = "defense"
-        imageHoop.center.y += 400
-        imagePlayer1.center.y += 400
-        imagePlayer2.center.y -= 100
-        imagePlayer3.center.y -= 350
-        imagePlayer4.center.y -= 100
-        imagePlayer5.center.y += 400
+        imageHoop.center.y = 529
+        imagePlayer1.center.y = 547
+        imagePlayer2.center.y = 307
+        imagePlayer3.center.y = 175
+        imagePlayer4.center.y = 307
+        imagePlayer5.center.y = 547
         boxRects[0] = CGRect.init(x: imageHoop.frame.origin.x, y: imageHoop.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[1] = CGRect.init(x: imagePlayer1.frame.origin.x, y: imagePlayer1.frame.origin.y, width: boxWidth, height: boxHeight)
         boxRects[2] = CGRect.init(x: imagePlayer2.frame.origin.x, y: imagePlayer2.frame.origin.y, width: boxWidth, height: boxHeight)
