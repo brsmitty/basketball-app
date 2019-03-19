@@ -864,6 +864,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if gameState["began"] as! Bool {
             _ = DBApi.sharedInstance.storeStat(type: .defRebound, pid: player.playerId, seconds: timeSeconds)
             pushPlaySequence(event: "\(player.firstName) rebounded a shot")
+            switchToOffense()
         }
     }
     
