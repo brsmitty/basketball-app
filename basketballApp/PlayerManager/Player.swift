@@ -49,7 +49,7 @@ class Player: NSObject {
    
    // MARK: Initialization
     
-    init(dictionary: [String: String?], id: String) {
+    init(dictionary: [String: Any], id: String) {
         playerId = id
         teamId = ""
         

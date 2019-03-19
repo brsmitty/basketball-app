@@ -132,7 +132,7 @@ class DBApi {
             var games = [[String: Any]]()
             for game in snapshot.children {
                 let gameSnap = game as? DataSnapshot
-                var gameDict = gameSnap?.value as? [String: String?] ?? [:]
+                var gameDict = gameSnap?.value as? [String: Any] ?? [:]
                 gameDict["game-id"] = gameSnap?.key ?? ""
                 games.append(gameDict)
             }
@@ -150,7 +150,7 @@ class DBApi {
             for player in snapshot.children {
                 let playerSnap = player as? DataSnapshot
                 let pid = playerSnap?.key ?? ""
-                let playerDict = playerSnap?.value as? [String: String?] ?? [:]
+                let playerDict = playerSnap?.value as? [String: Any] ?? [:]
                 players.append(Player(dictionary: playerDict, id: pid))
             }
             completion(players)

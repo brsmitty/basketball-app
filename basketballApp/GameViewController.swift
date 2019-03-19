@@ -27,6 +27,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tid: String = ""
     let storage = UserDefaults.standard
     var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
+    var currentLineup: String?
     
     struct foulObject {
         var player: Player
@@ -136,6 +137,21 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.status = true
             start()
         }
+        
+        let styleButton = UIButton()
+        styleButton.translatesAutoresizingMaskIntoConstraints = false
+        styleButton.setTitleColor(.white, for: .normal)
+        styleButton.setTitle("Style", for: .normal)
+        styleButton.addTarget(self, action: #selector(showStyleOptions), for: .touchUpInside)
+        styleButton.tag = 246
+        view.addSubview(styleButton)
+        
+        NSLayoutConstraint.activate([
+            styleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            styleButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            styleButton.widthAnchor.constraint(equalToConstant: 80),
+            styleButton.heightAnchor.constraint(equalToConstant: 60)
+            ])
     }
     
     override func viewDidLoad() {
@@ -169,7 +185,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (gameState["possession"] as! String == "defense") {
             switchToDefense()
         }
-        
     }
     
     func getUserId(){
@@ -418,16 +433,17 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let playerSubbingOut = activePlayers[activeIndex]
                 activePlayers[activeIndex] = playerSubbingIn
                 pushPlaySequence(event: "\(playerSubbingIn.firstName) subbed in")
-                //TODO delete after demo
-                DBApi.sharedInstance.storeStat(type: .substitutionIn, pid: "\(playerSubbingIn.playerId)", seconds: 60)
+                
+                let full = !activePlayers.contains(where: { $0 == nil })
+                if full {
+                    let lineupIds = activePlayers.map { $0?.playerId ?? "" }
+                    DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: lineupIds) ?? "", at: Int(timeSeconds))
+                }
 
                 if (playerSubbingOut != nil) {
                     benchPlayers[benchIndex] = playerSubbingOut!
                     pushPlaySequence(event: "\(playerSubbingOut!.firstName) subbed out")
-                    //TODO delete after demo
-                    DBApi.sharedInstance.storeStat(type: .substitutionOut, pid: "\(playerSubbingIn.playerId)", seconds: 60)
-                }
-                else {
+                } else {
                     benchPlayers.remove(at: benchIndex)
                 }
                 getPlayerImage(index: activeIndex).image = activePlayers[activeIndex]?.photo
@@ -1247,7 +1263,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if gameState["began"] as! Bool {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
-                player.updateSteals(steals: 1)
+                _ = DBApi.sharedInstance.storeStat(type: .steal, pid: player.playerId, seconds: timeSeconds)
+                pushPlaySequence(event: "\(player.firstName) stole the ball")
             }
         }
     }
@@ -1256,8 +1273,59 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if gameState["began"] as! Bool {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
-                player.updateDeflections(deflections: 1)
+                _ = DBApi.sharedInstance.storeStat(type: .deflection, pid: player.playerId, seconds: timeSeconds)
+                pushPlaySequence(event: "\(player.firstName) deflected the ball")
             }
         }
+    }
+    
+    @objc func showStyleOptions() {
+        let styleAlert = UIAlertController(title: "Style Options", message: "", preferredStyle: .actionSheet)
+        
+        let plain = UIAlertAction(title: "Plain", style: UIAlertActionStyle.default) { [weak self] _ in
+            self?.setCourtColor(color: "plain")
+        }
+        styleAlert.addAction(plain)
+        
+        let red = UIAlertAction(title: "Red", style: UIAlertActionStyle.default) { [weak self] _ in
+            self?.setCourtColor(color: "red")
+        }
+        styleAlert.addAction(red)
+        
+        let blue = UIAlertAction(title: "Blue", style: UIAlertActionStyle.default) { [weak self] _ in
+            self?.setCourtColor(color: "blue")
+        }
+        styleAlert.addAction(blue)
+        
+        let green = UIAlertAction(title: "Green", style: UIAlertActionStyle.default) { [weak self] _ in
+            self?.setCourtColor(color: "green")
+        }
+        styleAlert.addAction(green)
+        
+        let black = UIAlertAction(title: "Black", style: UIAlertActionStyle.default) { [weak self] _ in
+            self?.setCourtColor(color: "black")
+        }
+        styleAlert.addAction(black)
+        
+        styleAlert.popoverPresentationController?.sourceView = view
+        let c = imageHoop.center
+        let y = CGFloat(c.y + 100)
+        let p = CGPoint(x: c.x, y: y)
+        
+        styleAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
+        
+        present(styleAlert, animated: false)
+    }
+    
+    func setCourtColor(color: String) {
+        let img: UIImage?
+        switch color {
+        case "red": img = UIImage(named: "courtRed")
+        case "green": img = UIImage(named: "courtGreen")
+        case "blue": img = UIImage(named: "courtBlue")
+        case "black": img = UIImage(named: "courtBlack")
+        default: img = UIImage(named: "blankCourt")
+        }
+        courtView.image = img
     }
 }
