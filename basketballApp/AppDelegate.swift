@@ -73,20 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DBApi.sharedInstance.currentUserId = "test-user-id-2"
         DBApi.sharedInstance.currentGameId = "test-game-id-2"
         
-        testPlayerCreate()
-        testGameCreate()
-        testAddStat(time: 20)
-        testAddStatB()
-        testAddStatc()
-        testAddStat(time: 140)
-        
-        DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["A", "B", "C", "D", "E"]) ?? "", at: 20)
-        DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["A", "B", "G", "D", "E"]) ?? "", at: 50)
-        DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["A", "Y", "C", "Z", "E"]) ?? "", at: 100)
-        DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["X", "Y", "Z", "Q", "E"]) ?? "", at: 140)
-        DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["A", "B", "G", "D", "E"]) ?? "", at: 150)
-        DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: ["J", "B", "G", "D", "E"]) ?? "", at: 200)
-        
         return true
     }
 
