@@ -692,7 +692,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             addBorderToActivePlayer(to)
             passer.pass()
             self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
-            DBApi.sharedInstance.storeStat(type: .pass, pid: passer.playerId, seconds: timeSeconds)
+            _ = DBApi.sharedInstance.storeStat(type: .pass, pid: passer.playerId, seconds: timeSeconds)
         }
         else {
         
@@ -783,6 +783,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let teamFouls = gameState["teamFouls"] as! Int
         gameState["teamFouls"] = teamFouls + 1
         _ = DBApi.sharedInstance.storeStat(type: Statistic.techFoul, pid: player.playerId, seconds: self.timeSeconds)
+        pushPlaySequence(event: "\(player.firstName) fouled")
         if((gameState["teamFouls"] as! Int) < 9){
             self.homeFouls.text! = "0" + String(teamFouls + 1)
         }
