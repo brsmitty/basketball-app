@@ -512,6 +512,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.gameState["possessionArrow"] = "defense"
                 self.addBorderToActivePlayer(index)
                 let active = self.gameState["active"] as! [Player]
+                _ = DBApi.sharedInstance.storeStat(type: Statistic, pid: active[index].playerId, seconds: self.timeSeconds)
                 self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
             }
             let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
