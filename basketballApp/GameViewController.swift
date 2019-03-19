@@ -17,6 +17,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     weak var timer: Timer?
     var time: Double = 0
+    var timeSeconds: Double = 0
     var elapsed: Double = 0
     var status: Bool = true
     var quarterTime: Int = 10
@@ -834,10 +835,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func handleBlock(player: Player) {
         if gameState["began"] as! Bool {
-            let blocks = gameState["blocks"] as! Int
-            gameState["blocks"] = blocks + 1
-            player.updateBlocks(blocks: 1)
-            
+            _ = DBApi.sharedInstance.storeStat(type: .block, pid: player.playerId, seconds: timeSeconds)
+            pushPlaySequence(event: "\(player.firstName) blocked a shot")
         }
     }
     
@@ -1105,6 +1104,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Calculate total time since timer started in seconds
         let temp = gameState["startTime"] as! Double
         time = Date().timeIntervalSinceReferenceDate - temp
+        timeSeconds = time
         
         // Calculate minutes
         let minutes = Int(time / 60.0)
