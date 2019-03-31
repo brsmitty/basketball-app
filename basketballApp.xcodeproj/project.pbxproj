@@ -1094,13 +1094,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
-				DEVELOPMENT_TEAM = ZK4J5PT8J5;
+				DEVELOPMENT_TEAM = RBKXL8X693;
 				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidzucco.basketballApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.seanodonnell.basketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1114,13 +1114,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
-				DEVELOPMENT_TEAM = ZK4J5PT8J5;
+				DEVELOPMENT_TEAM = RBKXL8X693;
 				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidzucco.basketballApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.seanodonnell.basketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;

@@ -604,14 +604,21 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 case 5: shoot()
                 break;
                 case 0, 1, 2, 3, 4:
-                    if (gameState["transitionState"] as! String == "offensiveBoard") {
+                    if let stat = gameState["selectingHomePlayerForStat"] as? Statistic {
+                        gameState["selectingHomePlayerForStat"] = nil
+                        let active = gameState["active"] as! [Player]
+                        DBApi.sharedInstance.storeStat(type: stat, pid: active[view.tag].playerId, seconds: timeSeconds)
+                    }
+                    else if (gameState["transitionState"] as! String == "offensiveBoard") {
                         addBorderToActivePlayer(view.tag)
                         gameState["ballIndex"] = view.tag
                         let active = gameState["active"] as! [Player]
                         self.pushPlaySequence(event: "\(active[view.tag].firstName) got the offensive board")
                         gameState["transitionState"] = "inProgress"
                     }
-                    else {
+                    else if gameState["reboundState"] as? String ?? "" == "offensiveWaiting" {
+                        // this player got the rebound
+                    } else {
                         if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
                         else { pass(to: view.tag) }
                     }
@@ -702,9 +709,12 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func handleRebound(){
         let reboundAlert = UIAlertController(title: "Rebound", message: "", preferredStyle: .alert)
         let offensive = UIAlertAction(title: "Offensive", style: UIAlertActionStyle.default) { UIAlertAction in
+            // wait for next tapped player...
             self.gameState["transitionState"] = "offensiveBoard"
+            self.gameState["reboundState"] = "offensiveWaiting"
         }
         let defensive = UIAlertAction(title: "Defensive", style: UIAlertActionStyle.destructive) { UIAlertAction in
+            // show opponent player selection
             self.pushPlaySequence(event: "opponent got the defensive board")
             self.switchToDefense()
         }
@@ -871,8 +881,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func handleTurnover(_ sender: UIButton) {
         let possession = gameState["possession"] as! String
         if (possession == "offense") {
+            // DIL: show list of possible turnover types,
+            // trip isSelectingHomePlayer flag to true, SEAN: show quick select
             switchToDefense()
-            
         }
         else if (possession == "defense"){
             switchToOffense()
@@ -1330,5 +1341,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         default: img = UIImage(named: "blankCourt")
         }
         courtView.image = img
+    }
+    
+    // show quick select for home team
+    func selectHomePlayer(stat: Statistic) {
+        gameState["selectingHomePlayerForStat"] = stat
+        // gray out view except player icons
+    }
+    
+    func selectOpposingPlayer(stat: Statistic) {
+        
     }
 }

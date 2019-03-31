@@ -31,6 +31,8 @@ enum Statistic: Int {
     case jumpBallWon = 72
     case jumpBallLost = 73
     case pass = 74
+    case threeSecondViolation = 75
+    case flagrantFoul = 76
 }
 
 extension DBApi {
