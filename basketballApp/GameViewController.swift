@@ -29,6 +29,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
     var currentLineup: String?
     
+    var blurView: UIVisualEffectView?
+    
     struct foulObject {
         var player: Player
         var numberOfShots: Int
@@ -604,20 +606,28 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 case 5: shoot()
                 break;
                 case 0, 1, 2, 3, 4:
-                    if let stat = gameState["selectingHomePlayerForStat"] as? Statistic {
-                        gameState["selectingHomePlayerForStat"] = nil
+                    if let stat = gameState["selectingHomePlayerForStat"] as? Statistic,
+                        let blurView = self.blurView {
                         let active = gameState["active"] as! [Player]
-                        DBApi.sharedInstance.storeStat(type: stat, pid: active[view.tag].playerId, seconds: timeSeconds)
-                    }
-                    else if (gameState["transitionState"] as! String == "offensiveBoard") {
-                        addBorderToActivePlayer(view.tag)
-                        gameState["ballIndex"] = view.tag
-                        let active = gameState["active"] as! [Player]
-                        self.pushPlaySequence(event: "\(active[view.tag].firstName) got the offensive board")
+                        let player = active[view.tag]
+                        
+                        if [.offRebound, .defRebound, .steal].contains(stat) {
+                            addBorderToActivePlayer(view.tag)
+                            gameState["ballIndex"] = view.tag
+                        }
+                        
+                        self.pushPlaySequence(event: "\(player.firstName) recorded a(n) \(stat.rawValue)") // todo, report specific stat
+                        DBApi.sharedInstance.storeStat(type: stat, pid: player.playerId, seconds: timeSeconds)
+                        
+                        // REMOVE BLUR VIEW
+                        blurView.removeFromSuperview()
+                        self.blurView = nil
+                        
                         gameState["transitionState"] = "inProgress"
                     }
-                    else if gameState["reboundState"] as? String ?? "" == "offensiveWaiting" {
-                        // this player got the rebound
+                    else if (gameState["transitionState"] as! String == "offensiveBoard") {
+                        let active = gameState["active"] as! [Player]
+                        self.pushPlaySequence(event: "\(active[view.tag].firstName) got the offensive board")
                     } else {
                         if gameState["ballIndex"] as! Int == (view.tag) { dribble() }
                         else { pass(to: view.tag) }
@@ -712,6 +722,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             // wait for next tapped player...
             self.gameState["transitionState"] = "offensiveBoard"
             self.gameState["reboundState"] = "offensiveWaiting"
+            self.selectHomePlayer(stat: .offRebound)
         }
         let defensive = UIAlertAction(title: "Defensive", style: UIAlertActionStyle.destructive) { UIAlertAction in
             // show opponent player selection
@@ -1347,6 +1358,35 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func selectHomePlayer(stat: Statistic) {
         gameState["selectingHomePlayerForStat"] = stat
         // gray out view except player icons
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        courtView.insertSubview(blurView, at: 0)
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Pick one player"
+        label.font = .systemFont(ofSize: 24)
+        label.textColor = .white
+        blurView.contentView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        self.blurView = blurView
+        
+        view.bringSubview(toFront: imagePlayer1)
+        view.bringSubview(toFront: imagePlayer2)
+        view.bringSubview(toFront: imagePlayer3)
+        view.bringSubview(toFront: imagePlayer4)
+        view.bringSubview(toFront: imagePlayer5)
     }
     
     func selectOpposingPlayer(stat: Statistic) {

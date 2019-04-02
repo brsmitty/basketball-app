@@ -9,30 +9,30 @@
 import Foundation
 import Firebase
 
-enum Statistic: Int {
-    case score2 = 0
-    case score3 = 1
-    case score2Attempt = 2
-    case score3Attempt = 4
-    case freeThrow = 8
-    case freeThrowAttempt = 16
-    case assist = 32
-    case turnover = 64
-    case offRebound = 128
-    case defRebound = 256
-    case steal = 518
-    case block = 1024
-    case deflection = 2048
-    case personalFoul = 4096
-    case techFoul = 8192
-    case chargeTaken = 16384
-    case substitutionIn = 69
-    case substitutionOut = 70
-    case jumpBallWon = 72
-    case jumpBallLost = 73
-    case pass = 74
-    case threeSecondViolation = 75
-    case flagrantFoul = 76
+enum Statistic: String {
+    case score2 = "2 point score"
+    case score3 = "3 point score"
+    case score2Attempt = "2 point missed FG"
+    case score3Attempt = "3 point missed FG"
+    case freeThrow = "free throw score"
+    case freeThrowAttempt = "free throw attempt"
+    case assist = "assist"
+    case turnover = "turnover"
+    case offRebound = "offensive rebound"
+    case defRebound = "defensive rebound"
+    case steal = "steal"
+    case block = "blocked shot"
+    case deflection = "deflection"
+    case personalFoul = "personal foul"
+    case techFoul = "technical foul"
+    case chargeTaken = "charge taken"
+    case substitutionIn = "substitution in"
+    case substitutionOut = "substitution out"
+    case jumpBallWon = "jump ball win"
+    case jumpBallLost = "jump ball loss"
+    case pass = "completed pass"
+    case threeSecondViolation = "3 second violation"
+    case flagrantFoul = "flagrant foul"
 }
 
 extension DBApi {
