@@ -132,6 +132,11 @@ class ShotChartViewController: UIViewController {
     
     func determineThreePoint(location: CGPoint) -> Bool{
         var value = false
+        let normalizedX:CGFloat = location.x/self.chartView.bounds.width
+        let normalizedY:CGFloat = location.y/self.chartView.bounds.height
+        
+        print("The normalized values are: \(normalizedX) and \(normalizedY)")
+        
         if(location.y > 594.5){
             value = true
         }
