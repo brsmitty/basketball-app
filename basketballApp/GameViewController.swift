@@ -106,6 +106,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         defenseCourtTransform = courtView.transform.rotated(by: .pi)
         
         let state = gameState["transitionState"] as! String
+        
+        print("The view is recreated by incompetance")
+        if(gameState["possession"] != nil){
+            if(gameState["possession"] as! String == "offense"){
+                self.switchToOffense()
+            } else if (gameState["possession"] as! String == "defense"){
+                self.switchToDefense()
+            }
+        }
         if (state == "init" ) { getRosterFromFirebase() }
         else if (state == "missedShot") {
             gameState["transitionState"] = "inProgress"
@@ -628,8 +637,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.performSegue(withIdentifier: "shotchartSegue", sender: nil)
         }
         else {
-            
-        }
+            UIView.setAnimationsEnabled(false)
+            self.performSegue(withIdentifier: "shotchartSegue", sender: nil)        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -703,6 +712,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let reboundAlert = UIAlertController(title: "Rebound", message: "", preferredStyle: .alert)
         let offensive = UIAlertAction(title: "Offensive", style: UIAlertActionStyle.default) { UIAlertAction in
             self.gameState["transitionState"] = "offensiveBoard"
+            self.switchToOffense()
         }
         let defensive = UIAlertAction(title: "Defensive", style: UIAlertActionStyle.destructive) { UIAlertAction in
             self.pushPlaySequence(event: "opponent got the defensive board")

@@ -101,7 +101,7 @@ class DBApi {
         refPlayersTable.updateChildValues(childUpdates)
         completion()
         
-        return newPlayerId
+        return newPlayerId ?? ""
     }
     
     func createGames(info: [String: Any]) -> String {
@@ -121,7 +121,7 @@ class DBApi {
         let childUpdates = ["/\(newGameId)": game]
         refGameTable.updateChildValues(childUpdates)
         
-        return newGameId
+        return newGameId ?? ""
     }
     
     func getGames(completion: @escaping ([[String: Any]]) -> Void) {
@@ -220,6 +220,6 @@ class DBApi {
         ]
         let newChildUpdate = ["\(newLineupChildId)": newLineupTime]
         refLineupsTable.updateChildValues(newChildUpdate)
-        currentLineup = (newLineupId, newLineupChildId, gameTimeInSeconds)
+        currentLineup = (newLineupId, newLineupChildId, gameTimeInSeconds) as! (id: String, key: String, time: Int)
     }
 }

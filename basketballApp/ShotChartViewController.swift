@@ -6,6 +6,7 @@
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
 import UIKit
+import CircleAnimatedMenu
 
 class ShotChartViewController: UIViewController {
     
@@ -37,8 +38,18 @@ class ShotChartViewController: UIViewController {
         resultVC.popoverPresentationController?.sourceRect = CGRect.init(origin: location, size: CGSize.init())
         resultVC.gameState = gameState
         resultVC.shotLocation = shotLocation
-        self.present(resultVC, animated: false)
+        
+        let shotFrame = CGRect(x:location.x-110, y:location.y-110, width:220, height:220)
+        let shotMenu = CircleAnimatedMenu(menuFrame: shotFrame, dataArray:[
+            ("foul","foul"), ("made","made"), ("missed","missed"), ("cancel","cancel")
+            ])
+        shotMenu.animated = false
+        shotMenu.delegate = self
+        
+        self.view.addSubview(shotMenu)
     }
+    
+   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "gameviewSegue" || segue.identifier == "gameviewSeg" {
@@ -157,4 +168,11 @@ class ShotChartViewController: UIViewController {
         return value
     }
     
+}
+
+
+extension ShotChartViewController : CircleAnimatedMenuDelegate {
+    func sectionSelected(text: String, index: Int){
+        
+    }
 }

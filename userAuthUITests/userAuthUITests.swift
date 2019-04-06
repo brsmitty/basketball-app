@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Pods_basketball_app
+@testable import Pods_basketballApp
 
 class userAuthUITests: XCTestCase {
       let app = XCUIApplication()
