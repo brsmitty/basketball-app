@@ -716,6 +716,22 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    @IBAction func handleThreeSecondViolation(_ touchHandler: UILongPressGestureRecognizer) {
+            benchView.isHidden = true
+            
+            let index = touchHandler.view?.tag ?? 0
+            if touchHandler.state == .began {
+                let possession = self.gameState["possession"] as! String
+                if (possession == "defense") {
+                    self.selectHomePlayer(stat: Statistic.threeSecondViolation)
+                }
+                else {
+                    self.selectOpposingPlayer(stat: Statistic.threeSecondViolation)
+                }
+            }
+        }
+        //wait for next tapped player
+    
     func handleRebound(){
         let reboundAlert = UIAlertController(title: "Rebound", message: "", preferredStyle: .alert)
         let offensive = UIAlertAction(title: "Offensive", style: UIAlertActionStyle.default) { UIAlertAction in
@@ -725,7 +741,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.selectHomePlayer(stat: .offRebound)
         }
         let defensive = UIAlertAction(title: "Defensive", style: UIAlertActionStyle.destructive) { UIAlertAction in
+            self.gameState["selectingHomePlayerForStat"] = Statistic.defRebound
             // show opponent player selection
+            //wait for next tapped player
+            self.selectHomePlayer(stat: .defRebound)
             self.pushPlaySequence(event: "opponent got the defensive board")
             self.switchToDefense()
         }
@@ -741,19 +760,12 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         benchView.isHidden = true
         
         let index = touchHandler.view?.tag ?? 0
-        
         if touchHandler.state == .began {
-            
             let possession = self.gameState["possession"] as! String
-            
             if (possession == "defense") {
-                
                 presentDefensiveOptions(index: index)
-                
             }
-                
             else {
-                
                 presentOffensiveOptions(index: index)
                 
             }
@@ -907,6 +919,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let own = UIAlertAction(title: "Our Team", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.pushPlaySequence(event: "out of bounds on your team")
                 let possession = self.gameState["possession"] as! String
+                
                 if (possession == "offense") {
                     self.switchToDefense()
                 }
@@ -914,6 +927,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.stop()
                     
                 }
+                self.selectHomePlayer(stat:Statistic.turnover)
             }
             let opponent = UIAlertAction(title: "Opponent", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.pushPlaySequence(event: "out of bounds on the opponent")
@@ -924,6 +938,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 else if (possession == "defense") {
                     self.switchToOffense()
                 }
+                self.selectOpposingPlayer(stat:Statistic.turnover)
             }
             outOfBoundsAlert.addAction(own)
             outOfBoundsAlert.addAction(opponent)
