@@ -30,6 +30,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var currentLineup: String?
     
     var blurView: UIVisualEffectView?
+    let paintButton = UIButton()
     
     struct foulObject {
         var player: Player
@@ -153,6 +154,19 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             styleButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             styleButton.widthAnchor.constraint(equalToConstant: 80),
             styleButton.heightAnchor.constraint(equalToConstant: 60)
+            ])
+        
+        paintButton.translatesAutoresizingMaskIntoConstraints = false
+        paintButton.backgroundColor = .clear
+        paintButton.layer.borderColor = UIColor.red.cgColor
+        paintButton.layer.borderWidth = 2
+        courtView.addSubview(paintButton)
+        
+        NSLayoutConstraint.activate([
+            paintButton.centerXAnchor.constraint(equalTo: courtView.centerXAnchor),
+            paintButton.widthAnchor.constraint(equalToConstant: 100),
+            paintButton.heightAnchor.constraint(equalToConstant: 175),
+            paintButton.topAnchor.constraint(equalTo: courtView.topAnchor, constant: 20)
             ])
     }
     
@@ -823,8 +837,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if((gameState["teamFouls"] as! Int) < 9){
             self.homeFouls.text! = "0" + String(teamFouls + 1)
         }
-        else{
-            self.homeScore.text! = String(teamFouls + 1)
+        else {
+            self.homeFouls.text! = String(teamFouls + 1)
         }
         if (teamFouls >= 7) {
             gameState["fouledPlayer"] = player
@@ -1281,6 +1295,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.pushPlaySequence(event: "switch to defense")
         resetAllPlayerBorders()
         courtView.transform = defenseCourtTransform ?? courtView.transform
+        
         gameState["possession"] = "defense"
         imageHoop.center.y = 529
         imagePlayer1.center.y = 547
