@@ -962,8 +962,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.selectOpposingPlayer(stat:Statistic.turnover)
             }
             
-            outOfBoundsAlert.addAction(own)
-            outOfBoundsAlert.addAction(opponent)
+            outOfBoundsAlert.addAction(offensive)
+            outOfBoundsAlert.addAction(defensive)
             outOfBoundsAlert.popoverPresentationController?.sourceView = view
             outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: imageHoop.center, size: CGSize.init())
             present(outOfBoundsAlert, animated: true)
