@@ -26,6 +26,7 @@ enum Statistic: String {
     case personalFoul = "personal foul"
     case techFoul = "technical foul"
     case chargeTaken = "charge taken"
+    case charge = "charge"
     case substitutionIn = "substitution in"
     case substitutionOut = "substitution out"
     case jumpBallWon = "jump ball win"

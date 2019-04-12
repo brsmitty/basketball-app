@@ -763,7 +763,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.gameState["selectingHomePlayerForStat"] = Statistic.defRebound
             // show opponent player selection
             //wait for next tapped player
-            self.selectHomePlayer(stat: .defRebound)
+            self.selectOpposingPlayer(stat: Statistic.defRebound)
             self.pushPlaySequence(event: "opponent got the defensive board")
             self.switchToDefense()
         }
@@ -893,10 +893,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 p.updatePersonalFouls(fouls: 1)
                 self.pushPlaySequence(event: "\(p.firstName) charged")
                 _ = DBApi.sharedInstance.storeStat(type: Statistic.chargeTaken, pid: p.playerId, seconds: self.timeSeconds)
+                self.selectHomePlayer(stat:Statistic.charge)
                 switchToDefense()
             }
             else if (possession == "defense") {
                 self.pushPlaySequence(event: "Opponent charged")
+                
+                self.selectHomePlayer(stat:Statistic.chargeTaken)
                 let opponentCharges = gameState["oppCharges"] as! Int
                 gameState["oppCharges"] = opponentCharges + 1
                 switchToOffense()
@@ -923,6 +926,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (possession == "offense") {
             // DIL: show list of possible turnover types,
             // trip isSelectingHomePlayer flag to true, SEAN: show quick select
+            selectHomePlayer(stat:Statistic.turnover)
             switchToDefense()
         }
         else if (possession == "defense"){
@@ -957,14 +961,12 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 self.selectOpposingPlayer(stat:Statistic.turnover)
             }
+            
             outOfBoundsAlert.addAction(own)
             outOfBoundsAlert.addAction(opponent)
             outOfBoundsAlert.popoverPresentationController?.sourceView = view
-            let c = outOfBoundsButton.center
-            let y = CGFloat(c.y + 100)
-            let p = CGPoint(x: c.x, y: y)
-            outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
-            present(outOfBoundsAlert, animated: false)
+            outOfBoundsAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: imageHoop.center, size: CGSize.init())
+            present(outOfBoundsAlert, animated: true)
         }
     }
     
@@ -980,25 +982,25 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let timeoutAlert = UIAlertController(title: "Timeout", message: "", preferredStyle: .actionSheet)
             let full = UIAlertAction(title: "60-second", style: UIAlertActionStyle.default) { UIAlertAction in
                 if (possession == "offense") {
-                    self.pushPlaySequence(event: "full timeout called")
+                    self.pushPlaySequence(event: "full timeout called, current full timeouts: " + String(fullTimeouts))
                     self.stop()
                     let temp = self.gameState["fullTimeouts"] as! Int
                     self.gameState["fullTimeouts"] = temp - 1
                 }
                 else if (possession == "defense") {
-                    self.pushPlaySequence(event: "full timeout called by opponent")
+                    self.pushPlaySequence(event: "full timeout called by opponent, current full timeouts: " + String(oppFullTimeouts))
                     self.stop()
                     self.gameState["oppFullTimeouts"] = oppFullTimeouts - 1
                 }
             }
             let half = UIAlertAction(title: "30-second", style: UIAlertActionStyle.default) { UIAlertAction in
                 if (possession == "offense") {
-                    self.pushPlaySequence(event: "half timeout called")
+                    self.pushPlaySequence(event: "half timeout called, current half timeouts: " + String(halfTimeouts))
                     self.stop()
                     self.gameState["halfTimeouts"] = halfTimeouts - 1
                 }
                 else if (possession == "defense") {
-                    self.pushPlaySequence(event: "half timeout called by opponent")
+                    self.pushPlaySequence(event: "half timeout called by opponent, current half timeouts: " + String(oppHalfTimeouts))
                     self.stop()
                     self.gameState["oppHalfTimeouts"] = oppHalfTimeouts - 1
                 }
