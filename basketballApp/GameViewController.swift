@@ -625,6 +625,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         
                         gameState["transitionState"] = "inProgress"
                     }
+                    else if let stat = gameState["selectingOpposingPlayerForStat"] as? Statistic {
+                        gameState["selectingOpposingPlayerForStat"] = nil
+                        let active = gameState["active"] as! [Player]
+                        DBApi.sharedInstance.storeStat(type: stat, pid: active[view.tag].playerId, seconds: timeSeconds)
+                    }
                     else if (gameState["transitionState"] as! String == "offensiveBoard") {
                         let active = gameState["active"] as! [Player]
                         self.pushPlaySequence(event: "\(active[view.tag].firstName) got the offensive board")
@@ -767,9 +772,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else {
                 presentOffensiveOptions(index: index)
-                
-            }
-            
+                }
         }
         
     }
