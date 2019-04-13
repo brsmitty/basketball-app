@@ -74,6 +74,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var currentPath = IndexPath()
     var paths:[IndexPath] = [IndexPath]()
     @IBOutlet weak var homeScore: UILabel!
+    @IBOutlet weak var awayScore: UILabel!
     @IBOutlet weak var homeFouls: UILabel!
     @IBOutlet weak var gameStateBoard: UILabel!
     @IBOutlet weak var benchView: UIView!
@@ -101,20 +102,14 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         benchView.isHidden = true
-        
-        offenseCourtTransform = courtView.transform
-        defenseCourtTransform = courtView.transform.rotated(by: .pi)
+        if(offenseCourtTransform == nil){
+            offenseCourtTransform = courtView.transform
+            defenseCourtTransform = courtView.transform.rotated(by: .pi)
+        }
         
         let state = gameState["transitionState"] as! String
         
-        print("The view is recreated by incompetance")
-        if(gameState["possession"] != nil){
-            if(gameState["possession"] as! String == "offense"){
-                self.switchToOffense()
-            } else if (gameState["possession"] as! String == "defense"){
-                self.switchToDefense()
-            }
-        }
+        /* Process transitions */
         if (state == "init" ) { getRosterFromFirebase() }
         else if (state == "missedShot") {
             gameState["transitionState"] = "inProgress"
@@ -126,19 +121,38 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             gameState["transitionState"] = "inProgress"
             populateBench()
             populateActive()
-            switchToDefense()
+            if(gameState["possession"] as! String == "offense"){
+                switchToDefense()
+            } else {
+                switchToOffense()
+            }
         }
         else if (state == "freethrow") {
             gameState["transitionState"] = "inProgress"
             populateBench()
             populateActive()
         }
+        /* No transitions, simply switch to show possession */
+        if((state==nil || state.count==0) && gameState["possession"] != nil){
+            if(gameState["possession"] as! String == "offense"){
+                self.switchToOffense()
+            } else if (gameState["possession"] as! String == "defense"){
+                self.switchToDefense()
+            }
+        }
+        
         if (gameState["began"] as! Bool){
             if((gameState["homeScore"] as! Int) < 10){
                 self.homeScore.text! = "0" + String(gameState["homeScore"] as! Int)
             }
             else{
                 self.homeScore.text! = String(gameState["homeScore"] as! Int)
+            }
+            if((gameState["oppScore"] as! Int) < 10){
+                self.awayScore.text! = "0" + String(gameState["oppScore"] as! Int)
+            }
+            else{
+                self.awayScore.text! = String(gameState["oppScore"] as! Int)
             }
             gameStateBoard.text = gameState["quarterIndex"] as? String
             self.time = gameState["time"] as! Double
@@ -798,7 +812,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.homeFouls.text! = "0" + String(teamFouls + 1)
         }
         else{
-            self.homeScore.text! = String(teamFouls + 1)
+            self.homeFouls.text! = String(teamFouls + 1)
         }
         if (teamFouls >= 7) {
             gameState["fouledPlayer"] = player
@@ -806,7 +820,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         else if (teamFouls >= 10) {
             
         }
-        self.performSegue(withIdentifier: "freethrowSegue", sender: nil)
+        self.dismiss(animated: false, completion: nil)
+        //self.performSegue(withIdentifier: "freethrowSegue", sender: nil)
     }
     
     @IBAction func handleTechFoul(index: Int) {
@@ -817,7 +832,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.homeFouls.text! = "0" + String(teamFouls + 1)
             }
             else{
-                self.homeScore.text! = String(teamFouls + 1)
+                self.homeFouls.text! = String(teamFouls + 1)
             }
             gameState["fouledPlayerIndex"] = 999
             let techAlert = UIAlertController(title: "Turnover", message: "", preferredStyle: .actionSheet)
@@ -1208,7 +1223,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func switchToOffense() {
         print("switching to offense")
         self.pushPlaySequence(event: "switch to offense")
-        courtView.transform = offenseCourtTransform ?? courtView.transform
+        courtView.transform = offenseCourtTransform!
         
         gameState["possession"] = "offense"
         imageHoop.center.y = 129
@@ -1250,7 +1265,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print("switching to defense")
         self.pushPlaySequence(event: "switch to defense")
         resetAllPlayerBorders()
-        courtView.transform = defenseCourtTransform ?? courtView.transform
+        courtView.transform = defenseCourtTransform!
         gameState["possession"] = "defense"
         imageHoop.center.y = 529
         imagePlayer1.center.y = 547
