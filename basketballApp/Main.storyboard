@@ -1414,7 +1414,7 @@
                                     <action selector="madeShots:" destination="X2n-cM-7pe" eventType="touchDown" id="dfR-db-XG7"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9C-Pp-tv7">
+                            <containerView opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9C-Pp-tv7">
                                 <rect key="frame" x="0.0" y="37" width="100" height="731"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
@@ -1749,7 +1749,7 @@
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tes-uO-rgX">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tes-uO-rgX" userLabel="Away Foul">
                                         <rect key="frame" x="609" y="-7" width="42" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="29"/>
@@ -1815,6 +1815,7 @@
                         <viewLayoutGuide key="safeArea" id="oqP-l2-iqJ"/>
                     </view>
                     <connections>
+                        <outlet property="awayFouls" destination="tes-uO-rgX" id="SJi-kR-1xW"/>
                         <outlet property="awayScore" destination="ad0-yY-q81" id="9p2-KU-lNH"/>
                         <outlet property="benchButton" destination="QpF-AH-LXs" id="pZZ-Qe-Do3"/>
                         <outlet property="benchView" destination="hbj-G3-Gbg" id="LXg-JX-7Zt"/>
@@ -1840,7 +1841,7 @@
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
                         <outlet property="turnoverButton" destination="fo8-Oe-kHR" id="KqY-3f-tHM"/>
                         <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" id="Kov-4w-Yr5"/>
-                        <segue destination="X2n-cM-7pe" kind="show" identifier="freethrowSegue" id="iIY-nF-rbF"/>
+                        <segue destination="X2n-cM-7pe" kind="presentation" identifier="freethrowSegue" id="iIY-nF-rbF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3038,12 +3039,11 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kov-4w-Yr5"/>
         <segue reference="JP8-mt-yTk"/>
         <segue reference="FiU-no-Emh"/>
         <segue reference="QSQ-J0-xoi"/>
         <segue reference="7C8-E9-oft"/>
-        <segue reference="atr-rx-Imt"/>
+        <segue reference="Dgp-yY-Ula"/>
         <segue reference="aCz-M9-az0"/>
         <segue reference="oRO-wQ-aRf"/>
         <segue reference="chn-OD-mNE"/>

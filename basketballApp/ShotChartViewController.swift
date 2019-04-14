@@ -45,8 +45,10 @@ class ShotChartViewController: UIViewController {
         }
         let shotFrame = CGRect(x:location.x-110, y:location.y-110, width:220, height:220)
         self.shotMenu = CircleAnimatedMenu(menuFrame: shotFrame, dataArray:[
-            ("foul","foul"), ("made","made"), ("missed","missed"), ("cancel","cancel")
+            ("cancel","cancel"),("foul","foul"), ("made","made"), ("missed","missed")
             ])
+        self.shotMenu?.innerCircleColor = UIColor.clear
+        self.shotMenu?.highlightedColor = UIColor.orange
         self.shotMenu!.animated = false
         self.shotMenu!.delegate = self
         self.displayedSelection = true
@@ -67,6 +69,11 @@ class ShotChartViewController: UIViewController {
                 //dismiss(animated: false, completion: nil)
             }
         }
+    }
+    
+    func handleFoul(){
+        self.gameState["transitionState"] = "shotFoul"
+        self.goBack()
     }
     
      func madeShot() {
@@ -216,7 +223,7 @@ extension ShotChartViewController : CircleAnimatedMenuDelegate {
         } else if (text=="cancel") {
             cancelShot()
         } else if (text=="foul") {
-            
+            handleFoul()
         }
     }
 }

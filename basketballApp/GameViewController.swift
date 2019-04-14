@@ -38,6 +38,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var gameState: [String: Any] = ["began": false,
                                     "transitionState": "init",
                                     "possession": "",
+                                    "currentlyPaused": false,
                                     "possessionArrow": "",
                                     "teamFouls": 0,
                                     "oppTeamFouls": 0,
@@ -76,6 +77,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var homeScore: UILabel!
     @IBOutlet weak var awayScore: UILabel!
     @IBOutlet weak var homeFouls: UILabel!
+    @IBOutlet weak var awayFouls: UILabel!
     @IBOutlet weak var gameStateBoard: UILabel!
     @IBOutlet weak var benchView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -131,6 +133,17 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             gameState["transitionState"] = "inProgress"
             populateBench()
             populateActive()
+            if(gameState["possession"] as! String == "offense"){
+                switchToDefense()
+            } else {
+                switchToOffense()
+            }
+        } else if(state == "shotFoul"){
+            /* if foul occured while taking a shot */
+            gameState["transitionState"] = "inProgress"
+            let active = gameState["active"] as! [Player]
+            let index = gameState["ballIndex"] as! Int
+            handleFoul(player: active[index])
         }
         /* No transitions, simply switch to show possession */
         if((state==nil || state.count==0) && gameState["possession"] != nil){
@@ -820,8 +833,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         else if (teamFouls >= 10) {
             
         }
-        self.dismiss(animated: false, completion: nil)
-        //self.performSegue(withIdentifier: "freethrowSegue", sender: nil)
+        //self.dismiss(animated: false, completion: nil)
+        print("Gonna go into segue")
+        self.performSegue(withIdentifier: "freethrowSegue", sender: nil)
     }
     
     @IBAction func handleTechFoul(index: Int) {
@@ -940,7 +954,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func handleTimeout(_ sender: UIButton) {
-        if gameState["began"] as! Bool {
+        if gameState["began"] as! Bool && gameState["currentlyPaused"] as! Bool == false{
             let possession = gameState["possession"] as! String
             
             let fullTimeouts = self.gameState["fullTimeouts"] as! Int
@@ -961,6 +975,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.stop()
                     self.gameState["oppFullTimeouts"] = oppFullTimeouts - 1
                 }
+                self.timeoutButton.setTitle("Resume", for: UIControlState.normal)
             }
             let half = UIAlertAction(title: "30-second", style: UIAlertActionStyle.default) { UIAlertAction in
                 if (possession == "offense") {
@@ -973,6 +988,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.stop()
                     self.gameState["oppHalfTimeouts"] = oppHalfTimeouts - 1
                 }
+                self.timeoutButton.setTitle("Resume", for: UIControlState.normal)
             }
             
             let hasFullTimeouts = (possession == "offense" && fullTimeouts > 0) || (possession == "defense" && oppFullTimeouts > 0)
@@ -986,6 +1002,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let p = CGPoint(x: c.x, y: y)
             timeoutAlert.popoverPresentationController?.sourceRect = CGRect.init(origin: p, size: CGSize.init())
             present(timeoutAlert, animated: false)
+        } else if(gameState["currentlyPaused"] as! Bool == true){
+           start()
         }
     }
     
@@ -1142,10 +1160,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             gameState["startTime"] = Date().timeIntervalSinceReferenceDate - elapsed
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
             status = false
+            self.timeoutButton.setTitle("Timeout", for: UIControlState.normal)
+            gameState["currentlyPaused"] = false
         }
     }
     
     func stop() {
+        self.gameState["currentlyPaused"] = true
         let temp = gameState["startTime"] as! Double
         elapsed = Date().timeIntervalSinceReferenceDate - temp
         timer?.invalidate()
