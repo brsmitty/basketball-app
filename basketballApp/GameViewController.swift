@@ -76,6 +76,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var paths:[IndexPath] = [IndexPath]()
     @IBOutlet weak var homeScore: UILabel!
     @IBOutlet weak var awayScore: UILabel!
+    @IBOutlet weak var timeOutsLeft: UILabel!
+    @IBOutlet weak var timeOutsLeftDefense: UILabel!
+    @IBOutlet weak var homePossession: UILabel!
+    @IBOutlet weak var awayPossession: UILabel!
     @IBOutlet weak var homeFouls: UILabel!
     @IBOutlet weak var awayFouls: UILabel!
     @IBOutlet weak var gameStateBoard: UILabel!
@@ -571,12 +575,16 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let active = self.gameState["active"] as! [Player]
                 _ = DBApi.sharedInstance.storeStat(type: Statistic.jumpBallWon, pid: active[index].playerId, seconds: self.timeSeconds)
                 self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
+                self.homePossession.text! = "<"
+                self.awayPossession.text! = ""
                 //TODO delete after demo
             }
             let lost = UIAlertAction(title: "Lost", style: UIAlertActionStyle.default) { UIAlertAction in
                 self.gameState["possessionArrow"] = "offense"
                 let active = self.gameState["active"] as! [Player]
                 self.pushPlaySequence(event: "\(active[index].firstName) lost the jump ball")
+                self.homePossession.text! = ""
+                self.awayPossession.text! = ">"
                 //TODO delete after demo
                 DBApi.sharedInstance.storeStat(type: .jumpBallLost, pid: "\(active[index].playerId)", seconds: self.timeSeconds)
                 self.switchToDefense()
@@ -969,11 +977,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.stop()
                     let temp = self.gameState["fullTimeouts"] as! Int
                     self.gameState["fullTimeouts"] = temp - 1
+                    self.updateHomeTimeOuts()
+
                 }
                 else if (possession == "defense") {
                     self.pushPlaySequence(event: "full timeout called by opponent")
                     self.stop()
                     self.gameState["oppFullTimeouts"] = oppFullTimeouts - 1
+                    self.updateAwayTimeOuts()
+
                 }
                 self.timeoutButton.setTitle("Resume", for: UIControlState.normal)
             }
@@ -982,11 +994,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.pushPlaySequence(event: "half timeout called")
                     self.stop()
                     self.gameState["halfTimeouts"] = halfTimeouts - 1
+                    self.updateHomeTimeOuts()
                 }
                 else if (possession == "defense") {
                     self.pushPlaySequence(event: "half timeout called by opponent")
                     self.stop()
                     self.gameState["oppHalfTimeouts"] = oppHalfTimeouts - 1
+                    self.updateAwayTimeOuts()
                 }
                 self.timeoutButton.setTitle("Resume", for: UIControlState.normal)
             }
@@ -1007,6 +1021,32 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    func updateHomeTimeOuts() {
+        if(((self.gameState["fullTimeouts"] as! Int) +  (self.gameState["halfTimeouts"] as! Int)) == 4){
+            self.timeOutsLeft.text! = "* * * *"
+        } else if(((self.gameState["fullTimeouts"] as! Int) +  (self.gameState["halfTimeouts"] as! Int)) == 3){
+            self.timeOutsLeft.text! = "* * *"
+        } else if(((self.gameState["fullTimeouts"] as! Int) +  (self.gameState["halfTimeouts"] as! Int)) == 2){
+            self.timeOutsLeft.text! = "* *"
+        } else if(((self.gameState["fullTimeouts"] as! Int) +  (self.gameState["halfTimeouts"] as! Int)) == 1){
+            self.timeOutsLeft.text! = "*"
+        } else if(((self.gameState["fullTimeouts"] as! Int) +  (self.gameState["halfTimeouts"] as! Int)) == 0){
+            self.timeOutsLeft.text! = "No Timeouts"
+        }
+    }
+    func updateAwayTimeOuts() {
+        if(((self.gameState["oppFullTimeouts"] as! Int) +  (self.gameState["oppHalfTimeouts"] as! Int)) == 4){
+            self.timeOutsLeftDefense.text! = "* * * *"
+        } else if(((self.gameState["oppFullTimeouts"] as! Int) +  (self.gameState["oppHalfTimeouts"] as! Int)) == 3){
+            self.timeOutsLeftDefense.text! = "* * *"
+        } else if(((self.gameState["oppFullTimeouts"] as! Int) +  (self.gameState["oppHalfTimeouts"] as! Int)) == 2){
+            self.timeOutsLeftDefense.text! = "* *"
+        } else if(((self.gameState["oppFullTimeouts"] as! Int) +  (self.gameState["oppHalfTimeouts"] as! Int)) == 1){
+            self.timeOutsLeftDefense.text! = "*"
+        } else if(((self.gameState["oppFullTimeouts"] as! Int) +  (self.gameState["oppHalfTimeouts"] as! Int)) == 0){
+            self.timeOutsLeftDefense.text! = "No Timeouts"
+        }
+    }
     @IBAction func showGameSummary(_ sender: UIButton) {
         if gameState["began"] as! Bool {
             let playAlert = UIAlertController(title: "Plays", message: self.printPlaySequence(), preferredStyle: .alert)
@@ -1243,6 +1283,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func switchToOffense() {
         print("switching to offense")
+        self.homePossession.text! = "<"
+        self.awayPossession.text! = ""
+
         self.pushPlaySequence(event: "switch to offense")
         courtView.transform = offenseCourtTransform!
         
@@ -1284,6 +1327,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func switchToDefense() {
         print("switching to defense")
+        self.homePossession.text! = ""
+        self.awayPossession.text! = ">"
         self.pushPlaySequence(event: "switch to defense")
         resetAllPlayerBorders()
         courtView.transform = defenseCourtTransform!
