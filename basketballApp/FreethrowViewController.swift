@@ -35,10 +35,12 @@ class FreethrowViewController: UIViewController {
         super.viewDidLoad()
         UIView.setAnimationsEnabled(false)
         let player = gameState["fouledPlayer"] as! Player
+        print("Player: \(player.firstName)")
         if (player == nil) {
             let playersAlert = UIAlertController(title: "Shooting", message: "", preferredStyle: .alert)
             var activePlayer: UIAlertAction
             for player in gameState["active"] as! [Player] {
+                
                 activePlayer = UIAlertAction(title: "\(player.firstName) \(player.lastName)", style: UIAlertActionStyle.default) { UIAlertAction in
                     self.shootingPlayer = player
                     self.playerImage.image = self.shootingPlayer.photo
@@ -62,19 +64,27 @@ class FreethrowViewController: UIViewController {
         }
     }
     
+    func goBack(){
+        gameState["transitionState"] = "freethrow"
+        let parent = self.presentingViewController as! GameViewController
+        parent.gameState = gameState
+        self.dismiss(animated: false, completion: nil)
+    }
+    
     @IBAction func madeShots(_ sender: UIButton) {
         let offense = gameState["possession"] as! String == "offense"
         if (offense) {
-            var score = gameState["score"] as! Int
+            var score = gameState["homeScore"] as! Int
             score += sender.tag
-            gameState["score"] = score
+            gameState["homeScore"] = score
         }
         else {
             var oppScore = gameState["oppScore"] as! Int
             oppScore += sender.tag
             gameState["oppScore"] = oppScore
         }
-        self.performSegue(withIdentifier: "gameviewSegue2", sender: nil)
+//        self.performSegue(withIdentifier: "gameviewSegue2", sender: nil)
+        goBack()
     }
     
 }

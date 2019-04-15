@@ -9,6 +9,7 @@ target 'basketballApp' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'CircleAnimatedMenu'
 
     target 'basketballAppUnitTests' do
       inherit! :search_paths
