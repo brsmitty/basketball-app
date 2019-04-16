@@ -28,8 +28,8 @@ typedef enum : NSUInteger {
 @interface FIRInstanceIDBackupExcludedPlist ()
 
 @property(nonatomic, readwrite, copy) NSString *fileName;
-@property(nonatomic, readwrite, copy) NSString *subDirectoryName;
-@property(nonatomic, readwrite, assign) BOOL fileInStandardDirectory;
+@property(nonatomic, readwrite, copy) NSString *applicationSupportSubDirectory;
+@property(nonatomic, readwrite, assign) BOOL fileInApplicationSupport;
 
 @property(nonatomic, readwrite, strong) NSDictionary *cachedPlistContents;
 
@@ -37,18 +37,14 @@ typedef enum : NSUInteger {
 
 @implementation FIRInstanceIDBackupExcludedPlist
 
-- (instancetype)initWithFileName:(NSString *)fileName subDirectory:(NSString *)subDirectory {
+- (instancetype)initWithFileName:(NSString *)fileName
+    applicationSupportSubDirectory:(NSString *)applicationSupportSubDirectory {
   self = [super init];
   if (self) {
     _fileName = [fileName copy];
-    _subDirectoryName = [subDirectory copy];
-#if TARGET_OS_IOS
-    _fileInStandardDirectory = [self moveToApplicationSupportSubDirectory:subDirectory];
-#else
-    // For tvOS and macOS, we never store the content in document folder, so
-    // the migration is unnecessary.
-    _fileInStandardDirectory = YES;
-#endif
+    _applicationSupportSubDirectory = [applicationSupportSubDirectory copy];
+    _fileInApplicationSupport =
+        [self moveToApplicationSupportSubDirectory:applicationSupportSubDirectory];
   }
   return self;
 }
@@ -108,10 +104,14 @@ typedef enum : NSUInteger {
   return self.cachedPlistContents;
 }
 
+- (void)moveToApplicationSupportSubDirectory {
+  self.fileInApplicationSupport =
+      [self moveToApplicationSupportSubDirectory:self.applicationSupportSubDirectory];
+}
+
 - (BOOL)moveToApplicationSupportSubDirectory:(NSString *)subDirectoryName {
   NSArray *directoryPaths =
-      NSSearchPathForDirectoriesInDomains([self supportedDirectory], NSUserDomainMask, YES);
-  // This only going to happen inside iOS so it is an applicationSupportDirectory.
+      NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
   NSString *applicationSupportDirPath = directoryPaths.lastObject;
   NSArray *components = @[ applicationSupportDirPath, subDirectoryName ];
   NSString *subDirectoryPath = [NSString pathWithComponents:components];
@@ -151,7 +151,7 @@ typedef enum : NSUInteger {
 #pragma mark - Private
 
 - (FIRInstanceIDPlistDirectory)plistDirectory {
-  if (_fileInStandardDirectory) {
+  if (self.fileInApplicationSupport) {
     return FIRInstanceIDPlistDirectoryApplicationSupport;
   } else {
     return FIRInstanceIDPlistDirectoryDocuments;
@@ -176,8 +176,10 @@ typedef enum : NSUInteger {
 
     case FIRInstanceIDPlistDirectoryApplicationSupport:
       directoryPaths =
-          NSSearchPathForDirectoriesInDomains([self supportedDirectory], NSUserDomainMask, YES);
-      components = @[ directoryPaths.lastObject, _subDirectoryName, plistNameWithExtension ];
+          NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+      components = @[
+        directoryPaths.lastObject, self.applicationSupportSubDirectory, plistNameWithExtension
+      ];
       break;
 
     default:
@@ -193,14 +195,6 @@ typedef enum : NSUInteger {
 - (BOOL)doesFileExistInDirectory:(FIRInstanceIDPlistDirectory)directory {
   NSString *path = [self plistPathInDirectory:directory];
   return [[NSFileManager defaultManager] fileExistsAtPath:path];
-}
-
-- (NSSearchPathDirectory)supportedDirectory {
-#if TARGET_OS_TV
-  return NSCachesDirectory;
-#else
-  return NSApplicationSupportDirectory;
-#endif
 }
 
 @end

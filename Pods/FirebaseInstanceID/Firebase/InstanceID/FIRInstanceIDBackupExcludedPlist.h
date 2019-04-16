@@ -35,11 +35,12 @@
  *  Init a backup excluded plist file.
  *
  *  @param fileName                       The filename for the plist file.
- *  @param subDirectory The subdirectory in Application Support to save the plist.
+ *  @param applicationSupportSubDirectory The subdirectory in Application Support to save the plist.
  *
  *  @return Helper which allows to read write data to a backup excluded plist.
  */
-- (instancetype)initWithFileName:(NSString *)fileName subDirectory:(NSString *)subDirectory;
+- (instancetype)initWithFileName:(NSString *)fileName
+    applicationSupportSubDirectory:(NSString *)applicationSupportSubDirectory;
 
 /**
  *  Write dictionary data to the backup excluded plist file. If the file does not exist
@@ -77,5 +78,12 @@
  *  @return YES if the file exists on the disk else NO.
  */
 - (BOOL)doesFileExist;
+
+/**
+ *  Move the plist to Application Support subdirectory. If the plist is already in the correct
+ *  subdirectory this will be a no-op. If the plist was never written to before this will remember
+ *  to write this plist to the Application Support subfolder if it's written to in future.
+ */
+- (void)moveToApplicationSupportSubDirectory;
 
 @end

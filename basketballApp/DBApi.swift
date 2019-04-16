@@ -100,7 +100,7 @@ class DBApi {
             "position": info["position"] as? String ?? ""
         ]
         
-        let childUpdates = ["/\(newPlayerId)": player]
+        let childUpdates = ["/\(newPlayerId ?? "")": player]
         refPlayersTable.updateChildValues(childUpdates)
         completion()
         
@@ -121,7 +121,7 @@ class DBApi {
             "opponent-score": 0,
             "gameDetail": info["gameDetail"] as? String ?? ""
         ]
-        let childUpdates = ["/\(newGameId)": game]
+        let childUpdates = ["/\(newGameId ?? "")": game]
         refGameTable.updateChildValues(childUpdates)
         
         return newGameId ?? ""
@@ -171,7 +171,7 @@ class DBApi {
             "game-time": seconds
         ]
         
-        let childUpdates = ["/\(newStatId)": statistic]
+        let childUpdates = ["/\(newStatId ?? "")": statistic]
         refStatsTable.updateChildValues(childUpdates)
         
         adjustScore(type: type)
@@ -221,8 +221,25 @@ class DBApi {
             "start": gameTimeInSeconds,
             "end": -1
         ]
-        let newChildUpdate = ["\(newLineupChildId)": newLineupTime]
+        let newChildUpdate = ["\(newLineupChildId ?? "")": newLineupTime]
         refLineupsTable.updateChildValues(newChildUpdate)
-        currentLineup = (newLineupId, newLineupChildId, gameTimeInSeconds) as! (id: String, key: String, time: Int)
+        currentLineup = ((newLineupId, newLineupChildId, gameTimeInSeconds) as! (id: String, key: String, time: Int))
+    }
+    
+    func updateDribbles(to dribbles: [String: Int]) {
+        guard let gamePath = pathtoCurrentGame else { return }
+        let refGameTable = Database.database().reference(withPath: gamePath)
+        
+        let childUpdates: [String: [String: Int]] = ["/dribbles": dribbles]
+        refGameTable.updateChildValues(childUpdates)
+    }
+    
+    func updateOpponentStats(to opponent: [String: [String: Any]], score: Int) {
+        guard let gamePath = pathtoCurrentGame else { return }
+        let refGameTable = Database.database().reference(withPath: gamePath)
+        
+        let childUpdates: [String: Any] = ["/oppScore": score,
+                                           "/oppStats": opponent]
+        refGameTable.updateChildValues(childUpdates)
     }
 }

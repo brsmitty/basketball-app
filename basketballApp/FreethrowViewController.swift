@@ -11,7 +11,10 @@ import UIKit
 class FreethrowViewController: UIViewController {
     
     var gameState: [String: Any] = [:]
-    var shootingPlayer: Player = Player(firstName: "", lastName: "", photo: nil, position: "", height: "", weight: "", rank: "", playerId: "", teamId: "")
+    var shootingPlayer: Player?
+    var isOpponent = false
+    var shots = 0
+    var playSequence: String?
     @IBOutlet weak var playerImage: UIImageView!
     @IBOutlet weak var made0Button: UIButton!
     @IBOutlet weak var made1Button: UIButton!
@@ -34,24 +37,26 @@ class FreethrowViewController: UIViewController {
         
         super.viewDidLoad()
         UIView.setAnimationsEnabled(false)
-        let player = gameState["fouledPlayer"] as! Player
-        print("Player: \(player.firstName)")
-        if (player == nil) {
+        
+        shots = gameState["foulShots"] as? Int ?? 0
+        isOpponent = gameState["oppFreeThrow"] as? Bool ?? false
+        if !isOpponent,
+            let player = gameState["fouledPlayer"] as? Player {
+            playerImage.image = player.photo
+            shootingPlayer = player
+        } else if !isOpponent {
             let playersAlert = UIAlertController(title: "Shooting", message: "", preferredStyle: .alert)
             var activePlayer: UIAlertAction
-            for player in gameState["active"] as! [Player] {
+            for player in gameState["active"] as? [Player] ?? [] {
                 
                 activePlayer = UIAlertAction(title: "\(player.firstName) \(player.lastName)", style: UIAlertActionStyle.default) { UIAlertAction in
                     self.shootingPlayer = player
-                    self.playerImage.image = self.shootingPlayer.photo
+                    self.playerImage.image = player.photo
                 }
                 playersAlert.addAction(activePlayer)
             }
             playersAlert.popoverPresentationController?.sourceView = view
             present(playersAlert, animated: false)
-        }
-        else {
-            playerImage.image = player.photo
         }
     }
     
@@ -68,20 +73,33 @@ class FreethrowViewController: UIViewController {
         gameState["transitionState"] = "freethrow"
         let parent = self.presentingViewController as! GameViewController
         parent.gameState = gameState
-        self.dismiss(animated: false, completion: nil)
+        if let message = playSequence {
+            parent.pushPlaySequence(event: message)
+        }
+        dismiss(animated: false)
     }
     
     @IBAction func madeShots(_ sender: UIButton) {
-        let offense = gameState["possession"] as! String == "offense"
-        if (offense) {
+        
+        if let player = shootingPlayer {
+            
             var score = gameState["homeScore"] as! Int
             score += sender.tag
+            
+            playSequence = "\(player.firstName) hit \(sender.tag) out of \(shots) free throws"
             gameState["homeScore"] = score
-        }
-        else {
+            for _ in 0..<shots {
+                _ = DBApi.sharedInstance.storeStat(type: .freeThrowAttempt, pid: player.playerId, seconds: gameState["timeSeconds"] as? Double ?? 0)
+            }
+            for _ in 0..<sender.tag {
+                _ = DBApi.sharedInstance.storeStat(type: .freeThrow, pid: player.playerId, seconds: gameState["timeSeconds"] as? Double ?? 0)
+            }
+        } else if isOpponent {
             var oppScore = gameState["oppScore"] as! Int
             oppScore += sender.tag
             gameState["oppScore"] = oppScore
+            
+            // not recording who on the opposing team took the free throws
         }
 //        self.performSegue(withIdentifier: "gameviewSegue2", sender: nil)
         goBack()

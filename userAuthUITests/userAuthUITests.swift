@@ -75,9 +75,9 @@ class userAuthUITests: XCTestCase {
       
       waitForElementToAppear(element: app.buttons["Resend Code"])
       
-      topLevelUIUtilities = TopLevelUIUtilities<UIViewController>()
-      topLevelUIUtilities.createUser()
-      
+//      topLevelUIUtilities = TopLevelUIUtilities<UIViewController>()
+//      topLevelUIUtilities.createUser()
+    
       waitForElementToAppear(element: app.staticTexts["Verified!"])
 
       

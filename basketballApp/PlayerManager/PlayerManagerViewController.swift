@@ -422,7 +422,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                       "height": players[currentPath.row].height,
                                       "weight": players[currentPath.row].weight,
                                       "rank": players[currentPath.row].rank,
-                                      "position": players[currentPath.row].position]
+                                      "position": players[currentPath.row].position,
+                                      "image_name": imageName]
     playerRef.updateChildValues(playerData)
    }
    
@@ -456,7 +457,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
-                                       "position": position]
+                                       "position": position,
+                                       "image_name": imageName]
     
     DBApi.sharedInstance.createPlayer(info: playerData) { [weak self] in
         guard let s = self else { return }

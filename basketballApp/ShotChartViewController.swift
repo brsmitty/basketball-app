@@ -45,7 +45,7 @@ class ShotChartViewController: UIViewController {
         }
         let shotFrame = CGRect(x:location.x-110, y:location.y-110, width:220, height:220)
         self.shotMenu = CircleAnimatedMenu(menuFrame: shotFrame, dataArray:[
-            ("cancel","cancel"),("foul","foul"), ("made","made"), ("missed","missed")
+            ("cancel","cancel"),("foul","foul"), ("made","made"), ("missed","missed"), ("and 1", "and 1")
             ])
         self.shotMenu?.innerCircleColor = UIColor.clear
         self.shotMenu?.highlightedColor = UIColor.orange
@@ -72,11 +72,25 @@ class ShotChartViewController: UIViewController {
     }
     
     func handleFoul(){
+        if self.gameState["possession"] as! String == "offense" {
+            let index = gameState["ballIndex"] as! Int
+            var active = gameState["active"] as! [Player]
+            let shooter = active[index]
+            
+            if(determineThreePoint(location: shotLocation)){
+                gameState["foulShots"] = 3
+                _ = DBApi.sharedInstance.storeStat(type: Statistic.score3Attempt, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
+            }
+            else{
+                gameState["foulShots"] = 2
+                _ = DBApi.sharedInstance.storeStat(type: Statistic.score2Attempt, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
+            }
+        }
         self.gameState["transitionState"] = "shotFoul"
         self.goBack()
     }
     
-     func madeShot() {
+    func madeShot(foul: Bool) {
         if (self.gameState["possession"] as! String == "offense") {
 
             let temp = gameState["homeScore"] as! Int
@@ -87,10 +101,12 @@ class ShotChartViewController: UIViewController {
             
             if(determineThreePoint(location: shotLocation)){
                 gameState["homeScore"] = temp + 3
+                _ = DBApi.sharedInstance.storeStat(type: Statistic.score3Attempt, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
                 _ = DBApi.sharedInstance.storeStat(type: Statistic.score3, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
             }
             else{
                 gameState["homeScore"] = temp + 2
+                _ = DBApi.sharedInstance.storeStat(type: Statistic.score2Attempt, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
                 _ = DBApi.sharedInstance.storeStat(type: Statistic.score2, pid: shooter.playerId, seconds: gameState["timeSeconds"] as! Double)
             }
             shooter.updatePoints(points: 2)
@@ -108,18 +124,22 @@ class ShotChartViewController: UIViewController {
             var shots = self.gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
             shots.append(shot)
             self.gameState["shots"] = shots
-            self.gameState["transitionState"] = "madeShot"
+            self.gameState["transitionState"] = foul ? "shotMadeFoul" : "madeShot"
+            self.gameState["foulShots"] = foul ? 1 : nil
             self.pushPlaySequence(event: "\(shooter.firstName) made the shot")
         }
         else {
             let temp = gameState["oppScore"] as! Int
-            self.gameState["transitionState"] = "madeShot"
+            self.gameState["transitionState"] = foul ? "shotMadeFoul" : "madeShot"
+            self.gameState["foulShots"] = foul ? 1 : nil
             
             if(determineThreePoint(location: shotLocation)){
                 gameState["oppScore"] = temp + 3
+                self.gameState["opponentScored"] = 3
             }
             else{
                 gameState["oppScore"] = temp + 2
+                self.gameState["opponentScored"] = 2
             }
         }
 
@@ -216,7 +236,7 @@ extension ShotChartViewController : CircleAnimatedMenuDelegate {
     func sectionSelected(text: String, index: Int){
         print(text)
         if (text=="made") {
-            madeShot()
+            madeShot(foul: false)
         } else if (text=="missed") {
             missedShot()
            // missedShot(<#T##sender: UIButton##UIButton#>)
@@ -224,6 +244,8 @@ extension ShotChartViewController : CircleAnimatedMenuDelegate {
             cancelShot()
         } else if (text=="foul") {
             handleFoul()
+        } else if (text=="and 1") {
+            madeShot(foul: true)
         }
     }
 }

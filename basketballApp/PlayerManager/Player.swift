@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class Player: NSObject {
    
@@ -59,7 +58,9 @@ class Player: NSObject {
         weight = dictionary["weight"] as? String ?? ""
         position = dictionary["position"] as? String ?? ""
         rank = dictionary["rank"] as? String ?? ""
-        photo = UIImage(named: "Default")
+        let imageName = dictionary["image_name"] as? String ?? ""
+        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+        photo = UIImage(contentsOfFile: imagePath) ?? UIImage(named: "Default")
     }
    
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
@@ -198,11 +199,5 @@ class Player: NSObject {
 
     func pass(){
         self.numberOfPasses += 1
-    }
-    
-    func firebaseSync(tid: String, pid: String, data: NSDictionary){
-        let firebaseRef = Database.database().reference(withPath: "teams")
-        let playerRef = firebaseRef.child(tid).child("roster").child(pid)
-        playerRef.setValue(data)
     }
 }
