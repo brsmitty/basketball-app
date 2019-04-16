@@ -1764,7 +1764,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad0-yY-q81" userLabel="Away Score">
-                                        <rect key="frame" x="686" y="5" width="42" height="42"/>
+                                        <rect key="frame" x="691" y="5" width="42" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1777,11 +1777,39 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="* * * * *" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1L9-G1-Q76" userLabel="TimeOutsLeftOffense">
+                                        <rect key="frame" x="303" y="23" width="57" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guh-J8-Efg" userLabel="homePossession">
+                                        <rect key="frame" x="453" y="2" width="12" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="* * * * *" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmr-eI-Vap" userLabel="TimeOutsLeftDefense">
+                                        <rect key="frame" x="684" y="25" width="57" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwf-zI-r0O">
                                         <rect key="frame" x="375" y="-7" width="42" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhM-Ah-7gD" userLabel="awayPossession">
+                                        <rect key="frame" x="574" y="2" width="12" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1816,6 +1844,7 @@
                     </view>
                     <connections>
                         <outlet property="awayFouls" destination="tes-uO-rgX" id="SJi-kR-1xW"/>
+                        <outlet property="awayPossession" destination="PhM-Ah-7gD" id="rzm-qA-UBl"/>
                         <outlet property="awayScore" destination="ad0-yY-q81" id="9p2-KU-lNH"/>
                         <outlet property="benchButton" destination="QpF-AH-LXs" id="pZZ-Qe-Do3"/>
                         <outlet property="benchView" destination="hbj-G3-Gbg" id="LXg-JX-7Zt"/>
@@ -1826,6 +1855,7 @@
                         <outlet property="gameStateBoard" destination="NBQ-lO-3IS" id="aXB-4a-uU0"/>
                         <outlet property="gameSummaryButton" destination="xIM-ms-1os" id="14O-wC-gJZ"/>
                         <outlet property="homeFouls" destination="gwf-zI-r0O" id="EC5-nt-tvM"/>
+                        <outlet property="homePossession" destination="guh-J8-Efg" id="HZY-xv-la1"/>
                         <outlet property="homeScore" destination="gBC-NC-zNk" id="F6Y-18-Af7"/>
                         <outlet property="imageHoop" destination="5TN-P3-RuZ" id="B5e-28-3x0"/>
                         <outlet property="imagePlayer1" destination="qzs-D5-kX9" id="RSy-Or-szh"/>
@@ -1838,6 +1868,8 @@
                         <outlet property="outOfBoundsButton" destination="oTz-Nb-7Gl" id="vjA-pa-5ho"/>
                         <outlet property="playerOneLongPress" destination="CG7-jB-azx" id="7es-Ts-1jn"/>
                         <outlet property="tableView" destination="TgK-ba-E8J" id="w4A-oG-Q3v"/>
+                        <outlet property="timeOutsLeft" destination="1L9-G1-Q76" id="kUu-8s-fOH"/>
+                        <outlet property="timeOutsLeftDefense" destination="fmr-eI-Vap" id="Sat-9F-UYD"/>
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
                         <outlet property="turnoverButton" destination="fo8-Oe-kHR" id="KqY-3f-tHM"/>
                         <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" id="Kov-4w-Yr5"/>
