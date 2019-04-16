@@ -603,13 +603,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if (gameState["possessionArrow"] as! String == "defense"){
                 self.pushPlaySequence(event: "jump ball, possession goes to the opponent")
                 gameState["possessionArrow"] = "offense"
-                
+                self.homePossession.text! = "<"
+                self.awayPossession.text! = ""
                 switchToDefense()
             }
             else if (gameState["possessionArrow"] as! String == "offense"){
                 gameState["possessionArrow"] = "defense"
                 self.pushPlaySequence(event: "jump ball, possession goes to your team")
-                
+                self.homePossession.text! = ""
+                self.awayPossession.text! = ">"
                 switchToOffense()
             }
         }
