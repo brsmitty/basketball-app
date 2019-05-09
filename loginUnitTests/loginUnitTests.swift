@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Pods_basketball_app
+@testable import Pods_basketballApp
 
 class loginUnitTests: XCTestCase {
 
@@ -23,7 +23,7 @@ class loginUnitTests: XCTestCase {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let login = storyboard.instantiateInitialViewController()
       let _ = login!.view
-      XCTAssertTrue()
+      XCTAssertTrue(true)
    }
    
    func testLoginScreenHasButtons(){

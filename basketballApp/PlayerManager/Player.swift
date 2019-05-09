@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class Player: NSObject {
    
@@ -24,23 +23,23 @@ class Player: NSObject {
     var rank:String
     var photo: UIImage?
     
-    var points:Int
-    var assists:Int
-    var turnovers:Int
-    var threePtAtt: Int
-    var twoPtAtt: Int
-    var threePtMade: Int
-    var twoPtMade: Int
-    var ftAtt:Int
-    var ftMade:Int
-    var offRebounds:Int
-    var defRebounds:Int
-    var steals:Int
-    var blocks:Int
-    var deflections:Int
-    var personalFoul:Int
-    var techFoul:Int
-    var chargesTaken:Int
+    var points:Int?
+    var assists:Int?
+    var turnovers:Int?
+    var threePtAtt: Int?
+    var twoPtAtt: Int?
+    var threePtMade: Int?
+    var twoPtMade: Int?
+    var ftAtt:Int?
+    var ftMade:Int?
+    var offRebounds:Int?
+    var defRebounds:Int?
+    var steals:Int?
+    var blocks:Int?
+    var deflections:Int?
+    var personalFoul:Int?
+    var techFoul:Int?
+    var chargesTaken:Int?
     
     var active: Bool = false
     var hasBall: Bool = false
@@ -48,6 +47,21 @@ class Player: NSObject {
     var numberOfPasses: Int = 0
    
    // MARK: Initialization
+    
+    init(dictionary: [String: Any], id: String) {
+        playerId = id
+        teamId = ""
+        
+        firstName = dictionary["fName"] as? String ?? ""
+        lastName = dictionary["lName"] as? String ?? ""
+        height = dictionary["height"] as? String ?? ""
+        weight = dictionary["weight"] as? String ?? ""
+        position = dictionary["position"] as? String ?? ""
+        rank = dictionary["rank"] as? String ?? ""
+        let imageName = dictionary["image_name"] as? String ?? ""
+        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
+        photo = UIImage(contentsOfFile: imagePath) ?? UIImage(named: "Default")
+    }
    
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
         self.playerId = playerId
@@ -83,7 +97,7 @@ class Player: NSObject {
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, points: Int, assists: Int, turnovers: Int, threePtAtt: Int, twoPtAtt: Int, threePtMade: Int, twoPtMade: Int, ftAtt: Int, ftMade: Int, offRebounds: Int, defRebounds: Int, steals: Int, blocks: Int, deflections: Int, personalFoul: Int, techFoul: Int, chargesTaken: Int){
         self.playerId = playerId
         self.teamId =  teamId
-        
+
         self.firstName = firstName
         self.lastName = lastName
         self.height = height
@@ -91,7 +105,7 @@ class Player: NSObject {
         self.position = position
         self.rank = rank
         self.photo = photo
-        
+
         self.points = points
         self.assists = assists
         self.turnovers = turnovers
@@ -112,85 +126,78 @@ class Player: NSObject {
     }
     
     func updatePoints(points: Int){
-        self.points += points
+        self.points? += points
     }
-    
+
     func updateAssists(assists: Int){
-        self.assists += assists
+        self.assists? += assists
     }
-    
+
     func updateTurnovers(turnovers: Int){
-        self.turnovers += turnovers
+        self.turnovers? += turnovers
     }
-    
+
     func updateThreePointMade(made: Int){
-        self.threePtMade += made
+        self.threePtMade? += made
     }
-    
+
     func updateTwoPointMade(made: Int){
-        self.twoPtMade += made
+        self.twoPtMade? += made
     }
-    
+
     func updateFreeThrowMade(made: Int){
-        self.ftMade += made
+        self.ftMade? += made
     }
-    
+
     func updateThreePointAttempt(attempted: Int){
-        self.threePtAtt += attempted
+        self.threePtAtt? += attempted
     }
-    
+
     func updateTwoPointAttempt(attempted: Int){
-        self.twoPtAtt += attempted
+        self.twoPtAtt? += attempted
     }
-    
+
     func updateFreeThrowAttempt(attempted: Int){
-        self.ftAtt += attempted
+        self.ftAtt? += attempted
     }
-    
+
     func updatePersonalFouls(fouls: Int){
-        self.personalFoul += fouls
+        self.personalFoul? += fouls
     }
-    
+
     func updateTechFouls(fouls: Int){
-        self.techFoul += fouls
+        self.techFoul? += fouls
     }
-    
+
     func updateChargesTaken(charges: Int){
-        self.chargesTaken += charges
+        self.chargesTaken? += charges
     }
-    
+
     func updateDefRebounds(rebounds: Int){
-        self.defRebounds += rebounds
+        self.defRebounds? += rebounds
     }
-    
+
     func updateOffRebounds(rebounds: Int){
-        self.offRebounds += rebounds
+        self.offRebounds? += rebounds
     }
-    
+
     func updateDeflections(deflections: Int){
-        self.deflections += deflections
+        self.deflections? += deflections
     }
-    
+
     func updateBlocks(blocks: Int){
-        self.blocks += blocks
+        self.blocks? += blocks
     }
-    
+
     func updateSteals(steals: Int){
-        self.steals += steals
+        self.steals? += steals
     }
     
     func dribble(){
         self.numberOfDribbles += 1
     }
-    
+
     func pass(){
         self.numberOfPasses += 1
     }
-    
-    func firebaseSync(tid: String, pid: String, data: NSDictionary){
-        let firebaseRef = Database.database().reference(withPath: "teams")
-        let playerRef = firebaseRef.child(tid).child("roster").child(pid)
-        playerRef.setValue(data)
-    }
-
 }

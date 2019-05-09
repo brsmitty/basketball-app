@@ -75,5 +75,9 @@ class gameViewIntegrationTests: XCTestCase {
         XCTAssertEqual("12392949234923234", dest.tid)
     }
     
+    func testRedCourtChange() {
+        
+    }
+    
     
 }

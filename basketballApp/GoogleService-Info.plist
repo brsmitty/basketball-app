@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>568585452676-nbl2buo5ia4mkh4pcvb6t9s2egmb0gr4.apps.googleusercontent.com</string>
+	<string>333692577499-7497k8hg1mhg10emoq7jqpmeda6qcqcn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.568585452676-nbl2buo5ia4mkh4pcvb6t9s2egmb0gr4</string>
+	<string>com.googleusercontent.apps.333692577499-7497k8hg1mhg10emoq7jqpmeda6qcqcn</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDawuQQWO6suvpWCeK0Nsv050t0yndceEw</string>
+	<string>AIzaSyDTsjqU1EbqWa5B8p1BDWNw5nMPZrb-y0Y</string>
 	<key>GCM_SENDER_ID</key>
-	<string>568585452676</string>
+	<string>333692577499</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.davidzucco.basketball-app</string>
+	<string>com.davidzucco.basketballApp</string>
 	<key>PROJECT_ID</key>
-	<string>basketball-app-aef57</string>
+	<string>ingame-ba93b</string>
 	<key>STORAGE_BUCKET</key>
-	<string>basketball-app-aef57.appspot.com</string>
+	<string>ingame-ba93b.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:568585452676:ios:ba781b99057f0c31</string>
+	<string>1:333692577499:ios:70a338e347e4b742</string>
 	<key>DATABASE_URL</key>
-	<string>https://basketball-app-aef57.firebaseio.com</string>
+	<string>https://ingame-ba93b.firebaseio.com</string>
 </dict>
 </plist>

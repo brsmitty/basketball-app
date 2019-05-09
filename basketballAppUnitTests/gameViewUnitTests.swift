@@ -221,10 +221,6 @@ class gameViewUnitTests: XCTestCase {
         XCTAssertEqual(viewController.gameState["possessionArrow"] as! String, "defense")
     }
     
-    func isNewLineup(){
-        XCTAssertTrue(viewController.isNewLineup())
-    }
-    
     func testHandleFoul1(){
         let p: Player = Player.init(firstName: "", lastName: "", photo: nil, position: "", height: "", weight: "", rank: "", playerId: "", teamId: "")
         viewController.gameState["teamFouls"] = 0

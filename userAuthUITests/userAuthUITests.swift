@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Pods_basketball_app
+@testable import Pods_basketballApp
 
 class userAuthUITests: XCTestCase {
       let app = XCUIApplication()
@@ -75,9 +75,9 @@ class userAuthUITests: XCTestCase {
       
       waitForElementToAppear(element: app.buttons["Resend Code"])
       
-      topLevelUIUtilities = TopLevelUIUtilities<UIViewController>()
-      topLevelUIUtilities.createUser()
-      
+//      topLevelUIUtilities = TopLevelUIUtilities<UIViewController>()
+//      topLevelUIUtilities.createUser()
+    
       waitForElementToAppear(element: app.staticTexts["Verified!"])
 
       
