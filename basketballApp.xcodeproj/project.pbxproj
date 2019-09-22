@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,6 @@
 		27C7D11121894360000EE098 /* PlaybookMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C7D11021894360000EE098 /* PlaybookMasterViewController.swift */; };
 		27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35A21475BC900439BF0 /* PlayerManagerViewController.swift */; };
 		27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
-		3D1298B122177EE6006FE5AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D1298B022177EE6006FE5AA /* GoogleService-Info.plist */; };
 		3D182BA922664BB10012DB2C /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A1D30D21AE63A60023599C /* helper.swift */; };
 		3D182BBF22664CEE0012DB2C /* EmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274A642D2165B92500F0F4E7 /* EmailVerificationViewController.swift */; };
 		3D182BC022664CFC0012DB2C /* DBApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */; };
@@ -88,6 +87,7 @@
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
+		978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 978FC5562337E3F90060EA8F /* GoogleService-Info.plist */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
@@ -167,7 +167,6 @@
 		27FC62D721790B6600DE6B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27FC62E321790B8500DE6B08 /* lineupManageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineupManageTests.swift; sourceTree = "<group>"; };
 		27FC62E521790B8500DE6B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D1298B022177EE6006FE5AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBApi.swift; sourceTree = "<group>"; };
 		3DFC438C221C6BCC009B4A16 /* db.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = db.json; sourceTree = "<group>"; };
 		3DFC438E221C81C6009B4A16 /* dbAPIUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dbAPIUnitTests.swift; sourceTree = "<group>"; };
@@ -204,6 +203,7 @@
 		63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewUnitTests.swift; sourceTree = "<group>"; };
 		83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		978FC5562337E3F90060EA8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
 		98588C60216511E300DA226C /* PlaybookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookCell.swift; sourceTree = "<group>"; };
 		987822E42191488600808AC4 /* TimerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTest.swift; sourceTree = "<group>"; };
@@ -459,7 +459,7 @@
 		63C79FCD21403291006726C3 /* basketballApp */ = {
 			isa = PBXGroup;
 			children = (
-				3D1298B022177EE6006FE5AA /* GoogleService-Info.plist */,
+				978FC5562337E3F90060EA8F /* GoogleService-Info.plist */,
 				27123B572193C34700541774 /* KPI */,
 				27B1F9492191F6E100D0351B /* Performance */,
 				630E2C67216E672600881C1F /* Playbook.pdf */,
@@ -655,7 +655,7 @@
 			files = (
 				63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */,
 				6374F5622172514E00E3BBF4 /* Main.storyboard in Resources */,
-				3D1298B122177EE6006FE5AA /* GoogleService-Info.plist in Resources */,
+				978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */,
 				630E2C66216E66C800881C1F /* Assets.xcassets in Resources */,
 				630E2C68216E672600881C1F /* Playbook.pdf in Resources */,
 			);
@@ -692,22 +692,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8BA2040971163FDCCD130DC7 /* [CP] Check Pods Manifest.lock */ = {
@@ -755,25 +748,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CircleAnimatedMenu/CircleAnimatedMenu.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleAnimatedMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C70B7DCC9D91D41176616ABF /* [CP] Embed Pods Frameworks */ = {
@@ -782,22 +766,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1144,13 +1121,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
-				DEVELOPMENT_TEAM = RBKXL8X693;
+				DEVELOPMENT_TEAM = BTD57RXV73;
 				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.seanodonnell.basketballApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hesham.basketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1164,13 +1141,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
-				DEVELOPMENT_TEAM = RBKXL8X693;
+				DEVELOPMENT_TEAM = BTD57RXV73;
 				INFOPLIST_FILE = basketballApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.seanodonnell.basketballApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hesham.basketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
