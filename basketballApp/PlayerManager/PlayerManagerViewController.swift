@@ -468,7 +468,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
 //      playerRef.setValue(playerData)
 //        addPlayerToTeam(data: playerData, tid: tid)
    }
-    
+    //UNUSED, DATACOLLECTION
     func addPlayerToTeam(data: [String:Any], tid: String){
         let firebaseRef = Database.database().reference(withPath: "teams")
         let teamRosterRef = firebaseRef.child(tid).child("roster")

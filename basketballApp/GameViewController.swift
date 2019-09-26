@@ -1321,7 +1321,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
 
-
+    //creates a child in the teams table (not the one in users) with a roster and adds or updates info for a single player. UNUSED, DATACOLLECTION
     func syncSinglePlayerObjectToFirebase(index: Int){
         var data: [[String: Any]] = []
         var tid = ""
