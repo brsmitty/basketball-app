@@ -174,7 +174,7 @@ class ShotChartViewController: UIViewController {
         }
         self.goBack()
     }
-    
+    //Displays the old shots taken on the shot chart. made shots are an o and missed are x TODO: These locations are off because of using absolute distances
     func displayShots() {
         let shots = gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
         for shot in shots {
@@ -201,7 +201,7 @@ class ShotChartViewController: UIViewController {
         playSequence.append(event)
         gameState["playSequence"] = playSequence
     }
-    
+    //Determines if a shot taken was a 3 pointer. TODO: These distances should be relative
     func determineThreePoint(location: CGPoint) -> Bool{
         var value = false
         if(location.y > 594.5){
