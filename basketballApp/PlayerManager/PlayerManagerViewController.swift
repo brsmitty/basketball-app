@@ -192,6 +192,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
         s.players = players
         s.tableView.reloadData()
     }
+    print("hhhh")
+    print(players.count)
 //
 //      // Set up the references
 //      playerRef = Database.database().reference()
@@ -237,7 +239,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
 //         }
 //      })
    }
-   
+   //UNUSED
    func insertPlayerInTableView(_ player: Player){
       
       self.currentPath = IndexPath(row:self.players.count, section: 0)
@@ -250,6 +252,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       self.tableView.endUpdates()
    }
    
+    //UNUSED
    // Checks the player is one of the users
    func playerIsUsers(_ pid:String) -> Bool{
       var isUsers = false
@@ -668,6 +671,8 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      print("here")
+      print(players.count)
       return players.count
    }
    
