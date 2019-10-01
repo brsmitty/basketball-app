@@ -28,14 +28,21 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         let player = players[indexPath.row]
         
-        
-        cell.player.text = player.lastName + "," + player.firstName
+        cell.player.text = player.lastName + ", " + player.firstName
+        DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
+            let playerDict = snapshot.value as? [String: Any] ?? [:]
+            print("this is a player")
+            print(player.firstName)
+            cell.player.text = playerDict["fName"] as? String
+            print(playerDict["fName"] )
+            print(player.firstName)
+        }
         
         return cell
     }
     
+    //number of groupings in the table that show up
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -43,9 +50,9 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
         DBApi.sharedInstance.getPlayers{ [weak self] players in
             guard let s = self else { return }
             s.players = players
+            print(s.players)
+            s.tableView.reloadData()
         }
-        self.players.append(Player(dictionary: ["fname" : "test"], id: "fsds"))
-        print(self.players)
     }
     
 

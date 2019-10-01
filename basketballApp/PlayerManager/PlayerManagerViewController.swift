@@ -192,8 +192,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
         s.players = players
         s.tableView.reloadData()
     }
-    print("hhhh")
-    print(players.count)
 //
 //      // Set up the references
 //      playerRef = Database.database().reference()
@@ -671,7 +669,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      print("here")
       print(players.count)
       return players.count
    }

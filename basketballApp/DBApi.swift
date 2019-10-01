@@ -36,6 +36,33 @@ enum Statistic: String {
     case flagrantFoul = "flagrant foul"
 }
 
+//The keys of the performance indicators as they exist in the DB
+enum KPIKeys: String{
+    case assists = "assists"
+    case blocks = "blocks"
+    case charges = "chargesTaken"
+    case defensiveRebounds = "defRebounds"
+    case deflections = "deflections"
+    case firstName = "fName"
+    case foulShotsAttempted = "ftAtt"
+    case foulShotsMade = "ftMade"
+    case offensiveRebounds = "offRebounds"
+    case personalFouls = "personalFoul"
+    case points = "points"
+    case steals = "steals"
+    case technicalFouls = "techFoul"
+    case threePointersAttempted = "threePtAtt"
+    case threePointerstMade = "threePtMade"
+    case turnovers = "turnovers"
+    case twoPointersMade = "twoPtMade"
+    case twoPointersAttempted = "twoPtAtt"
+    
+    static let allValues = [assists, blocks, charges, deflections, deflections, deflections, firstName,
+        foulShotsAttempted,foulShotsMade,offensiveRebounds,personalFouls,personalFouls,points,
+        steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade, twoPointersAttempted
+    ]
+}
+
 extension DBApi {
     static func lineupId(from playerIds: [String]) -> String? {
         guard playerIds.count == 5 else { return nil }
@@ -56,6 +83,10 @@ class DBApi {
     //path to players nested in users table
     var pathToPlayers: String {
         return "users/\(currentUserId)/players"
+    }
+    
+    func pathToPlayer(pid: String) -> String{
+        return pathToPlayers + "/\(pid)"
     }
     //path to games nested in the users table
     var pathToGames: String {
@@ -144,6 +175,15 @@ class DBApi {
             completion(games)
         }
     }
+    
+    func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
+        let playerRef = Database.database().reference(withPath: pathToPlayer(pid: pid))
+        playerRef.observe(.value) { (snapshot) in
+            print("lets see")
+            print(Statistic.block.rawValue)
+            completion(snapshot)
+        }
+    }
     //gets the players nested in the users table, passes it as an argument to a code block
     func getPlayers(completion: @escaping ([Player]) -> Void) {
         let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
@@ -161,6 +201,7 @@ class DBApi {
             completion(players)
         }
     }
+
     //will store an event and the game time associated with it
     func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
         guard let statsPath = pathToStats(for: pid) else { return nil }
