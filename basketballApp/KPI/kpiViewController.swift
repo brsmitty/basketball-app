@@ -23,17 +23,17 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? PlayerKPITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell2", for: indexPath) as? PlayerKPITableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
         let player = players[indexPath.row]
         
-        cell.player.text = player.lastName + ", " + player.firstName
+        //cell.player.text = player.lastName + ", " + player.firstName
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let playerDict = snapshot.value as? [String: Any] ?? [:]
             print("this is a player")
             print(player.firstName)
-            cell.player.text = playerDict["fName"] as? String
+            cell.playerName.text = playerDict["fName"] as? String
             print(playerDict["fName"] )
             print(player.firstName)
         }
@@ -50,7 +50,9 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
         DBApi.sharedInstance.getPlayers{ [weak self] players in
             guard let s = self else { return }
             s.players = players
-            print(s.players)
+            for player in players{
+                DBApi.sharedInstance.setDefaultPlayerStats(pid: player.playerId)
+            }
             s.tableView.reloadData()
         }
     }

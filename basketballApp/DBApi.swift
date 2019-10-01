@@ -84,7 +84,7 @@ class DBApi {
     var pathToPlayers: String {
         return "users/\(currentUserId)/players"
     }
-    
+    //path to a player in the users table with given pid
     func pathToPlayer(pid: String) -> String{
         return pathToPlayers + "/\(pid)"
     }
@@ -116,6 +116,11 @@ class DBApi {
     func pathToStats(for pid: String) -> String? {
         guard let gameId = currentGameId else { return nil }
         return "\(pathToPlayers)/\(pid)/game-stats/\(gameId)/stats"
+    }
+    
+    //path to the stats table nested in the game stats table in the users table. TODO: Change this to the correct location in new schema
+    func pathToGameStats(for pid: String) -> String? {
+        return "\(pathToPlayers)/\(pid)/dummy-stats/"
     }
     //creates a player within the users table
     func createPlayer(info: [String: Any], completion: @escaping () -> Void) -> String {
@@ -176,6 +181,7 @@ class DBApi {
         }
     }
     
+    //Attach a listener to a player stat and run that when a value change occurs in the DB: TODO: Make this listen to individual stats
     func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
         let playerRef = Database.database().reference(withPath: pathToPlayer(pid: pid))
         playerRef.observe(.value) { (snapshot) in
@@ -183,6 +189,17 @@ class DBApi {
             print(Statistic.block.rawValue)
             completion(snapshot)
         }
+    }
+    
+    //sets all of the player stats to be 0
+    func setDefaultPlayerStats(pid: String){
+        guard let statsPath = pathToGameStats(for: pid) else { return }
+        let statsRef = Database.database().reference(withPath: statsPath)
+        var defaultStats: [String: Int] = [:]
+        for key in KPIKeys.allValues{
+            defaultStats[key.rawValue] = 0
+        }
+        statsRef.setValue(defaultStats)
     }
     //gets the players nested in the users table, passes it as an argument to a code block
     func getPlayers(completion: @escaping ([Player]) -> Void) {
@@ -202,7 +219,7 @@ class DBApi {
         }
     }
 
-    //will store an event and the game time associated with it
+    //will store an event and the game time associated with it in the game-stats table
     func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
         guard let statsPath = pathToStats(for: pid) else { return nil }
         let refStatsTable = Database.database().reference(withPath: statsPath)

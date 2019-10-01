@@ -16,12 +16,13 @@ class PlayerKPITableViewCell: UITableViewCell {
     @IBOutlet weak var minutes: UILabel!
     @IBOutlet weak var fieldGoals: UILabel!
     
+    @IBOutlet weak var playerName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // set default values for box score cells
-        minutes.text = "0"
-        fieldGoals.text = "0-0"
+        //minutes.text = "0"
+        //fieldGoals.text = "0-0"
         
     }
 
