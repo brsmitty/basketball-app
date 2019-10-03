@@ -33,8 +33,16 @@ class PlayerKPITableViewCell: UITableViewCell {
     @IBOutlet weak var totalPoints: UILabel!
     @IBOutlet weak var fieldGoals: UILabel!
     @IBOutlet weak var freeThrows: UILabel!
-    
-    
+    @IBOutlet weak var charges: UILabel!
+    @IBOutlet weak var offensiveRebounds: UILabel!
+    @IBOutlet weak var defensiveRebounds: UILabel!
+    @IBOutlet weak var rebounds: UILabel!
+    @IBOutlet weak var steals: UILabel!
+    @IBOutlet weak var blocks: UILabel!
+    @IBOutlet weak var turnovers: UILabel!
+    @IBOutlet weak var plusMinus: UILabel!
+    @IBOutlet weak var personalFouls: UILabel!
+    @IBOutlet weak var playerEffeciencyRating: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

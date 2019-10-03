@@ -28,14 +28,14 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         let player = players[indexPath.row]
         
-        //cell.player.text = player.lastName + ", " + player.firstName
+        cell.playerName.text = player.lastName + ", " + player.firstName
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
-            let playerDict = snapshot.value as? [String: Any] ?? [:]
+            let statsDict = snapshot.value as? [String: Any] ?? [:]
             print("this is a player")
-            print(player.firstName)
-            cell.playerName.text = playerDict["fName"] as? String
-            print(playerDict["fName"] )
-            print(player.firstName)
+            let blocks = statsDict[KPIKeys.blocks.rawValue] as? NSNumber
+            cell.blocks.text = blocks?.stringValue
+            //cell.playerName.text = (playerDict["lName"] as! String ) + ", " + firstName.prefix(1)
+            print(statsDict)
         }
         
         return cell

@@ -119,7 +119,7 @@ class DBApi {
     }
     
     //path to the stats table nested in the game stats table in the users table. TODO: Change this to the correct location in new schema
-    func pathToGameStats(for pid: String) -> String? {
+    func pathToPlayerGameStats(for pid: String) -> String? {
         return "\(pathToPlayers)/\(pid)/dummy-stats/"
     }
     //creates a player within the users table
@@ -183,15 +183,16 @@ class DBApi {
     
     //Attach a listener to a player stat and run that when a value change occurs in the DB: TODO: Make this listen to individual stats
     func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
-        let playerRef = Database.database().reference(withPath: pathToPlayer(pid: pid))
-        playerRef.observe(.value) { (snapshot) in
+        guard let statsPath = pathToPlayerGameStats(for: pid) else {return}
+        let playerStatsRef = Database.database().reference(withPath: statsPath )
+        playerStatsRef.observe(.value) { (snapshot) in
             completion(snapshot)
         }
     }
     
     //sets all of the player stats to be 0
     func setDefaultPlayerStats(pid: String){
-        guard let statsPath = pathToGameStats(for: pid) else { return }
+        guard let statsPath = pathToPlayerGameStats(for: pid) else { return }
         let statsRef = Database.database().reference(withPath: statsPath)
         var defaultStats: [String: Int] = [:]
         for key in KPIKeys.allValues{
