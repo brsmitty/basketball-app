@@ -185,8 +185,6 @@ class DBApi {
     func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
         let playerRef = Database.database().reference(withPath: pathToPlayer(pid: pid))
         playerRef.observe(.value) { (snapshot) in
-            print("lets see")
-            print(Statistic.block.rawValue)
             completion(snapshot)
         }
     }
