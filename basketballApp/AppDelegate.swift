@@ -73,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DBApi.sharedInstance.currentUserId = "test-user-id-2"
         DBApi.sharedInstance.currentGameId = "test-game-id-2"
         
+        
         return true
     }
 

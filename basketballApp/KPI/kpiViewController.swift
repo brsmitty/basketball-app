@@ -12,7 +12,7 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     
     //MARK: Properties
-    
+    static let LightGrayBackground = UIColor(displayP3Red: 245/255, green: 245/255, blue: 255/255, alpha: 0.5)
     @IBOutlet weak var tableView: UITableView!
     
     var players = [Player]()
@@ -27,8 +27,10 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
         let player = players[indexPath.row]
-        
-        cell.playerName.text = player.lastName + ", " + player.firstName
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = kpiViewController.LightGrayBackground
+        }
+        cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1)
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.value as? [String: Any] ?? [:]
             print("this is a player")
