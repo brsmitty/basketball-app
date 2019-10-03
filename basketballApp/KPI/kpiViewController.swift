@@ -23,7 +23,7 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell2", for: indexPath) as? PlayerKPITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? PlayerKPITableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
         let player = players[indexPath.row]
