@@ -51,7 +51,7 @@ class EmailVerificationViewController: UIViewController {
          }
       }
    }
-    
+    //Important to note putting user into database
     func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
         guard let uid = Auth.auth().currentUser?.uid else { return }
         

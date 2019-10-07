@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>568585452676-bbhruksaqj0h9lp09hr2t6ncociv2lrm.apps.googleusercontent.com</string>
+	<string>248323963932-5c5s8bam5cc2uv6t9nb9n7dfugftmkr8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.568585452676-bbhruksaqj0h9lp09hr2t6ncociv2lrm</string>
+	<string>com.googleusercontent.apps.248323963932-5c5s8bam5cc2uv6t9nb9n7dfugftmkr8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDawuQQWO6suvpWCeK0Nsv050t0yndceEw</string>
+	<string>AIzaSyAwyigZmmR6Y36W64-Ejr4PAUD0A-YKzbw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>568585452676</string>
+	<string>248323963932</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.hesham.basketballApp</string>
+	<string>com.aniki.BasketballApp</string>
 	<key>PROJECT_ID</key>
-	<string>basketball-app-aef57</string>
+	<string>basketballapp-7f260</string>
 	<key>STORAGE_BUCKET</key>
-	<string>basketball-app-aef57.appspot.com</string>
+	<string>basketballapp-7f260.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:568585452676:ios:8f30d78e5f48f3405196d1</string>
+	<string>1:248323963932:ios:177681122178a89a3a33d9</string>
 	<key>DATABASE_URL</key>
-	<string>https://basketball-app-aef57.firebaseio.com</string>
+	<string>https://basketballapp-7f260.firebaseio.com</string>
 </dict>
 </plist>
