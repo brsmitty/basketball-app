@@ -110,6 +110,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     var offenseCourtTransform: CGAffineTransform?
     var defenseCourtTransform: CGAffineTransform?
+    
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

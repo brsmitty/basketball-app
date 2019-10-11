@@ -30,7 +30,7 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = kpiViewController.LightGrayBackground
         }
-        cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1)
+        cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.value as? [String: Any] ?? [:]
             print("this is a player")
