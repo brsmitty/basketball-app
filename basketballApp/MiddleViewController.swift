@@ -213,6 +213,9 @@ class MiddleViewController: UIViewController {
       
    }
     
+    @IBAction func goBack(_ sender: Any) {
+        dismiss(animated: false, completion: nil)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "schedule" {

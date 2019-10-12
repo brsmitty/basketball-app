@@ -719,7 +719,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="HBU-gg-SPg"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" id="nzi-7g-EdR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIj-bI-s3U" userLabel="scheduleButton">
@@ -774,7 +774,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="6ca-6J-XMv"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" id="IVv-vb-ido"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navKPIBar" translatesAutoresizingMaskIntoConstraints="NO" id="UBc-2P-3FN">
@@ -2519,6 +2519,24 @@
                                     <segue destination="THY-ha-0ml" kind="embed" identifier="settingsSegue" id="w9n-Na-m35"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzv-fU-LfZ">
+                                <rect key="frame" x="11" y="28" width="27" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backArrow"/>
+                                <connections>
+                                    <action selector="goBack:" destination="wie-Xy-O0x" eventType="touchUpInside" id="9Zt-FB-Xk4"/>
+                                    <action selector="goBack:" destination="iQa-d8-Vh0" eventType="touchUpInside" id="Xcw-UF-QGx"/>
+                                    <action selector="goBack:" destination="XMH-rb-sfj" eventType="touchUpInside" id="g6x-oF-os2"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Summary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-MZ-6Qj">
+                                <rect key="frame" x="390" y="28" width="251" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
@@ -2932,7 +2950,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JLz-X6-4FF">
-                                <rect key="frame" x="0.0" y="0.0" width="632" height="551"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="551"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubv-jm-E16">
@@ -3511,13 +3529,13 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JP8-mt-yTk"/>
-        <segue reference="MIB-jk-0aI"/>
-        <segue reference="xqL-oL-XaF"/>
-        <segue reference="6ca-6J-XMv"/>
-        <segue reference="HBU-gg-SPg"/>
-        <segue reference="W8M-Sy-CPF"/>
-        <segue reference="oRO-wQ-aRf"/>
-        <segue reference="CAV-lt-Azo"/>
-        <segue reference="h23-EV-ejH"/>
+        <segue reference="Gdc-D2-q3f"/>
+        <segue reference="T0b-Oa-zQb"/>
+        <segue reference="nzi-7g-EdR"/>
+        <segue reference="5E9-9j-04f"/>
+        <segue reference="aCz-M9-az0"/>
+        <segue reference="Hk5-iD-FNH"/>
+        <segue reference="iVv-Kb-jLk"/>
+        <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
 </document>
