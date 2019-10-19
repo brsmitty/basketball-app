@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseFirestore
 
 class EmailVerificationViewController: UIViewController {
 
@@ -54,29 +55,39 @@ class EmailVerificationViewController: UIViewController {
     //Important to note putting user into database
     func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        print("Adding: " + uid)
         
-        DBApi.sharedInstance.currentUserId = uid
-        
-        let firebaseRef = Database.database().reference(withPath: "users")
-        let userRef = firebaseRef.child(uid)
+        //where is team's name
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
-        let userData : [String: Any] = ["uid":  uid, "tid": tid]
-        userRef.setValue(userData)
-        storePersistentData(uid: uid, tid: tid)
+        
+        FireRoot.root.document(uid).setData(["team": tid]){
+            err in
+            if let err = err{
+                print(err.localizedDescription)
+            }else{
+                print("Added user")
+            }
+        }
+        //let firebaseRef = Database.database().reference(withPath: "users")
+        //let userRef = firebaseRef.child(uid)
+        //let userData : [String: Any] = ["uid":  uid, "tid": tid]
+        //userRef.setValue(userData)
+        //storePersistentData(uid: uid, tid: tid)
     }
     
-    func storePersistentData(uid: String, tid: String){
-        let defaults = UserDefaults.standard
-        defaults.set(uid, forKey: "uid")
-        defaults.set(tid, forKey: "tid")
-    }
-    
+    //func storePersistentData(uid: String, tid: String){
+      //  let defaults = UserDefaults.standard
+        //defaults.set(uid, forKey: "uid")
+        //defaults.set(tid, forKey: "tid")
+    //}
+    //First time and not used either
+    /*
     func retrievePersistentData(){
         let defaults = UserDefaults.standard
         print(defaults.string(forKey: "uid")!)
         print(defaults.string(forKey: "tid")!)
     }
-   
+   */
    func emailVerification(){
       Auth.auth().currentUser?.sendEmailVerification { (error) in
           if (Auth.auth().currentUser!.isEmailVerified){

@@ -93,6 +93,7 @@
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
+		FCBD69C8234BDD820021E8FA /* FireRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBD69C7234BDD820021E8FA /* FireRoot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +223,7 @@
 		C78381F2C021EB63BE4E5AC1 /* Pods-basketballAppIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppIntegrationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CCECF9872790A126060E60C3 /* Pods-basketballApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp.release.xcconfig"; sourceTree = "<group>"; };
 		D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.release.xcconfig"; sourceTree = "<group>"; };
+		FCBD69C7234BDD820021E8FA /* FireRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireRoot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -475,6 +477,7 @@
 				63C79FDA21403292006726C3 /* Info.plist */,
 				6346B80E214A720D000B0B6E /* User.swift */,
 				6346B810214AB765000B0B6E /* UserModel.swift */,
+				FCBD69C7234BDD820021E8FA /* FireRoot.swift */,
 				6346B812214AB76E000B0B6E /* TeamModel.swift */,
 				6346B814214AB779000B0B6E /* Team.swift */,
 				6321151E2153F39F00F5FD6C /* KPI.swift */,
@@ -828,6 +831,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCBD69C8234BDD820021E8FA /* FireRoot.swift in Sources */,
 				98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */,
 				987822E52191488600808AC4 /* TimerTest.swift in Sources */,
 				27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */,
