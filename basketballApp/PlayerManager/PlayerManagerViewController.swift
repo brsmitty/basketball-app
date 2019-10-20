@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseFirestore
 
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     

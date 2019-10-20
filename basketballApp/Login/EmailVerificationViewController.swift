@@ -57,37 +57,27 @@ class EmailVerificationViewController: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         print("Adding: " + uid)
         
-        //where is team's name
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
         
-        FireRoot.root.document(uid).setData(["team": tid]){
+        //Adding user as document and, creating a team id from current time reference and adds team_id and team_name as fields to user id
+        let teamName = UserDefaults.standard.string(forKey: "team") ?? ""
+        FireRoot.root.document(uid).setData(["team": tid, "team_name": teamName]){
             err in
             if let err = err{
                 print(err.localizedDescription)
             }else{
-                print("Added user")
+                print("Added user and team name")
             }
         }
-        //let firebaseRef = Database.database().reference(withPath: "users")
-        //let userRef = firebaseRef.child(uid)
-        //let userData : [String: Any] = ["uid":  uid, "tid": tid]
-        //userRef.setValue(userData)
-        //storePersistentData(uid: uid, tid: tid)
+        storePersistentData(uid: uid, tid: tid)
     }
     
-    //func storePersistentData(uid: String, tid: String){
-      //  let defaults = UserDefaults.standard
-        //defaults.set(uid, forKey: "uid")
-        //defaults.set(tid, forKey: "tid")
-    //}
-    //First time and not used either
-    /*
-    func retrievePersistentData(){
+    func storePersistentData(uid: String, tid: String){
         let defaults = UserDefaults.standard
-        print(defaults.string(forKey: "uid")!)
-        print(defaults.string(forKey: "tid")!)
+        defaults.set(uid, forKey: "uid")
+        defaults.set(tid, forKey: "tid")
     }
-   */
+
    func emailVerification(){
       Auth.auth().currentUser?.sendEmailVerification { (error) in
           if (Auth.auth().currentUser!.isEmailVerified){

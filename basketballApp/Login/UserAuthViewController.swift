@@ -152,6 +152,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                      self.performSegue(withIdentifier: "verificationSegue", sender: nil)
                     }
                 }
+                UserDefaults.standard.set(self.teamName.text, forKey: "team")
             }
             else {
                self.createAlert(with: "Registration Failed", and: error!.localizedDescription)
