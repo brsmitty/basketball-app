@@ -699,88 +699,6 @@
                                 <rect key="frame" x="0.0" y="20" width="1024" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAw-mx-VV3" userLabel="playbookButton">
-                                <rect key="frame" x="861" y="697" width="163" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="MIB-jk-0aI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFn-Ta-MDe" userLabel="gameTimeButton">
-                                <rect key="frame" x="341" y="697" width="116" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" id="nzi-7g-EdR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIj-bI-s3U" userLabel="scheduleButton">
-                                <rect key="frame" x="686" y="698" width="167" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="poq-ee-9Ka" kind="show" animates="NO" id="xqL-oL-XaF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0D-lE-Rdj" userLabel="PlayerManagerButton">
-                                <rect key="frame" x="0.0" y="697" width="159" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="wie-Xy-O0x" kind="show" animates="NO" id="W8M-Sy-CPF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PbD-QE-cAP" userLabel="performanceButton">
-                                <rect key="frame" x="167" y="697" width="166" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" animates="NO" id="CAV-lt-Azo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G0n-C5-K8G" userLabel="kpiButton">
-                                <rect key="frame" x="564" y="697" width="116" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPa-xO-uzP" userLabel="mainMenuButton">
-                                <rect key="frame" x="457" y="671" width="107" height="97"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="IVv-vb-ido"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navKPIBar" translatesAutoresizingMaskIntoConstraints="NO" id="UBc-2P-3FN">
-                                <rect key="frame" x="28" y="665" width="976" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjS-Xv-kQf">
                                 <rect key="frame" x="20" y="29" width="27" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1204,6 +1122,38 @@
                                 <state key="normal" image="share-button"/>
                                 <connections>
                                     <action selector="share:" destination="XMH-rb-sfj" eventType="touchUpInside" id="n2V-RF-vRS"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navbar" translatesAutoresizingMaskIntoConstraints="NO" id="ODX-rX-1BF">
+                                <rect key="frame" x="0.0" y="677" width="1024" height="93"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxC-MR-vbH">
+                                <rect key="frame" x="460" y="677" width="91" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="jGW-SO-mMU" kind="show" id="oVQ-gF-Aaq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tE8-e8-IfC">
+                                <rect key="frame" x="553" y="681" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="5be-5p-u9r" kind="show" id="YvY-R5-Eql"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQz-KN-FRB">
+                                <rect key="frame" x="7" y="681" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="gg5-YA-dpO" kind="show" id="53B-pV-GBD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IC7-wd-2Hf">
+                                <rect key="frame" x="786" y="681" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="wie-Xy-O0x" kind="show" id="p53-3N-psR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1981,7 +1931,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="faJ-FT-Qdi">
-                                <rect key="frame" x="58" y="609" width="218" height="34"/>
+                                <rect key="frame" x="58" y="594" width="218" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -2061,6 +2011,93 @@
                                 <rect key="frame" x="0.0" y="678" width="1024" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kP-W4-2qe">
+                                <rect key="frame" x="460" y="678" width="91" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="jGW-SO-mMU" kind="show" id="oAY-0L-e2R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAe-rc-7Vi">
+                                <rect key="frame" x="553" y="682" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="5be-5p-u9r" kind="show" id="EZm-wY-8Dg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeV-zZ-zr1">
+                                <rect key="frame" x="7" y="682" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="gg5-YA-dpO" kind="show" id="Evs-du-5w7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gej-Ed-RsK">
+                                <rect key="frame" x="786" y="682" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="wie-Xy-O0x" kind="show" id="YIK-29-8ek"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsL-lB-SUq">
+                                <rect key="frame" x="58" y="636" width="196" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="View Game Summary">
+                                            <attributes>
+                                                <color key="NSColor" red="0.0060376284037679346" green="0.047134125294724008" blue="0.09865363166122243" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="18" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                    <tabStops>
+                                                        <textTab alignment="left" location="36">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="72">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="108">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="144">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="180">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="216">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="252">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="288">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="324">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="360">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="396">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="432">
+                                                            <options/>
+                                                        </textTab>
+                                                    </tabStops>
+                                                </paragraphStyle>
+                                                <integer key="NSUnderline" value="1"/>
+                                                <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <segue destination="iQa-d8-Vh0" kind="show" id="wnR-fF-1eP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -2694,60 +2731,6 @@
                                 <rect key="frame" x="0.0" y="20" width="1024" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMq-A8-vSY" userLabel="PlayerManagerButton">
-                                <rect key="frame" x="0.0" y="696" width="159" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="wie-Xy-O0x" kind="show" identifier="playerManagerSegue" animates="NO" id="aCz-M9-az0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVU-sl-Vh6" userLabel="gameTimeButton">
-                                <rect key="frame" x="341" y="696" width="116" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhD-hT-E1h" userLabel="performanceButton">
-                                <rect key="frame" x="167" y="696" width="166" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" identifier="performanceSegue" animates="NO" id="iVv-Kb-jLk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaa-it-2TP" userLabel="scheduleButton">
-                                <rect key="frame" x="686" y="697" width="167" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="poq-ee-9Ka" kind="show" identifier="scheduleSegue" animates="NO" id="T0b-Oa-zQb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1y0-4h-KPL" userLabel="playbookButton">
-                                <rect key="frame" x="861" y="696" width="163" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" identifier="playbookSegue" animates="NO" id="Gdc-D2-q3f"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbm-eb-8sO" userLabel="settingsButton">
                                 <rect key="frame" x="960" y="25" width="50" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2755,24 +2738,8 @@
                                     <action selector="openSettings:" destination="iQa-d8-Vh0" eventType="touchUpInside" id="5sc-7X-JMh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-VB-FRC" userLabel="kpiButton">
-                                <rect key="frame" x="564" y="696" width="116" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="JOl-Fb-97a" kind="show" id="xF9-0W-ibx"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingsDots" translatesAutoresizingMaskIntoConstraints="NO" id="78c-w4-FeY">
                                 <rect key="frame" x="967" y="30" width="37" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navMainBar" translatesAutoresizingMaskIntoConstraints="NO" id="lBj-oA-8lt">
-                                <rect key="frame" x="28" y="665" width="976" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bG-PW-Rm8">
@@ -3006,7 +2973,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-uu-nNI">
-                                <rect key="frame" x="25" y="628" width="188" height="34"/>
+                                <rect key="frame" x="25" y="602" width="188" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -3097,6 +3064,97 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navbar" translatesAutoresizingMaskIntoConstraints="NO" id="cWo-3V-UtD">
+                                <rect key="frame" x="1" y="676" width="1024" height="93"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGM-qv-MyO">
+                                <rect key="frame" x="461" y="676" width="91" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="jGW-SO-mMU" kind="show" id="gAR-gh-MKE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn4-kI-c4m">
+                                <rect key="frame" x="554" y="680" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="5be-5p-u9r" kind="show" id="vix-mb-8OF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDm-D5-D2M">
+                                <rect key="frame" x="8" y="680" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="gg5-YA-dpO" kind="show" id="XGe-DK-U78"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yz-Mq-ig2">
+                                <rect key="frame" x="787" y="680" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="wie-Xy-O0x" kind="show" id="PLt-eW-eUx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rVt-0c-vk3">
+                                <rect key="frame" x="25" y="638" width="196" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="View Season Summary">
+                                            <attributes>
+                                                <color key="NSColor" red="0.0060376284037679346" green="0.047134125294724008" blue="0.09865363166122243" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="18" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                    <tabStops>
+                                                        <textTab alignment="left" location="36">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="72">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="108">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="144">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="180">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="216">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="252">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="288">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="324">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="360">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="396">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="432">
+                                                            <options/>
+                                                        </textTab>
+                                                    </tabStops>
+                                                </paragraphStyle>
+                                                <integer key="NSUnderline" value="1"/>
+                                                <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="86B-3X-pxu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
@@ -3107,12 +3165,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
-                        <outlet property="gameTimeBtn" destination="TVU-sl-Vh6" id="PAw-9b-w0K"/>
-                        <outlet property="kpiBtn" destination="CRA-VB-FRC" id="SLL-bF-J3d"/>
-                        <outlet property="performanceBtn" destination="nhD-hT-E1h" id="ioB-CN-kiv"/>
-                        <outlet property="playbookBtn" destination="1y0-4h-KPL" id="TPT-Gr-kCf"/>
-                        <outlet property="playerManagerBtn" destination="GMq-A8-vSY" id="JWi-tT-mDX"/>
-                        <outlet property="scheduleBtn" destination="xaa-it-2TP" id="QCV-bS-UGR"/>
                         <outlet property="settingsBtn" destination="Jbm-eb-8sO" id="jH3-Yq-1DT"/>
                         <outlet property="settingsView" destination="0bG-PW-Rm8" id="668-qE-9xO"/>
                         <outlet property="tapGesture" destination="BCo-Wv-CLx" id="oDb-1a-hoY"/>
@@ -4067,8 +4119,6 @@
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
         <image name="navGameBar" width="233" height="233"/>
-        <image name="navKPIBar" width="2559.5" height="245.5"/>
-        <image name="navMainBar" width="2559.5" height="244"/>
         <image name="navPerformanceBar" width="2559.5" height="245.5"/>
         <image name="navPlaybookBar" width="2559.5" height="245.5"/>
         <image name="navPlayerManageBar" width="2559.5" height="245.5"/>
@@ -4085,13 +4135,13 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JP8-mt-yTk"/>
-        <segue reference="MIB-jk-0aI"/>
-        <segue reference="xqL-oL-XaF"/>
-        <segue reference="nzi-7g-EdR"/>
-        <segue reference="IVv-vb-ido"/>
-        <segue reference="W8M-Sy-CPF"/>
+        <segue reference="EZm-wY-8Dg"/>
+        <segue reference="rJb-1g-pbP"/>
+        <segue reference="wnR-fF-1eP"/>
+        <segue reference="oAY-0L-e2R"/>
+        <segue reference="YIK-29-8ek"/>
         <segue reference="Bgp-i5-pz9"/>
-        <segue reference="CAV-lt-Azo"/>
+        <segue reference="Evs-du-5w7"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
 </document>
