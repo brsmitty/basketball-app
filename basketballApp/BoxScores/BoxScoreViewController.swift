@@ -8,7 +8,7 @@
 
 import UIKit
 
-class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     //MARK: Properties
@@ -23,12 +23,12 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? PlayerKPITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? BoxScoreTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
         let player = players[indexPath.row]
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = kpiViewController.LightGrayBackground
+            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
@@ -59,7 +59,37 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-
+    //MARK: Actions
+    
+    
+    @IBAction func share(_ sender: Any) {
+        let firstActivityItem = "Text you want"
+        let secondActivityItem : NSURL = NSURL(string: "http//:urlyouwant")!
+        // If you want to put an image
+        //let image : UIImage = UIImage(named: "image.jpg")!
+        
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [firstActivityItem, secondActivityItem], applicationActivities: nil)
+        
+        // This lines is for the popover you need to show in iPad
+        activityViewController.popoverPresentationController?.sourceView = (sender as! UIButton)
+        
+        // This line remove the arrow of the popover to show in iPad
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.any
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+        
+        activityViewController.excludedActivityTypes = [
+            UIActivityType.print,
+            UIActivityType.assignToContact,
+            UIActivityType.saveToCameraRoll,
+            UIActivityType.addToReadingList,
+            UIActivityType.copyToPasteboard
+        ]
+        
+        self.present(activityViewController, animated: true, completion: nil)
+        
+    }
+    
     var uid: String = ""
     var tid: String = ""
     override func viewDidLoad() {
@@ -87,7 +117,7 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
     */
 
    @IBAction func goBack(_ sender: UIButton) {
-      dismiss(animated: false, completion: nil)
+      dismiss(animated: true, completion: nil)
    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -123,7 +153,7 @@ class kpiViewController: UIViewController, UITableViewDataSource, UITableViewDel
             }
         }
         else if segue.identifier == "kpiSegue" {
-            if let dest = segue.destination as? kpiViewController {
+            if let dest = segue.destination as? BoxScoreViewController {
                 dest.uid = self.uid
                 dest.tid = self.tid
             }

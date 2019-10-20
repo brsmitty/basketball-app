@@ -76,7 +76,7 @@ class PlaybookMasterViewController: UIViewController {
             }
         }
         else if segue.identifier == "kpiSegue" {
-            if let dest = segue.destination as? kpiViewController {
+            if let dest = segue.destination as? BoxScoreViewController {
                 dest.uid = self.uid
                 dest.tid = self.tid
             }

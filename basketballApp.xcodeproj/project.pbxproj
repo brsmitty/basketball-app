@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27123B592193C35600541774 /* kpiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* kpiViewController.swift */; };
+		27123B592193C35600541774 /* BoxScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* BoxScoreViewController.swift */; };
 		27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B5A2193D56D00541774 /* BenchViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
 		271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C0214215AA33D003D1BB2 /* MiddleViewController.swift */; };
@@ -42,7 +42,7 @@
 		3D182BC722664D440012DB2C /* PlaybookMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C7D11021894360000EE098 /* PlaybookMasterViewController.swift */; };
 		3D182BC822664D4C0012DB2C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350451E2163977C003A046C /* GameViewController.swift */; };
 		3D182BC922664D550012DB2C /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B1F94A2191F6F500D0351B /* PerformanceViewController.swift */; };
-		3D182BCA22664D5C0012DB2C /* kpiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* kpiViewController.swift */; };
+		3D182BCA22664D5C0012DB2C /* BoxScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* BoxScoreViewController.swift */; };
 		3D182BCB22664DF70012DB2C /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F35C21477C8400439BF0 /* PlayerTableViewCell.swift */; };
 		3D182BCC22664DFE0012DB2C /* ShotChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63247DF52171455A00137FC3 /* ShotChartViewController.swift */; };
 		3D182BCD22664E050012DB2C /* FreethrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368B40521760B2A004E30DA /* FreethrowViewController.swift */; };
@@ -87,8 +87,10 @@
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
-		9738FDF02341379F00A22E02 /* PlayerKPITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738FDEF2341379F00A22E02 /* PlayerKPITableViewCell.swift */; };
+		972B90252357B13F00A21336 /* SeasonSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */; };
+		9738FDF02341379F00A22E02 /* BoxScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */; };
 		978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 978FC5562337E3F90060EA8F /* GoogleService-Info.plist */; };
+		97F360BE2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
 		98588C61216511E300DA226C /* PlaybookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C60216511E300DA226C /* PlaybookCell.swift */; };
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
@@ -115,7 +117,7 @@
 
 /* Begin PBXFileReference section */
 		1A509FAEACC1CBBD15198521 /* Pods-basketballAppUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests.release.xcconfig"; sourceTree = "<group>"; };
-		27123B582193C35600541774 /* kpiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kpiViewController.swift; sourceTree = "<group>"; };
+		27123B582193C35600541774 /* BoxScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxScoreViewController.swift; sourceTree = "<group>"; };
 		27123B5A2193D56D00541774 /* BenchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchViewController.swift; sourceTree = "<group>"; };
 		27185E192173EE1800B69950 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		271C0214215AA33D003D1BB2 /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
@@ -203,9 +205,11 @@
 		63E879732146D21600B1A458 /* UserAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
 		63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewUnitTests.swift; sourceTree = "<group>"; };
 		83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSummaryViewController.swift; sourceTree = "<group>"; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9738FDEF2341379F00A22E02 /* PlayerKPITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerKPITableViewCell.swift; sourceTree = "<group>"; };
+		9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxScoreTableViewCell.swift; sourceTree = "<group>"; };
 		978FC5562337E3F90060EA8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonPlayerMetricsTableViewCell.swift; sourceTree = "<group>"; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
 		98588C60216511E300DA226C /* PlaybookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookCell.swift; sourceTree = "<group>"; };
 		987822E42191488600808AC4 /* TimerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTest.swift; sourceTree = "<group>"; };
@@ -281,13 +285,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		27123B572193C34700541774 /* KPI */ = {
+		27123B572193C34700541774 /* BoxScores */ = {
 			isa = PBXGroup;
 			children = (
-				27123B582193C35600541774 /* kpiViewController.swift */,
-				9738FDEF2341379F00A22E02 /* PlayerKPITableViewCell.swift */,
+				27123B582193C35600541774 /* BoxScoreViewController.swift */,
+				9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */,
 			);
-			path = KPI;
+			path = BoxScores;
 			sourceTree = "<group>";
 		};
 		27185E1B2173F3D100B69950 /* Login */ = {
@@ -463,7 +467,8 @@
 			isa = PBXGroup;
 			children = (
 				978FC5562337E3F90060EA8F /* GoogleService-Info.plist */,
-				27123B572193C34700541774 /* KPI */,
+				972B90232357B0E200A21336 /* SeasonSummary */,
+				27123B572193C34700541774 /* BoxScores */,
 				27B1F9492191F6E100D0351B /* Performance */,
 				630E2C67216E672600881C1F /* Playbook.pdf */,
 				630E2C65216E66C800881C1F /* Assets.xcassets */,
@@ -499,6 +504,15 @@
 				3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */,
 			);
 			path = basketballApp;
+			sourceTree = "<group>";
+		};
+		972B90232357B0E200A21336 /* SeasonSummary */ = {
+			isa = PBXGroup;
+			children = (
+				972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */,
+				97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */,
+			);
+			path = SeasonSummary;
 			sourceTree = "<group>";
 		};
 		987B3083217834E10010F3A6 /* gestureUITests */ = {
@@ -813,7 +827,7 @@
 				3D182BCB22664DF70012DB2C /* PlayerTableViewCell.swift in Sources */,
 				3D182BC622664D3A0012DB2C /* PlayerManagerViewController.swift in Sources */,
 				3D182BC122664D020012DB2C /* VerifiedViewController.swift in Sources */,
-				3D182BCA22664D5C0012DB2C /* kpiViewController.swift in Sources */,
+				3D182BCA22664D5C0012DB2C /* BoxScoreViewController.swift in Sources */,
 				3D182BCD22664E050012DB2C /* FreethrowViewController.swift in Sources */,
 				3D182BC822664D4C0012DB2C /* GameViewController.swift in Sources */,
 				3D182BC722664D440012DB2C /* PlaybookMasterViewController.swift in Sources */,
@@ -837,10 +851,12 @@
 				987822E52191488600808AC4 /* TimerTest.swift in Sources */,
 				27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */,
 				6346B815214AB779000B0B6E /* Team.swift in Sources */,
+				97F360BE2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift in Sources */,
 				27C7D11121894360000EE098 /* PlaybookMasterViewController.swift in Sources */,
 				274A64302165B9E500F0F4E7 /* VerifiedViewController.swift in Sources */,
+				972B90252357B13F00A21336 /* SeasonSummaryViewController.swift in Sources */,
 				27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */,
-				27123B592193C35600541774 /* kpiViewController.swift in Sources */,
+				27123B592193C35600541774 /* BoxScoreViewController.swift in Sources */,
 				630E66EE21766973005EF4EB /* GameCell.swift in Sources */,
 				6346B811214AB765000B0B6E /* UserModel.swift in Sources */,
 				275F46C821580D4D004E6ED7 /* LineupEditorViewController.swift in Sources */,
@@ -857,7 +873,7 @@
 				2730FDE321A103D60003F4B8 /* UIImageViewExtension.swift in Sources */,
 				2786CCCE2144B571003539A2 /* Player.swift in Sources */,
 				27F2F35B21475BC900439BF0 /* PlayerManagerViewController.swift in Sources */,
-				9738FDF02341379F00A22E02 /* PlayerKPITableViewCell.swift in Sources */,
+				9738FDF02341379F00A22E02 /* BoxScoreTableViewCell.swift in Sources */,
 				271C0215215AA33D003D1BB2 /* MiddleViewController.swift in Sources */,
 				630E66EF21766973005EF4EB /* DetailViewController.swift in Sources */,
 				6346B80F214A720D000B0B6E /* User.swift in Sources */,

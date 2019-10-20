@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerKPITableViewCell: UITableViewCell {
+class BoxScoreTableViewCell: UITableViewCell {
 
     //MARK: Properties
     @IBOutlet weak var playerName: UILabel!
