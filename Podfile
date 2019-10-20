@@ -10,6 +10,7 @@ target 'basketballApp' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'CircleAnimatedMenu'
+  pod 'JTAppleCalendar'
   
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'

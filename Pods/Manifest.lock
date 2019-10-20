@@ -65,6 +65,7 @@ PODS:
   - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
+  - JTAppleCalendar (7.1.7)
   - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -79,9 +80,10 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - JTAppleCalendar
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - CircleAnimatedMenu
     - Firebase
     - FirebaseAnalytics
@@ -95,6 +97,8 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+  trunk:
+    - JTAppleCalendar
 
 SPEC CHECKSUMS:
   CircleAnimatedMenu: 0a37efe511f469e68ecc16fde349aa684f0344db
@@ -108,9 +112,10 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 6cf307834da065863f9faf4c0de0a936d81dd832
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  JTAppleCalendar: 96da4d8388fa6dc82d6a60d41ef36a015e167e2f
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: b9afefdecb081cc5f2a84cd64450fb6c21d0b350
+PODFILE CHECKSUM: 61e58b13b4ac1e450c3f3296ad0fdac778cc5b92
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

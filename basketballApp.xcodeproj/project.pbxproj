@@ -87,6 +87,8 @@
 		63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C79FCE21403291006726C3 /* AppDelegate.swift */; };
 		63C79FD921403292006726C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C79FD721403292006726C3 /* LaunchScreen.storyboard */; };
 		63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E879732146D21600B1A458 /* UserAuthViewController.swift */; };
+		972B1DD0235CF8FC001C915B /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1DCF235CF8FC001C915B /* DateCollectionViewCell.swift */; };
+		972B1DD2235CF98A001C915B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1DD1235CF98A001C915B /* CalendarViewController.swift */; };
 		972B90252357B13F00A21336 /* SeasonSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */; };
 		9738FDF02341379F00A22E02 /* BoxScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */; };
 		978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 978FC5562337E3F90060EA8F /* GoogleService-Info.plist */; };
@@ -205,6 +207,8 @@
 		63E879732146D21600B1A458 /* UserAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
 		63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewUnitTests.swift; sourceTree = "<group>"; };
 		83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		972B1DCF235CF8FC001C915B /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		972B1DD1235CF98A001C915B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSummaryViewController.swift; sourceTree = "<group>"; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxScoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 		63C79FCD21403291006726C3 /* basketballApp */ = {
 			isa = PBXGroup;
 			children = (
+				972B1DCE235CF8E1001C915B /* CalendarViews */,
 				978FC5562337E3F90060EA8F /* GoogleService-Info.plist */,
 				972B90232357B0E200A21336 /* SeasonSummary */,
 				27123B572193C34700541774 /* BoxScores */,
@@ -504,6 +509,15 @@
 				3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */,
 			);
 			path = basketballApp;
+			sourceTree = "<group>";
+		};
+		972B1DCE235CF8E1001C915B /* CalendarViews */ = {
+			isa = PBXGroup;
+			children = (
+				972B1DCF235CF8FC001C915B /* DateCollectionViewCell.swift */,
+				972B1DD1235CF98A001C915B /* CalendarViewController.swift */,
+			);
+			path = CalendarViews;
 			sourceTree = "<group>";
 		};
 		972B90232357B0E200A21336 /* SeasonSummary */ = {
@@ -881,7 +895,9 @@
 				27B1F94B2191F6F500D0351B /* PerformanceViewController.swift in Sources */,
 				274A641E2164051700F0F4E7 /* LoginTextField.swift in Sources */,
 				274A642E2165B92500F0F4E7 /* EmailVerificationViewController.swift in Sources */,
+				972B1DD0235CF8FC001C915B /* DateCollectionViewCell.swift in Sources */,
 				630E66EB21766973005EF4EB /* ViewController.swift in Sources */,
+				972B1DD2235CF98A001C915B /* CalendarViewController.swift in Sources */,
 				3D52DBFF2214E0FA00C8AA0C /* DBApi.swift in Sources */,
 				6351C2CA21A8915200BF63F6 /* Possession.swift in Sources */,
 				6321151F2153F39F00F5FD6C /* KPI.swift in Sources */,
