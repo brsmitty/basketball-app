@@ -14,7 +14,7 @@ import FirebaseDatabase
 
 
 
-class MiddleViewController: UIViewController {
+class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var schedules: [String] = []
     var times: [String] = []
@@ -40,6 +40,17 @@ class MiddleViewController: UIViewController {
    @IBOutlet var mainView: UIView!
    @IBOutlet weak var settingsView: UIView!
    @IBOutlet weak var NGTitle: UILabel!
+    
+    @IBOutlet weak var lineupRankingView: UIView!
+    
+    @IBOutlet weak var UsVsOppsView: UIView!
+    @IBOutlet weak var tableViewWrapper: UIView!
+    
+    
+    @IBOutlet weak var viewBoxScoreButton: UIButton!
+    @IBOutlet weak var viewSeasonSummaryButton: UIButton!
+    
+    
     var admin: Bool = false
     // holds the player reference to firebase
     var playRef:DatabaseReference?
@@ -52,7 +63,28 @@ class MiddleViewController: UIViewController {
         
         UserDefaults.standard.setValue(false, forKey: "admin")
         
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        loadPlayers()
+        
+        setDefaultViewStyle(view: self.lineupRankingView)
+        setDefaultViewStyle(view: self.UsVsOppsView)
+        setDefaultViewStyle(view: self.tableViewWrapper)
+        setDefaultButtonStyle(button: self.viewBoxScoreButton)
+        setDefaultButtonStyle(button: self.viewSeasonSummaryButton)
+        
         // Do any additional setup after loading the view.
+    }
+    
+    private func setDefaultViewStyle(view: UIView){
+        view.layer.borderWidth = 1.0
+        view.layer.cornerRadius = 10.0
+        view.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5).cgColor
+    }
+    
+    private func setDefaultButtonStyle(button: UIButton){
+        button.layer.borderWidth = 1.0
+        button.layer.cornerRadius = 10.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -139,6 +171,39 @@ class MiddleViewController: UIViewController {
             }
         }
         return temp
+    }
+    
+    //MARK: Player metrics table
+    var players = [Player]()
+    @IBOutlet weak var tableView: UITableView!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return players.count
+    }
+    
+    
+    //TODO: change this to game instead of season
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonPlayerMetricsCell", for: indexPath) as? SeasonPlayerMetricsTableViewCell else {
+            fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
+        }
+        let player = players[indexPath.row]
+        cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
+        return cell
+    }
+    
+
+    //number of groupings in the table that show up
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    private func loadPlayers() {
+        DBApi.sharedInstance.getPlayers{ [weak self] players in
+            guard let s = self else { return }
+            s.players = players
+            s.tableView.reloadData()
+        }
     }
 
     /*
