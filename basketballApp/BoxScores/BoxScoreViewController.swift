@@ -35,8 +35,13 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
             let statsDict = snapshot.value as? [String: Any] ?? [:]
             print("this is a player")
             let blocks = statsDict[KPIKeys.blocks.rawValue] as? NSNumber
+            let pts = statsDict[KPIKeys.points.rawValue] as? NSNumber
             cell.blocks.text = blocks?.stringValue
+            cell.totalPoints.text = pts?.stringValue
             //cell.playerName.text = (playerDict["lName"] as! String ) + ", " + firstName.prefix(1)
+            print("---------------------")
+            print(pts)
+            print(KPIKeys.points.rawValue)
             print(statsDict)
         }
         
