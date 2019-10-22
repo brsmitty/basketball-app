@@ -16,6 +16,10 @@ import FirebaseDatabase
 
 class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var opponentTeam: String = "Team2"
+    var teamName: String = "Team1"
+    @IBOutlet weak var gameSummaryTitle: UILabel!
+    
     var schedules: [String] = []
     var times: [String] = []
     var dates: [Date] = []
@@ -72,6 +76,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setDefaultViewStyle(view: self.tableViewWrapper)
         setDefaultButtonStyle(button: self.viewBoxScoreButton)
         setDefaultButtonStyle(button: self.viewSeasonSummaryButton)
+        self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         // Do any additional setup after loading the view.
     }
@@ -283,6 +288,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        
         if segue.identifier == "schedule" {
             if let dest = segue.destination as? ScheduleViewController {
                 dest.uid = self.uid
@@ -324,6 +330,11 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 dest.uid = self.uid
                 dest.tid = self.tid
             }
+        }
+        
+        if segue.destination is BoxScoreViewController{
+            let boxScore = segue.destination as? BoxScoreViewController
+            boxScore?.opponentTeam = self.opponentTeam
         }
     }
 

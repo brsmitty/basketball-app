@@ -9,6 +9,9 @@ import UIKit
 
 class DateCellView: JTAppleCell {
     @IBOutlet var dateLabel: UILabel!
+    
+    @IBOutlet weak var matchButton: UIButton!
+    
 }
 
 

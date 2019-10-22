@@ -12,6 +12,13 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
 
     @IBOutlet var calendarView: JTAppleCalendarView!
     
+    var calendarDataSource: [String:String] = [:]
+    var formatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MMM-yyyy"
+        return formatter
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.scrollDirection = .horizontal
@@ -20,11 +27,14 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
         calendarView.scrollToDate(Date(), animateScroll: false)
         
         // Do any additional setup after loading the view.
-    }
+        //TODO: Read from DB
+        calendarDataSource = ["22-Oct-2019": "Cavaliers",
+                 "15-Jan-2019":"GS Warriors"]
+        }
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy MM dd"
+        //let formatter = DateFormatter()
+        //formatter.dateFormat = "yyyy MM dd"
         //let startDate = formatter.date(from: "2019 01 01")!
         let startDate = Calendar.current.date(byAdding: .year,value: -1, to: Date())
         let endDate = Date()
@@ -43,8 +53,8 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         let cell = cell as! DateCellView
         cell.dateLabel.text = cellState.text
-        //cell.layer.borderWidth = 1.0
-        //cell.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.9, alpha: 0.5).cgColor
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor(red: 0, green: 0, blue: 0.5, alpha: 0.1).cgColor
         configureCell(view: cell, cellState: cellState)
     }
     
@@ -62,11 +72,20 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
     }
 
     
-
     
     func configureCell(view: JTAppleCell?, cellState: CellState) {
         guard let cell = view as? DateCellView  else { return }
         cell.dateLabel.text = cellState.text
+        let dateString = formatter.string(from: cellState.date)
+        if(calendarDataSource[dateString] != nil){
+            cell.matchButton.setTitle( calendarDataSource[dateString], for: UIControlState.normal)
+            setDefaultButtonStyle(button: cell.matchButton)
+            cell.matchButton.isHidden = false
+            print(dateString)
+        }else{
+            cell.matchButton.isHidden = true
+        }
+        
         handleCellTextColor(cell: cell, cellState: cellState)
     }
     
@@ -76,6 +95,11 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
         } else {
             cell.dateLabel.textColor = UIColor.gray
         }
+    }
+    
+    private func setDefaultButtonStyle(button: UIButton){
+        button.layer.borderWidth = 1.0
+        button.layer.cornerRadius = 10.0
     }
 
     /*
@@ -88,8 +112,19 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
     }
     */
 
+
     @IBAction func goBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is MiddleViewController{
+            let gameSummary = segue.destination as? MiddleViewController
+            guard let buttonClicked = sender as? UIButton else{return}
+            if let title = buttonClicked.currentTitle{
+                gameSummary?.opponentTeam = title
+            }
+        }
     }
 }
 

@@ -16,6 +16,8 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableView: UITableView!
     
     var players = [Player]()
+    var opponentTeam: String = "Team2"
+    @IBOutlet weak var boxScoreTitle: UILabel!
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,6 +108,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // Do any additional setup after loading the view.
         loadPlayers()
+        self.boxScoreTitle.text = "Team1" + " vs " + self.opponentTeam
     }
     
 
