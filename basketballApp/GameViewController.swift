@@ -426,7 +426,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                       deflections: p["deflections"] as! Int,
                                       personalFoul: p["personalFoul"] as! Int,
                                       techFoul: p["techFoul"] as! Int,
-                                      chargesTaken: p["chargesTaken"] as! Int)
+                                      chargesTaken: p["chargesTaken"] as! Int,
+                                      shotLocation: p["shotLocation"] as! [[Double]])
             players.append(playerObject)
 
             i += 1
@@ -784,7 +785,15 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         lineups.append(lineup);
         gameState["lineups"] = lineups;
     }
+    @IBOutlet weak var imageView: UIImageView!
+    var coordinates = CGPoint.zero
 
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            if let touch = touches.first{
+            coordinates = touch.location(in: imageView)
+            print(coordinates)
+        }
+    }
     @IBAction func handleTap(_ tapHandler: UITapGestureRecognizer) {
         print("Screen was tapped")
         benchView.isHidden = true

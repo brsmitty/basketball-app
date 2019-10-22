@@ -29,6 +29,8 @@ class ShotChartViewController: UIViewController {
         if let touch = touches.first {
             shotLocation = touch.location(in: self.view)
             shotSelect(location: shotLocation)
+            print(shotLocation.x)
+            print(shotLocation.y)
         }
     }
     

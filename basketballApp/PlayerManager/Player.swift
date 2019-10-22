@@ -40,6 +40,8 @@ class Player: NSObject {
     var personalFoul:Int?
     var techFoul:Int?
     var chargesTaken:Int?
+    var shotLocation:[[Double]]?
+
     
     var active: Bool = false
     var hasBall: Bool = false
@@ -61,6 +63,7 @@ class Player: NSObject {
         let imageName = dictionary["image_name"] as? String ?? ""
         let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
         photo = UIImage(contentsOfFile: imagePath) ?? UIImage(named: "Default")
+        
     }
    
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
@@ -92,9 +95,10 @@ class Player: NSObject {
         self.personalFoul = 0
         self.techFoul = 0
         self.chargesTaken = 0
+        self.shotLocation = [[0,0]]
    }
     
-    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, points: Int, assists: Int, turnovers: Int, threePtAtt: Int, twoPtAtt: Int, threePtMade: Int, twoPtMade: Int, ftAtt: Int, ftMade: Int, offRebounds: Int, defRebounds: Int, steals: Int, blocks: Int, deflections: Int, personalFoul: Int, techFoul: Int, chargesTaken: Int){
+    init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, points: Int, assists: Int, turnovers: Int, threePtAtt: Int, twoPtAtt: Int, threePtMade: Int, twoPtMade: Int, ftAtt: Int, ftMade: Int, offRebounds: Int, defRebounds: Int, steals: Int, blocks: Int, deflections: Int, personalFoul: Int, techFoul: Int, chargesTaken: Int, shotLocation: [[Double]]){
         self.playerId = playerId
         self.teamId =  teamId
 
@@ -123,6 +127,7 @@ class Player: NSObject {
         self.personalFoul = personalFoul
         self.techFoul = techFoul
         self.chargesTaken = chargesTaken
+        self.shotLocation = shotLocation
     }
     
     func updatePoints(points: Int){
@@ -199,5 +204,9 @@ class Player: NSObject {
 
     func pass(){
         self.numberOfPasses += 1
+    }
+    
+    func updateShotLocation(shotLocation: [Double]){
+        self.shotLocation?.append(shotLocation)
     }
 }
