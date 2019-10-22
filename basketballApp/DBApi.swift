@@ -57,10 +57,11 @@ enum KPIKeys: String{
     case turnovers = "turnovers"
     case twoPointersMade = "twoPtMade"
     case twoPointersAttempted = "twoPtAtt"
+    case shotLocation = "shotLocation"
     
     static let allValues = [assists, blocks, charges, deflections, deflections, deflections, firstName,
         foulShotsAttempted,foulShotsMade,offensiveRebounds,personalFouls,personalFouls,points,
-        steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade, twoPointersAttempted
+        shotLocation, steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade, twoPointersAttempted
     ]
 }
 
