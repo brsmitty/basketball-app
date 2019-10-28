@@ -1154,7 +1154,7 @@
                                 <rect key="frame" x="7" y="681" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" id="53B-pV-GBD"/>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="kxk-Nq-ad2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IC7-wd-2Hf">
@@ -2075,65 +2075,6 @@
                                     <segue destination="wie-Xy-O0x" kind="show" id="YIK-29-8ek"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsL-lB-SUq">
-                                <rect key="frame" x="58" y="636" width="196" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="View Game Summary">
-                                            <attributes>
-                                                <color key="NSColor" red="0.0060376284037679346" green="0.047134125294724008" blue="0.09865363166122243" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <font key="NSFont" size="18" name="Helvetica-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                    <tabStops>
-                                                        <textTab alignment="left" location="36">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="72">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="108">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="144">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="180">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="216">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="252">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="288">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="324">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="360">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="396">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="432">
-                                                            <options/>
-                                                        </textTab>
-                                                    </tabStops>
-                                                </paragraphStyle>
-                                                <integer key="NSUnderline" value="1"/>
-                                                <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" id="wnR-fF-1eP"/>
-                                </connections>
-                            </button>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="2E6-4u-mGO">
                                 <rect key="frame" x="57" y="295" width="451" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -2209,6 +2150,13 @@
                                 </state>
                                 <connections>
                                     <segue destination="Whm-we-HJf" kind="show" id="Lnr-Ff-ZLn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyg-ve-QsX">
+                                <rect key="frame" x="240" y="682" width="225" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="iQa-d8-Vh0" kind="show" id="dFP-XF-Rnx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2337,6 +2285,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYf-i5-EX0">
                                 <rect key="frame" x="7" y="679" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="0wy-7j-azh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0C-Oo-cMy">
                                 <rect key="frame" x="786" y="679" width="225" height="83"/>
@@ -3010,18 +2961,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-uu-nNI">
-                                <rect key="frame" x="273" y="634" width="205" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                <state key="normal" title="View Game Box Score">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="XMH-rb-sfj" kind="show" id="Bgp-i5-pz9"/>
-                                </connections>
-                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navbar" translatesAutoresizingMaskIntoConstraints="NO" id="cWo-3V-UtD">
                                 <rect key="frame" x="1" y="676" width="1024" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3044,7 +2983,7 @@
                                 <rect key="frame" x="8" y="680" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" id="XGe-DK-U78"/>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="xmA-tT-Tp1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yz-Mq-ig2">
@@ -3349,16 +3288,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVt-0c-vk3">
-                                <rect key="frame" x="20" y="634" width="208" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-uu-nNI">
+                                <rect key="frame" x="147" y="629" width="205" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                <state key="normal" title="View Season Summary">
+                                <state key="normal" title="View Game Box Score">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="JOl-Fb-97a" kind="show" id="86B-3X-pxu"/>
+                                    <segue destination="XMH-rb-sfj" kind="show" id="Bgp-i5-pz9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3381,7 +3320,6 @@
                         <outlet property="tapGesture" destination="BCo-Wv-CLx" id="oDb-1a-hoY"/>
                         <outlet property="view" destination="EFW-7U-Bjg" id="hZE-L3-ffh"/>
                         <outlet property="viewBoxScoreButton" destination="cvh-uu-nNI" id="90l-Xf-NcS"/>
-                        <outlet property="viewSeasonSummaryButton" destination="rVt-0c-vk3" id="6rE-AS-yuG"/>
                         <outlet property="welcomeBar" destination="abC-jw-g7o" id="9zV-lc-JkH"/>
                     </connections>
                 </viewController>
@@ -4349,14 +4287,15 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JP8-mt-yTk"/>
-        <segue reference="vix-mb-8OF"/>
+        <segue reference="EZm-wY-8Dg"/>
         <segue reference="QSQ-J0-xoi"/>
-        <segue reference="eHN-Sm-WD4"/>
-        <segue reference="gAR-gh-MKE"/>
-        <segue reference="IOu-Qq-iME"/>
-        <segue reference="PLt-eW-eUx"/>
+        <segue reference="dFP-XF-Rnx"/>
+        <segue reference="oAY-0L-e2R"/>
+        <segue reference="Lnr-Ff-ZLn"/>
+        <segue reference="xmA-tT-Tp1"/>
+        <segue reference="YIK-29-8ek"/>
         <segue reference="Bgp-i5-pz9"/>
-        <segue reference="XGe-DK-U78"/>
+        <segue reference="Evs-du-5w7"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,6 +22,9 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonPlayerMetricsCell", for: indexPath) as? SeasonPlayerMetricsTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+        }
         let player = players[indexPath.row]
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
         return cell

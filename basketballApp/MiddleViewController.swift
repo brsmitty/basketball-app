@@ -37,10 +37,10 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var performanceBtn: UIButton!
     @IBOutlet weak var gameTimeBtn: UIButton!
     @IBOutlet weak var playerManagerBtn: UIButton!
-    
+
     @IBOutlet weak var NGDetail: UILabel!
     @IBOutlet weak var NGDate: UILabel!
-    
+
    @IBOutlet var mainView: UIView!
    @IBOutlet weak var settingsView: UIView!
    @IBOutlet weak var NGTitle: UILabel!
@@ -52,7 +52,6 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     @IBOutlet weak var viewBoxScoreButton: UIButton!
-    @IBOutlet weak var viewSeasonSummaryButton: UIButton!
     
     
     var admin: Bool = false
@@ -75,7 +74,6 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
         setDefaultButtonStyle(button: self.viewBoxScoreButton)
-        setDefaultButtonStyle(button: self.viewSeasonSummaryButton)
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         // Do any additional setup after loading the view.
@@ -191,6 +189,10 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonPlayerMetricsCell", for: indexPath) as? SeasonPlayerMetricsTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
+        }
+        
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
         let player = players[indexPath.row]
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."

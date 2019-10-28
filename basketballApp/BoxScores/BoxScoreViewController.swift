@@ -41,10 +41,6 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.blocks.text = blocks?.stringValue
             cell.totalPoints.text = pts?.stringValue
             //cell.playerName.text = (playerDict["lName"] as! String ) + ", " + firstName.prefix(1)
-            print("---------------------")
-            print(pts)
-            print(KPIKeys.points.rawValue)
-            print(statsDict)
         }
         
         return cell
