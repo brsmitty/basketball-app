@@ -10,15 +10,42 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import Charts
 
 
 
 
 class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    final class QuarterNameFormatter: NSObject, IAxisValueFormatter {
+        
+        var quarterTime = 10
+        
+        func stringForValue( _ value: Double, axis _: AxisBase?) -> String {
+            let intValue = Int(value)
+            switch intValue {
+            case 0:
+                return "1st"
+            case quarterTime:
+                return "2nd"
+            case (quarterTime * 2):
+                return "3rd"
+            case (quarterTime * 3):
+                return "4th"
+            default:
+                return ""
+            }
+        }
+    }
+    
+    static let borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5).cgColor
+    
+    
     var opponentTeam: String = "Team2"
     var teamName: String = "Team1"
     @IBOutlet weak var gameSummaryTitle: UILabel!
+    
+    @IBOutlet weak var gameChart: LineChartView!
     
     var schedules: [String] = []
     var times: [String] = []
@@ -76,18 +103,75 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setDefaultButtonStyle(button: self.viewBoxScoreButton)
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
+        updateGraph()
         // Do any additional setup after loading the view.
     }
     
     private func setDefaultViewStyle(view: UIView){
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 10.0
-        view.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5).cgColor
+        view.layer.borderColor = MiddleViewController.borderColor
     }
     
     private func setDefaultButtonStyle(button: UIButton){
         button.layer.borderWidth = 1.0
         button.layer.cornerRadius = 10.0
+    }
+    
+    func updateGraph(){
+        var lineInfo = [ChartDataEntry]()
+        var opplineInfo = [ChartDataEntry]()
+//        lineInfo.append(ChartDataEntry(x: 0, y: 0))
+//        lineInfo.append(ChartDataEntry(x: 5.5, y: 3.3))
+//        lineInfo.append(ChartDataEntry(x: 6.5, y: 9.9))
+        
+        var testScore: Double = 0
+        var testOppScore: Double = 0
+        var x: Double = 0
+        while testScore < 100 && x < 40 {
+            lineInfo.append(ChartDataEntry(x: x, y: testScore))
+            opplineInfo.append(ChartDataEntry(x: x, y: testOppScore))
+            testScore += Double(Int.random(in: 0...4))
+            testOppScore += Double(Int.random(in: 0...3))
+            x += 1
+        }
+        
+        
+//        opplineInfo.append(ChartDataEntry(x: 0, y: 0))
+//        opplineInfo.append(ChartDataEntry(x: 22.5, y: 66.3))
+//        opplineInfo.append(ChartDataEntry(x: 25.5, y: 88.9))
+        
+        let ourTeamLine = LineChartDataSet(entries: lineInfo, label: self.teamName)
+        ourTeamLine.colors = [UIColor.blue]
+        ourTeamLine.drawCirclesEnabled = false
+        
+        let oppTeamLine = LineChartDataSet(entries: opplineInfo, label: self.opponentTeam)
+        oppTeamLine.colors = [NSUIColor.red]
+        oppTeamLine.drawCirclesEnabled = false
+        
+        let data = LineChartData()
+        data.addDataSet(ourTeamLine)
+        data.addDataSet(oppTeamLine)
+        data.setDrawValues(false)
+        
+        gameChart.xAxis.valueFormatter = QuarterNameFormatter()
+        
+        gameChart.chartDescription?.text = "Game Chart"
+        gameChart.rightAxis.axisMinimum = 0
+        gameChart.leftAxis.axisMinimum = 0
+        gameChart.rightAxis.axisMaximum = 100
+        gameChart.leftAxis.axisMaximum = 100
+        gameChart.leftAxis.enabled = false
+        gameChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
+        gameChart.xAxis.axisMinimum = 0
+        gameChart.xAxis.axisMaximum = 40        
+        
+        gameChart.data = data
+        
+        gameChart.layer.borderWidth = 1.0
+        gameChart.layer.cornerRadius = 10.0
+        gameChart.layer.borderColor = MiddleViewController.borderColor
+        
     }
 
     override func didReceiveMemoryWarning() {

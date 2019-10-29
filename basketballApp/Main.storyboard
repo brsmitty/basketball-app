@@ -3300,6 +3300,11 @@
                                     <segue destination="XMH-rb-sfj" kind="show" id="Bgp-i5-pz9"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8y2-4g-7jh" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="532" y="279" width="472" height="330"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pFx-Rc-bwg"/>
@@ -3311,6 +3316,7 @@
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
                         <outlet property="UsVsOppsView" destination="oDD-Db-hYZ" id="aGV-2T-kRM"/>
+                        <outlet property="gameChart" destination="8y2-4g-7jh" id="TJT-Fw-btk"/>
                         <outlet property="gameSummaryTitle" destination="YIb-MZ-6Qj" id="q0a-6Z-0cu"/>
                         <outlet property="lineupRankingView" destination="Z7p-dm-YKt" id="74V-Uz-CvQ"/>
                         <outlet property="settingsBtn" destination="Jbm-eb-8sO" id="jH3-Yq-1DT"/>
