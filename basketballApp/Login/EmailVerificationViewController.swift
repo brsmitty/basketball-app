@@ -15,7 +15,6 @@ class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!
    var AuthU = Auth.auth()
-   var DatabaseU = Database.database()
    @IBOutlet var descriptOne: UILabel!
    @IBOutlet var descriptTwo: UILabel!
    @IBOutlet var descriptThree: UILabel!
@@ -52,7 +51,7 @@ class EmailVerificationViewController: UIViewController {
          }
       }
    }
-    //Important to note putting user into database
+    //Function putting user into database
     func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
         guard let uid = Auth.auth().currentUser?.uid else { return }
         print("Adding: " + uid)

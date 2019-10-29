@@ -181,18 +181,28 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
             }
             else {
                 let firebaseRef = Database.database().reference(withPath: "users")
+                let ref = FireRoot.root.document(user!.user.uid)
+                var tid = ""
+                ref.getDocument{(document,error) in
+                    if let document = document, document.exists{
+                        tid = document.get("team_name") as! String
+                        let defaults = UserDefaults.standard
+                        defaults.set(user!.user.uid, forKey: "uid")
+                        defaults.set(tid, forKey: "tid")
+                        self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                    }else{
+                        print(" Problem getting document")
+                    }
+                }/*
                 let tid = firebaseRef.child(user!.user.uid).child("tid").observeSingleEvent(of: .value, with: { (snapshot) in
                     let tid = snapshot.value!
                     
                     DBApi.sharedInstance.currentUserId = user!.user.uid
                     
-                    let defaults = UserDefaults.standard
-                    defaults.set(user!.user.uid, forKey: "uid")
-                    defaults.set(tid, forKey: "tid")
-                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                
                 }) { (error) in
-                    print(error.localizedDescription)
-                }
+                    print(error.localizedDescription + "tttttt")
+                }*/
             }
         }
       }
