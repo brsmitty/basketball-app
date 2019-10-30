@@ -5,10 +5,10 @@
 //  Created by Mike White on 10/3/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
+//  Updated on 10/19 : Updated to Firestore
 
 import UIKit
 import FirebaseAuth
-import FirebaseDatabase
 import FirebaseFirestore
 
 class EmailVerificationViewController: UIViewController {

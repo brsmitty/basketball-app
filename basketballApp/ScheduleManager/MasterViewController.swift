@@ -88,7 +88,7 @@ class MasterViewController: UITableViewController{
         playRef = Database.database().reference()
         databaseHandle = playRef?.child("games").observe(.childAdded, with: { (snapshot) in
             
-            // If the player is one of the users players add it to the table
+            // If the player is one of the user's players add it to the table
             if(self.gameIsUsers(snapshot.key)){
                 // take data from the snapshot and add a player object
                 let title = snapshot.childSnapshot(forPath: "title")

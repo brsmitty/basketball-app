@@ -5,10 +5,10 @@
 //  Created by David on 9/10/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
+//  Updated on 10/19: changed to Firestore
 import UIKit
 import Firebase
 import FirebaseAuth
-import FirebaseDatabase
 
 enum AlertTypes{
    case RegisterFailed
@@ -180,7 +180,6 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                self.createAlert(with: "Sign In Failed", and: error.localizedDescription)
             }
             else {
-                let firebaseRef = Database.database().reference(withPath: "users")
                 let ref = FireRoot.root.document(user!.user.uid)
                 var tid = ""
                 ref.getDocument{(document,error) in
@@ -193,16 +192,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                     }else{
                         print(" Problem getting document")
                     }
-                }/*
-                let tid = firebaseRef.child(user!.user.uid).child("tid").observeSingleEvent(of: .value, with: { (snapshot) in
-                    let tid = snapshot.value!
-                    
-                    DBApi.sharedInstance.currentUserId = user!.user.uid
-                    
-                
-                }) { (error) in
-                    print(error.localizedDescription + "tttttt")
-                }*/
+                }
             }
         }
       }
