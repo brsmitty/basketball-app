@@ -5,6 +5,7 @@
 //  Created by Maggie Zhang on 9/27/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
+// This file is bullcrap
 
 import UIKit
 import EventKit
@@ -52,9 +53,8 @@ class MasterViewController: UITableViewController{
          NSAttributedStringKey.font: UIFont(name: "Helvetica-Bold", size: 18.0)!,
          NSAttributedStringKey.foregroundColor: UIColor.blue],
                                         for: .normal)
-        
-        //getGames()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         // Store the new players in firebase
         playRef?.removeObserver(withHandle: databaseHandle!)
@@ -62,7 +62,6 @@ class MasterViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //getGames()
         GameTableView.delegate = self
         GameTableView.dataSource = self
     }
@@ -83,38 +82,6 @@ class MasterViewController: UITableViewController{
         return isUsers
     }
     
-    func getGames(){
-        // Set up the references
-        playRef = Database.database().reference()
-        databaseHandle = playRef?.child("games").observe(.childAdded, with: { (snapshot) in
-            
-            // If the player is one of the user's players add it to the table
-            if(self.gameIsUsers(snapshot.key)){
-                // take data from the snapshot and add a player object
-                let title = snapshot.childSnapshot(forPath: "title")
-                let location = snapshot.childSnapshot(forPath: "location")
-                let gameType = snapshot.childSnapshot(forPath: "gameType")
-                let gameDate = snapshot.childSnapshot(forPath: "gameDate")
-                let gameTime = snapshot.childSnapshot(forPath: "gameTime")
-                let gameDetail = snapshot.childSnapshot(forPath: "gameDetail")
-                
-               self.gameTitles.append(title.value as! String)
-               self.gameLocations.append(location.value as! String)
-               self.gameTypes.append(gameType.value as! String)
-               self.gameTimes.append(gameTime.value as! String)
-               self.gameDetails.append(gameDetail.value as! String)
-               self.synced.append(false)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM, dd, yyyy"
-                let date = dateFormatter.date(from: gameDate.value as! String)
-               self.gameDates.append(date!)
-                
-                let temp = Game(title: title.value as! String, detail: gameDate.value as! String)
-                
-               self.insertGameInTableView(temp)
-            }
-        })
-    }
    
    func insertGameInTableView(_ temp: Game){
       let currentPath = IndexPath(row:self.games.count, section: 0)
@@ -144,6 +111,7 @@ class MasterViewController: UITableViewController{
             let pid = uid + "-" + stringDate
             let ref = Database.database().reference(withPath: "games")
             ref.child(pid).removeValue()
+            //FireRoot.root.
             games.remove(at: indexPath.row)
             gameDates.remove(at: indexPath.row)
             gameTypes.remove(at: indexPath.row)
@@ -194,12 +162,6 @@ class MasterViewController: UITableViewController{
             dataFormatter.dateFormat = "MM/dd/yyyy"
             let stringDate = dataFormatter.string(from: date)
             
-           // var pid = ""
-           //     pid = uid + "-" + String(games.count)
-            
-          //  let ref = Database.database().reference(withPath: "games")
-            
-           // let playRef = ref.child(pid)
             let playData : [String: Any] = ["title": title,
                                               "location": location,
                                               "gameType": gameType,
@@ -207,7 +169,6 @@ class MasterViewController: UITableViewController{
                                               "gameTime": gameTime,
                                               "gameDetail": gameDetail]
             DBApi.sharedInstance.createGames(info: playData)
-            //playRef.setValue(playData)
         }
     
     }

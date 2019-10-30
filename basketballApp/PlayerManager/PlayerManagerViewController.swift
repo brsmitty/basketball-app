@@ -6,6 +6,7 @@
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
 // Updated on 10/19
+// KPI is still here can be taken out
 
 import UIKit
 import Firebase
