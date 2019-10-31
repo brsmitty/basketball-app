@@ -96,6 +96,7 @@
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
+		FCBD69C8234BDD820021E8FA /* FireRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBD69C7234BDD820021E8FA /* FireRoot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,7 +172,6 @@
 		27FC62E321790B8500DE6B08 /* lineupManageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineupManageTests.swift; sourceTree = "<group>"; };
 		27FC62E521790B8500DE6B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBApi.swift; sourceTree = "<group>"; };
-		3DFC438C221C6BCC009B4A16 /* db.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = db.json; sourceTree = "<group>"; };
 		3DFC438E221C81C6009B4A16 /* dbAPIUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dbAPIUnitTests.swift; sourceTree = "<group>"; };
 		53716CBAC7F13DB9FDBEFD22 /* Pods-basketballAppUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		630E2C65216E66C800881C1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -229,6 +229,7 @@
 		C78381F2C021EB63BE4E5AC1 /* Pods-basketballAppIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballAppIntegrationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CCECF9872790A126060E60C3 /* Pods-basketballApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketballApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketballApp/Pods-basketballApp.release.xcconfig"; sourceTree = "<group>"; };
 		D974539F56A975EEEE9984B4 /* Pods-basketball-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-basketball-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-basketball-app/Pods-basketball-app.release.xcconfig"; sourceTree = "<group>"; };
+		FCBD69C7234BDD820021E8FA /* FireRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireRoot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,7 +437,6 @@
 		63C79FC221403291006726C3 = {
 			isa = PBXGroup;
 			children = (
-				3DFC438C221C6BCC009B4A16 /* db.json */,
 				63C79FCD21403291006726C3 /* basketballApp */,
 				274A64242164451E00F0F4E7 /* userAuthUITests */,
 				987B3083217834E10010F3A6 /* gestureUITests */,
@@ -485,6 +485,7 @@
 				63C79FDA21403292006726C3 /* Info.plist */,
 				6346B80E214A720D000B0B6E /* User.swift */,
 				6346B810214AB765000B0B6E /* UserModel.swift */,
+				FCBD69C7234BDD820021E8FA /* FireRoot.swift */,
 				6346B812214AB76E000B0B6E /* TeamModel.swift */,
 				6346B814214AB779000B0B6E /* Team.swift */,
 				6321151E2153F39F00F5FD6C /* KPI.swift */,
@@ -557,7 +558,7 @@
 				271F234521B0B37700848C2D /* Sources */,
 				271F234621B0B37700848C2D /* Frameworks */,
 				271F234721B0B37700848C2D /* Resources */,
-				43F3368386857E09966D92EB /* [CP] Embed Pods Frameworks */,
+				E9D003D70C44F57EF7A680DF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -577,7 +578,7 @@
 				271F236921B4501D00848C2D /* Sources */,
 				271F236A21B4501D00848C2D /* Frameworks */,
 				271F236B21B4501D00848C2D /* Resources */,
-				C70B7DCC9D91D41176616ABF /* [CP] Embed Pods Frameworks */,
+				46467097EE5F70E06F860963 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -597,7 +598,7 @@
 				63C79FC721403291006726C3 /* Sources */,
 				63C79FC821403291006726C3 /* Frameworks */,
 				63C79FC921403291006726C3 /* Resources */,
-				AC2F520199D4ACEA1AE42AE8 /* [CP] Embed Pods Frameworks */,
+				5B8CD98460F6C856313B49FC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -703,21 +704,38 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		43F3368386857E09966D92EB /* [CP] Embed Pods Frameworks */ = {
+		46467097EE5F70E06F860963 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B8CD98460F6C856313B49FC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8BA2040971163FDCCD130DC7 /* [CP] Check Pods Manifest.lock */ = {
@@ -760,38 +778,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AC2F520199D4ACEA1AE42AE8 /* [CP] Embed Pods Frameworks */ = {
+		E9D003D70C44F57EF7A680DF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballApp/Pods-basketballApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C70B7DCC9D91D41176616ABF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballAppIntegrationTests/Pods-basketballAppIntegrationTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-basketballAppUnitTests/Pods-basketballAppUnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -847,6 +848,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCBD69C8234BDD820021E8FA /* FireRoot.swift in Sources */,
 				98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */,
 				987822E52191488600808AC4 /* TimerTest.swift in Sources */,
 				27F2F35D21477C8400439BF0 /* PlayerTableViewCell.swift in Sources */,
@@ -1147,7 +1149,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hesham.basketballApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aniki.BasketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1167,7 +1169,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hesham.basketballApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aniki.BasketballApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
