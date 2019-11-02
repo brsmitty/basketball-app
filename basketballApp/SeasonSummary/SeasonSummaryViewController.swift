@@ -13,6 +13,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     //MARK:Properties
     var players = [Player]()
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var shotChart: UIView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return players.count
@@ -31,15 +32,58 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     }
     
 
+    var shotChartBounds: CGRect = CGRect()
     override func viewDidLoad() {
         super.viewDidLoad()
         // setup the tableView for the different players
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.shotChart.autoresizesSubviews = true
         loadPlayers()
+        
+        
+        
+        self.shotChartBounds = shotChart.bounds
+        let bounds =  self.shotChartBounds
 
-        // Do any additional setup after loading the view.
+        
+        let xCoord = bounds.midX
+        let yCoord = bounds.midY
+        let radius = 8.0 as CGFloat
+        let dotPath = UIBezierPath(ovalIn: CGRect(x: xCoord, y: yCoord, width: radius, height: radius))
+        
+        let layer = CAShapeLayer()
+        layer.path = dotPath.cgPath
+        layer.strokeColor = UIColor.blue.cgColor
+        shotChart.layer.addSublayer(layer)
+        
+        
+        for subview in shotChart.subviews {
+            subview.bounds = bounds
+        }
+        
     }
+    
+    var shotChartIsExpanded = false
+    @IBAction func resizeShotChart(_ sender: Any) {
+        var bounds: CGRect
+        if !shotChartIsExpanded{
+            bounds = shotChart.bounds
+            bounds.size.height = bounds.height * 2
+            bounds.size.width = bounds.width * 2
+        }else{
+            bounds = self.shotChartBounds
+        }
+        
+            self.shotChart.bounds = bounds
+            for subview in shotChart.subviews {
+                subview.bounds = bounds
+            }
+        self.shotChartIsExpanded = !self.shotChartIsExpanded
+        
+    }
+    
+    
     
     //number of groupings in the table that show up
     func numberOfSections(in tableView: UITableView) -> Int {

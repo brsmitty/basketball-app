@@ -2159,12 +2159,31 @@
                                     <segue destination="iQa-d8-Vh0" kind="show" id="dFP-XF-Rnx"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-CJ-nmY">
+                                <rect key="frame" x="538" y="320" width="293" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="5At-wt-QbD">
+                                        <rect key="frame" x="0.0" y="-439" width="294" height="1055"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qw7-ap-PdM">
+                                        <rect key="frame" x="132" y="73" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="resizeShotChart:" destination="JOl-Fb-97a" eventType="touchUpInside" id="LZv-ay-27V"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="83H-ku-u1B"/>
                     </view>
                     <connections>
+                        <outlet property="shotChart" destination="2T7-CJ-nmY" id="igR-8i-bCL"/>
                         <outlet property="tableView" destination="b0S-ur-V5n" id="X6h-yk-6hU"/>
                     </connections>
                 </viewController>
