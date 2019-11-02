@@ -50,20 +50,31 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         let xCoord = bounds.midX
         let yCoord = bounds.midY
         
-        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10)]
+        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10), CGPoint(x: 0, y: 0)]
+        let missedList = [CGPoint(x: xCoord - 20, y: yCoord), CGPoint(x: xCoord + 20, y: yCoord)]
+        
+        addShotChartDots(pointList: pointList, made: true)
+        addShotChartDots(pointList: missedList, made: false)
+
+
+        self.shotChart.bounds = bounds
+        for subview in shotChart.subviews {
+            subview.bounds = bounds
+            subview.frame = bounds
+        }
+        
+    }
+    
+    func addShotChartDots(pointList: [CGPoint], made: Bool){
         for point in pointList{
             let radius = 8.0 as CGFloat
             let dotPath = UIBezierPath(ovalIn: CGRect(x: point.x, y: point.y, width: radius, height: radius))
             let layer = CAShapeLayer()
             layer.path = dotPath.cgPath
-            layer.strokeColor = UIColor.blue.cgColor
+            layer.strokeColor = (made ? UIColor.blue.cgColor: UIColor.red.cgColor)
+            layer.fillColor = (made ? UIColor.blue.cgColor: UIColor.red.cgColor)
             shotChart.layer.addSublayer(layer)
         }
-
-        for subview in shotChart.subviews {
-            subview.bounds = bounds
-        }
-        
     }
     
     var shotChartIsExpanded = false
