@@ -5,16 +5,16 @@
 //  Created by Mike White on 10/3/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
+//  Updated on 10/19 : Updated to Firestore
 
 import UIKit
 import FirebaseAuth
-import FirebaseDatabase
+import FirebaseFirestore
 
 class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!
    var AuthU = Auth.auth()
-   var DatabaseU = Database.database()
    @IBOutlet var descriptOne: UILabel!
    @IBOutlet var descriptTwo: UILabel!
    @IBOutlet var descriptThree: UILabel!
@@ -51,17 +51,23 @@ class EmailVerificationViewController: UIViewController {
          }
       }
    }
-    
+    //Function putting user into database
     func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        print("Adding: " + uid)
         
-        DBApi.sharedInstance.currentUserId = uid
-        
-        let firebaseRef = Database.database().reference(withPath: "users")
-        let userRef = firebaseRef.child(uid)
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
-        let userData : [String: Any] = ["uid":  uid, "tid": tid]
-        userRef.setValue(userData)
+        
+        //Adding user as document and, creating a team id from current time reference and adds team_id and team_name as fields to user id
+        let teamName = UserDefaults.standard.string(forKey: "team") ?? ""
+        FireRoot.root.document(uid).setData(["team": tid, "team_name": teamName]){
+            err in
+            if let err = err{
+                print(err.localizedDescription)
+            }else{
+                print("Added user and team name")
+            }
+        }
         storePersistentData(uid: uid, tid: tid)
     }
     
@@ -70,13 +76,7 @@ class EmailVerificationViewController: UIViewController {
         defaults.set(uid, forKey: "uid")
         defaults.set(tid, forKey: "tid")
     }
-    
-    func retrievePersistentData(){
-        let defaults = UserDefaults.standard
-        print(defaults.string(forKey: "uid")!)
-        print(defaults.string(forKey: "tid")!)
-    }
-   
+
    func emailVerification(){
       Auth.auth().currentUser?.sendEmailVerification { (error) in
           if (Auth.auth().currentUser!.isEmailVerified){

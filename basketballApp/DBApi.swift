@@ -34,6 +34,7 @@ enum Statistic: String {
     case pass = "completed pass"
     case threeSecondViolation = "3 second violation"
     case flagrantFoul = "flagrant foul"
+    case shotLocation = "shotLocation"
 }
 
 //The keys of the performance indicators as they exist in the DB
@@ -56,10 +57,11 @@ enum KPIKeys: String{
     case turnovers = "turnovers"
     case twoPointersMade = "twoPtMade"
     case twoPointersAttempted = "twoPtAtt"
+    case shotLocation = "shotLocation"
     
     static let allValues = [assists, blocks, charges, deflections, deflections, deflections, firstName,
         foulShotsAttempted,foulShotsMade,offensiveRebounds,personalFouls,personalFouls,points,
-        steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade, twoPointersAttempted
+        shotLocation, steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade, twoPointersAttempted
     ]
 }
 
@@ -300,4 +302,14 @@ class DBApi {
                                            "/oppStats": opponent]
         refGameTable.updateChildValues(childUpdates)
     }
+    // To-do: Update shot locations
+    func updateShotLocation(to shotLocation: [String: [Int]]) {
+        guard let gamePath = pathtoCurrentGame else { return }
+        let refGameTable = Database.database().reference(withPath: gamePath)
+        
+        let childUpdates: [String: Any] = ["/shotLocation": shotLocation]
+        refGameTable.updateChildValues(childUpdates)
+    }
+    
+    
 }

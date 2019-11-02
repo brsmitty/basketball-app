@@ -1,6 +1,0 @@
-framework module Pods_basketballApp {
-  umbrella header "Pods-basketballApp-umbrella.h"
-
-  export *
-  module * { export * }
-}

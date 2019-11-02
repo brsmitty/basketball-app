@@ -5,10 +5,10 @@
 //  Created by David on 9/10/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
+//  Updated on 10/19: changed to Firestore
 import UIKit
 import Firebase
 import FirebaseAuth
-import FirebaseDatabase
 
 enum AlertTypes{
    case RegisterFailed
@@ -152,6 +152,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                      self.performSegue(withIdentifier: "verificationSegue", sender: nil)
                     }
                 }
+                UserDefaults.standard.set(self.teamName.text, forKey: "team")
             }
             else {
                self.createAlert(with: "Registration Failed", and: error!.localizedDescription)
@@ -179,18 +180,18 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                self.createAlert(with: "Sign In Failed", and: error.localizedDescription)
             }
             else {
-                let firebaseRef = Database.database().reference(withPath: "users")
-                let tid = firebaseRef.child(user!.user.uid).child("tid").observeSingleEvent(of: .value, with: { (snapshot) in
-                    let tid = snapshot.value!
-                    
-                    DBApi.sharedInstance.currentUserId = user!.user.uid
-                    
-                    let defaults = UserDefaults.standard
-                    defaults.set(user!.user.uid, forKey: "uid")
-                    defaults.set(tid, forKey: "tid")
-                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                }) { (error) in
-                    print(error.localizedDescription)
+                let ref = FireRoot.root.document(user!.user.uid)
+                var tid = ""
+                ref.getDocument{(document,error) in
+                    if let document = document, document.exists{
+                        tid = document.get("team_name") as! String
+                        let defaults = UserDefaults.standard
+                        defaults.set(user!.user.uid, forKey: "uid")
+                        defaults.set(tid, forKey: "tid")
+                        self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                    }else{
+                        print(" Problem getting document")
+                    }
                 }
             }
         }

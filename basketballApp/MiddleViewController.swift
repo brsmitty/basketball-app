@@ -212,6 +212,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func getGames(){
         // Set up the references
+        //Change this function only
         playRef = Database.database().reference()
         databaseHandle = playRef?.child("games").observe(.childAdded, with: { (snapshot) in
             

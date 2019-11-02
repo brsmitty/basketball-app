@@ -5,11 +5,13 @@
 //  Created by Mike White on 9/10/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
+// Updated on 10/19
+// KPI is still here can be taken out
 
 import UIKit
 import Firebase
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseFirestore
 
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -192,50 +194,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
         s.players = players
         s.tableView.reloadData()
     }
-//
-//      // Set up the references
-//      playerRef = Database.database().reference()
-//      databaseHandle = playerRef?.child("players").observe(.childAdded, with: { (snapshot) in
-//
-//         // If the player is one of the users players add it to the table
-//         if(self.playerIsUsers(snapshot.key)){
-//            // take data from the snapshot and add a player object
-//            let fnameSnap = snapshot.childSnapshot(forPath: "fname")
-//            let lnameSnap = snapshot.childSnapshot(forPath: "lname")
-//            let heightSnap = snapshot.childSnapshot(forPath: "height")
-//            let weightSnap = snapshot.childSnapshot(forPath: "weight")
-//            let positionSnap = snapshot.childSnapshot(forPath: "position")
-//            let rankSnap = snapshot.childSnapshot(forPath: "rank")
-//            let pidSnap = snapshot.childSnapshot(forPath: "pid")
-//            //let imagePath = snapshot.childSnapshot(forPath: "photo").value as! String
-//
-//            let fname = (fnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
-//            let lname = (lnameSnap.value as! String).replacingOccurrences(of: "_", with: " ")
-//            let imageName = fname + lname + "image"
-//            let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
-//            let imageURL: URL = URL(fileURLWithPath: imagePath)
-//
-//
-//            guard FileManager.default.fileExists(atPath: imagePath),
-//               let imageData: Data = try? Data(contentsOf: imageURL),
-//               let image: UIImage = UIImage(data: imageData, scale: UIScreen.main.scale) else {
-//                  return
-//            }
-//
-//            let player = Player(firstName: fnameSnap.value as! String, lastName: lnameSnap.value as! String, photo: image, position: positionSnap.value as! String, height: heightSnap.value as! String, weight: weightSnap.value as! String, rank: rankSnap.value as! String, playerId: pidSnap.value as! String, teamId: self.tid)
-//
-//            let help = String(snapshot.key.suffix(snapshot.key.count - 29))
-//            if(!self.counts.contains(Int(help)!)){
-//
-//               self.count = Int(help.prefix(help.count))!
-//               self.counts.append(self.count)
-//               self.count = self.count+1
-//
-//               self.insertPlayerInTableView(player)
-//            }
-//
-//         }
-//      })
+
    }
    //UNUSED
    func insertPlayerInTableView(_ player: Player){
@@ -407,7 +366,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       players[currentPath.row].photo = playerImage.image ?? UIImage(named: "Default")
       
       tableView.reloadRows(at: [currentPath], with: .none)
-    let ref = Database.database().reference(withPath: "users/\(uid)/players")
     
     let imageName = players[currentPath.row].firstName + players[currentPath.row].lastName + "image"
     let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
@@ -416,7 +374,9 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     // Store the image
     try? UIImagePNGRepresentation(players[currentPath.row].photo!)?.write(to: imageURL)
     
-    let playerRef = ref.child(players[currentPath.row].playerId)
+    //Reference to Firestore database
+    let ref = FireRoot.root.document(uid).collection("team").document(tid).collection("players").document(players[currentPath.row].playerId)
+    
     let playerData : [String: Any] = ["user_id": uid,
                                       "fName": players[currentPath.row].firstName,
                                       "lName": players[currentPath.row].lastName,
@@ -425,7 +385,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                       "rank": players[currentPath.row].rank,
                                       "position": players[currentPath.row].position,
                                       "image_name": imageName]
-    playerRef.updateChildValues(playerData)
+    ref.updateData(playerData)
    }
    
    // Stores a new player's info in firebase
@@ -447,12 +407,6 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       // Store the image
       try? UIImagePNGRepresentation(playerImage.image!)?.write(to: imageURL)
     
-//      let pid = uid + "-" + String(count)
-//
-//
-//      let ref = Database.database().reference(withPath: "players")
-//
-//      let playerRef = ref.child(pid)
       let playerData : [String: Any] = ["fname": firstName,
                                        "lname": lastName,
                                        "height": height,
@@ -461,20 +415,16 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                        "position": position,
                                        "image_name": imageName]
     
-    DBApi.sharedInstance.createPlayer(info: playerData) { [weak self] in
-        guard let s = self else { return }
-        s.getPlayers()
+    //Add player to database
+    FireRoot.root.document(uid)
+        .collection("team").document(tid)
+        .collection("players").addDocument(data: playerData){
+            err in
+            if let err = err {
+                print("Error adding player: \(err)")
+            }
     }
-    
-//      playerRef.setValue(playerData)
-//        addPlayerToTeam(data: playerData, tid: tid)
    }
-    //UNUSED, DATACOLLECTION
-    func addPlayerToTeam(data: [String:Any], tid: String){
-        let firebaseRef = Database.database().reference(withPath: "teams")
-        let teamRosterRef = firebaseRef.child(tid).child("roster")
-        teamRosterRef.child(data["pid"] as! String).setValue(data)
-    }
    
    // Creates the position picker
    func createPositionPicker(){
@@ -696,8 +646,14 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             let pid = removePlayer(indexPath, tableView)
-            var ref = Database.database().reference(withPath: "users/\(uid)/players")
-            ref.child(pid).removeValue()
+            FireRoot.root.document(uid)
+                .collection("teams").document(tid)
+                .collection("players").document(pid).delete(){
+                    err in
+                    if let err = err {
+                        print("Problem deleting player \(err)")
+                    }
+            }
             resetButtonState()
         }
     }
