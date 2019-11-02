@@ -44,20 +44,22 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         
         
         self.shotChartBounds = shotChart.bounds
-        let bounds =  self.shotChartBounds
+        let bounds =  shotChart.bounds
 
         
         let xCoord = bounds.midX
         let yCoord = bounds.midY
-        let radius = 8.0 as CGFloat
-        let dotPath = UIBezierPath(ovalIn: CGRect(x: xCoord, y: yCoord, width: radius, height: radius))
         
-        let layer = CAShapeLayer()
-        layer.path = dotPath.cgPath
-        layer.strokeColor = UIColor.blue.cgColor
-        shotChart.layer.addSublayer(layer)
-        
-        
+        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10)]
+        for point in pointList{
+            let radius = 8.0 as CGFloat
+            let dotPath = UIBezierPath(ovalIn: CGRect(x: point.x, y: point.y, width: radius, height: radius))
+            let layer = CAShapeLayer()
+            layer.path = dotPath.cgPath
+            layer.strokeColor = UIColor.blue.cgColor
+            shotChart.layer.addSublayer(layer)
+        }
+
         for subview in shotChart.subviews {
             subview.bounds = bounds
         }
@@ -71,6 +73,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
             bounds = shotChart.bounds
             bounds.size.height = bounds.height * 2
             bounds.size.width = bounds.width * 2
+
         }else{
             bounds = self.shotChartBounds
         }
@@ -78,6 +81,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
             self.shotChart.bounds = bounds
             for subview in shotChart.subviews {
                 subview.bounds = bounds
+                subview.frame = bounds
             }
         self.shotChartIsExpanded = !self.shotChartIsExpanded
         
