@@ -69,10 +69,11 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    var selectedHeight: String?
    // holds the selected rank for the pickerWheel
    var selectedRank: String?
+    //Can be removed
    // holds the player reference to firebase
-   var playerRef:DatabaseReference?
+   //var playerRef:DatabaseReference?
    // holds the database reference to firebase
-   var databaseHandle:DatabaseHandle?
+   //var databaseHandle:DatabaseHandle?
    // holds the users unique user ID
    var uid: String = ""
    var tid: String = ""
@@ -170,11 +171,12 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
          self.count = self.counts[self.counts.count - 1] + 1
       }
    }
-   
+   /*
    override func viewWillDisappear(_ animated: Bool) {
       // Store the new players in firebase
       playerRef?.removeObserver(withHandle: databaseHandle!)
    }
+    */
    
    // Set user interaction with the fields
    func setEditPlayerFields(to edit: Bool){
@@ -187,11 +189,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       playerImage.isUserInteractionEnabled = edit
    }
    
-   // Will get player data from firebase
-   func getPlayers() {
+   //Updates the view of the admin settings players
+    func getPlayers() {
+    print("print getPlayers")
     DBApi.sharedInstance.getPlayers { [weak self] players in
         guard let s = self else { return }
         s.players = players
+        print("players \(players)")
         s.tableView.reloadData()
     }
 
@@ -386,6 +390,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                       "position": players[currentPath.row].position,
                                       "image_name": imageName]
     ref.updateData(playerData)
+    print("print Add new players")
    }
    
    // Stores a new player's info in firebase
@@ -407,23 +412,51 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       // Store the image
       try? UIImagePNGRepresentation(playerImage.image!)?.write(to: imageURL)
     
-      let playerData : [String: Any] = ["fname": firstName,
-                                       "lname": lastName,
+      //Initialize player data
+      let playerData : [String: Any] = ["fName": firstName,
+                                       "lName": lastName,
                                        "height": height,
                                        "weight": weight,
                                        "rank": rank,
                                        "position": position,
                                        "image_name": imageName]
+
+    var playerSeasonStats: [String: Int] = [:]
+    
+    //Initialize player season stats
+    for key in KPIKeys.allValues{
+        playerSeasonStats[key.rawValue] = 0
+    }
     
     //Add player to database
-    FireRoot.root.document(uid)
+    let docId = FireRoot.root.document(uid)
         .collection("team").document(tid)
         .collection("players").addDocument(data: playerData){
             err in
             if let err = err {
                 print("Error adding player: \(err)")
+            }else{
+                print("Added new player")
             }
     }
+    print("docId \(docId.documentID)")
+    
+    //Add seasonal stats of player to database
+    FireRoot.root.document(uid)
+        .collection("team").document(tid)
+        .collection("players").document(docId.documentID)
+        .collection("stats").document("season_stats").setData(playerSeasonStats){
+                err in
+                if let err = err {
+                    print("Error adding player stats: \(err)")
+                }else{
+                    print("Added player season stats")
+                }
+        }
+    
+    //Clearing all fields and add new player to the view
+    defaultAllFields()
+    getPlayers()
    }
    
    // Creates the position picker
@@ -479,6 +512,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       var ft = ""
       var rb = ""
       var to = ""
+        print("setKPI")
       kpiRef.observeSingleEvent(of: .value, with: { (snapshot) in
          let kpi = snapshot.value as? NSDictionary
          fg = kpi?["targetFG"] as? String ?? ""

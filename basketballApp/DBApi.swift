@@ -76,7 +76,9 @@ extension DBApi {
 class DBApi {
     static let sharedInstance = DBApi()
     let ref = Database.database().reference()
-    var currentUserId: String = ""
+    var uid : String? = UserDefaults.standard.string(forKey: "uid")
+    var tid : String? = UserDefaults.standard.string(forKey: "tid")
+    var currentUserId: String? = ""
     var currentGameId: String? = "some-game-id"
     var currentLineup: (id: String, key: String, time: Int)?
     var currentGameLineupIds: [String]?
@@ -124,11 +126,15 @@ class DBApi {
     func pathToPlayerGameStats(for pid: String) -> String? {
         return "\(pathToPlayers)/\(pid)/dummy-stats/"
     }
+    
+    //THIS IS NOT USED AS CREATED PLAYER IS MADE IN PlayerManagerViewController
+    //LEFT HERE FOR EXPANDABILITY
+    //P.S. Implementation is deprecated
     //creates a player within the users table
     func createPlayer(info: [String: Any], completion: @escaping () -> Void) -> String {
         let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
         let newPlayerId = refPlayersTable.childByAutoId().key
-        
+        print("print DBAPI CREATEPLAYER")
         let player: [String: Any] = [
             "user_id": currentUserId,
             "fName": info["fname"] as? String ?? "",
@@ -145,11 +151,18 @@ class DBApi {
         
         return newPlayerId ?? ""
     }
-    //creates a new game nested in the users table
-    func createGames(info: [String: Any]) -> String {
+    
+    //Create a new game by adding game ids for every player of the user
+    //For those of who are not playing then the stats of the player is 0
+    func createGames(pid : String) {
+        let refPlayers = FireRoot.root.document(uid!)
+            .collection("team").document(tid!)
+            .collection("players").document(pid)
+            .collection("stats")
+        
         let refGameTable = Database.database().reference(withPath: pathToGames)
         let newGameId = refGameTable.childByAutoId().key
-        let game: [String: Any] = [
+        /*let game: [String: Any] = [
             "user_id": currentUserId,
             "title": info["title"] as? String ?? "",
             "location": info["location"] as? String ?? "",
@@ -159,12 +172,14 @@ class DBApi {
             "score": 0,
             "opponent-score": 0,
             "gameDetail": info["gameDetail"] as? String ?? ""
-        ]
-        let childUpdates = ["/\(newGameId ?? "")": game]
-        refGameTable.updateChildValues(childUpdates)
+        ]*/
+        //let childUpdates = ["/\(newGameId ?? "")": game]
+        //refGameTable.updateChildValues(childUpdates)
         
-        return newGameId ?? ""
+        print("print DBAPI CREATEGAMES")
+        //return newGameId ?? ""
     }
+    
     //gets the games nested in the users table, passes it as an argument to a code block
     func getGames(completion: @escaping ([[String: Any]]) -> Void) {
         let refGameTable = Database.database().reference(withPath: pathToGames)
@@ -192,7 +207,8 @@ class DBApi {
         }
     }
     
-    //sets all of the player stats to be 0
+    //MARK: Probably Crap
+    //Sets all of the player stats to be 0 and save it to Firestore
     func setDefaultPlayerStats(pid: String){
         guard let statsPath = pathToPlayerGameStats(for: pid) else { return }
         let statsRef = Database.database().reference(withPath: statsPath)
@@ -202,26 +218,37 @@ class DBApi {
         }
         statsRef.setValue(defaultStats)
     }
-    //gets the players nested in the users table, passes it as an argument to a code block
+    
+    //MARK: Get Players
+    //Gets the players of the user, and passes it as an argument to a code block
     func getPlayers(completion: @escaping ([Player]) -> Void) {
-        let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
-        refPlayersTable.observeSingleEvent(of: .value) { snapshot in
-            if snapshot.value is NSNull {
-                print("no players in the database!!!")
-            }
-            var players = [Player]()
-            for player in snapshot.children {
-                let playerSnap = player as? DataSnapshot
-                let pid = playerSnap?.key ?? ""
-                let playerDict = playerSnap?.value as? [String: Any] ?? [:]
-                players.append(Player(dictionary: playerDict, id: pid))
-            }
-            completion(players)
+        let refPlayers = FireRoot.root.document(uid!)
+            .collection("team").document(tid!)
+            .collection("players")
+        
+        //Get players of user from the database
+        refPlayers.getDocuments(){
+                (querySnapshot, err) in
+                if let err = err {
+                    print("Problem getting players from database")
+                }else{
+                    var players = [Player]()
+                    for player in querySnapshot!.documents{
+                        players.append(Player(dictionary: player.data(), id: player.documentID))
+                    }
+                    completion(players)
+                }
         }
     }
 
+    //MARK: Storing Stats (ICP)
     //will store an event and the game time associated with it in the game-stats table
     func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
+        let ref = FireRoot.root.document(uid!)
+            .collection("team").document(tid!)
+            .collection("players").document(pid).collection("Stats")
+        
+        
         guard let statsPath = pathToStats(for: pid) else { return nil }
         let refStatsTable = Database.database().reference(withPath: statsPath)
         let newStatId = refStatsTable.childByAutoId().key
@@ -231,8 +258,8 @@ class DBApi {
             "game-time": seconds
         ]
         
-        let childUpdates = ["/\(newStatId ?? "")": statistic]
-        refStatsTable.updateChildValues(childUpdates)
+        //let childUpdates = ["/\(newStatId ?? "")": statistic]
+        //refStatsTable.updateChildValues(childUpdates)
         
         adjustScore(type: type)
         

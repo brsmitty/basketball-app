@@ -104,6 +104,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
       }
       let lineup = lineups[indexPath.row]
       
+    print("print tableView")
       cell.playerOneName.text = lineup[0].firstName + " " + lineup[0].lastName
       cell.playerOneImage.image = lineup[0].photo
       cell.playerTwoName.text = lineup[1].firstName + " " + lineup[1].lastName
@@ -129,6 +130,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
          let ref = Database.database().reference(withPath: "lineups")
          ref.child(lid).removeValue()
       }
+    print("print tableView2")
    }
    
    // MARK: Private Methods
@@ -166,7 +168,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
                self.allSlots.append(self.positionSlot)
                self.getPlayer()
             }
-            
+            print("print lineup")
          }
       })
    }
@@ -174,7 +176,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    func getPlayer(){
       playerRef = Database.database().reference()
       databaseHandlePlayer = lineupRef?.child("players").observe(.childAdded, with: {(snapshot) in
-         
+         print("getPlayer")
          if(self.playerOneID == snapshot.key){
             let fnameSnap = snapshot.childSnapshot(forPath: "fname")
             let lnameSnap = snapshot.childSnapshot(forPath: "lname")
@@ -308,6 +310,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
                                               lineup[4].playerId: positions![4]]
             playerRef.setValue(playerData)
          }
+        print(" print unwind")
       }
    }
    

@@ -324,7 +324,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         isUsers = lineupId == uid
         return isUsers
     }
-
+    
+    //MARK: ???
     func getTimerSet(){
         firebaseRef = Database.database().reference()
         databaseHandle = firebaseRef?.child("timer").observe(.childAdded, with: { (snapshot) in
@@ -723,6 +724,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.addBorderToActivePlayer(index)
                 let active = self.gameState["active"] as! [Player]
                 _ = DBApi.sharedInstance.storeStat(type: Statistic.jumpBallWon, pid: active[index].playerId, seconds: self.timeSeconds)
+                print(active[index].playerId)
                 self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
                 self.homePossession.text! = ""
                 self.awayPossession.text! = ">"

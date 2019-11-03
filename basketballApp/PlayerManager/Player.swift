@@ -53,13 +53,14 @@ class Player: NSObject {
     init(dictionary: [String: Any], id: String) {
         playerId = id
         teamId = ""
-        
+        print("init1")
         firstName = dictionary["fName"] as? String ?? ""
         lastName = dictionary["lName"] as? String ?? ""
         height = dictionary["height"] as? String ?? ""
         weight = dictionary["weight"] as? String ?? ""
         position = dictionary["position"] as? String ?? ""
         rank = dictionary["rank"] as? String ?? ""
+        print("init1 \(firstName)")
         let imageName = dictionary["image_name"] as? String ?? ""
         let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
         photo = UIImage(contentsOfFile: imagePath) ?? UIImage(named: "Default")
@@ -69,7 +70,7 @@ class Player: NSObject {
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String){
         self.playerId = playerId
         self.teamId =  teamId
-
+        print("init2")
         self.firstName = firstName
         self.lastName = lastName
         self.height = height
@@ -101,7 +102,7 @@ class Player: NSObject {
     init(firstName: String, lastName: String, photo: UIImage?, position:String, height: String, weight: String, rank: String, playerId: String, teamId: String, points: Int, assists: Int, turnovers: Int, threePtAtt: Int, twoPtAtt: Int, threePtMade: Int, twoPtMade: Int, ftAtt: Int, ftMade: Int, offRebounds: Int, defRebounds: Int, steals: Int, blocks: Int, deflections: Int, personalFoul: Int, techFoul: Int, chargesTaken: Int, shotLocation: [[Double]]){
         self.playerId = playerId
         self.teamId =  teamId
-
+        print("init3")
         self.firstName = firstName
         self.lastName = lastName
         self.height = height
