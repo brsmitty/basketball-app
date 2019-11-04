@@ -47,6 +47,9 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var gameChart: LineChartView!
     
+    @IBOutlet weak var shotChart: UIView!
+    
+    
     var schedules: [String] = []
     var times: [String] = []
     var dates: [Date] = []
@@ -104,7 +107,37 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
+        
+        let bounds =  shotChart.bounds
+        
+        let xCoord = bounds.midX
+        let yCoord = bounds.midY
+        
+        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10)]
+        let missedList = [CGPoint(x: xCoord - 20, y: yCoord), CGPoint(x: xCoord + 20, y: yCoord)]
+        
+        addShotChartDots(pointList: pointList, made: true)
+        addShotChartDots(pointList: missedList, made: false)
+        
+        
+        self.shotChart.bounds = bounds
+        for subview in shotChart.subviews {
+            subview.bounds = bounds
+            subview.frame = bounds
+        }
         // Do any additional setup after loading the view.
+    }
+    
+    func addShotChartDots(pointList: [CGPoint], made: Bool){
+        for point in pointList{
+            let radius = 8.0 as CGFloat
+            let dotPath = UIBezierPath(ovalIn: CGRect(x: point.x, y: point.y, width: radius, height: radius))
+            let layer = CAShapeLayer()
+            layer.path = dotPath.cgPath
+            layer.strokeColor = (made ? UIColor.blue.cgColor: UIColor.red.cgColor)
+            layer.fillColor = (made ? UIColor.blue.cgColor: UIColor.red.cgColor)
+            shotChart.layer.addSublayer(layer)
+        }
     }
     
     private func setDefaultViewStyle(view: UIView){
