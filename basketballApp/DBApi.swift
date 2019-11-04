@@ -156,14 +156,11 @@ class DBApi {
     //Create a new game by adding game ids for every player of the user
     //For those of who are not playing then the stats of the player is 0
     func createGames(gid : String) {
-        let refPlayers = FireRoot.root.document(uid!)
-            .collection("team").document(tid!)
-            .collection("players")
             
         //ADD SNAPSHOSTLISTENER
-            refPlayers.getDocuments(){
+        FireRoot.players.getDocuments(){
                 (querySnapshot, err) in
-                if let err = err{
+            if err != nil{
                     print("Error getting documents.")
                 }else{
                     for document in querySnapshot!.documents{
@@ -171,11 +168,11 @@ class DBApi {
                         for key in KPIKeys.allValues{
                             playerGameStats[key.rawValue] = 0
                         }
-                        refPlayers.document(document.documentID)
+                        FireRoot.players.document(document.documentID)
                             .collection("stats").document(gid)
                             .setData(playerGameStats){
                                 err in
-                                if let err = err{
+                                if err != nil{
                                     print("Error adding game to players.")
                                 }else{
                                     print("Added games to players.")
@@ -228,14 +225,11 @@ class DBApi {
     //MARK: Get Players
     //Gets the players of the user, and passes it as an argument to a code block
     func getPlayers(completion: @escaping ([Player]) -> Void) {
-        let refPlayers = FireRoot.root.document(uid!)
-            .collection("team").document(tid!)
-            .collection("players")
         
         //Get players of user from the database
-        refPlayers.getDocuments(){
+        FireRoot.players.getDocuments(){
                 (querySnapshot, err) in
-                if let err = err {
+            if err != nil {
                     print("Problem getting players from database")
                 }else{
                     var players = [Player]()

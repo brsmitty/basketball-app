@@ -723,12 +723,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             uid = defaults.string(forKey: "uid")!
             tid = defaults.string(forKey: "tid")!
             
-            let game = FireRoot.root.document(uid)
-                .collection("team").document(tid)
-                .collection("games")
+            let game = FireRoot.games
                 .addDocument(data: game_fields){
                     err in
-                    if let err = err{
+                    if err != nil{
                         print("Error adding game")
                     }else{
                         print("Added new game")

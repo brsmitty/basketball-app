@@ -379,7 +379,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     try? UIImagePNGRepresentation(players[currentPath.row].photo!)?.write(to: imageURL)
     
     //Reference to Firestore database
-    let ref = FireRoot.root.document(uid).collection("team").document(tid).collection("players").document(players[currentPath.row].playerId)
+    let ref = FireRoot.players.document(players[currentPath.row].playerId)
     
     let playerData : [String: Any] = ["user_id": uid,
                                       "fName": players[currentPath.row].firstName,
@@ -429,9 +429,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     //Add player to database
-    let docId = FireRoot.root.document(uid)
-        .collection("team").document(tid)
-        .collection("players").addDocument(data: playerData){
+    let docId = FireRoot.players.addDocument(data: playerData){
             err in
             if let err = err {
                 print("Error adding player: \(err)")
@@ -442,9 +440,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     print("docId \(docId.documentID)")
     
     //Add seasonal stats of player to database
-    FireRoot.root.document(uid)
-        .collection("team").document(tid)
-        .collection("players").document(docId.documentID)
+    FireRoot.players.document(docId.documentID)
         .collection("stats").document("season_stats").setData(playerSeasonStats){
                 err in
                 if let err = err {
