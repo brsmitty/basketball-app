@@ -180,7 +180,7 @@ class scheduleMasterUnitTests: XCTestCase {
       
       let segue = UIStoryboardSegue(identifier: "viewController", source: VC, destination: viewController)
       
-      viewController.unwindToGameList(sender: segue)
+      //viewController.unwindToGameList(sender: segue)
       
       XCTAssertEqual(viewController.gameDates[0], date)
       XCTAssertEqual(viewController.gameTitles[0], gameTitle)

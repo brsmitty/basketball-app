@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+    /*
     func testGameCreate() {
         let gameData: [String: Any] = [
             "title": "The Big game",
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+    */
     func testAddStat(time: Double) {
         DBApi.sharedInstance.storeStat(type: .score3, pid: "test-player-id", seconds: time)
     }

@@ -152,32 +152,38 @@ class DBApi {
         return newPlayerId ?? ""
     }
     
+    //MARK: Create Games
     //Create a new game by adding game ids for every player of the user
     //For those of who are not playing then the stats of the player is 0
-    func createGames(pid : String) {
+    func createGames(gid : String) {
         let refPlayers = FireRoot.root.document(uid!)
             .collection("team").document(tid!)
-            .collection("players").document(pid)
-            .collection("stats")
-        
-        let refGameTable = Database.database().reference(withPath: pathToGames)
-        let newGameId = refGameTable.childByAutoId().key
-        /*let game: [String: Any] = [
-            "user_id": currentUserId,
-            "title": info["title"] as? String ?? "",
-            "location": info["location"] as? String ?? "",
-            "gameType": info["gameType"] as? String ?? "",
-            "gameDate": info["gameDate"] as? String ?? "",
-            "gameTime": info["gameTime"] as? String ?? "",
-            "score": 0,
-            "opponent-score": 0,
-            "gameDetail": info["gameDetail"] as? String ?? ""
-        ]*/
-        //let childUpdates = ["/\(newGameId ?? "")": game]
-        //refGameTable.updateChildValues(childUpdates)
-        
-        print("print DBAPI CREATEGAMES")
-        //return newGameId ?? ""
+            .collection("players")
+            
+        //ADD SNAPSHOSTLISTENER
+            refPlayers.getDocuments(){
+                (querySnapshot, err) in
+                if let err = err{
+                    print("Error getting documents.")
+                }else{
+                    for document in querySnapshot!.documents{
+                        var playerGameStats: [String: Int] = [:]
+                        for key in KPIKeys.allValues{
+                            playerGameStats[key.rawValue] = 0
+                        }
+                        refPlayers.document(document.documentID)
+                            .collection("stats").document(gid)
+                            .setData(playerGameStats){
+                                err in
+                                if let err = err{
+                                    print("Error adding game to players.")
+                                }else{
+                                    print("Added games to players.")
+                                }
+                        }
+                    }
+                }
+        }
     }
     
     //gets the games nested in the users table, passes it as an argument to a code block

@@ -715,6 +715,26 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         start()
         if (gameState["began"] as! Bool == false){
+            //Can be changed to add snapshot listener
+            //Need to be set for title, etc.
+            var game_fields : [String : Any] = ["game" : "first_game"]
+            
+            let defaults = UserDefaults.standard
+            uid = defaults.string(forKey: "uid")!
+            tid = defaults.string(forKey: "tid")!
+            
+            let game = FireRoot.root.document(uid)
+                .collection("team").document(tid)
+                .collection("games")
+                .addDocument(data: game_fields){
+                    err in
+                    if let err = err{
+                        print("Error adding game")
+                    }else{
+                        print("Added new game")
+                    }
+            }
+            DBApi.sharedInstance.createGames(gid: game.documentID)
             gameState["began"] = true
             gameState["ballIndex"] = index
             let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)
