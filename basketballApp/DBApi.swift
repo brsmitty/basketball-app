@@ -256,7 +256,7 @@ class DBApi {
         }
     }
 
-    //MARK: Storing Stats (ICP)
+    //MARK: Storing Stats
     //will store an event and the game time associated with it in the game-stats table
     func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
         
@@ -264,81 +264,179 @@ class DBApi {
         let refPlayer = FireRoot.players.document(pid)
             .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
         
-        print(type.rawValue)
-        //Update the fields of the player
+        let refPlayerSeasons = FireRoot.players.document(pid)
+        .collection("stats").document("season_stats")
+        
+        //Update the fields of the player stats during the game
         switch type.rawValue{
-        case "2 point score": refPlayer.updateData([
-            "twoPtMade": FieldValue.increment(Int64(1))
-        ])
-        case "3 point score": refPlayer.updateData([
-            "threePtMade": FieldValue.increment(Int64(1))
-        ])
-        case "2 point missed FG" : refPlayer.updateData([
-            "twoPtAtt": FieldValue.increment(Int64(1))
-        ])
-        case "3 point missed FG": refPlayer.updateData([
-            "threePtAtt": FieldValue.increment(Int64(1))
-        ])
-        case "free throw score": refPlayer.updateData([
-            "ftMade": FieldValue.increment(Int64(1))
-        ])
-        case "free throw attempt": refPlayer.updateData([
-            "ftAtt": FieldValue.increment(Int64(1))
-        ])
-        case "assist": refPlayer.updateData([
-            "assists": FieldValue.increment(Int64(1))
-        ])
-        case "turnover": refPlayer.updateData([
-            "turnovers": FieldValue.increment(Int64(1))
-        ])
-        case "offensive rebound": refPlayer.updateData([
-            "offRebound": FieldValue.increment(Int64(1))
-        ])
-        case "defensive rebound": refPlayer.updateData([
-            "defRebound": FieldValue.increment(Int64(1))
-        ])
-        case "steal": refPlayer.updateData([
-            "steals": FieldValue.increment(Int64(1))
-        ])
-        case "blocked shot": refPlayer.updateData([
-            "blocks": FieldValue.increment(Int64(1))
-        ])
-        case "deflection": refPlayer.updateData([
-            "deflections": FieldValue.increment(Int64(1))
-        ])
-        case "personal foul": refPlayer.updateData([
-            "personalFoul": FieldValue.increment(Int64(1))
-        ])
-        case "technical foul": refPlayer.updateData([
-            "techFoul": FieldValue.increment(Int64(1))
-        ])
-        case "charge taken": refPlayer.updateData([
-            "chargesTaken": FieldValue.increment(Int64(1))
-        ])
-        case "charge": refPlayer.updateData([
-            "charges": FieldValue.increment(Int64(1))
-        ])
-        case "substitution in": refPlayer.updateData([
-            "subIn": FieldValue.increment(Int64(1))
-        ])
-        case "substitution out": refPlayer.updateData([
-            "subOut": FieldValue.increment(Int64(1))
-        ])
-        case "jump ball win": refPlayer.updateData([
-            "jumpWon": FieldValue.increment(Int64(1))
-        ])
-        case "jump ball lost": refPlayer.updateData([
-            "jumpLost": FieldValue.increment(Int64(1))
-        ])
-        case "completed pass": refPlayer.updateData([
-            "pass": FieldValue.increment(Int64(1))
-        ])
-        case "3 second violation": refPlayer.updateData([
-            "3SecViolation": FieldValue.increment(Int64(1))
-        ])
-        case "flagrant foul": refPlayer.updateData([
-            "flagrantFoul": FieldValue.increment(Int64(1))
-        ])
+        case "2 point score":
+            refPlayer.updateData([
+                "twoPtMade": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "twoPtMade": FieldValue.increment(Int64(1))
+            ])
+        case "3 point score":
+            refPlayer.updateData([
+                "threePtMade": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "threePtMade": FieldValue.increment(Int64(1))
+            ])
+        case "2 point missed FG" :
+            refPlayer.updateData([
+                "twoPtAtt": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "twoPtAtt": FieldValue.increment(Int64(1))
+            ])
+        case "3 point missed FG":
+            refPlayer.updateData([
+                "threePtAtt": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "threePtAtt": FieldValue.increment(Int64(1))
+            ])
+        case "free throw score":
+            refPlayer.updateData([
+                "ftMade": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "ftMade": FieldValue.increment(Int64(1))
+            ])
+        case "free throw attempt":
+            refPlayer.updateData([
+                "ftAtt": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "ftAtt": FieldValue.increment(Int64(1))
+            ])
+        case "assist":
+            refPlayer.updateData([
+                "assists": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "assists": FieldValue.increment(Int64(1))
+            ])
+        case "turnover":
+            refPlayer.updateData([
+                "turnovers": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "turnovers": FieldValue.increment(Int64(1))
+            ])
+        case "offensive rebound":
+            refPlayer.updateData([
+                "offRebound": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "offRebound": FieldValue.increment(Int64(1))
+            ])
+        case "defensive rebound":
+            refPlayer.updateData([
+                "defRebound": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "defRebound": FieldValue.increment(Int64(1))
+            ])
+        case "steal":
+            refPlayer.updateData([
+                "steals": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "steals": FieldValue.increment(Int64(1))
+            ])
+        case "blocked shot":
+            refPlayer.updateData([
+                "blocks": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "blocks": FieldValue.increment(Int64(1))
+            ])
+        case "deflection":
+            refPlayer.updateData([
+                "deflections": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "deflections": FieldValue.increment(Int64(1))
+            ])
+        case "personal foul":
+            refPlayer.updateData([
+                "personalFoul": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "personalFoul": FieldValue.increment(Int64(1))
+            ])
+        case "technical foul":
+            refPlayer.updateData([
+                "techFoul": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "techFoul": FieldValue.increment(Int64(1))
+            ])
+        case "charge taken":
+            refPlayer.updateData([
+                "chargesTaken": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "chargesTaken": FieldValue.increment(Int64(1))
+            ])
+        case "charge":
+            refPlayer.updateData([
+                "charges": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "charges": FieldValue.increment(Int64(1))
+            ])
+        case "substitution in":
+            refPlayer.updateData([
+                "subIn": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "subIn": FieldValue.increment(Int64(1))
+            ])
+        case "substitution out":
+            refPlayer.updateData([
+                "subOut": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "subOut": FieldValue.increment(Int64(1))
+            ])
+        case "jump ball win":
+            refPlayer.updateData([
+                "jumpWon": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "jumpWon": FieldValue.increment(Int64(1))
+            ])
+        case "jump ball lost":
+            refPlayer.updateData([
+                "jumpLost": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "jumpLost": FieldValue.increment(Int64(1))
+            ])
+        case "completed pass":
+            refPlayer.updateData([
+                "pass": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "pass": FieldValue.increment(Int64(1))
+            ])
+        case "3 second violation":
+            refPlayer.updateData([
+                "3SecViolation": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "3SecViolation": FieldValue.increment(Int64(1))
+            ])
+        case "flagrant foul":
+            refPlayer.updateData([
+                "flagrantFoul": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "flagrantFoul": FieldValue.increment(Int64(1))
+            ])
         default:
             print("Data not saved")
         }
