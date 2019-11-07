@@ -342,7 +342,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.labelMinute.text = strMinutes
                 }
             }
-        })
+            })
     }
 
     func roundImages(){
