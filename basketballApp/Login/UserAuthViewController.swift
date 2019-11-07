@@ -7,7 +7,6 @@
 //
 //  Updated on 10/19: changed to Firestore
 import UIKit
-import Firebase
 import FirebaseAuth
 
 enum AlertTypes{

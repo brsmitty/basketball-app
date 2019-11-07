@@ -23,8 +23,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var quarterTime: Int = 10
     var firebaseRef:DatabaseReference?
     var databaseHandle:DatabaseHandle?
-    var uid: String = ""
-    var tid: String = ""
+    var uid: String = UserDefaults.standard.string(forKey: "uid") ?? ""
+    var tid: String = UserDefaults.standard.string(forKey: "tid") ?? ""
+    var gid: String = ""
     let storage = UserDefaults.standard
     var states : [String] = ["1ST", "2ND", "3RD", "4TH"]
     var currentLineup: String?
@@ -681,21 +682,30 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func presentOffensiveOptions(index: Int){
-        print("Offensive options")
-        let offenseAlert = UIAlertController(title: "Offensive Options", message: "", preferredStyle: .actionSheet)
+        let offenseAlert = UIAlertController(title: "Not enough players on court", message: "", preferredStyle: .actionSheet)
+        
         let foul = UIAlertAction(title: "Personal Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(player: self.player(i: index), userFoul: true) }
+        
         let fouled = UIAlertAction(title: "Was Fouled", style: UIAlertActionStyle.default) { UIAlertAction in self.handleFoul(player: self.player(i: index), userFoul: false) }
+        
         let techFoul = UIAlertAction(title: "Technical Foul", style: UIAlertActionStyle.default) { UIAlertAction in self.handleTechFoul(index: index) }
+        
         let jumpball = UIAlertAction(title: "Jump Ball", style: UIAlertActionStyle.default) { UIAlertAction in self.handleJumpball(index: index) }
+        
         if (fullLineup()){
-            print("Line up is full")
+            
+            //Update offenseAlert as the game starts
+            offenseAlert.title = "Line up is full"
+            offenseAlert.message = "Lets start the game!"
             offenseAlert.addAction(jumpball)
+            
             if (gameState["began"] as! Bool){
                 offenseAlert.addAction(foul)
                 offenseAlert.addAction(fouled)
                 offenseAlert.addAction(techFoul)
             }
         }
+        
         offenseAlert.popoverPresentationController?.sourceView = view
         let c = getPlayerImage(index: index).center
         let y = CGFloat(c.y + 100)
@@ -715,13 +725,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         start()
         if (gameState["began"] as! Bool == false){
-            //Can be changed to add snapshot listener
+
             //Need to be set for title, etc.
             var game_fields : [String : Any] = ["game" : "first_game"]
-            
-            let defaults = UserDefaults.standard
-            uid = defaults.string(forKey: "uid")!
-            tid = defaults.string(forKey: "tid")!
             
             let game = FireRoot.games
                 .addDocument(data: game_fields){
@@ -732,7 +738,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         print("Added new game")
                     }
             }
+            gid = game.documentID
+            UserDefaults.standard.set(gid, forKey: "gid")
             DBApi.sharedInstance.createGames(gid: game.documentID)
+            
             gameState["began"] = true
             gameState["ballIndex"] = index
             let jumpballAlert = UIAlertController(title: "Outcome", message: "", preferredStyle: .actionSheet)

@@ -32,6 +32,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
+        print("BOXSCORE")
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.value as? [String: Any] ?? [:]
@@ -104,7 +105,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // Do any additional setup after loading the view.
         loadPlayers()
-        self.boxScoreTitle.text = "Team1" + " vs " + self.opponentTeam
+        self.boxScoreTitle.text = UserDefaults.standard.string(forKey: "tid")! + " vs " + self.opponentTeam
     }
     
 

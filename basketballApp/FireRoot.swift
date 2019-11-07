@@ -6,7 +6,7 @@
 //  Copyright © 2019 Aniki Zarif. All rights reserved.
 //
 // This files serves as the directory to the mostly used document paths.
-import Firebase
+import FirebaseFirestore
 
 struct FireRoot{
     

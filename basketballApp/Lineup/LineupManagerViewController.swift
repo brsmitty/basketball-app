@@ -4,6 +4,8 @@
 //
 //  Created by Mike White on 9/21/18.
 //
+// What in the world?
+// MARK: WHOLE CLASS NEVER USED
 
 import UIKit
 import Firebase
@@ -138,6 +140,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    // Creates a new lineup and stores their info in firebase
    func getLineups(){
       // Set up the references
+        print("LINEUP HERe")
       lineupRef = Database.database().reference()
       databaseHandleLineup = lineupRef?.child("lineups").observe(.childAdded, with: { (snapshot) in
          // If the player is one of the users players add it to the table

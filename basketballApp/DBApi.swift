@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import Firebase
+import FirebaseDatabase
 
 enum Statistic: String {
     case score2 = "2 point score"
@@ -41,7 +43,8 @@ enum Statistic: String {
 enum KPIKeys: String{
     case assists = "assists"
     case blocks = "blocks"
-    case charges = "chargesTaken"
+    case chargeTaken = "chargesTaken"
+    case charges = "charges"
     case defensiveRebounds = "defRebounds"
     case deflections = "deflections"
     case firstName = "fName"
@@ -57,11 +60,19 @@ enum KPIKeys: String{
     case turnovers = "turnovers"
     case twoPointersMade = "twoPtMade"
     case twoPointersAttempted = "twoPtAtt"
+    case substitutionIn = "subIn"
+    case substitutionOut = "subOut"
+    case jumpBallWon = "jumpWon"
+    case jumpBallLost = "jumpLost"
+    case pass = "pass"
+    case threeSecondViolation = "3SecViolation"
+    case flagrantFoul = "flagrantFoul"
     case shotLocation = "shotLocation"
     
-    static let allValues = [assists, blocks, charges, deflections, deflections, deflections, firstName,
+    static let allValues = [assists, blocks, charges, chargeTaken, deflections, deflections, deflections, defensiveRebounds,
         foulShotsAttempted,foulShotsMade,offensiveRebounds,personalFouls,personalFouls,points,
-        shotLocation, steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade, twoPointersAttempted
+        shotLocation, steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade,
+        twoPointersAttempted, substitutionIn, substitutionOut, jumpBallWon, jumpBallLost, pass, threeSecondViolation, flagrantFoul
     ]
 }
 
@@ -183,6 +194,7 @@ class DBApi {
         }
     }
     
+    //MARK: Never Used
     //gets the games nested in the users table, passes it as an argument to a code block
     func getGames(completion: @escaping ([[String: Any]]) -> Void) {
         let refGameTable = Database.database().reference(withPath: pathToGames)
@@ -201,6 +213,8 @@ class DBApi {
         }
     }
     
+    //Can be replaced with other implementation
+    //Can use transactions
     //Attach a listener to a player stat and run that when a value change occurs in the DB: TODO: Make this listen to individual stats
     func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
         guard let statsPath = pathToPlayerGameStats(for: pid) else {return}
@@ -210,6 +224,7 @@ class DBApi {
         }
     }
     
+    //Don't need this
     //MARK: Probably Crap
     //Sets all of the player stats to be 0 and save it to Firestore
     func setDefaultPlayerStats(pid: String){
@@ -244,21 +259,99 @@ class DBApi {
     //MARK: Storing Stats (ICP)
     //will store an event and the game time associated with it in the game-stats table
     func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
-        let ref = FireRoot.root.document(uid!)
-            .collection("team").document(tid!)
-            .collection("players").document(pid).collection("Stats")
         
+        //Reference of players to
+        let refPlayer = FireRoot.players.document(pid)
+            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
         
+        print(type.rawValue)
+        //Update the fields of the player
+        switch type.rawValue{
+        case "2 point score": refPlayer.updateData([
+            "twoPtMade": FieldValue.increment(Int64(1))
+        ])
+        case "3 point score": refPlayer.updateData([
+            "threePtMade": FieldValue.increment(Int64(1))
+        ])
+        case "2 point missed FG" : refPlayer.updateData([
+            "twoPtAtt": FieldValue.increment(Int64(1))
+        ])
+        case "3 point missed FG": refPlayer.updateData([
+            "threePtAtt": FieldValue.increment(Int64(1))
+        ])
+        case "free throw score": refPlayer.updateData([
+            "ftMade": FieldValue.increment(Int64(1))
+        ])
+        case "free throw attempt": refPlayer.updateData([
+            "ftAtt": FieldValue.increment(Int64(1))
+        ])
+        case "assist": refPlayer.updateData([
+            "assists": FieldValue.increment(Int64(1))
+        ])
+        case "turnover": refPlayer.updateData([
+            "turnovers": FieldValue.increment(Int64(1))
+        ])
+        case "offensive rebound": refPlayer.updateData([
+            "offRebound": FieldValue.increment(Int64(1))
+        ])
+        case "defensive rebound": refPlayer.updateData([
+            "defRebound": FieldValue.increment(Int64(1))
+        ])
+        case "steal": refPlayer.updateData([
+            "steals": FieldValue.increment(Int64(1))
+        ])
+        case "blocked shot": refPlayer.updateData([
+            "blocks": FieldValue.increment(Int64(1))
+        ])
+        case "deflection": refPlayer.updateData([
+            "deflections": FieldValue.increment(Int64(1))
+        ])
+        case "personal foul": refPlayer.updateData([
+            "personalFoul": FieldValue.increment(Int64(1))
+        ])
+        case "technical foul": refPlayer.updateData([
+            "techFoul": FieldValue.increment(Int64(1))
+        ])
+        case "charge taken": refPlayer.updateData([
+            "chargesTaken": FieldValue.increment(Int64(1))
+        ])
+        case "charge": refPlayer.updateData([
+            "charges": FieldValue.increment(Int64(1))
+        ])
+        case "substitution in": refPlayer.updateData([
+            "subIn": FieldValue.increment(Int64(1))
+        ])
+        case "substitution out": refPlayer.updateData([
+            "subOut": FieldValue.increment(Int64(1))
+        ])
+        case "jump ball win": refPlayer.updateData([
+            "jumpWon": FieldValue.increment(Int64(1))
+        ])
+        case "jump ball lost": refPlayer.updateData([
+            "jumpLost": FieldValue.increment(Int64(1))
+        ])
+        case "completed pass": refPlayer.updateData([
+            "pass": FieldValue.increment(Int64(1))
+        ])
+        case "3 second violation": refPlayer.updateData([
+            "3SecViolation": FieldValue.increment(Int64(1))
+        ])
+        case "flagrant foul": refPlayer.updateData([
+            "flagrantFoul": FieldValue.increment(Int64(1))
+        ])
+        default:
+            print("Data not saved")
+        }
         guard let statsPath = pathToStats(for: pid) else { return nil }
         let refStatsTable = Database.database().reference(withPath: statsPath)
         let newStatId = refStatsTable.childByAutoId().key
         
-        let statistic: [String: Any] = [
-            "type": type.rawValue,
-            "game-time": seconds
-        ]
+        //let statistic: [String: Any] = [
+          //  "type": type.rawValue,
+            //"game-time": seconds
+        //]
         
-        //let childUpdates = ["/\(newStatId ?? "")": statistic]
+       // let childUpdates = ["/\(newStatId ?? "")": statistic]
         //refStatsTable.updateChildValues(childUpdates)
         
         adjustScore(type: type)

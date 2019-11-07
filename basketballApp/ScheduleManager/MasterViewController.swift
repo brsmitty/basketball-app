@@ -140,10 +140,11 @@ class MasterViewController: UITableViewController{
         self.showDetailViewController(VC!, sender: Any?.self)
     }
     
-    /*
+    //MARK: CREATING A GAME USEFUL!!
     @IBAction func unwindToGameList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let game = sourceViewController.game, let date = sourceViewController.gameDate, let title = sourceViewController.gameTitle, let location = sourceViewController.location, let gameType = sourceViewController.gameType, let gameTime = sourceViewController.gameTime, let gameDetail = sourceViewController.gameDetail {
             
+            print("Masterrr")
             // Add a new game.
             gameDates.append(date)
             gameTitles.append(title)
@@ -168,11 +169,10 @@ class MasterViewController: UITableViewController{
                                               "gameDate": stringDate,
                                               "gameTime": gameTime,
                                               "gameDetail": gameDetail]
-            DBApi.sharedInstance.createGames(info: playData)
+           // DBApi.sharedInstance.createGames(info: playData)
         }
     
     }
-    */
     
     @IBAction func AddEvent(_ sender: UIButton) {
         
