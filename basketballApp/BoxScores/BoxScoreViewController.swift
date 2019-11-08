@@ -46,8 +46,8 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.freeThrows.text = (statsDict[KPIKeys.foulShotsMade.rawValue] as? NSNumber)?.stringValue
             cell.offensiveRebounds.text = (statsDict[KPIKeys.offensiveRebounds.rawValue] as? NSNumber)?.stringValue
             cell.personalFouls.text = (statsDict[KPIKeys.personalFouls.rawValue] as? NSNumber)?.stringValue
-
-
+            cell.steals.text = (statsDict[KPIKeys.steals.rawValue] as? NSNumber)?.stringValue
+            cell.twoPointers.text = (statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue
 
             //cell.playerName.text = (playerDict["lName"] as! String ) + ", " + firstName.prefix(1)
         }

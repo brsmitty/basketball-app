@@ -216,17 +216,12 @@ class DBApi {
     //Attach a listener to a player stat and run that when a value change occurs in the DB: TODO: Make this listen to individual stats
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         FireRoot.players.document(pid)
-            .collection("stats").document("season_stats")
+            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
             .addSnapshotListener{
                 (snapshot, err) in
-                print(snapshot?.data()!)
+                //print(snapshot?.data())
                 completion(snapshot!)
         }
-//        guard let statsPath = pathToPlayerGameStats(for: pid) else {return}
-//        let playerStatsRef = Database.database().reference(withPath: statsPath )
-//        playerStatsRef.observe(.value) { (snapshot) in
-//            completion(snapshot)
-//        }
     }
     
     //Don't need this
@@ -545,12 +540,12 @@ class DBApi {
         default:
             print("Data not saved")
         }
-        adjustScore(type: type)
+        adjustScore(type: type, pid : pid)
     }
     
     //MARK: Adjust Scpre
     //updates the score of the current game
-    func adjustScore(type: Statistic) {
+    func adjustScore(type: Statistic, pid: String) {
         
         var points: Int
         switch type {
@@ -567,6 +562,16 @@ class DBApi {
         //Update the score in the database
         FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
             .updateData(["score" : FieldValue.increment(Int64(points))])
+        
+        //Update the players score for game
+        FireRoot.players.document(pid)
+            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
+            .updateData(["points": FieldValue.increment(Int64(points))])
+        
+        //Update the players score in season stats
+        FireRoot.players.document(pid)
+            .collection("stats").document("season_stats")
+            .updateData(["points": FieldValue.increment(Int64(points))])
     }
     
     //Subs players in and out and records the time they were subbed in and out in the lineup table (withing users and games)
