@@ -168,7 +168,6 @@ class DBApi {
     //For those of who are not playing then the stats of the player is 0
     func createGames(gid : String) {
             
-        //ADD SNAPSHOSTLISTENER
         FireRoot.players.getDocuments(){
                 (querySnapshot, err) in
             if err != nil{
@@ -258,14 +257,20 @@ class DBApi {
 
     //MARK: Storing Stats
     //will store an event and the game time associated with it in the game-stats table
-    func storeStat(type: Statistic, pid: String, seconds: Double) -> String? {
+    func storeStat(type: Statistic, pid: String, seconds: Double){
         
-        //Reference of players to
+        //May need to do team stats
+        let gid = UserDefaults.standard.string(forKey: "gid")!
+        //Reference of player games stats
         let refPlayer = FireRoot.players.document(pid)
-            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
+            .collection("stats").document(gid)
         
+        //Reference to player season stats
         let refPlayerSeasons = FireRoot.players.document(pid)
         .collection("stats").document("season_stats")
+        
+        //Reference to current game stats
+        let refGame = FireRoot.games.document(gid)
         
         //Update the fields of the player stats during the game
         switch type.rawValue{
@@ -276,6 +281,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "twoPtMade": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "twoPtMade": FieldValue.increment(Int64(1))
+            ])
+            
         case "3 point score":
             refPlayer.updateData([
                 "threePtMade": FieldValue.increment(Int64(1))
@@ -283,6 +292,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "threePtMade": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "threePtMade": FieldValue.increment(Int64(1))
+            ])
+
         case "2 point missed FG" :
             refPlayer.updateData([
                 "twoPtAtt": FieldValue.increment(Int64(1))
@@ -290,6 +303,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "twoPtAtt": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "twoPtAtt": FieldValue.increment(Int64(1))
+            ])
+            
         case "3 point missed FG":
             refPlayer.updateData([
                 "threePtAtt": FieldValue.increment(Int64(1))
@@ -297,6 +314,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "threePtAtt": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "threePtAtt": FieldValue.increment(Int64(1))
+            ])
+            
         case "free throw score":
             refPlayer.updateData([
                 "ftMade": FieldValue.increment(Int64(1))
@@ -304,6 +325,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "ftMade": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "ftMade": FieldValue.increment(Int64(1))
+            ])
+            
         case "free throw attempt":
             refPlayer.updateData([
                 "ftAtt": FieldValue.increment(Int64(1))
@@ -311,6 +336,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "ftAtt": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "ftAtt": FieldValue.increment(Int64(1))
+           ])
+            
         case "assist":
             refPlayer.updateData([
                 "assists": FieldValue.increment(Int64(1))
@@ -318,6 +347,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "assists": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "assists": FieldValue.increment(Int64(1))
+            ])
+            
         case "turnover":
             refPlayer.updateData([
                 "turnovers": FieldValue.increment(Int64(1))
@@ -325,6 +358,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "turnovers": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "turnovers": FieldValue.increment(Int64(1))
+            ])
+            
         case "offensive rebound":
             refPlayer.updateData([
                 "offRebound": FieldValue.increment(Int64(1))
@@ -332,6 +369,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "offRebound": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "offRebound": FieldValue.increment(Int64(1))
+            ])
+            
         case "defensive rebound":
             refPlayer.updateData([
                 "defRebound": FieldValue.increment(Int64(1))
@@ -339,6 +380,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "defRebound": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "defRebound": FieldValue.increment(Int64(1))
+            ])
+            
         case "steal":
             refPlayer.updateData([
                 "steals": FieldValue.increment(Int64(1))
@@ -346,6 +391,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "steals": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "steals": FieldValue.increment(Int64(1))
+            ])
+            
         case "blocked shot":
             refPlayer.updateData([
                 "blocks": FieldValue.increment(Int64(1))
@@ -353,6 +402,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "blocks": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "blocks": FieldValue.increment(Int64(1))
+            ])
+            
         case "deflection":
             refPlayer.updateData([
                 "deflections": FieldValue.increment(Int64(1))
@@ -360,6 +413,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "deflections": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "deflections": FieldValue.increment(Int64(1))
+            ])
+            
         case "personal foul":
             refPlayer.updateData([
                 "personalFoul": FieldValue.increment(Int64(1))
@@ -367,6 +424,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "personalFoul": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "personalFoul": FieldValue.increment(Int64(1))
+            ])
+            
         case "technical foul":
             refPlayer.updateData([
                 "techFoul": FieldValue.increment(Int64(1))
@@ -374,6 +435,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "techFoul": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "techFoul": FieldValue.increment(Int64(1))
+            ])
+            
         case "charge taken":
             refPlayer.updateData([
                 "chargesTaken": FieldValue.increment(Int64(1))
@@ -381,6 +446,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "chargesTaken": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "chargesTaken": FieldValue.increment(Int64(1))
+            ])
+            
         case "charge":
             refPlayer.updateData([
                 "charges": FieldValue.increment(Int64(1))
@@ -388,6 +457,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "charges": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "charges": FieldValue.increment(Int64(1))
+            ])
+            
         case "substitution in":
             refPlayer.updateData([
                 "subIn": FieldValue.increment(Int64(1))
@@ -395,6 +468,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "subIn": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "subIn": FieldValue.increment(Int64(1))
+            ])
+            
         case "substitution out":
             refPlayer.updateData([
                 "subOut": FieldValue.increment(Int64(1))
@@ -402,6 +479,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "subOut": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "subOut": FieldValue.increment(Int64(1))
+            ])
+            
         case "jump ball win":
             refPlayer.updateData([
                 "jumpWon": FieldValue.increment(Int64(1))
@@ -409,6 +490,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "jumpWon": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "jumpWon": FieldValue.increment(Int64(1))
+            ])
+            
         case "jump ball lost":
             refPlayer.updateData([
                 "jumpLost": FieldValue.increment(Int64(1))
@@ -416,6 +501,10 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "jumpLost": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "jumpLost": FieldValue.increment(Int64(1))
+            ])
+            
         case "completed pass":
             refPlayer.updateData([
                 "pass": FieldValue.increment(Int64(1))
@@ -423,11 +512,18 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "pass": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "pass": FieldValue.increment(Int64(1))
+            ])
+            
         case "3 second violation":
             refPlayer.updateData([
                 "3SecViolation": FieldValue.increment(Int64(1))
             ])
             refPlayerSeasons.updateData([
+                "3SecViolation": FieldValue.increment(Int64(1))
+            ])
+            refGame.updateData([
                 "3SecViolation": FieldValue.increment(Int64(1))
             ])
         case "flagrant foul":
@@ -437,28 +533,18 @@ class DBApi {
             refPlayerSeasons.updateData([
                 "flagrantFoul": FieldValue.increment(Int64(1))
             ])
+            refGame.updateData([
+                "flagrantFoul": FieldValue.increment(Int64(1))
+            ])
         default:
             print("Data not saved")
         }
-        guard let statsPath = pathToStats(for: pid) else { return nil }
-        let refStatsTable = Database.database().reference(withPath: statsPath)
-        let newStatId = refStatsTable.childByAutoId().key
-        
-        //let statistic: [String: Any] = [
-          //  "type": type.rawValue,
-            //"game-time": seconds
-        //]
-        
-       // let childUpdates = ["/\(newStatId ?? "")": statistic]
-        //refStatsTable.updateChildValues(childUpdates)
-        
         adjustScore(type: type)
-        
-        return newStatId
     }
+    
+    //MARK: Adjust Scpre
     //updates the score of the current game
     func adjustScore(type: Statistic) {
-        guard let gamePath = pathtoCurrentGame else { return }
         
         var points: Int
         switch type {
@@ -471,11 +557,12 @@ class DBApi {
         default: return
         }
         currentGameScore += points
-        let refGameTable = Database.database().reference(withPath: gamePath)
         
-        let childUpdates = ["/score": currentGameScore]
-        refGameTable.updateChildValues(childUpdates)
+        //Update the score in the database
+        FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
+            .updateData(["score" : FieldValue.increment(Int64(points))])
     }
+    
     //Subs players in and out and records the time they were subbed in and out in the lineup table (withing users and games)
     func switchLineup(to newLineupId: String, at gameTimeInSeconds: Int) {
         guard let lineupsPath = pathToCurrentGameLineups else { return }
@@ -503,6 +590,7 @@ class DBApi {
         refLineupsTable.updateChildValues(newChildUpdate)
         currentLineup = ((newLineupId, newLineupChildId, gameTimeInSeconds) as! (id: String, key: String, time: Int))
     }
+    
     //updates the dribbles nested in the game in the users table. TODO: this info should be in the players table
     func updateDribbles(to dribbles: [String: Int]) {
         guard let gamePath = pathtoCurrentGame else { return }

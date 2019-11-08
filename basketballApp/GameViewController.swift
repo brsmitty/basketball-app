@@ -491,7 +491,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         updateOpponent()
         pushPlaySequence(event: "#\(number) recorded a rebound")
     }
-
+    
+    //Needs to store opponent stats 
     func storeOpponentPoints(number: Int, points: Int) {
         var opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         var oppPlayer = opp["\(number)"] ?? [:]
@@ -725,10 +726,19 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         start()
         if (gameState["began"] as! Bool == false){
-
-            //Need to be set for title, etc.
-            var game_fields : [String : Any] = ["game" : "first_game"]
             
+            var game_fields: [String: Any] = [:]
+            //Initialize game fields
+            for key in KPIKeys.allValues{
+                game_fields[key.rawValue] = 0
+            }
+            //Additional game fields
+            game_fields["score"] = 0
+            game_fields["oppScore"] = 0
+            game_fields["title"] = ""
+            game_fields["oppName"] = ""
+            
+            //Creating a new game in the firebase
             let game = FireRoot.games
                 .addDocument(data: game_fields){
                     err in
@@ -738,6 +748,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         print("Added new game")
                     }
             }
+            
+            //Setting the gid in the UserDefaults so that it can be used in other views
             gid = game.documentID
             UserDefaults.standard.set(gid, forKey: "gid")
             DBApi.sharedInstance.createGames(gid: game.documentID)
@@ -750,7 +762,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.gameState["possessionArrow"] = "defense"
                 self.addBorderToActivePlayer(index)
                 let active = self.gameState["active"] as! [Player]
-                _ = DBApi.sharedInstance.storeStat(type: Statistic.jumpBallWon, pid: active[index].playerId, seconds: self.timeSeconds)
+                DBApi.sharedInstance.storeStat(type: Statistic.jumpBallWon, pid: active[index].playerId, seconds: self.timeSeconds)
                 print(active[index].playerId)
                 self.pushPlaySequence(event: "\(active[index].firstName) won the jump ball")
                 self.homePossession.text! = ""
@@ -764,7 +776,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.homePossession.text! = "<"
                 self.awayPossession.text! = ""
                 //TODO delete after demo
-                _ = DBApi.sharedInstance.storeStat(type: .jumpBallLost, pid: "\(active[index].playerId)", seconds: self.timeSeconds)
+                DBApi.sharedInstance.storeStat(type: .jumpBallLost, pid: "\(active[index].playerId)", seconds: self.timeSeconds)
                 self.switchToDefense()
             }
             jumpballAlert.addAction(lost)
@@ -845,7 +857,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
 
                         self.pushPlaySequence(event: "\(player.firstName) recorded a(n) \(stat.rawValue)")
-                        _ = DBApi.sharedInstance.storeStat(type: stat, pid: player.playerId, seconds: timeSeconds)
+                        DBApi.sharedInstance.storeStat(type: stat, pid: player.playerId, seconds: timeSeconds)
 
                         // REMOVE BLUR VIEW
                         blurView.removeFromSuperview()
@@ -943,7 +955,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             addBorderToActivePlayer(to)
             passer.pass()
             self.pushPlaySequence(event: "\(passer.firstName) passed to \(active[to]!.firstName)")
-            _ = DBApi.sharedInstance.storeStat(type: .pass, pid: passer.playerId, seconds: timeSeconds)
+            DBApi.sharedInstance.storeStat(type: .pass, pid: passer.playerId, seconds: timeSeconds)
         }
     }
 
@@ -1056,7 +1068,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 performSegue(withIdentifier: "freethrowSegue", sender: nil)
             }
 
-            _ = DBApi.sharedInstance.storeStat(type: .personalFoul, pid: player.playerId, seconds: self.timeSeconds)
+            DBApi.sharedInstance.storeStat(type: .personalFoul, pid: player.playerId, seconds: self.timeSeconds)
             pushPlaySequence(event: "\(player.firstName) fouled")
         } else { // user's team was fouled
             var oppTeamFouls = gameState["oppTeamFouls"] as? Int ?? 0
@@ -1096,7 +1108,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     else if (possession == "defense") {
 
                     }
-                    _ = DBApi.sharedInstance.storeStat(type: Statistic.techFoul, pid: player.playerId, seconds: self.timeSeconds)
+                    DBApi.sharedInstance.storeStat(type: Statistic.techFoul, pid: player.playerId, seconds: self.timeSeconds)
                     self.pushPlaySequence(event: "technical foul on \(player.firstName)")
                 }
                 techAlert.addAction(activePlayer)
@@ -1117,7 +1129,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let p = player(i: gameState["ballIndex"] as! Int)
                 p.updatePersonalFouls(fouls: 1)
                 self.pushPlaySequence(event: "\(p.firstName) charged")
-                _ = DBApi.sharedInstance.storeStat(type: .charge, pid: p.playerId, seconds: self.timeSeconds)
+                DBApi.sharedInstance.storeStat(type: .charge, pid: p.playerId, seconds: self.timeSeconds)
                 switchToDefense()
             }
             else if (possession == "defense") {
@@ -1132,13 +1144,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //begin defensive handling
     func handleBlock(player: Player) {
         if gameState["began"] as! Bool {
-            _ = DBApi.sharedInstance.storeStat(type: .block, pid: player.playerId, seconds: timeSeconds)
+            DBApi.sharedInstance.storeStat(type: .block, pid: player.playerId, seconds: timeSeconds)
             pushPlaySequence(event: "\(player.firstName) blocked a shot")
         }
     }
     func handleDefensiveRebound(player: Player) {
         if gameState["began"] as! Bool {
-            _ = DBApi.sharedInstance.storeStat(type: .defRebound, pid: player.playerId, seconds: timeSeconds)
+            DBApi.sharedInstance.storeStat(type: .defRebound, pid: player.playerId, seconds: timeSeconds)
             pushPlaySequence(event: "\(player.firstName) rebounded a shot")
             switchToOffense()
         }
@@ -1584,7 +1596,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if gameState["began"] as! Bool {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
-                _ = DBApi.sharedInstance.storeStat(type: .steal, pid: player.playerId, seconds: timeSeconds)
+                DBApi.sharedInstance.storeStat(type: .steal, pid: player.playerId, seconds: timeSeconds)
                 pushPlaySequence(event: "\(player.firstName) stole the ball")
             }
         }
@@ -1595,7 +1607,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if gameState["began"] as! Bool {
             if let view = sender.view {
                 let player = self.player(i: view.tag)
-                _ = DBApi.sharedInstance.storeStat(type: .deflection, pid: player.playerId, seconds: timeSeconds)
+                DBApi.sharedInstance.storeStat(type: .deflection, pid: player.playerId, seconds: timeSeconds)
                 pushPlaySequence(event: "\(player.firstName) deflected the ball")
             }
         }
