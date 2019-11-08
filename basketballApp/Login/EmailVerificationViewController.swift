@@ -51,8 +51,10 @@ class EmailVerificationViewController: UIViewController {
          }
       }
    }
+    
+    //MARK: Create User
     //Function putting user into database
-    func createUser(){ // create OUR OWN user record in the database. NOTE: this is independent from the Firebase Authentication System!!!
+    func createUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         print("Adding: " + uid)
         
@@ -71,12 +73,14 @@ class EmailVerificationViewController: UIViewController {
         storePersistentData(uid: uid, tid: tid)
     }
     
+    //MARK: Store Persistent Data
     func storePersistentData(uid: String, tid: String){
         let defaults = UserDefaults.standard
         defaults.set(uid, forKey: "uid")
         defaults.set(tid, forKey: "tid")
     }
 
+    //MARK: Email Verification
    func emailVerification(){
       Auth.auth().currentUser?.sendEmailVerification { (error) in
           if (Auth.auth().currentUser!.isEmailVerified){

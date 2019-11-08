@@ -35,12 +35,20 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         print("BOXSCORE")
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
-            let statsDict = snapshot.value as? [String: Any] ?? [:]
-            print("this is a player")
-            let blocks = statsDict[KPIKeys.blocks.rawValue] as? NSNumber
-            let pts = statsDict[KPIKeys.points.rawValue] as? NSNumber
-            cell.blocks.text = blocks?.stringValue
-            cell.totalPoints.text = pts?.stringValue
+            let statsDict = snapshot.data() ?? [:]
+            //Incomplete
+            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
+            cell.charges.text = (statsDict[KPIKeys.charges.rawValue] as? NSNumber)?.stringValue
+            cell.threePointers.text = (statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue
+            cell.defensiveRebounds.text = (statsDict[KPIKeys.defensiveRebounds.rawValue] as? NSNumber)?.stringValue
+            cell.blocks.text = (statsDict[KPIKeys.blocks.rawValue] as? NSNumber)?.stringValue
+            cell.fieldGoals.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
+            cell.freeThrows.text = (statsDict[KPIKeys.foulShotsMade.rawValue] as? NSNumber)?.stringValue
+            cell.offensiveRebounds.text = (statsDict[KPIKeys.offensiveRebounds.rawValue] as? NSNumber)?.stringValue
+            cell.personalFouls.text = (statsDict[KPIKeys.personalFouls.rawValue] as? NSNumber)?.stringValue
+
+
+
             //cell.playerName.text = (playerDict["lName"] as! String ) + ", " + firstName.prefix(1)
         }
         

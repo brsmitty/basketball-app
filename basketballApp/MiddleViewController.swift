@@ -42,7 +42,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     var opponentTeam: String = "Team2"
-    var teamName: String = "Team1"
+    var teamName: String = UserDefaults.standard.string(forKey: "tid")!
     @IBOutlet weak var gameSummaryTitle: UILabel!
     
     @IBOutlet weak var gameChart: LineChartView!

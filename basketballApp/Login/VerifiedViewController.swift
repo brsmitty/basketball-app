@@ -16,8 +16,7 @@ class VerifiedViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      verifiedWait()
+        verifiedWait()
         // Do any additional setup after loading the view.
     }
    
@@ -26,9 +25,7 @@ class VerifiedViewController: UIViewController {
    }
 
    func verifiedWait(){
-    
       self.verifiedTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.segueToMainMenu), userInfo: nil, repeats: true)
-        
    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

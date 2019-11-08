@@ -212,15 +212,21 @@ class DBApi {
         }
     }
     
-    //Can be replaced with other implementation
-    //Can use transactions
+    //MARK: Listen To Player Stats
     //Attach a listener to a player stat and run that when a value change occurs in the DB: TODO: Make this listen to individual stats
-    func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
-        guard let statsPath = pathToPlayerGameStats(for: pid) else {return}
-        let playerStatsRef = Database.database().reference(withPath: statsPath )
-        playerStatsRef.observe(.value) { (snapshot) in
-            completion(snapshot)
+    func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
+        FireRoot.players.document(pid)
+            .collection("stats").document("season_stats")
+            .addSnapshotListener{
+                (snapshot, err) in
+                print(snapshot?.data()!)
+                completion(snapshot!)
         }
+//        guard let statsPath = pathToPlayerGameStats(for: pid) else {return}
+//        let playerStatsRef = Database.database().reference(withPath: statsPath )
+//        playerStatsRef.observe(.value) { (snapshot) in
+//            completion(snapshot)
+//        }
     }
     
     //Don't need this
