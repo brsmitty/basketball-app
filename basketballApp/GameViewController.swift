@@ -329,8 +329,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //MARK: ???
     func getTimerSet(){
         firebaseRef = Database.database().reference()
+        print("timer")
         databaseHandle = firebaseRef?.child("timer").observe(.childAdded, with: { (snapshot) in
-
             // If the player is one of the users players add it to the table
             if(self.gameIsUsers(snapshot.key)){
                 // take data from the snapshot and add a player object
@@ -498,6 +498,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var oppPlayer = opp["\(number)"] ?? [:]
         let pts = oppPlayer["points"] as? Int ?? 0
         oppPlayer["points"] = pts + points
+        FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
+            .collection("opponent").document(UserDefaults.standard.string(forKey: "oppId")!)
+            .setData(["points": oppPlayer["points"] ?? 0])
+        
         opp["\(number)"] = oppPlayer
         gameState["opponent"] = opp
 
@@ -557,7 +561,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             imageView.layer.cornerRadius = imagePlayer1.frame.size.width/2
             imageView.clipsToBounds = true
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSubstitutionGesture(recognizer:)))
-            // MARK: fkeasjnfejkoiawejfoiawejfaw
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(panGesture)
             benchView.addSubview(imageView)
@@ -736,7 +739,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             game_fields["score"] = 0
             game_fields["oppScore"] = 0
             game_fields["title"] = ""
-            game_fields["oppName"] = ""
             
             //Creating a new game in the firebase
             let game = FireRoot.games
@@ -753,6 +755,20 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             gid = game.documentID
             UserDefaults.standard.set(gid, forKey: "gid")
             DBApi.sharedInstance.createGames(gid: game.documentID)
+            
+            //Setting the opponents stats and opponent ID to user defaults
+            //Useful to update opponent's stats
+            game_fields["oppName"] = ""
+            let oppId = FireRoot.games.document(gid).collection("opponent")
+                .addDocument(data: game_fields){
+                    err in
+                    if err != nil{
+                        print("Error adding opponent")
+                    }else{
+                        print("Added opponent")
+                    }
+            }
+            UserDefaults.standard.set(oppId.documentID, forKey: "oppId")
             
             gameState["began"] = true
             gameState["ballIndex"] = index
@@ -1418,7 +1434,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
 
-    // TIMER FUNCTIONALITY BELOW
+    //MARK: TIMER
 
     func restart(){
         // Invalidate timer
@@ -1522,6 +1538,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
 
+    //MARK: OFFENSE
     func switchToOffense() {
         print("switching to offense")
 
@@ -1560,7 +1577,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
-    // DEFENSE BELOW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //MARK: DEFENSE
 
 
 

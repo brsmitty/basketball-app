@@ -266,6 +266,7 @@ class DBApi {
         let refPlayer = FireRoot.players.document(pid)
             .collection("stats").document(gid)
         
+        print("Seconds = \(seconds)")
         //Reference to player season stats
         let refPlayerSeasons = FireRoot.players.document(pid)
         .collection("stats").document("season_stats")
