@@ -166,18 +166,59 @@ class DBApi {
     //MARK: Create Games
     //Create a new game by adding game ids for every player of the user
     //For those of who are not playing then the stats of the player is 0
-    func createGames(gid : String) {
+    func createGames() {
             
+        var game_fields: [String: Any] = [:]
+        //Initialize game fields
+        for key in KPIKeys.allValues{
+            game_fields[key.rawValue] = 0
+        }
+        //Additional game fields
+        game_fields["score"] = 0
+        game_fields["oppScore"] = 0
+        game_fields["title"] = ""
+        game_fields["timeScored"] = [] as [Double]
+         
+         //Creating a new game in the firebase
+         let game = FireRoot.games
+             .addDocument(data: game_fields){
+                 err in
+                 if err != nil{
+                     print("Error adding game")
+                 }else{
+                     print("Added new game")
+                 }
+         }
+        
+        let gid = game.documentID
+        UserDefaults.standard.set(gid, forKey: "gid")
+        
+        //Setting the opponents stats and opponent ID to user defaults
+        //Useful to update opponent's stats
+        game_fields["oppName"] = ""
+        let oppId = FireRoot.games.document(gid).collection("opponent")
+                    .addDocument(data: game_fields){
+                       err in
+                       if err != nil{
+                           print("Error adding opponent")
+                       }else{
+                           print("Added opponent")
+                       }
+                   }
+        UserDefaults.standard.set(oppId.documentID, forKey: "oppId")
+        
+        //Setting the game under the player
         FireRoot.players.getDocuments(){
                 (querySnapshot, err) in
             if err != nil{
                     print("Error getting documents.")
                 }else{
                     for document in querySnapshot!.documents{
-                        var playerGameStats: [String: Int] = [:]
+                        var playerGameStats: [String: Any] = [:]
                         for key in KPIKeys.allValues{
                             playerGameStats[key.rawValue] = 0
                         }
+                        playerGameStats["timeScored"] = []
                         FireRoot.players.document(document.documentID)
                             .collection("stats").document(gid)
                             .setData(playerGameStats){
@@ -213,13 +254,25 @@ class DBApi {
     }
     
     //MARK: Listen To Player Stats
-    //Attach a listener to a player stat and run that when a value change occurs in the DB: TODO: Make this listen to individual stats
+    //Attach a listener to a player stat and run that when a value change occurs in the Database
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         FireRoot.players.document(pid)
             .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
             .addSnapshotListener{
                 (snapshot, err) in
                 //print(snapshot?.data())
+                completion(snapshot!)
+        }
+    }
+    
+    //MARK: Listen To Game Score
+    //Attach listener game score
+    func listenToGameScore(gid: String, side: String, completion: @escaping (DocumentSnapshot)->Void){
+        FireRoot.games.document(gid)
+            .addSnapshotListener{ (snapshot, err) in
+                if err != nil{
+                    print("Problem getting score.")
+                }
                 completion(snapshot!)
         }
     }
@@ -541,38 +594,52 @@ class DBApi {
         default:
             print("Data not saved")
         }
-        adjustScore(type: type, pid : pid)
+        adjustScore(type: type, pid: pid, seconds: seconds, tid: gid)
     }
     
     //MARK: Adjust Scpre
     //updates the score of the current game
-    func adjustScore(type: Statistic, pid: String) {
+    func adjustScore(type: Statistic, pid: String, seconds: Double, tid : String) {
+        
+        //Setting path to update the scores
+        let path : DocumentReference
+        if(tid == UserDefaults.standard.string(forKey: "gid")){
+            path = FireRoot.games.document(tid)
+        }else{
+            path = FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
+                .collection("opponent").document(tid)
+        }
         
         var points: Int
         switch type {
         case .freeThrow:
             points = 1
+            //Update the time scored
+            path.updateData(["timeScored": FieldValue.arrayUnion([seconds])])
         case .score2:
             points = 2
+            path.updateData(["timeScored": FieldValue.arrayUnion([seconds])])
         case .score3:
             points = 3
+            path.updateData(["timeScored": FieldValue.arrayUnion([seconds])])
         default: return
         }
         currentGameScore += points
         
         //Update the score in the database
-        FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
-            .updateData(["score" : FieldValue.increment(Int64(points))])
+        path.updateData(["score" : FieldValue.increment(Int64(points))])
         
-        //Update the players score for game
-        FireRoot.players.document(pid)
-            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
-            .updateData(["points": FieldValue.increment(Int64(points))])
+        if(tid == UserDefaults.standard.string(forKey: "gid")){
+            //Update the players score for game
+            FireRoot.players.document(pid)
+                .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
+                .updateData(["points": FieldValue.increment(Int64(points))])
         
-        //Update the players score in season stats
-        FireRoot.players.document(pid)
-            .collection("stats").document("season_stats")
-            .updateData(["points": FieldValue.increment(Int64(points))])
+            //Update the players score in season stats
+            FireRoot.players.document(pid)
+                .collection("stats").document("season_stats")
+                .updateData(["points": FieldValue.increment(Int64(points))])
+        }
     }
     
     //Subs players in and out and records the time they were subbed in and out in the lineup table (withing users and games)

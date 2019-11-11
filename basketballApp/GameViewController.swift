@@ -493,20 +493,26 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //Needs to store opponent stats 
-    func storeOpponentPoints(number: Int, points: Int) {
-        var opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
-        var oppPlayer = opp["\(number)"] ?? [:]
-        let pts = oppPlayer["points"] as? Int ?? 0
-        oppPlayer["points"] = pts + points
-        FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
-            .collection("opponent").document(UserDefaults.standard.string(forKey: "oppId")!)
-            .setData(["points": oppPlayer["points"] ?? 0])
+    func storeOpponentPoints(type: Statistic, number: Int, seconds: Double) {
+        let opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
+        //let oppPlayer = opp["\(number)"] ?? [:]
+        //let pts = oppPlayer["points"] as? Int ?? 0
+        //oppPlayer["points"] = pts + points
+        switch type{
+            case .score2:
+           DBApi.sharedInstance.adjustScore(type: Statistic.score2, pid: "", seconds: seconds, tid: UserDefaults.standard.string(forKey: "oppId")!)
+            case .score3:
+                 DBApi.sharedInstance.adjustScore(type: Statistic.score3, pid: "", seconds: seconds, tid: UserDefaults.standard.string(forKey: "oppId")!)
+            case .freeThrow:
+                DBApi.sharedInstance.adjustScore(type: Statistic.freeThrow, pid: "", seconds: seconds, tid: UserDefaults.standard.string(forKey: "oppId")!)
+            default: break
+        }
         
-        opp["\(number)"] = oppPlayer
+        //opp["\(number)"] = oppPlayer
         gameState["opponent"] = opp
 
-        updateOpponent()
-        pushPlaySequence(event: "#\(number) recorded a \(points) point score")
+        //updateOpponent()
+        pushPlaySequence(event: "#\(number) recorded a point score")
     }
 
     func storeOpponentTurnover(number: Int) {
@@ -730,45 +736,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         start()
         if (gameState["began"] as! Bool == false){
             
-            var game_fields: [String: Any] = [:]
-            //Initialize game fields
-            for key in KPIKeys.allValues{
-                game_fields[key.rawValue] = 0
-            }
-            //Additional game fields
-            game_fields["score"] = 0
-            game_fields["oppScore"] = 0
-            game_fields["title"] = ""
-            
-            //Creating a new game in the firebase
-            let game = FireRoot.games
-                .addDocument(data: game_fields){
-                    err in
-                    if err != nil{
-                        print("Error adding game")
-                    }else{
-                        print("Added new game")
-                    }
-            }
-            
-            //Setting the gid in the UserDefaults so that it can be used in other views
-            gid = game.documentID
-            UserDefaults.standard.set(gid, forKey: "gid")
-            DBApi.sharedInstance.createGames(gid: game.documentID)
-            
-            //Setting the opponents stats and opponent ID to user defaults
-            //Useful to update opponent's stats
-            game_fields["oppName"] = ""
-            let oppId = FireRoot.games.document(gid).collection("opponent")
-                .addDocument(data: game_fields){
-                    err in
-                    if err != nil{
-                        print("Error adding opponent")
-                    }else{
-                        print("Added opponent")
-                    }
-            }
-            UserDefaults.standard.set(oppId.documentID, forKey: "oppId")
+            DBApi.sharedInstance.createGames()
             
             gameState["began"] = true
             gameState["ballIndex"] = index
@@ -1757,7 +1725,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-
+    
+    //MARK: USEFUL BUT BAD IMPLEMENTATION
+    //Needs to be adjusted
     func selectOpposingPlayer(stat: Statistic) {
         let opponent = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         let possession = gameState["possession"] as? String ?? ""
@@ -1773,13 +1743,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else if [.score2, .score3, .freeThrow].contains(stat) {
                 switch stat {
                 case .score2:
-                    self.storeOpponentPoints(number: number, points: 2)
+                    self.storeOpponentPoints(type: Statistic.score2, number: number, seconds: self.timeSeconds)
                     self.switchToOffense()
                 case .score3:
-                    self.storeOpponentPoints(number: number, points: 3)
+                    self.storeOpponentPoints(type: Statistic.score3, number: number, seconds: self.timeSeconds)
                     self.switchToOffense()
                 case .freeThrow:
-                    self.storeOpponentPoints(number: number, points: 1)
+                    self.storeOpponentPoints(type: Statistic.freeThrow, number: number, seconds: self.timeSeconds)
                 default: break
                 }
             }

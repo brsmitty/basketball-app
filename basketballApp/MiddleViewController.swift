@@ -161,7 +161,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var testScore: Double = 0
         var testOppScore: Double = 0
         var x: Double = 0
-        while testScore < 100 && x < 40 {
+        while testScore < 100 && x < 20 {
             lineInfo.append(ChartDataEntry(x: x, y: testScore))
             opplineInfo.append(ChartDataEntry(x: x, y: testOppScore))
             testScore += Double(Int.random(in: 0...4))
