@@ -75,13 +75,11 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
    @IBOutlet weak var settingsView: UIView!
    @IBOutlet weak var NGTitle: UILabel!
     
-    @IBOutlet weak var lineupRankingView: UIView!
     
     @IBOutlet weak var UsVsOppsView: UIView!
     @IBOutlet weak var tableViewWrapper: UIView!
+    @IBOutlet weak var lineUpRankingView: UIView!
     
-    
-    @IBOutlet weak var viewBoxScoreButton: UIButton!
     
     
     var admin: Bool = false
@@ -100,10 +98,9 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.delegate = self
         loadPlayers()
         
-        setDefaultViewStyle(view: self.lineupRankingView)
+        setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
-        setDefaultButtonStyle(button: self.viewBoxScoreButton)
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
