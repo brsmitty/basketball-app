@@ -1934,7 +1934,12 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="minutesPlayed" destination="a7x-5n-oUp" id="MtO-dw-Bun"/>
                                             <outlet property="playerName" destination="Kwt-Ek-XBJ" id="6xe-r3-76U"/>
+                                            <outlet property="plusMinus" destination="oGJ-vw-KoE" id="huS-hb-VZc"/>
+                                            <outlet property="threePointers" destination="RIB-8b-sPP" id="C1e-12-3HS"/>
+                                            <outlet property="totalPoints" destination="7yJ-up-Kj4" id="cqx-aq-85u"/>
+                                            <outlet property="twoPointers" destination="hOk-Sw-5IN" id="zzh-3e-1Mu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3129,7 +3134,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeasonPlayerMetricsCell" id="Y6W-yE-9c9" customClass="SeasonPlayerMetricsTableViewCell" customModule="basketballApp" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameSummaryPlayerMetricCell" id="Y6W-yE-9c9" customClass="GameSummaryTableViewCell" customModule="basketballApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="460" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y6W-yE-9c9" id="c0t-sm-dBs">
@@ -3181,12 +3186,12 @@
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="minutesPlayed" destination="ZgO-Qw-Ugz" id="vsV-LW-uiw"/>
-                                                    <outlet property="playerName" destination="zKP-DZ-EPf" id="lIh-np-j2U"/>
-                                                    <outlet property="plusMinus" destination="66w-D0-Sxm" id="gYL-Yr-2k7"/>
-                                                    <outlet property="threePointers" destination="Vd4-0i-SAk" id="8C1-qr-J3I"/>
-                                                    <outlet property="totalPoints" destination="La6-dY-zBL" id="RXM-vI-DfZ"/>
-                                                    <outlet property="twoPointers" destination="drq-4o-ccn" id="UWG-0e-tpw"/>
+                                                    <outlet property="minutesPlayed" destination="ZgO-Qw-Ugz" id="ppZ-U3-Odr"/>
+                                                    <outlet property="playerName" destination="zKP-DZ-EPf" id="nhJ-R6-t34"/>
+                                                    <outlet property="plusMinus" destination="66w-D0-Sxm" id="IaZ-5Q-hiV"/>
+                                                    <outlet property="threePointers" destination="Vd4-0i-SAk" id="5CF-3I-RZL"/>
+                                                    <outlet property="totalPoints" destination="La6-dY-zBL" id="JUn-No-2fM"/>
+                                                    <outlet property="twoPointers" destination="drq-4o-ccn" id="frf-Zz-Gon"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -4320,16 +4325,16 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uvn-zV-N5k"/>
+        <segue reference="2w4-fN-nch"/>
         <segue reference="On0-Mz-bdU"/>
-        <segue reference="FiU-no-Emh"/>
-        <segue reference="uDY-fm-6DA"/>
-        <segue reference="OkJ-Qw-D36"/>
-        <segue reference="IOu-Qq-iME"/>
+        <segue reference="EZm-wY-8Dg"/>
+        <segue reference="dFP-XF-Rnx"/>
+        <segue reference="oAY-0L-e2R"/>
+        <segue reference="Lnr-Ff-ZLn"/>
         <segue reference="xmA-tT-Tp1"/>
         <segue reference="hhv-Ks-6uJ"/>
         <segue reference="Bgp-i5-pz9"/>
-        <segue reference="chn-OD-mNE"/>
+        <segue reference="Evs-du-5w7"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
 </document>

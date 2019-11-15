@@ -305,7 +305,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: Player Metrics
     //TODO: change this to game instead of season
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonPlayerMetricsCell", for: indexPath) as? SeasonPlayerMetricsTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameSummaryPlayerMetricCell", for: indexPath) as? GameSummaryTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
         

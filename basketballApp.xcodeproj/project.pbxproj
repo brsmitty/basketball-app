@@ -92,6 +92,7 @@
 		972B1DD4235D0710001C915B /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B1DD3235D0710001C915B /* DateHeader.swift */; };
 		972B90252357B13F00A21336 /* SeasonSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */; };
 		9738FDF02341379F00A22E02 /* BoxScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */; };
+		97398E2E237F239A0042B756 /* GameSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */; };
 		978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 978FC5562337E3F90060EA8F /* GoogleService-Info.plist */; };
 		97F360BE2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
@@ -214,6 +215,7 @@
 		972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSummaryViewController.swift; sourceTree = "<group>"; };
 		972E0BA394751E9F879017F5 /* Pods_basketball_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketball_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxScoreTableViewCell.swift; sourceTree = "<group>"; };
+		97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		978FC5562337E3F90060EA8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonPlayerMetricsTableViewCell.swift; sourceTree = "<group>"; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				6351C2C721A8913C00BF63F6 /* Action.swift */,
 				6351C2C921A8915200BF63F6 /* Possession.swift */,
 				3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */,
+				97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */,
 			);
 			path = basketballApp;
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				630E66EC21766973005EF4EB /* Game.swift in Sources */,
 				27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,
+				97398E2E237F239A0042B756 /* GameSummaryTableViewCell.swift in Sources */,
 				27A1D31021AE6A040023599C /* helper.swift in Sources */,
 				2730FDE521A10DA80003F4B8 /* BenchTableViewCell.swift in Sources */,
 				63E879742146D21600B1A458 /* UserAuthViewController.swift in Sources */,
