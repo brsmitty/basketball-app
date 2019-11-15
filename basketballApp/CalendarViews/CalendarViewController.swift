@@ -30,6 +30,11 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
         //TODO: Read from DB
         calendarDataSource = ["22-Oct-2019": "Cavaliers",
                  "15-Jan-2019":"GS Warriors"]
+        FireRoot.games.getDocuments(){ (snapshot, err) in
+            print("----------------")
+            print(snapshot?.count)
+            print(snapshot?.description)
+        }
         }
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {

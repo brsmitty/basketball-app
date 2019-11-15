@@ -3138,7 +3138,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8y2-4g-7jh" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="532" y="338" width="472" height="330"/>
+                                <rect key="frame" x="515" y="338" width="489" height="330"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -3154,7 +3154,7 @@
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="VjQ-uy-vd2">
-                                        <rect key="frame" x="-6" y="-397" width="487" height="1055"/>
+                                        <rect key="frame" x="-26" y="-392" width="507" height="1055"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
