@@ -303,19 +303,25 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     //MARK: Player Metrics
-    //TODO: change this to game instead of season
+    //Puts up player stats in the current game
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameSummaryPlayerMetricCell", for: indexPath) as? GameSummaryTableViewCell else {
-            fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
+            fatalError("The deqeued cell is not an instance of GameSummaryPlayerViewCell")
         }
         
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
-        print("tableView")
+
         let player = players[indexPath.row]
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
-        //print("Players = \(players)")
+        DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
+            let statsDict = snapshot.data() ?? [:]
+            //Needs minutesPlayed and plusminus
+            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
+            cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+            cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+        }
         return cell
     }
     

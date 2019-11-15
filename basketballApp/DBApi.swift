@@ -171,10 +171,22 @@ class DBApi {
     
     
     //MARK: Listen To Player Stats
-    //Attach a listener to a player stat and run that when a value change occurs in the Database
+    //Attach a listener to a player stat
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         FireRoot.players.document(pid)
             .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
+            .addSnapshotListener{
+                (snapshot, err) in
+                //print(snapshot?.data())
+                completion(snapshot!)
+        }
+    }
+    
+    //MARK: Listen To Player Season Stats
+    //Attach a listener to a player season stats
+    func listenToPlayerSeasonStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
+        FireRoot.players.document(pid)
+            .collection("stats").document("season_stats")
             .addSnapshotListener{
                 (snapshot, err) in
                 //print(snapshot?.data())

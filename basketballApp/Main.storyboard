@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="BG" translatesAutoresizingMaskIntoConstraints="NO" id="K0c-GN-nxm">
-                                <rect key="frame" x="0.0" y="20" width="2732" height="748"/>
+                                <rect key="frame" x="0.0" y="20" width="16" height="748"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Board" translatesAutoresizingMaskIntoConstraints="NO" id="ycj-1v-c4K">
                                 <rect key="frame" x="119" y="99" width="786" height="590"/>
@@ -539,7 +539,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Board" translatesAutoresizingMaskIntoConstraints="NO" id="ZwU-i8-AQQ">
-                                <rect key="frame" x="-460" y="99" width="1944" height="590"/>
+                                <rect key="frame" x="504" y="99" width="16" height="590"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="590" id="VOE-jr-5fx"/>
                                 </constraints>
@@ -551,7 +551,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VerifiedBall" translatesAutoresizingMaskIntoConstraints="NO" id="JUZ-ge-bvH">
-                                <rect key="frame" x="283" y="215" width="458" height="156"/>
+                                <rect key="frame" x="504" y="215" width="16" height="156"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="156" id="nVv-5e-abq"/>
                                 </constraints>
@@ -4325,12 +4325,12 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2w4-fN-nch"/>
+        <segue reference="cVI-Dz-1Rm"/>
         <segue reference="On0-Mz-bdU"/>
-        <segue reference="EZm-wY-8Dg"/>
+        <segue reference="vix-mb-8OF"/>
         <segue reference="dFP-XF-Rnx"/>
-        <segue reference="oAY-0L-e2R"/>
-        <segue reference="Lnr-Ff-ZLn"/>
+        <segue reference="gAR-gh-MKE"/>
+        <segue reference="IOu-Qq-iME"/>
         <segue reference="xmA-tT-Tp1"/>
         <segue reference="hhv-Ks-6uJ"/>
         <segue reference="Bgp-i5-pz9"/>

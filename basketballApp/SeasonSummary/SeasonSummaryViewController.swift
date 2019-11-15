@@ -26,13 +26,16 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
-        print("SEASONSUMMARY")
         let player = players[indexPath.row]
-        print("Player \(player.playerId)")
-        print("FFFFFFFFFFF")
+
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
-        cell.twoPointers.text = "22"
-        print("CELL \(cell)")
+        DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
+            let statsDict = snapshot.data() ?? [:]
+            //Needs minutesPlayed and plusminus
+            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
+            cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+            cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+        }
         return cell
     }
     
