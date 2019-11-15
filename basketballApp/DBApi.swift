@@ -5,11 +5,12 @@
 //  Created by Sean O'Donnell on 2/13/19.
 //  Copyright © 2019 David Zucco. All rights reserved.
 //
+//  Fixed by Aniki Zarif on 11/15/19
+//  Removed all FirebaseDatabase usage
 
 import Foundation
 import FirebaseFirestore
 import Firebase
-import FirebaseDatabase
 
 enum Statistic: String {
     case score2 = "2 point score"
@@ -37,6 +38,7 @@ enum Statistic: String {
     case threeSecondViolation = "3 second violation"
     case flagrantFoul = "flagrant foul"
     case shotLocation = "shotLocation"
+    case dribble = "dribble"
 }
 
 //The keys of the performance indicators as they exist in the DB
@@ -68,11 +70,12 @@ enum KPIKeys: String{
     case threeSecondViolation = "3SecViolation"
     case flagrantFoul = "flagrantFoul"
     case shotLocation = "shotLocation"
+    case dribble = "dribble"
     
     static let allValues = [assists, blocks, charges, chargeTaken, deflections, deflections, deflections, defensiveRebounds,
         foulShotsAttempted,foulShotsMade,offensiveRebounds,personalFouls,personalFouls,points,
         shotLocation, steals,technicalFouls,threePointersAttempted,threePointerstMade,turnovers,twoPointersMade,
-        twoPointersAttempted, substitutionIn, substitutionOut, jumpBallWon, jumpBallLost, pass, threeSecondViolation, flagrantFoul
+        twoPointersAttempted, substitutionIn, substitutionOut, jumpBallWon, jumpBallLost, pass, threeSecondViolation, flagrantFoul, dribble
     ]
 }
 
@@ -94,74 +97,6 @@ class DBApi {
     var currentLineup: (id: String, key: String, time: Int)?
     var currentGameLineupIds: [String]?
     var currentGameScore: Int = 0
-    
-    //path to players nested in users table
-    var pathToPlayers: String {
-        return "users/\(currentUserId)/players"
-    }
-    //path to a player in the users table with given pid
-    func pathToPlayer(pid: String) -> String{
-        return pathToPlayers + "/\(pid)"
-    }
-    //path to games nested in the users table
-    var pathToGames: String {
-        return "users/\(currentUserId)/games"
-    }
-    //path to the ongoing game. "currentgameId" is changed to "test-game-id-2" in the application launch
-    var pathtoCurrentGame: String? {
-        guard let gameId = currentGameId else { return nil }
-        return "users/\(currentUserId)/games/\(gameId)"
-    }
-    //path to lineups table nested within games which is nested within users
-    var pathToCurrentGameLineups: String? {
-        guard let gameId = currentGameId else { return nil }
-        return "users/\(currentUserId)/games/\(gameId)/lineups"
-    }
-    //path to the current lineup
-    var pathToCurrentLineup: String? {
-        guard let gameId = currentGameId else { return nil }
-        guard let lineupId = currentLineup?.id else { return nil }
-        return "users/\(currentUserId)/games/\(gameId)/lineups/\(lineupId)"
-    }
-    //path to the current user's team.
-    var pathToTeam: String {
-        return "users/\(currentUserId)/team"
-    }
-    //path to the stats table nested in the game stats table in the users table
-    func pathToStats(for pid: String) -> String? {
-        guard let gameId = currentGameId else { return nil }
-        return "\(pathToPlayers)/\(pid)/game-stats/\(gameId)/stats"
-    }
-    
-    //path to the stats table nested in the game stats table in the users table. TODO: Change this to the correct location in new schema
-    func pathToPlayerGameStats(for pid: String) -> String? {
-        return "\(pathToPlayers)/\(pid)/dummy-stats/"
-    }
-    
-    //THIS IS NOT USED AS CREATED PLAYER IS MADE IN PlayerManagerViewController
-    //LEFT HERE FOR EXPANDABILITY
-    //P.S. Implementation is deprecated
-    //creates a player within the users table
-    func createPlayer(info: [String: Any], completion: @escaping () -> Void) -> String {
-        let refPlayersTable = Database.database().reference(withPath: pathToPlayers)
-        let newPlayerId = refPlayersTable.childByAutoId().key
-        print("print DBAPI CREATEPLAYER")
-        let player: [String: Any] = [
-            "user_id": currentUserId,
-            "fName": info["fname"] as? String ?? "",
-            "lName": info["lname"] as? String ?? "",
-            "height": info["height"] as? String ?? "",
-            "weight": info["weight"] as? String ?? "",
-            "rank": info["rank"] as? String ?? "",
-            "position": info["position"] as? String ?? ""
-        ]
-        
-        let childUpdates = ["/\(newPlayerId ?? "")": player]
-        refPlayersTable.updateChildValues(childUpdates)
-        completion()
-        
-        return newPlayerId ?? ""
-    }
     
     //MARK: Create Games
     //Create a new game by adding game ids for every player of the user
@@ -234,24 +169,6 @@ class DBApi {
         }
     }
     
-    //MARK: Never Used
-    //gets the games nested in the users table, passes it as an argument to a code block
-    func getGames(completion: @escaping ([[String: Any]]) -> Void) {
-        let refGameTable = Database.database().reference(withPath: pathToGames)
-        refGameTable.observeSingleEvent(of: .value) { snapshot in
-            if snapshot.value is NSNull {
-                print("no games in the database")
-            }
-            var games = [[String: Any]]()
-            for game in snapshot.children {
-                let gameSnap = game as? DataSnapshot
-                var gameDict = gameSnap?.value as? [String: Any] ?? [:]
-                gameDict["game-id"] = gameSnap?.key ?? ""
-                games.append(gameDict)
-            }
-            completion(games)
-        }
-    }
     
     //MARK: Listen To Player Stats
     //Attach a listener to a player stat and run that when a value change occurs in the Database
@@ -277,19 +194,6 @@ class DBApi {
         }
     }
     
-    //Don't need this
-    //MARK: Probably Crap
-    //Sets all of the player stats to be 0 and save it to Firestore
-    func setDefaultPlayerStats(pid: String){
-        guard let statsPath = pathToPlayerGameStats(for: pid) else { return }
-        let statsRef = Database.database().reference(withPath: statsPath)
-        var defaultStats: [String: Int] = [:]
-        for key in KPIKeys.allValues{
-            defaultStats[key.rawValue] = 0
-        }
-        statsRef.setValue(defaultStats)
-    }
-    
     //MARK: Get Players
     //Gets the players of the user, and passes it as an argument to a code block
     func getPlayers(completion: @escaping ([Player]) -> Void) {
@@ -310,7 +214,7 @@ class DBApi {
     }
 
     //MARK: Storing Stats
-    //will store an event and the game time associated with it in the game-stats table
+    //Storing stats into the database using pid
     func storeStat(type: Statistic, pid: String, seconds: Double){
         
         //May need to do team stats
@@ -591,13 +495,23 @@ class DBApi {
             refGame.updateData([
                 "flagrantFoul": FieldValue.increment(Int64(1))
             ])
+        case "dribble":
+            refPlayer.updateData([
+                "dribble": FieldValue.increment(Int64(1))
+            ])
+            refPlayerSeasons.updateData([
+                "dribble": FieldValue.increment(Int64(1))
+            ])
+            refGame.updateData([
+                "dribble": FieldValue.increment(Int64(1))
+            ])
         default:
             print("Data not saved")
         }
         adjustScore(type: type, pid: pid, seconds: seconds, tid: gid)
     }
     
-    //MARK: Adjust Scpre
+    //MARK: Adjust Score
     //updates the score of the current game
     func adjustScore(type: Statistic, pid: String, seconds: Double, tid : String) {
         
@@ -642,6 +556,8 @@ class DBApi {
         }
     }
     
+    //MARK: LEFT HERE FOR EXPANDABILITY
+    /*
     //Subs players in and out and records the time they were subbed in and out in the lineup table (withing users and games)
     func switchLineup(to newLineupId: String, at gameTimeInSeconds: Int) {
         guard let lineupsPath = pathToCurrentGameLineups else { return }
@@ -669,16 +585,11 @@ class DBApi {
         refLineupsTable.updateChildValues(newChildUpdate)
         currentLineup = ((newLineupId, newLineupChildId, gameTimeInSeconds) as! (id: String, key: String, time: Int))
     }
+    */
     
-    //updates the dribbles nested in the game in the users table. TODO: this info should be in the players table
-    func updateDribbles(to dribbles: [String: Int]) {
-        guard let gamePath = pathtoCurrentGame else { return }
-        let refGameTable = Database.database().reference(withPath: gamePath)
-        
-        let childUpdates: [String: [String: Int]] = ["/dribbles": dribbles]
-        refGameTable.updateChildValues(childUpdates)
-    }
+    //Deprecated: Still using firebase
     //updates the oppscore and oppstates in the game nested in the users table
+    /*
     func updateOpponentStats(to opponent: [String: [String: Any]], score: Int) {
         guard let gamePath = pathtoCurrentGame else { return }
         let refGameTable = Database.database().reference(withPath: gamePath)
@@ -686,15 +597,16 @@ class DBApi {
         let childUpdates: [String: Any] = ["/oppScore": score,
                                            "/oppStats": opponent]
         refGameTable.updateChildValues(childUpdates)
-    }
+    }*/
+    
+    /*
     // To-do: Update shot locations
     func updateShotLocation(to shotLocation: [String: [Int]]) {
         guard let gamePath = pathtoCurrentGame else { return }
         let refGameTable = Database.database().reference(withPath: gamePath)
-        
+        print("shots: \(shotLocation)")
         let childUpdates: [String: Any] = ["/shotLocation": shotLocation]
         refGameTable.updateChildValues(childUpdates)
     }
-    
-    
+    */
 }

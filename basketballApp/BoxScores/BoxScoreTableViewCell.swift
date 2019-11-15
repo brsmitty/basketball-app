@@ -31,12 +31,6 @@ class BoxScoreTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // set default values for box score cells
-        minutesPlayed.text = "0"
-        fieldGoals.text = "0-0"
-        threePointers.text = "0-0"
-        freeThrows.text = "0-0"
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

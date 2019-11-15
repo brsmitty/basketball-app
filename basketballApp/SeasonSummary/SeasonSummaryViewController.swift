@@ -26,8 +26,12 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
+        print("SEASONSUMMARY")
         let player = players[indexPath.row]
+        print("Player \(player.playerId)")
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
+        //cell.twoPointers.text =  "1"
+        print("CELL \(cell)")
         return cell
     }
     

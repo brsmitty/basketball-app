@@ -28,18 +28,18 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? BoxScoreTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
+        print("Boxscore CELL: \(cell)")
         let player = players[indexPath.row]
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
-        print("BOXSCORE")
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
             //Incomplete
             cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
             cell.charges.text = (statsDict[KPIKeys.charges.rawValue] as? NSNumber)?.stringValue
-            cell.threePointers.text = (statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue
+            cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
             cell.defensiveRebounds.text = (statsDict[KPIKeys.defensiveRebounds.rawValue] as? NSNumber)?.stringValue
             cell.blocks.text = (statsDict[KPIKeys.blocks.rawValue] as? NSNumber)?.stringValue
             cell.fieldGoals.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
@@ -47,11 +47,8 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.offensiveRebounds.text = (statsDict[KPIKeys.offensiveRebounds.rawValue] as? NSNumber)?.stringValue
             cell.personalFouls.text = (statsDict[KPIKeys.personalFouls.rawValue] as? NSNumber)?.stringValue
             cell.steals.text = (statsDict[KPIKeys.steals.rawValue] as? NSNumber)?.stringValue
-            cell.twoPointers.text = (statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue
-
-            //cell.playerName.text = (playerDict["lName"] as! String ) + ", " + firstName.prefix(1)
+            cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
         }
-        
         return cell
     }
     
@@ -60,20 +57,17 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         return 1
     }
     
+    //MARK: Load Players
     private func loadPlayers() {
         DBApi.sharedInstance.getPlayers{ [weak self] players in
+            //print("Load Players")
             guard let s = self else { return }
             s.players = players
-            for player in players{
-                DBApi.sharedInstance.setDefaultPlayerStats(pid: player.playerId)
-            }
             s.tableView.reloadData()
         }
     }
     
     //MARK: Actions
-    
-    
     @IBAction func share(_ sender: Any) {
         let firstActivityItem = "Text you want"
         let secondActivityItem : NSURL = NSURL(string: "http//:urlyouwant")!

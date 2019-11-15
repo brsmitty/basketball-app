@@ -386,7 +386,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func createPlayerObjectsFromRoster(roster: [String: Any]){
-
         var i: Int = 0
         var players : [Player] = []
         for player in roster {
@@ -443,9 +442,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //REMOVE FOR DEMO///
         //self.gameState["active"] = [players[0], players[1], players[2], players[3], players[4]]
         //populateActive()
-        ////////////////////
     }
 
+    //MARK: Update Upponent Functions
+    //Only in-game not on database
     @objc func addOpponentPlayer() {
         let alert = UIAlertController(title: "Add Opponent Player", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
@@ -477,7 +477,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             ] as [String: Any]
         gameState["opponent"] = opp
 
-        updateOpponent()
+        //updateOpponent()
     }
 
     func storeOpponentRebound(number: Int) {
@@ -488,7 +488,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         opp["\(number)"] = oppPlayer
         gameState["opponent"] = opp
 
-        updateOpponent()
+        //updateOpponent()
         pushPlaySequence(event: "#\(number) recorded a rebound")
     }
     
@@ -523,16 +523,19 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         opp["\(number)"] = oppPlayer
         gameState["opponent"] = opp
 
-        updateOpponent()
+        //updateOpponent()
         pushPlaySequence(event: "#\(number) recorded a turnover")
     }
-
+    
+    //Left here for expandability
+    /*
     func updateOpponent() {
         let opponent = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         let oppScore = gameState["oppScore"] as? Int ?? 0
         DBApi.sharedInstance.updateOpponentStats(to: opponent, score: oppScore)
     }
-
+    */
+    
     @IBOutlet weak var displayLabel: UILabel!
     func pushPlaySequence(event: String) {
         var playSequence = gameState["playSequence"] as! [String]
@@ -602,7 +605,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
         }
     }
-
+    
+    //MARK: NEEDS TO BE FIXED TO HANDLE SUBSTITUTIONS PROPERLY
     @IBAction func handleSubstitutionGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: containerView)
         if let view = recognizer.view {
@@ -632,10 +636,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 pushPlaySequence(event: "\(playerSubbingIn.firstName) subbed in")
 
                 let full = !activePlayers.contains(where: { $0 == nil })
-                if full {
-                    let lineupIds = activePlayers.map { $0?.playerId ?? "" }
-                    DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: lineupIds) ?? "", at: Int(timeSeconds))
-                }
+                //if full {
+                    //let lineupIds = activePlayers.map { $0?.playerId ?? "" }
+                    //DBApi.sharedInstance.switchLineup(to: DBApi.lineupId(from: lineupIds) ?? "", at: Int(timeSeconds))
+                //}
 
                 if (playerSubbingOut != nil) {
                     benchPlayers[benchIndex] = playerSubbingOut!
@@ -906,10 +910,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-
+    
+    //Update the dribble stats of the player
     func dribble() {
         let index = gameState["ballIndex"] as! Int
-        var active = gameState["active"] as! [Player?]
+        let active = gameState["active"] as! [Player?]
         guard let player = active[index] else { return }
         let dribbler = active[index]!
         dribbler.dribble()
@@ -925,14 +930,14 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         gameState["dribbles"] = dribbles
 
         if count % 2 == 0 {
-            DBApi.sharedInstance.updateDribbles(to: dribbles)
+            DBApi.sharedInstance.storeStat(type: .dribble, pid: dribbler.playerId, seconds: self.timeSeconds)
         }
     }
 
     func pass(to: Int) {
         if (gameState["possession"] as! String == "offense") {
             let index = gameState["ballIndex"] as! Int
-            var active = gameState["active"] as! [Player?]
+            let active = gameState["active"] as! [Player?]
             let passer = active[index]!
             gameState["ballIndex"] = to
             gameState["assistingPlayerIndex"] = index

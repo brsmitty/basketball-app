@@ -7,6 +7,7 @@
 
 import UIKit
 import JTAppleCalendar
+import FirebaseFirestore
 
 class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
 
@@ -26,11 +27,40 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
         calendarView.showsHorizontalScrollIndicator = false
         calendarView.scrollToDate(Date(), animateScroll: false)
         
+        
+        getDocs()
+        }
+    
+    func getDocs(){
+        let s = self
+        var game : [String:String] =
+        ["gameDate": "",
+         "oppName": ""]
         // Do any additional setup after loading the view.
         //TODO: Read from DB
-        calendarDataSource = ["22-Oct-2019": "Cavaliers",
-                 "15-Jan-2019":"GS Warriors"]
+        FireRoot.games.getDocuments() { (querySnapshot, err) in
+        if let err = err {
+            print("Error getting documents: \(err)")
+        } else {
+            for document in querySnapshot!.documents {
+                //print("\(document.documentID) => \(document.data())")
+                let gameDate = document.get("date") as! String
+                let oppName = document.get("oppName") as! String
+                
+                print("jing1 + \(gameDate)")
+                print("jing2 + \(oppName)")
+
+                game["gameDate"] = gameDate
+                game["oppName"] = oppName
+                }
+            }
+            
         }
+        s.calendarDataSource = game
+        
+        print("anjir + \(game)")
+        //return game
+    }
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         //let formatter = DateFormatter()

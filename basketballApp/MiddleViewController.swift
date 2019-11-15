@@ -302,7 +302,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return players.count
     }
     
-    
+    //MARK: Player Metrics
     //TODO: change this to game instead of season
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonPlayerMetricsCell", for: indexPath) as? SeasonPlayerMetricsTableViewCell else {
@@ -312,8 +312,10 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
+        print("tableView")
         let player = players[indexPath.row]
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
+        //print("Players = \(players)")
         return cell
     }
     
