@@ -30,7 +30,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         let player = players[indexPath.row]
         print("Player \(player.playerId)")
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
-        //cell.twoPointers.text =  "1"
+        cell.twoPointers.text =  "1"
         print("CELL \(cell)")
         return cell
     }
