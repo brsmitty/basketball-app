@@ -2916,7 +2916,7 @@
         <!--MainMenu-->
         <scene sceneID="iNb-wP-Eb9">
             <objects>
-                <viewController storyboardIdentifier="MiddleView" id="iQa-d8-Vh0" userLabel="MainMenu" customClass="MiddleViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MiddleView" id="iQa-d8-Vh0" userLabel="MainMenu" customClass="TeamSummaryViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EFW-7U-Bjg">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3144,6 +3144,13 @@
                                         <rect key="frame" x="418" y="14" width="48" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K48-QO-IkP">
+                                        <rect key="frame" x="426" y="13" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <segue destination="XMH-rb-sfj" kind="show" id="CXO-Ho-pcW"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -4396,6 +4403,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sT9-xO-gEf"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Eb-yH-Mm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4439,7 +4447,7 @@
         <segue reference="IOu-Qq-iME"/>
         <segue reference="xmA-tT-Tp1"/>
         <segue reference="hhv-Ks-6uJ"/>
-        <segue reference="qSa-7c-GpM"/>
+        <segue reference="CXO-Ho-pcW"/>
         <segue reference="chn-OD-mNE"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>

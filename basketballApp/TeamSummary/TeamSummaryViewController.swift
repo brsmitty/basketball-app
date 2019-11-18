@@ -15,7 +15,7 @@ import Charts
 
 
 
-class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     final class QuarterNameFormatter: NSObject, IAxisValueFormatter {
         
@@ -140,7 +140,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private func setDefaultViewStyle(view: UIView){
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 10.0
-        view.layer.borderColor = MiddleViewController.borderColor
+        view.layer.borderColor = TeamSummaryViewController.borderColor
     }
     
     private func setDefaultButtonStyle(button: UIButton){
@@ -450,7 +450,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if segue.identifier == "mainMenu" {
-            if let dest = segue.destination as? MiddleViewController {
+            if let dest = segue.destination as? TeamSummaryViewController {
                 dest.uid = self.uid
                 dest.tid = self.tid
             }

@@ -283,7 +283,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "loginSegue" {
-            if let dest = segue.destination as? MiddleViewController {
+            if let dest = segue.destination as? TeamSummaryViewController {
                 dest.uid = self.uid
                 dest.tid = self.tid
             }
