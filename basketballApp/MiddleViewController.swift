@@ -75,13 +75,11 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
    @IBOutlet weak var settingsView: UIView!
    @IBOutlet weak var NGTitle: UILabel!
     
-    @IBOutlet weak var lineupRankingView: UIView!
     
     @IBOutlet weak var UsVsOppsView: UIView!
     @IBOutlet weak var tableViewWrapper: UIView!
+    @IBOutlet weak var lineUpRankingView: UIView!
     
-    
-    @IBOutlet weak var viewBoxScoreButton: UIButton!
     
     
     var admin: Bool = false
@@ -100,10 +98,9 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.delegate = self
         loadPlayers()
         
-        setDefaultViewStyle(view: self.lineupRankingView)
+        setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
-        setDefaultButtonStyle(button: self.viewBoxScoreButton)
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
@@ -161,7 +158,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var testScore: Double = 0
         var testOppScore: Double = 0
         var x: Double = 0
-        while testScore < 100 && x < 20 {
+        while testScore < 100 && x < 40 {
             lineInfo.append(ChartDataEntry(x: x, y: testScore))
             opplineInfo.append(ChartDataEntry(x: x, y: testOppScore))
             testScore += Double(Int.random(in: 0...4))
@@ -197,13 +194,18 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         gameChart.leftAxis.enabled = false
         gameChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
         gameChart.xAxis.axisMinimum = 0
-        gameChart.xAxis.axisMaximum = 40        
-        
+        gameChart.xAxis.axisMaximum = 40
+        gameChart.xAxis.drawGridLinesEnabled = false
+        gameChart.leftAxis.drawGridLinesEnabled = false
+        gameChart.rightAxis.drawGridLinesEnabled = false
+        gameChart.legend.drawInside = true
+        gameChart.legend.yOffset = 150
+        gameChart.legend.xOffset = 200
         gameChart.data = data
         
-        gameChart.layer.borderWidth = 1.0
-        gameChart.layer.cornerRadius = 10.0
-        gameChart.layer.borderColor = MiddleViewController.borderColor
+        //gameChart.layer.borderWidth = 1.0
+        //gameChart.layer.cornerRadius = 10.0
+        //gameChart.layer.borderColor = MiddleViewController.borderColor
         
     }
 
