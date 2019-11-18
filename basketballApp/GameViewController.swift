@@ -1551,9 +1551,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     //MARK: DEFENSE
-
-
-
     func switchToDefense() {
         print("switching to defense")
 

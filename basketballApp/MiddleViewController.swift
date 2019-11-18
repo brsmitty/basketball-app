@@ -12,9 +12,6 @@ import FirebaseAuth
 import FirebaseDatabase
 import Charts
 
-
-
-
 class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     final class QuarterNameFormatter: NSObject, IAxisValueFormatter {
@@ -119,7 +116,6 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         addShotChartDots(pointList: pointList, made: true)
         addShotChartDots(pointList: missedList, made: false)
         
-        
         self.shotChart.bounds = bounds
         for subview in shotChart.subviews {
             subview.bounds = bounds
@@ -154,14 +150,12 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func updateGraph(){
         var lineInfo = [ChartDataEntry]()
         var opplineInfo = [ChartDataEntry]()
-//        lineInfo.append(ChartDataEntry(x: 0, y: 0))
-//        lineInfo.append(ChartDataEntry(x: 5.5, y: 3.3))
-//        lineInfo.append(ChartDataEntry(x: 6.5, y: 9.9))
         
+        //TODO: Set chart listener here
         var testScore: Double = 0
         var testOppScore: Double = 0
         var x: Double = 0
-        while testScore < 100 && x < 20 {
+        while testScore < 100 && x < 40 {
             lineInfo.append(ChartDataEntry(x: x, y: testScore))
             opplineInfo.append(ChartDataEntry(x: x, y: testOppScore))
             testScore += Double(Int.random(in: 0...4))
@@ -169,7 +163,17 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             x += 1
         }
         
+        DBApi.sharedInstance.listenToGameScore(gid: UserDefaults.standard.string(forKey: "gid")!, side: "user"){
+            snapshot in
+            let score = snapshot.data() ?? [:]
+            testScore = (score["score"] as? Double)!
+            
+        }
         
+        DBApi.sharedInstance.listenToGameScore(gid: UserDefaults.standard.string(forKey: "gid")!, side: "opponent"){
+            snapshot in
+            let oppscore = snapshot.data() ?? [:]
+        }
 //        opplineInfo.append(ChartDataEntry(x: 0, y: 0))
 //        opplineInfo.append(ChartDataEntry(x: 22.5, y: 66.3))
 //        opplineInfo.append(ChartDataEntry(x: 25.5, y: 88.9))

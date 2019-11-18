@@ -189,7 +189,9 @@ class DBApi {
             .collection("stats").document("season_stats")
             .addSnapshotListener{
                 (snapshot, err) in
-                //print(snapshot?.data())
+                if err != nil{
+                    print("Problem listening to Player Stat.")
+                }
                 completion(snapshot!)
         }
     }
@@ -197,12 +199,23 @@ class DBApi {
     //MARK: Listen To Game Score
     //Attach listener game score
     func listenToGameScore(gid: String, side: String, completion: @escaping (DocumentSnapshot)->Void){
-        FireRoot.games.document(gid)
-            .addSnapshotListener{ (snapshot, err) in
-                if err != nil{
-                    print("Problem getting score.")
-                }
-                completion(snapshot!)
+        if(side == "user"){
+            FireRoot.games.document(gid)
+                .addSnapshotListener{ (snapshot, err) in
+                    if err != nil{
+                        print("Problem getting score.")
+                    }
+                    completion(snapshot!)
+            }
+        }else{
+            FireRoot.games.document(gid)
+                .collection("opponent").document(UserDefaults.standard.string(forKey: "oppId")!)
+                .addSnapshotListener{ (snapshot, err) in
+                    if err != nil{
+                        print("Problem getting score.")
+                    }
+                    completion(snapshot!)
+            }
         }
     }
     

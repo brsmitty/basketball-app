@@ -54,7 +54,7 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
                 game["oppName"] = oppName
                 }
             }
-            
+            //self.calendarView.reloadData()
         }
         s.calendarDataSource = game
         
