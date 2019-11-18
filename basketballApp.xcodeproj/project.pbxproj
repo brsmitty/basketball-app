@@ -93,6 +93,7 @@
 		972B90252357B13F00A21336 /* SeasonSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */; };
 		9738FDF02341379F00A22E02 /* BoxScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738FDEF2341379F00A22E02 /* BoxScoreTableViewCell.swift */; };
 		97398E2E237F239A0042B756 /* GameSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */; };
+		9770646A23832D92009487B2 /* GameSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */; };
 		978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 978FC5562337E3F90060EA8F /* GoogleService-Info.plist */; };
 		97F360BE2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
@@ -512,7 +513,6 @@
 				6351C2C721A8913C00BF63F6 /* Action.swift */,
 				6351C2C921A8915200BF63F6 /* Possession.swift */,
 				3D52DBFE2214E0FA00C8AA0C /* DBApi.swift */,
-				97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */,
 			);
 			path = basketballApp;
 			sourceTree = "<group>";
@@ -539,6 +539,7 @@
 		9770646923831FD1009487B2 /* TeamSummary */ = {
 			isa = PBXGroup;
 			children = (
+				97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */,
 				271C0214215AA33D003D1BB2 /* TeamSummaryViewController.swift */,
 			);
 			path = TeamSummary;
@@ -868,6 +869,7 @@
 				3D182BC222664D170012DB2C /* Player.swift in Sources */,
 				3D182BBF22664CEE0012DB2C /* EmailVerificationViewController.swift in Sources */,
 				3D182BCE22664E180012DB2C /* BenchTableViewCell.swift in Sources */,
+				9770646A23832D92009487B2 /* GameSummaryTableViewCell.swift in Sources */,
 				3D182BCC22664DFE0012DB2C /* ShotChartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
