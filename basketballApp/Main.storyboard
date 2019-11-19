@@ -1947,7 +1947,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-CJ-nmY">
-                                <rect key="frame" x="493" y="194" width="531" height="346"/>
+                                <rect key="frame" x="493" y="65" width="531" height="346"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="5At-wt-QbD">
@@ -1957,6 +1957,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="past3pt" translatesAutoresizingMaskIntoConstraints="NO" id="cNm-Qf-Skg">
+                                <rect key="frame" x="553" y="445" width="339" height="168"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -4950,6 +4954,7 @@
         <image name="navPerformanceBar" width="2559.5" height="245.5"/>
         <image name="navScheduleBar" width="2559.5" height="245.5"/>
         <image name="navbar" width="2560" height="244"/>
+        <image name="past3pt" width="5122" height="2904"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
@@ -4960,11 +4965,11 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OAx-zM-kIN"/>
+        <segue reference="2w4-fN-nch"/>
         <segue reference="On0-Mz-bdU"/>
-        <segue reference="YvY-R5-Eql"/>
+        <segue reference="EZm-wY-8Dg"/>
         <segue reference="dFP-XF-Rnx"/>
-        <segue reference="oVQ-gF-Aaq"/>
+        <segue reference="oAY-0L-e2R"/>
         <segue reference="Lnr-Ff-ZLn"/>
         <segue reference="kxk-Nq-ad2"/>
         <segue reference="hhv-Ks-6uJ"/>

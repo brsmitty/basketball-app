@@ -43,6 +43,17 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
         FireRoot.games.getDocuments(){ (snapshot, err) in
             print("----------------")
             print(snapshot?.count)
+            var date = ""
+            var oppName = ""
+            for document in snapshot!.documents{
+                date = document.get("date") as! String
+                oppName = document.get("oppName") as! String
+                print("FFFFFFFFF")
+                print(date)
+                game[date] = oppName
+            }
+            s.calendarDataSource = game
+            s.calendarView.reloadData()
             print(snapshot?.description)
         }
         
