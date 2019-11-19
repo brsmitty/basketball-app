@@ -38,6 +38,7 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
          "oppName": ""]
         // Do any additional setup after loading the view.
         //TODO: Read from DB
+        /*
         FireRoot.games.getDocuments() { (querySnapshot, err) in
         if let err = err {
             print("Error getting documents: \(err)")
@@ -53,7 +54,7 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
                 game["gameDate"] = gameDate
                 game["oppName"] = oppName
                 }
-            }
+            }*/
             //self.calendarView.reloadData()
         calendarDataSource = ["22-Oct-2019": "Cavaliers",
                  "15-Jan-2019":"GS Warriors"]
