@@ -171,7 +171,7 @@ class DBApi {
     
     
     //MARK: Listen To Player Stats
-    //Attach a listener to a player stat and run that when a value change occurs in the Database
+    //Attach a listener to a player stat
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         FireRoot.players.document(pid)
             .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
@@ -182,15 +182,40 @@ class DBApi {
         }
     }
     
+    //MARK: Listen To Player Season Stats
+    //Attach a listener to a player season stats
+    func listenToPlayerSeasonStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
+        FireRoot.players.document(pid)
+            .collection("stats").document("season_stats")
+            .addSnapshotListener{
+                (snapshot, err) in
+                if err != nil{
+                    print("Problem listening to Player Stat.")
+                }
+                completion(snapshot!)
+        }
+    }
+    
     //MARK: Listen To Game Score
     //Attach listener game score
     func listenToGameScore(gid: String, side: String, completion: @escaping (DocumentSnapshot)->Void){
-        FireRoot.games.document(gid)
-            .addSnapshotListener{ (snapshot, err) in
-                if err != nil{
-                    print("Problem getting score.")
-                }
-                completion(snapshot!)
+        if(side == "user"){
+            FireRoot.games.document(gid)
+                .addSnapshotListener{ (snapshot, err) in
+                    if err != nil{
+                        print("Problem getting score.")
+                    }
+                    completion(snapshot!)
+            }
+        }else{
+            FireRoot.games.document(gid)
+                .collection("opponent").document(UserDefaults.standard.string(forKey: "oppId")!)
+                .addSnapshotListener{ (snapshot, err) in
+                    if err != nil{
+                        print("Problem getting score.")
+                    }
+                    completion(snapshot!)
+            }
         }
     }
     
