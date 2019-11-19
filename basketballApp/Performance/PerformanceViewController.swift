@@ -72,7 +72,7 @@ class PerformanceViewController: UIViewController {
             }
         }
         else if segue.identifier == "mainMenu" {
-            if let dest = segue.destination as? MiddleViewController {
+            if let dest = segue.destination as? TeamSummaryViewController {
                 dest.uid = self.uid
                 dest.tid = self.tid
             }

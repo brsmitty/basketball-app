@@ -55,7 +55,14 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
                 }
             }
             //self.calendarView.reloadData()
+        calendarDataSource = ["22-Oct-2019": "Cavaliers",
+                 "15-Jan-2019":"GS Warriors"]
+        FireRoot.games.getDocuments(){ (snapshot, err) in
+            print("----------------")
+            print(snapshot?.count)
+            print(snapshot?.description)
         }
+        
         s.calendarDataSource = game
         
         print("anjir + \(game)")
@@ -148,8 +155,8 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is MiddleViewController{
-            let gameSummary = segue.destination as? MiddleViewController
+        if segue.destination is TeamSummaryViewController{
+            let gameSummary = segue.destination as? TeamSummaryViewController
             guard let buttonClicked = sender as? UIButton else{return}
             if let title = buttonClicked.currentTitle{
                 gameSummary?.opponentTeam = title

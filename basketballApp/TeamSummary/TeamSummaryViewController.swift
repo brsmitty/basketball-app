@@ -12,7 +12,8 @@ import FirebaseAuth
 import FirebaseDatabase
 import Charts
 
-class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     final class QuarterNameFormatter: NSObject, IAxisValueFormatter {
         
@@ -72,13 +73,11 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
    @IBOutlet weak var settingsView: UIView!
    @IBOutlet weak var NGTitle: UILabel!
     
-    @IBOutlet weak var lineupRankingView: UIView!
     
     @IBOutlet weak var UsVsOppsView: UIView!
     @IBOutlet weak var tableViewWrapper: UIView!
+    @IBOutlet weak var lineUpRankingView: UIView!
     
-    
-    @IBOutlet weak var viewBoxScoreButton: UIButton!
     
     
     var admin: Bool = false
@@ -97,10 +96,9 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.delegate = self
         loadPlayers()
         
-        setDefaultViewStyle(view: self.lineupRankingView)
+        setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
-        setDefaultButtonStyle(button: self.viewBoxScoreButton)
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
@@ -139,7 +137,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private func setDefaultViewStyle(view: UIView){
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 10.0
-        view.layer.borderColor = MiddleViewController.borderColor
+        view.layer.borderColor = TeamSummaryViewController.borderColor
     }
     
     private func setDefaultButtonStyle(button: UIButton){
@@ -201,13 +199,18 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         gameChart.leftAxis.enabled = false
         gameChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
         gameChart.xAxis.axisMinimum = 0
-        gameChart.xAxis.axisMaximum = 40        
-        
+        gameChart.xAxis.axisMaximum = 40
+        gameChart.xAxis.drawGridLinesEnabled = false
+        gameChart.leftAxis.drawGridLinesEnabled = false
+        gameChart.rightAxis.drawGridLinesEnabled = false
+        gameChart.legend.drawInside = true
+        gameChart.legend.yOffset = 150
+        gameChart.legend.xOffset = 200
         gameChart.data = data
         
-        gameChart.layer.borderWidth = 1.0
-        gameChart.layer.cornerRadius = 10.0
-        gameChart.layer.borderColor = MiddleViewController.borderColor
+        //gameChart.layer.borderWidth = 1.0
+        //gameChart.layer.cornerRadius = 10.0
+        //gameChart.layer.borderColor = MiddleViewController.borderColor
         
     }
 
@@ -458,7 +461,7 @@ class MiddleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if segue.identifier == "mainMenu" {
-            if let dest = segue.destination as? MiddleViewController {
+            if let dest = segue.destination as? TeamSummaryViewController {
                 dest.uid = self.uid
                 dest.tid = self.tid
             }

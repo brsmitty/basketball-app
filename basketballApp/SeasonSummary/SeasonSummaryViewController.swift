@@ -14,7 +14,10 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     var players = [Player]()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var shotChart: UIView!
+    @IBOutlet weak var usVsOppsView: UIView!
+    @IBOutlet weak var lineChartView: UIView!
     
+    @IBOutlet weak var tableViewWrapper: UIView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return players.count
     }
@@ -27,7 +30,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
         let player = players[indexPath.row]
-
+        print("Player \(player.playerId)")
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
@@ -49,6 +52,10 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         self.shotChart.autoresizesSubviews = true
         loadPlayers()
         
+        setDefaultViewStyle(view: tableViewWrapper)
+        setDefaultViewStyle(view: usVsOppsView)
+        setDefaultViewStyle(view: lineChartView)
+        
         
         
         self.shotChartBounds = shotChart.bounds
@@ -58,7 +65,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         let xCoord = bounds.midX
         let yCoord = bounds.midY
         
-        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10), CGPoint(x: 0, y: 0)]
+        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10)]
         let missedList = [CGPoint(x: xCoord - 20, y: yCoord), CGPoint(x: xCoord + 20, y: yCoord)]
         
         addShotChartDots(pointList: pointList, made: true)
@@ -71,6 +78,11 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
             subview.frame = bounds
         }
         
+    }
+    private func setDefaultViewStyle(view: UIView){
+        view.layer.borderWidth = 1.0
+        view.layer.cornerRadius = 10.0
+        view.layer.borderColor = TeamSummaryViewController.borderColor
     }
     
     func addShotChartDots(pointList: [CGPoint], made: Bool){

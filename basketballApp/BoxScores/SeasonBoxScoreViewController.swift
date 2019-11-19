@@ -1,18 +1,16 @@
 //
-//  kpiViewController.swift
-//  basketball-app
+//  SeasonBoxScoreViewController.swift
+//  basketballApp
 //
-//  Created by Mike White on 11/7/18.
-//  Copyright © 2018 David Zucco. All rights reserved.
+//  Created by Hesham Hussain on 11/18/19.
+//  Copyright © 2019 David Zucco. All rights reserved.
 //
 
 import UIKit
 
-class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    
+class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UITableViewDelegate  {
+
     //MARK: Properties
-    static let LightGrayBackground = UIColor(displayP3Red: 245/255, green: 245/255, blue: 255/255, alpha: 0.5)
     @IBOutlet weak var tableView: UITableView!
     
     var players = [Player]()
@@ -25,8 +23,8 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? BoxScoreTableViewCell else {
-            fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonBoxScoreCell", for: indexPath) as? SeasonBoxScoreTableViewCell else {
+            fatalError("The deqeued cell is not an instance of Player SeasonBoxScoreCell")
         }
         print("Boxscore CELL: \(cell)")
         let player = players[indexPath.row]
@@ -100,7 +98,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     var tid: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // setup the tableView for the different players
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -110,22 +108,22 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         self.boxScoreTitle.text = UserDefaults.standard.string(forKey: "tid")! + " vs " + self.opponentTeam
     }
     
-
     
-
+    
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+    @IBAction func goBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
-    */
-
-   @IBAction func goBack(_ sender: UIButton) {
-      dismiss(animated: true, completion: nil)
-   }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -172,4 +170,5 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+
 }
