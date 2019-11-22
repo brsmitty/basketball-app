@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="BG" translatesAutoresizingMaskIntoConstraints="NO" id="K0c-GN-nxm">
-                                <rect key="frame" x="0.0" y="20" width="2732" height="748"/>
+                                <rect key="frame" x="0.0" y="20" width="16" height="748"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Board" translatesAutoresizingMaskIntoConstraints="NO" id="ycj-1v-c4K">
                                 <rect key="frame" x="119" y="99" width="786" height="590"/>
@@ -1946,19 +1946,28 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-CJ-nmY">
-                                <rect key="frame" x="493" y="65" width="531" height="346"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right2pt" translatesAutoresizingMaskIntoConstraints="NO" id="1l8-35-s0D">
+                                <rect key="frame" x="805" y="218" width="175" height="156"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="blankCourt" translatesAutoresizingMaskIntoConstraints="NO" id="5At-wt-QbD">
-                                        <rect key="frame" x="0.0" y="0.0" width="531" height="346"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="past3pt" translatesAutoresizingMaskIntoConstraints="NO" id="cNm-Qf-Skg">
-                                <rect key="frame" x="553" y="445" width="339" height="168"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="left3pt" translatesAutoresizingMaskIntoConstraints="NO" id="mnZ-1x-2mw">
+                                <rect key="frame" x="460" y="285" width="255" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right3pt" translatesAutoresizingMaskIntoConstraints="NO" id="32M-wA-84h">
+                                <rect key="frame" x="805" y="286" width="249" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="freeThrow" translatesAutoresizingMaskIntoConstraints="NO" id="vh1-pq-c3T">
+                                <rect key="frame" x="676" y="313" width="166" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pstFreeThrow" translatesAutoresizingMaskIntoConstraints="NO" id="TkT-o1-5gX">
+                                <rect key="frame" x="675" y="348" width="168" height="114"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="left2pt" translatesAutoresizingMaskIntoConstraints="NO" id="3Fn-8p-P1P">
+                                <rect key="frame" x="538" y="217" width="175" height="156"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1968,8 +1977,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="1zn-eL-8az"/>
                     <connections>
+                        <outlet property="freeThrowImage" destination="vh1-pq-c3T" id="6GI-1U-Ofn"/>
+                        <outlet property="left2ptImage" destination="3Fn-8p-P1P" id="DA4-IE-9jw"/>
+                        <outlet property="left3ptImage" destination="mnZ-1x-2mw" id="Zv9-oL-045"/>
                         <outlet property="lineChartView" destination="JxQ-c7-Bh3" id="A4r-Hj-KlO"/>
-                        <outlet property="shotChart" destination="2T7-CJ-nmY" id="igR-8i-bCL"/>
+                        <outlet property="pastFreeThrowImage" destination="TkT-o1-5gX" id="D8S-Pa-bWg"/>
+                        <outlet property="right2ptImage" destination="1l8-35-s0D" id="IdV-H5-8sp"/>
+                        <outlet property="right3ptImage" destination="32M-wA-84h" id="u5D-dn-oTj"/>
                         <outlet property="tableView" destination="H5Y-2g-kEs" id="bMS-2p-vAV"/>
                         <outlet property="tableViewWrapper" destination="441-N0-PNn" id="2Xj-Ks-rXT"/>
                         <outlet property="usVsOppsView" destination="1uF-8G-D4v" id="jpi-rH-vzB"/>
@@ -4948,16 +4962,21 @@
         <image name="blankCourt" width="2561" height="1452"/>
         <image name="calendar-icon" width="512" height="512"/>
         <image name="expandIcon" width="981" height="980"/>
+        <image name="freeThrow" width="246" height="110"/>
         <image name="gameTimeBar" width="2732" height="144"/>
         <image name="kpiBar" width="2732" height="144"/>
+        <image name="left2pt" width="141" height="245"/>
+        <image name="left3pt" width="246" height="216"/>
         <image name="navGameBar" width="233" height="233"/>
         <image name="navPerformanceBar" width="2559.5" height="245.5"/>
         <image name="navScheduleBar" width="2559.5" height="245.5"/>
         <image name="navbar" width="2560" height="244"/>
-        <image name="past3pt" width="5122" height="2904"/>
         <image name="performanceBar" width="2732" height="144"/>
         <image name="playbookBar" width="2732" height="144"/>
         <image name="playerManagerBar" width="2732" height="144"/>
+        <image name="pstFreeThrow" width="247" height="69"/>
+        <image name="right2pt" width="141" height="245"/>
+        <image name="right3pt" width="249" height="217"/>
         <image name="scheduleBar" width="2732" height="144"/>
         <image name="settingsDots" width="16" height="62"/>
         <image name="share-button" width="147" height="169"/>
@@ -4975,6 +4994,6 @@
         <segue reference="hhv-Ks-6uJ"/>
         <segue reference="CXO-Ho-pcW"/>
         <segue reference="Evs-du-5w7"/>
-        <segue reference="ghn-UH-XNA"/>
+        <segue reference="h23-EV-ejH"/>
     </inferredMetricsTieBreakers>
 </document>

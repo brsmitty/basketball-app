@@ -184,9 +184,12 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                 ref.getDocument{(document,error) in
                     if let document = document, document.exists{
                         tid = document.get("team_name") as! String
-                        let defaults = UserDefaults.standard
-                        defaults.set(user!.user.uid, forKey: "uid")
-                        defaults.set(tid, forKey: "tid")
+                        print("FFFFFFFFFFFFFF")
+                        print(tid)
+                        DBApi.sharedInstance.createGames()
+                        UserDefaults.standard.set(user!.user.uid, forKey: "uid")
+                        UserDefaults.standard.set(tid, forKey: "tid")
+                        print(UserDefaults.standard.string(forKey: "tid"))
                         self.performSegue(withIdentifier: "loginSegue", sender: nil)
                     }else{
                         print(" Problem getting document")

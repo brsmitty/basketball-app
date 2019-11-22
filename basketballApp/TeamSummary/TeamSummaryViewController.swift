@@ -163,7 +163,8 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
             testOppScore += Double(Int.random(in: 0...3))
             x += 1
         }
-        
+        print("GGGGGGGGGGGG")
+        print(UserDefaults.standard.string(forKey: "gid"))
         DBApi.sharedInstance.listenToGameScore(gid: UserDefaults.standard.string(forKey: "gid")!, side: "user"){
             snapshot in
             let score = snapshot.data() ?? [:]

@@ -13,9 +13,20 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     //MARK:Properties
     var players = [Player]()
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var shotChart: UIView!
     @IBOutlet weak var usVsOppsView: UIView!
     @IBOutlet weak var lineChartView: UIView!
+    
+    
+    @IBOutlet weak var left3ptImage: UIImageView!
+    
+    @IBOutlet weak var left2ptImage: UIImageView!
+    @IBOutlet weak var freeThrowImage: UIImageView!
+    @IBOutlet weak var pastFreeThrowImage: UIImageView!
+    @IBOutlet weak var right2ptImage: UIImageView!
+    @IBOutlet weak var right3ptImage: UIImageView!
+    
+    
+    
     
     @IBOutlet weak var tableViewWrapper: UIView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,34 +60,20 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         // setup the tableView for the different players
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.shotChart.autoresizesSubviews = true
         loadPlayers()
         
         setDefaultViewStyle(view: tableViewWrapper)
         setDefaultViewStyle(view: usVsOppsView)
         setDefaultViewStyle(view: lineChartView)
         
+        setHeatMapTintColors(view: left3ptImage)
+        setHeatMapTintColors(view: right3ptImage)
+        setHeatMapTintColors(view: left2ptImage)
+        setHeatMapTintColors(view: right2ptImage)
+        setHeatMapTintColors(view: freeThrowImage)
+        setHeatMapTintColors(view: pastFreeThrowImage)
         
-        
-        self.shotChartBounds = shotChart.bounds
-        let bounds =  shotChart.bounds
 
-        
-        let xCoord = bounds.midX
-        let yCoord = bounds.midY
-        
-        let pointList = [CGPoint(x: xCoord, y: yCoord), CGPoint(x: xCoord, y: yCoord + 10)]
-        let missedList = [CGPoint(x: xCoord - 20, y: yCoord), CGPoint(x: xCoord + 20, y: yCoord)]
-        
-        addShotChartDots(pointList: pointList, made: true)
-        addShotChartDots(pointList: missedList, made: false)
-
-
-        self.shotChart.bounds = bounds
-        for subview in shotChart.subviews {
-            subview.bounds = bounds
-            subview.frame = bounds
-        }
         
     }
     private func setDefaultViewStyle(view: UIView){
@@ -85,40 +82,13 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         view.layer.borderColor = TeamSummaryViewController.borderColor
     }
     
-    func addShotChartDots(pointList: [CGPoint], made: Bool){
-        for point in pointList{
-            let radius = 8.0 as CGFloat
-            let dotPath = UIBezierPath(ovalIn: CGRect(x: point.x, y: point.y, width: radius, height: radius))
-            let layer = CAShapeLayer()
-            layer.path = dotPath.cgPath
-            layer.strokeColor = (made ? UIColor.blue.cgColor: UIColor.red.cgColor)
-            layer.fillColor = (made ? UIColor.blue.cgColor: UIColor.red.cgColor)
-            shotChart.layer.addSublayer(layer)
-        }
+    private func setHeatMapTintColors(view: UIImageView){
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.image = view.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
     }
     
-    var shotChartIsExpanded = false
-    @IBAction func resizeShotChart(_ sender: Any) {
-        var bounds: CGRect
-        if !shotChartIsExpanded{
-            bounds = shotChart.bounds
-            bounds.size.height = bounds.height * 2
-            bounds.size.width = bounds.width * 2
 
-        }else{
-            bounds = self.shotChartBounds
-        }
-        
-            self.shotChart.bounds = bounds
-            for subview in shotChart.subviews {
-                subview.bounds = bounds
-                subview.frame = bounds
-            }
-        self.shotChartIsExpanded = !self.shotChartIsExpanded
-        
-    }
-    
-    
     
     //number of groupings in the table that show up
     func numberOfSections(in tableView: UITableView) -> Int {
