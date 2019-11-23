@@ -18,17 +18,37 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     
     
     @IBOutlet weak var left3ptImage: UIImageView!
+    @IBOutlet weak var left3ptLabel: UILabel!
     
+    @IBOutlet weak var left2ptLabel: UILabel!
     @IBOutlet weak var left2ptImage: UIImageView!
+    
+    
     @IBOutlet weak var freeThrowImage: UIImageView!
+    @IBOutlet weak var freeThrowLabel: UILabel!
+    
+    
     @IBOutlet weak var pastFreeThrowImage: UIImageView!
+    @IBOutlet weak var pastFreeThrowLabel: UILabel!
+    
+    
     @IBOutlet weak var right2ptImage: UIImageView!
+    @IBOutlet weak var right2ptLabel: UILabel!
+    
     @IBOutlet weak var right3ptImage: UIImageView!
+    @IBOutlet weak var right3ptLabel: UILabel!
     
     
-    
-    
+    @IBOutlet weak var one: UIView!
+    @IBOutlet weak var two: UIView!
+    @IBOutlet weak var three: UIView!
+    @IBOutlet weak var four: UIView!
+    @IBOutlet weak var five: UIView!
+    @IBOutlet weak var six: UIView!
+    @IBOutlet weak var seven: UIView!
+    @IBOutlet weak var eight: UIView!
     @IBOutlet weak var tableViewWrapper: UIView!
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return players.count
     }
@@ -73,6 +93,15 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         setHeatMapTintColors(view: freeThrowImage)
         setHeatMapTintColors(view: pastFreeThrowImage)
         
+        setHeatMapView(view: one)
+        setHeatMapView(view: two)
+        setHeatMapView(view: three)
+        setHeatMapView(view: four)
+        setHeatMapView(view: five)
+        setHeatMapView(view: six)
+        setHeatMapView(view: seven)
+        setHeatMapView(view: eight)
+        setAccuracyLabels()
 
         
     }
@@ -89,6 +118,50 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         view.tintColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: 1)
     }
     
+    private func setAccuracyLabels(){
+        
+        setLabel(view: one, set: randomPercent())
+        setLabel(view: two, set: randomPercent())
+        setLabel(view: three, set: randomPercent())
+        setLabel(view: four, set: randomPercent())
+        setLabel(view: five, set: randomPercent())
+        setLabel(view: six, set: randomPercent())
+        setLabel(view: seven, set: randomPercent())
+        setLabel(view: eight, set: randomPercent())
+        
+        setLabelForImage(image: left3ptImage, label: left3ptLabel)
+        setLabelForImage(image: left2ptImage, label: left2ptLabel)
+        setLabelForImage(image: freeThrowImage, label: freeThrowLabel)
+        setLabelForImage(image: pastFreeThrowImage, label: pastFreeThrowLabel)
+        setLabelForImage(image: right2ptImage, label: right2ptLabel)
+        setLabelForImage(image: right3ptImage, label: right3ptLabel)
+        
+    }
+    
+    private func setLabelForImage(image: UIImageView, label: UILabel){
+        let random = randomPercent()
+        let asFloat = CGFloat(random)
+        label.text = String(random) + "%"
+        image.tintColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: asFloat/100)
+    }
+    
+    private func setLabel(view: UIView, set: Int){
+        for subview in view.subviews{
+            if let label = subview as? UILabel{
+                label.text = String(set) + "%"
+            }
+        }
+        let asFloat = CGFloat(set)
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: asFloat/100)
+    }
+    
+    private func randomPercent() -> Int{
+        return Int.random(in: 30...100)
+    }
+    
+    private func setHeatMapView(view: UIView){
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: 1)
+    }
 
     
     //number of groupings in the table that show up
@@ -104,7 +177,10 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         }
     }
     
-
+    @IBAction func demoShading(_ sender: Any) {
+        setAccuracyLabels()
+    }
+    
     /*
     // MARK: - Navigation
 
