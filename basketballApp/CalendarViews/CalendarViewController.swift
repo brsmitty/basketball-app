@@ -59,20 +59,17 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
         calendarDataSource = ["22-Oct-2019": "Cavaliers",
                  "15-Jan-2019":"GS Warriors"]
         FireRoot.games.getDocuments(){ (snapshot, err) in
-            print("----------------")
-            print(snapshot?.count)
-            var date = ""
-            var oppName = ""
+            var date: String?
+            var oppName: String?
             for document in snapshot!.documents{
-                date = document.get("date") as! String
-                oppName = document.get("oppName") as! String
-                print("FFFFFFFFF")
-                print(date)
-                game[date] = oppName
+                date = document.get("date") as? String
+                oppName = document.get("oppName") as? String
+                if date != nil && oppName != nil{
+                    game[date!] = oppName!
+                }
             }
             s.calendarDataSource = game
             s.calendarView.reloadData()
-            print(snapshot?.description)
         }
         
         s.calendarDataSource = game
