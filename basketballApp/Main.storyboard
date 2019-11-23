@@ -1745,9 +1745,6 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeV-zZ-zr1">
                                 <rect key="frame" x="7" y="682" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" id="Evs-du-5w7"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gej-Ed-RsK">
                                 <rect key="frame" x="786" y="682" width="225" height="83"/>
@@ -3894,7 +3891,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="gg5-YA-dpO" kind="show" identifier="performanceSegue" animates="NO" id="13L-Hk-Qcq"/>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="yYA-u0-ws7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IsQ-qI-Frp" userLabel="mainMenuButton">
@@ -5168,16 +5165,16 @@
         <image name="welcomeBar" width="2732" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2w4-fN-nch"/>
+        <segue reference="Uml-6R-ZPg"/>
         <segue reference="On0-Mz-bdU"/>
         <segue reference="EZm-wY-8Dg"/>
-        <segue reference="dFP-XF-Rnx"/>
-        <segue reference="oAY-0L-e2R"/>
+        <segue reference="ROk-aD-Cin"/>
+        <segue reference="MrO-tU-Xrr"/>
         <segue reference="Lnr-Ff-ZLn"/>
-        <segue reference="kxk-Nq-ad2"/>
+        <segue reference="yYA-u0-ws7"/>
         <segue reference="hhv-Ks-6uJ"/>
         <segue reference="CXO-Ho-pcW"/>
-        <segue reference="Evs-du-5w7"/>
+        <segue reference="chn-OD-mNE"/>
         <segue reference="h23-EV-ejH"/>
     </inferredMetricsTieBreakers>
 </document>
