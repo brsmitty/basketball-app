@@ -96,6 +96,8 @@
 		9770646A23832D92009487B2 /* GameSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */; };
 		9770646C238335F3009487B2 /* SeasonBoxScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9770646B238335F3009487B2 /* SeasonBoxScoreViewController.swift */; };
 		9770646E23833631009487B2 /* SeasonBoxScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9770646D23833631009487B2 /* SeasonBoxScoreTableViewCell.swift */; };
+		978D850A2395D6BD00814558 /* SeasonOverallTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978D85092395D6BD00814558 /* SeasonOverallTableViewController.swift */; };
+		978D850C2395DCBF00814558 /* OverallTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978D850B2395DCBF00814558 /* OverallTableViewController.swift */; };
 		978FC5572337E3F90060EA8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 978FC5562337E3F90060EA8F /* GoogleService-Info.plist */; };
 		97F360BE2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */; };
 		98588C5F216511A700DA226C /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98588C5E216511A700DA226C /* Playbook.swift */; };
@@ -221,6 +223,8 @@
 		97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		9770646B238335F3009487B2 /* SeasonBoxScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonBoxScoreViewController.swift; sourceTree = "<group>"; };
 		9770646D23833631009487B2 /* SeasonBoxScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonBoxScoreTableViewCell.swift; sourceTree = "<group>"; };
+		978D85092395D6BD00814558 /* SeasonOverallTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonOverallTableViewController.swift; sourceTree = "<group>"; };
+		978D850B2395DCBF00814558 /* OverallTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTableViewController.swift; sourceTree = "<group>"; };
 		978FC5562337E3F90060EA8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonPlayerMetricsTableViewCell.swift; sourceTree = "<group>"; };
 		98588C5E216511A700DA226C /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
@@ -537,6 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				972B90242357B13F00A21336 /* SeasonSummaryViewController.swift */,
+				978D85092395D6BD00814558 /* SeasonOverallTableViewController.swift */,
 				97F360BD2358E8DB00E33CC4 /* SeasonPlayerMetricsTableViewCell.swift */,
 			);
 			path = SeasonSummary;
@@ -547,6 +552,7 @@
 			children = (
 				97398E2D237F239A0042B756 /* GameSummaryTableViewCell.swift */,
 				271C0214215AA33D003D1BB2 /* TeamSummaryViewController.swift */,
+				978D850B2395DCBF00814558 /* OverallTableViewController.swift */,
 			);
 			path = TeamSummary;
 			sourceTree = "<group>";
@@ -884,6 +890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				978D850A2395D6BD00814558 /* SeasonOverallTableViewController.swift in Sources */,
 				9770646C238335F3009487B2 /* SeasonBoxScoreViewController.swift in Sources */,
 				FCBD69C8234BDD820021E8FA /* FireRoot.swift in Sources */,
 				98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */,
@@ -939,6 +946,7 @@
 				98588C61216511E300DA226C /* PlaybookCell.swift in Sources */,
 				98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */,
 				276B46D72177D86B00D565C4 /* DefaultUITextField.swift in Sources */,
+				978D850C2395DCBF00814558 /* OverallTableViewController.swift in Sources */,
 				27B1F94D2192231300D0351B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

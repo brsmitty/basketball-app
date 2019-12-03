@@ -4062,10 +4062,10 @@
             </objects>
             <point key="canvasLocation" x="983" y="-2398"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Overall Table View Controller-->
         <scene sceneID="huP-Cq-0xa">
             <objects>
-                <tableViewController id="REd-Wq-0Qv" sceneMemberID="viewController">
+                <tableViewController id="REd-Wq-0Qv" customClass="OverallTableViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="CGm-HG-jCq">
                         <rect key="frame" x="0.0" y="0.0" width="235" height="247"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4231,6 +4231,16 @@
                             <outlet property="delegate" destination="REd-Wq-0Qv" id="PMu-n5-3mz"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="oppFGpercent" destination="Qrh-Kj-a6W" id="nEX-zp-CXT"/>
+                        <outlet property="oppOreb" destination="4Jf-QM-Rgw" id="u9b-nC-Wa4"/>
+                        <outlet property="oppOts" destination="Eg7-gj-bGb" id="CH2-pP-35Q"/>
+                        <outlet property="oppTOs" destination="rO6-qd-ucS" id="GUE-Ay-rnh"/>
+                        <outlet property="usFGpercent" destination="lrR-33-gfl" id="S6w-da-tTS"/>
+                        <outlet property="usFTs" destination="gdg-36-qpd" id="wDT-lL-YGQ"/>
+                        <outlet property="usOreb" destination="7mI-Ga-8uh" id="GqY-u2-TEb"/>
+                        <outlet property="usTOs" destination="qXq-eb-KBh" id="NMj-uS-Gcy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJX-30-d7g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4539,10 +4549,10 @@
             </objects>
             <point key="canvasLocation" x="1253" y="1577"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Season Overall Table View Controller-->
         <scene sceneID="eWY-f2-0JE">
             <objects>
-                <tableViewController id="7oJ-m6-rHd" sceneMemberID="viewController">
+                <tableViewController id="7oJ-m6-rHd" customClass="SeasonOverallTableViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XcB-HJ-WHC">
                         <rect key="frame" x="0.0" y="0.0" width="235" height="247"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4708,6 +4718,16 @@
                             <outlet property="delegate" destination="7oJ-m6-rHd" id="J0a-rI-tcf"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="oppFGpercent" destination="sCK-NR-TMh" id="hAk-Su-76x"/>
+                        <outlet property="oppOreb" destination="m4S-Lx-NTW" id="LaY-yt-jhS"/>
+                        <outlet property="oppOts" destination="VKG-Bb-4Ja" id="4oe-RJ-vn0"/>
+                        <outlet property="oppTOs" destination="fny-Xa-bx8" id="VHz-Df-ev1"/>
+                        <outlet property="usFGpercent" destination="aYM-Kl-pBK" id="q7X-iq-SY3"/>
+                        <outlet property="usFTs" destination="xZP-Wu-HI6" id="Evj-LD-aos"/>
+                        <outlet property="usOreb" destination="l0M-Iv-vLG" id="nCN-zh-zCP"/>
+                        <outlet property="usTOs" destination="2I6-nV-ZGA" id="kbE-He-H2N"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mpz-Ll-LCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
