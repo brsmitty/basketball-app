@@ -163,19 +163,17 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
             testOppScore += Double(Int.random(in: 0...3))
             x += 1
         }
-        print("GGGGGGGGGGGG")
-        print(UserDefaults.standard.string(forKey: "gid"))
+        /*
         DBApi.sharedInstance.listenToGameScore(gid: UserDefaults.standard.string(forKey: "gid")!, side: "user"){
             snapshot in
             let score = snapshot.data() ?? [:]
             testScore = (score["score"] as? Double)!
-            
         }
         
         DBApi.sharedInstance.listenToGameScore(gid: UserDefaults.standard.string(forKey: "gid")!, side: "opponent"){
             snapshot in
             let oppscore = snapshot.data() ?? [:]
-        }
+        }*/
 //        opplineInfo.append(ChartDataEntry(x: 0, y: 0))
 //        opplineInfo.append(ChartDataEntry(x: 22.5, y: 66.3))
 //        opplineInfo.append(ChartDataEntry(x: 25.5, y: 88.9))
@@ -323,8 +321,9 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
-
+        
         let player = players[indexPath.row]
+        print(UserDefaults.standard.string(forKey: "gid"))
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]

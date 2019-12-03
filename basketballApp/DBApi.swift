@@ -173,6 +173,7 @@ class DBApi {
     //MARK: Listen To Player Stats
     //Attach a listener to a player stat
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
+        print("lISTENTOPLAYERSTAT \(UserDefaults.standard.string(forKey: "gid"))")
         FireRoot.players.document(pid)
             .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
             .addSnapshotListener{

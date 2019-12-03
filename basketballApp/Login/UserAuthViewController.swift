@@ -186,7 +186,6 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                         tid = document.get("team_name") as! String
                         print("FFFFFFFFFFFFFF")
                         print(tid)
-                        DBApi.sharedInstance.createGames()
                         UserDefaults.standard.set(user!.user.uid, forKey: "uid")
                         UserDefaults.standard.set(tid, forKey: "tid")
                         print(UserDefaults.standard.string(forKey: "tid"))
