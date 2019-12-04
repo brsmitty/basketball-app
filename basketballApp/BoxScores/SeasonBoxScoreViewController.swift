@@ -32,7 +32,7 @@ class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UI
             cell.backgroundColor = BoxScoreViewController.LightGrayBackground
         }
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
-        DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
+        DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
             //Incomplete
             cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
