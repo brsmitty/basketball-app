@@ -46,6 +46,8 @@ namespace remote {
  */
 class RemoteStoreCallback {
  public:
+  virtual ~RemoteStoreCallback() = default;
+
   /**
    * Applies a remote event to the sync engine, notifying any views of the
    * changes, and releasing any pending mutation batches that would become
@@ -145,10 +147,19 @@ class RemoteStore : public TargetMetadataProvider,
    */
   void HandleCredentialChange();
 
-  /** Listens to the target identified by the given `QueryData`. */
+  /**
+   * Listens to the target identified by the given `QueryData`.
+   *
+   * It is a no-op if the target of the given query data is already being
+   * listened to.
+   */
   void Listen(const local::QueryData& query_data);
 
-  /** Stops listening to the target with the given target ID. */
+  /**
+   * Stops listening to the target with the given target ID.
+   *
+   * It is an error if the given target id is not being listened to.
+   */
   void StopListening(model::TargetId target_id);
 
   /**

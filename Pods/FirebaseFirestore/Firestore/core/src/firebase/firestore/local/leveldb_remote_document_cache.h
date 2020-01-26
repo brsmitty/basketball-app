@@ -17,10 +17,6 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_LOCAL_LEVELDB_REMOTE_DOCUMENT_CACHE_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_LOCAL_LEVELDB_REMOTE_DOCUMENT_CACHE_H_
 
-#if !defined(__OBJC__)
-#error "For now, this file must only be included by ObjC source files."
-#endif  // !defined(__OBJC__)
-
 #include <vector>
 
 #include "Firestore/core/src/firebase/firestore/local/remote_document_cache.h"
@@ -31,44 +27,49 @@
 #include "Firestore/core/src/firebase/firestore/model/types.h"
 #include "absl/strings/string_view.h"
 
-@class FSTLocalSerializer;
-
-NS_ASSUME_NONNULL_BEGIN
-
 namespace firebase {
 namespace firestore {
 namespace local {
 
 class LevelDbPersistence;
+class LocalSerializer;
 
 /** Cached Remote Documents backed by leveldb. */
 class LevelDbRemoteDocumentCache : public RemoteDocumentCache {
  public:
   LevelDbRemoteDocumentCache(LevelDbPersistence* db,
-                             FSTLocalSerializer* serializer);
+                             LocalSerializer* serializer);
 
-  void Add(const model::MaybeDocument& document) override;
+  void Add(const model::MaybeDocument& document,
+           const model::SnapshotVersion& read_time) override;
   void Remove(const model::DocumentKey& key) override;
 
   absl::optional<model::MaybeDocument> Get(
       const model::DocumentKey& key) override;
   model::OptionalMaybeDocumentMap GetAll(
       const model::DocumentKeySet& keys) override;
-  model::DocumentMap GetMatching(const core::Query& query) override;
+  model::DocumentMap GetMatching(
+      const core::Query& query,
+      const model::SnapshotVersion& since_read_time) override;
 
  private:
+  /**
+   * Looks up a set of entries in the cache, returning only existing entries of
+   * Type::Document.
+   */
+  model::DocumentMap GetAllExisting(const model::DocumentKeySet& keys);
+
   model::MaybeDocument DecodeMaybeDocument(absl::string_view encoded,
                                            const model::DocumentKey& key);
 
   // The LevelDbRemoteDocumentCache instance is owned by LevelDbPersistence.
   LevelDbPersistence* db_;
-  FSTLocalSerializer* serializer_;
+  // Owned by LevelDbPersistence.
+  LocalSerializer* serializer_ = nullptr;
 };
 
 }  // namespace local
 }  // namespace firestore
 }  // namespace firebase
-
-NS_ASSUME_NONNULL_END
 
 #endif  // FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_LOCAL_LEVELDB_REMOTE_DOCUMENT_CACHE_H_

@@ -26,7 +26,7 @@ namespace firestore {
 namespace remote {
 
 using core::DocumentViewChange;
-using core::Query;
+using core::Target;
 using local::QueryData;
 using local::QueryPurpose;
 using model::DocumentKey;
@@ -163,10 +163,9 @@ void WatchChangeAggregator::HandleTargetChange(
         target_state.UpdateResumeToken(target_change.resume_token());
         continue;
       case WatchTargetChangeState::Removed:
-        // We need to keep track of removed targets to we can post-filter and
-        // remove any target changes.
-        // We need to decrement the number of pending acks needed from watch for
-        // this targetId.
+        // We need to keep track of removed targets so we can post-filter and
+        // remove any target changes. We need to decrement the number of pending
+        // acks needed from watch for this target_id.
         target_state.RecordTargetResponse();
         if (!target_state.IsPending()) {
           RemoveTarget(target_id);
@@ -216,8 +215,8 @@ void WatchChangeAggregator::HandleExistenceFilter(
 
   absl::optional<QueryData> query_data = QueryDataForActiveTarget(target_id);
   if (query_data) {
-    const Query& query = query_data->query();
-    if (query.IsDocumentQuery()) {
+    const Target& target = query_data->target();
+    if (target.IsDocumentQuery()) {
       if (expected_count == 0) {
         // The existence filter told us the document does not exist. We deduce
         // that this document does not exist and apply a deleted document to our
@@ -225,7 +224,7 @@ void WatchChangeAggregator::HandleExistenceFilter(
         // another query that will raise this document as part of a snapshot
         // until it is resolved, essentially exposing inconsistency between
         // queries.
-        DocumentKey key{query.path()};
+        DocumentKey key{target.path()};
         RemoveDocumentFromTarget(
             target_id, key,
             NoDocument(key, SnapshotVersion::None(),
@@ -257,12 +256,13 @@ RemoteEvent WatchChangeAggregator::CreateRemoteEvent(
 
     absl::optional<QueryData> query_data = QueryDataForActiveTarget(target_id);
     if (query_data) {
-      if (target_state.current() && query_data->query().IsDocumentQuery()) {
+      if (target_state.current() && query_data->target().IsDocumentQuery()) {
         // Document queries for document that don't exist can produce an empty
         // result set. To update our local cache, we synthesize a document
         // delete if we have not previously received the document. This resolves
-        // the limbo state of the document, removing it from limboDocumentRefs.
-        DocumentKey key{query_data->query().path()};
+        // the limbo state of the document, removing it from
+        // SyncEngine::limbo_document_refs_.
+        DocumentKey key{query_data->target().path()};
         if (pending_document_updates_.find(key) ==
                 pending_document_updates_.end() &&
             !TargetContainsDocument(target_id, key)) {
@@ -406,10 +406,10 @@ void WatchChangeAggregator::ResetTarget(TargetId target_id) {
   // Trigger removal for any documents currently mapped to this target. These
   // removals will be part of the initial snapshot if Watch does not resend
   // these documents.
-  DocumentKeySet existingKeys =
+  DocumentKeySet existing_keys =
       target_metadata_provider_->GetRemoteKeysForTarget(target_id);
 
-  for (const DocumentKey& key : existingKeys) {
+  for (const DocumentKey& key : existing_keys) {
     RemoveDocumentFromTarget(target_id, key, absl::nullopt);
   }
 }

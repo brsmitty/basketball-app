@@ -31,7 +31,7 @@
 #include "Firestore/core/src/firebase/firestore/core/field_filter.h"
 #include "Firestore/core/src/firebase/firestore/core/filter.h"
 #include "Firestore/core/src/firebase/firestore/core/order_by.h"
-#include "Firestore/core/src/firebase/firestore/core/query.h"
+#include "Firestore/core/src/firebase/firestore/core/target.h"
 #include "Firestore/core/src/firebase/firestore/local/query_data.h"
 #include "Firestore/core/src/firebase/firestore/model/database_id.h"
 #include "Firestore/core/src/firebase/firestore/model/document.h"
@@ -61,12 +61,7 @@ class LocalSerializer;
 
 namespace remote {
 
-template <typename T>
-T* MakeArray(pb_size_t count) {
-  return static_cast<T*>(calloc(count, sizeof(T)));
-}
-
-core::Query InvalidQuery();
+core::Target InvalidTarget();
 
 /**
  * @brief Converts internal model objects to their equivalent protocol buffer
@@ -76,8 +71,8 @@ core::Query InvalidQuery();
  * protocol buffer, and methods starting with "Decode" convert from a nanopb
  * protocol buffer to a model object.
  *
- * For encoded messages, FreeNanopbMessage() must be called on the returned
- * nanopb proto buffer or a memory leak will occur.
+ * For encoded messages, `nanopb::FreeNanopbMessage()` must be called on the
+ * returned nanopb proto buffer or a memory leak will occur.
  *
  * All errors that occur during serialization are fatal.
  *
@@ -131,13 +126,6 @@ class Serializer {
   pb_bytes_array_t* EncodeDatabaseName() const;
 
   /**
-   * Release memory allocated by the Encode* methods that return protos.
-   *
-   * This essentially wraps calls to nanopb's pb_release() method.
-   */
-  static void FreeNanopbMessage(const pb_field_t fields[], void* dest_struct);
-
-  /**
    * @brief Converts the FieldValue model passed into bytes.
    */
   google_firestore_v1_Value EncodeFieldValue(
@@ -155,7 +143,7 @@ class Serializer {
 
   /**
    * Encodes the given document key as a fully qualified name. This includes the
-   * databaseId associated with this Serializer and the key path.
+   * DatabaseId associated with this Serializer and the key path.
    */
   pb_bytes_array_t* EncodeKey(
       const firebase::firestore::model::DocumentKey& key) const;
@@ -212,9 +200,6 @@ class Serializer {
   static pb_bytes_array_t* EncodeFieldPath(const model::FieldPath& field_path);
   static model::FieldPath DecodeFieldPath(const pb_bytes_array_t* field_path);
 
-  model::Document DecodeDocument(
-      nanopb::Reader* reader, const google_firestore_v1_Document& proto) const;
-
   static google_protobuf_Timestamp EncodeVersion(
       const model::SnapshotVersion& version);
 
@@ -242,13 +227,13 @@ class Serializer {
   google_firestore_v1_Target EncodeTarget(
       const local::QueryData& query_data) const;
   google_firestore_v1_Target_DocumentsTarget EncodeDocumentsTarget(
-      const core::Query& query) const;
-  core::Query DecodeDocumentsTarget(
+      const core::Target& target) const;
+  core::Target DecodeDocumentsTarget(
       nanopb::Reader* reader,
       const google_firestore_v1_Target_DocumentsTarget& proto) const;
   google_firestore_v1_Target_QueryTarget EncodeQueryTarget(
-      const core::Query& query) const;
-  core::Query DecodeQueryTarget(
+      const core::Target& target) const;
+  core::Target DecodeQueryTarget(
       nanopb::Reader* reader,
       const google_firestore_v1_Target_QueryTarget& proto) const;
 
@@ -259,6 +244,11 @@ class Serializer {
   model::SnapshotVersion DecodeVersionFromListenResponse(
       nanopb::Reader* reader,
       const google_firestore_v1_ListenResponse& listen_response) const;
+
+  model::ObjectValue DecodeFields(
+      nanopb::Reader* reader,
+      size_t count,
+      const google_firestore_v1_Document_FieldsEntry* fields) const;
 
   // Public for the sake of tests.
   google_firestore_v1_StructuredQuery_Filter EncodeFilters(
@@ -287,6 +277,23 @@ class Serializer {
       const google_firestore_v1_BatchGetDocumentsResponse& response) const;
 
   pb_bytes_array_t* EncodeQueryPath(const model::ResourcePath& path) const;
+  model::ResourcePath DecodeQueryPath(nanopb::Reader* reader,
+                                      absl::string_view name) const;
+
+  /**
+   * Encodes a database ID and resource path into the following form:
+   * /projects/$project_id/database/$database_id/documents/$path
+   */
+  pb_bytes_array_t* EncodeResourceName(const model::DatabaseId& database_id,
+                                       const model::ResourcePath& path) const;
+
+  /**
+   * Decodes a fully qualified resource name into a resource path and validates
+   * that there is a project and database encoded in the path. There are no
+   * guarantees that a local path is also encoded in this resource name.
+   */
+  model::ResourcePath DecodeResourceName(nanopb::Reader* reader,
+                                         absl::string_view encoded) const;
 
   void ValidateDocumentKeyPath(nanopb::Reader* reader,
                                const model::ResourcePath& resource_name) const;
@@ -296,10 +303,6 @@ class Serializer {
   model::FieldValue::Map::value_type DecodeFieldsEntry(
       nanopb::Reader* reader,
       const google_firestore_v1_Document_FieldsEntry& fields) const;
-  model::FieldValue::Map DecodeFields(
-      nanopb::Reader* reader,
-      size_t count,
-      const google_firestore_v1_Document_FieldsEntry* fields) const;
 
   model::FieldValue::Map DecodeMapValue(
       nanopb::Reader* reader,

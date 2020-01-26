@@ -70,6 +70,7 @@ size_t Query::Hash() const {
 }
 
 void Query::GetDocuments(Source source, QuerySnapshot::Listener&& callback) {
+  ValidateHasExplicitOrderByForLimitToLast();
   if (source == Source::Cache) {
     firestore_->client()->GetDocumentsFromLocalCache(*this,
                                                      std::move(callback));
@@ -134,6 +135,7 @@ void Query::GetDocuments(Source source, QuerySnapshot::Listener&& callback) {
 
 std::unique_ptr<ListenerRegistration> Query::AddSnapshotListener(
     ListenOptions options, QuerySnapshot::Listener&& user_listener) {
+  ValidateHasExplicitOrderByForLimitToLast();
   // Convert from ViewSnapshots to QuerySnapshots.
   class Converter : public EventListener<ViewSnapshot> {
    public:
@@ -213,12 +215,12 @@ Query Query::Filter(FieldPath field_path,
   return Wrap(query_.AddingFilter(std::move(filter)));
 }
 
-Query Query::OrderBy(FieldPath fieldPath, bool descending) const {
-  return OrderBy(fieldPath, Direction::FromDescending(descending));
+Query Query::OrderBy(FieldPath field_path, bool descending) const {
+  return OrderBy(field_path, Direction::FromDescending(descending));
 }
 
-Query Query::OrderBy(FieldPath fieldPath, Direction direction) const {
-  ValidateNewOrderByPath(fieldPath);
+Query Query::OrderBy(FieldPath field_path, Direction direction) const {
+  ValidateNewOrderByPath(field_path);
   if (query_.start_at()) {
     ThrowInvalidArgument(
         "Invalid query. You must not specify a starting point "
@@ -230,16 +232,25 @@ Query Query::OrderBy(FieldPath fieldPath, Direction direction) const {
         "before specifying the order by.");
   }
   return Wrap(
-      query_.AddingOrderBy(core::OrderBy(std::move(fieldPath), direction)));
+      query_.AddingOrderBy(core::OrderBy(std::move(field_path), direction)));
 }
 
-Query Query::Limit(int32_t limit) const {
+Query Query::LimitToFirst(int32_t limit) const {
   if (limit <= 0) {
     ThrowInvalidArgument(
         "Invalid Query. Query limit (%s) is invalid. Limit must be positive.",
         limit);
   }
-  return Wrap(query_.WithLimit(limit));
+  return Wrap(query_.WithLimitToFirst(limit));
+}
+
+Query Query::LimitToLast(int32_t limit) const {
+  if (limit <= 0) {
+    ThrowInvalidArgument(
+        "Invalid Query. Query limit (%s) is invalid. Limit must be positive.",
+        limit);
+  }
+  return Wrap(query_.WithLimitToLast(limit));
 }
 
 Query Query::StartAt(Bound bound) const {
@@ -302,27 +313,35 @@ void Query::ValidateNewFilter(const class Filter& filter) const {
   }
 }
 
-void Query::ValidateNewOrderByPath(const FieldPath& fieldPath) const {
+void Query::ValidateNewOrderByPath(const FieldPath& field_path) const {
   if (!query_.FirstOrderByField()) {
     // This is the first order by. It must match any inequality.
-    const FieldPath* inequalityField = query_.InequalityFilterField();
-    if (inequalityField) {
-      ValidateOrderByField(fieldPath, *inequalityField);
+    const FieldPath* inequality_field = query_.InequalityFilterField();
+    if (inequality_field) {
+      ValidateOrderByField(field_path, *inequality_field);
     }
   }
 }
 
-void Query::ValidateOrderByField(const FieldPath& orderByField,
-                                 const FieldPath& inequalityField) const {
-  if (orderByField != inequalityField) {
+void Query::ValidateOrderByField(const FieldPath& order_by_field,
+                                 const FieldPath& inequality_field) const {
+  if (order_by_field != inequality_field) {
     ThrowInvalidArgument(
         "Invalid query. You have a where filter with an inequality "
         "(lessThan, lessThanOrEqual, greaterThan, or greaterThanOrEqual) on "
         "field '%s' and so you must also use '%s' as your first queryOrderedBy "
         "field, but your first queryOrderedBy is currently on field '%s' "
         "instead.",
-        inequalityField.CanonicalString(), inequalityField.CanonicalString(),
-        orderByField.CanonicalString());
+        inequality_field.CanonicalString(), inequality_field.CanonicalString(),
+        order_by_field.CanonicalString());
+  }
+}
+
+void Query::ValidateHasExplicitOrderByForLimitToLast() const {
+  if (query_.has_limit_to_last() && query_.explicit_order_bys().empty()) {
+    ThrowInvalidArgument(
+        "limit(toLast:) queries require specifying at least one OrderBy() "
+        "clause.");
   }
 }
 
