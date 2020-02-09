@@ -1689,9 +1689,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         button.addTarget(self, action: #selector(cancelPlayerSelect), for: .touchUpInside)
         stack.addArrangedSubview(button)
 
-        if gameState["possession"] as? String ?? "" == "defense" {
-            stack.transform = CGAffineTransform(rotationAngle: .pi)
-        }
+//      Alex Jacobs commented this out on 2/8 to seemingly fix the defensive foul text upside down bug
+//        if gameState["possession"] as? String ?? "" == "defense" {
+//            stack.transform = CGAffineTransform(rotationAngle: .pi)
+//        }
 
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
