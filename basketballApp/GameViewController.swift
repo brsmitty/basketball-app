@@ -1052,7 +1052,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             homeFouls.text = homeFoulsText
             if teamFouls >= 7 || shotFoul {
 //                gameState["fouledPlayer"] = player
-                selectHomePlayer(stat: .personalFoul, message: "Who committed the fouil?")
+                selectHomePlayer(stat: .personalFoul, message: "Who committed the foul?")
                 gameState["oppFreeThrow"] = true
                 performSegue(withIdentifier: "freethrowSegue", sender: nil)
             }
