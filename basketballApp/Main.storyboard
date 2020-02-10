@@ -254,7 +254,7 @@
                         <outlet property="loginEmail" destination="DoN-KC-u30" id="tYu-8W-SUg"/>
                         <outlet property="loginPass" destination="53x-rV-cY8" id="bSE-xg-a0z"/>
                         <outlet property="registerButton" destination="gTQ-4a-Zf5" id="Zd3-5X-rLj"/>
-                        <segue destination="iQa-d8-Vh0" kind="show" identifier="loginSegue" id="6q6-o3-KoC"/>
+                        <segue destination="iQa-d8-Vh0" kind="show" identifier="loginSegue" animates="NO" id="6q6-o3-KoC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI0-xP-bWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -571,7 +571,7 @@
                     <navigationItem key="navigationItem" id="6VD-ev-7gu"/>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
-                        <segue destination="iQa-d8-Vh0" kind="show" identifier="registerSegue" id="Tvv-NR-hec"/>
+                        <segue destination="iQa-d8-Vh0" kind="show" identifier="registerSegue" animates="NO" id="Tvv-NR-hec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQR-ER-JL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1601,7 +1601,7 @@
                                 <rect key="frame" x="466" y="665" width="87" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="OkJ-Qw-D36"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="OkJ-Qw-D36"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCA-AL-DPi">
@@ -1732,14 +1732,14 @@
                                 <rect key="frame" x="460" y="678" width="91" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="oAY-0L-e2R"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="oAY-0L-e2R"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAe-rc-7Vi">
                                 <rect key="frame" x="553" y="682" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" id="EZm-wY-8Dg"/>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="EZm-wY-8Dg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeV-zZ-zr1">
@@ -1750,7 +1750,7 @@
                                 <rect key="frame" x="786" y="682" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="xxa-Al-2YM" kind="show" id="2w4-fN-nch"/>
+                                    <segue destination="xxa-Al-2YM" kind="show" animates="NO" id="2w4-fN-nch"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team1 Season Summary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQA-ic-Oek">
@@ -1768,14 +1768,14 @@
                                     <attributedString key="attributedTitle"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Whm-we-HJf" kind="show" id="Lnr-Ff-ZLn"/>
+                                    <segue destination="Whm-we-HJf" kind="show" animates="NO" id="Lnr-Ff-ZLn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyg-ve-QsX">
                                 <rect key="frame" x="240" y="682" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" id="dFP-XF-Rnx"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="dFP-XF-Rnx"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441-N0-PNn">
@@ -1923,7 +1923,7 @@
                                         <rect key="frame" x="426" y="13" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
-                                            <segue destination="oY1-iq-WTY" kind="show" id="GBB-WX-uiT"/>
+                                            <segue destination="oY1-iq-WTY" kind="show" animates="NO" id="GBB-WX-uiT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2119,21 +2119,21 @@
                                 <rect key="frame" x="553" y="682" width="203" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" id="eEU-bC-Gvw"/>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="eEU-bC-Gvw"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JxQ-c7-Bh3">
                                 <rect key="frame" x="259" y="86" width="235" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="tCM-Xm-FZS" kind="embed" id="s0X-Bi-1NE"/>
+                                    <segue destination="tCM-Xm-FZS" kind="embed" animates="NO" id="s0X-Bi-1NE"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1uF-8G-D4v">
                                 <rect key="frame" x="20" y="86" width="235" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="7oJ-m6-rHd" kind="embed" id="y47-ZD-eAY"/>
+                                    <segue destination="7oJ-m6-rHd" kind="embed" animates="NO" id="y47-ZD-eAY"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -2211,7 +2211,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="iQa-d8-Vh0" kind="show" id="eHN-Sm-WD4"/>
+                                                        <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="eHN-Sm-WD4"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gf-Kt-9kI">
@@ -2279,28 +2279,28 @@
                                 <rect key="frame" x="460" y="675" width="91" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="UtN-cU-2c1"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="UtN-cU-2c1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZy-Je-SuG">
                                 <rect key="frame" x="553" y="679" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" id="H89-Jm-RAl"/>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="H89-Jm-RAl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYf-i5-EX0">
                                 <rect key="frame" x="7" y="679" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="JOl-Fb-97a" kind="show" id="0wy-7j-azh"/>
+                                    <segue destination="JOl-Fb-97a" kind="show" animates="NO" id="0wy-7j-azh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0C-Oo-cMy">
                                 <rect key="frame" x="786" y="679" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="xxa-Al-2YM" kind="show" id="w8J-Gl-zKz"/>
+                                    <segue destination="xxa-Al-2YM" kind="show" animates="NO" id="w8J-Gl-zKz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2384,7 +2384,7 @@
                                 <rect key="frame" x="0.0" y="37" width="312" height="731"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="Gp3-rY-qcn" kind="embed" id="On0-Mz-bdU"/>
+                                    <segue destination="Gp3-rY-qcn" kind="embed" animates="NO" id="On0-Mz-bdU"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -2398,7 +2398,7 @@
                         <outlet property="made2Button" destination="NHX-ff-fL2" id="Cb8-Ec-6Fw"/>
                         <outlet property="made3Button" destination="AbY-2u-ob5" id="i8R-le-W4R"/>
                         <outlet property="playerImage" destination="zvb-GH-iiF" id="g48-Gq-eI0"/>
-                        <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue2" id="jBy-OJ-BIB"/>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue2" animates="NO" id="jBy-OJ-BIB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a4B-nI-3wj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2425,7 +2425,7 @@
                     <connections>
                         <outlet property="chartView" destination="SN0-TH-S5j" id="ePo-RN-OiS"/>
                         <outlet property="view" destination="SN0-TH-S5j" id="GTf-tB-bvJ"/>
-                        <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue" id="atr-rx-Imt"/>
+                        <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue" animates="NO" id="atr-rx-Imt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLe-Cd-oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2469,7 +2469,7 @@
                                 </state>
                                 <connections>
                                     <action selector="saveButton:" destination="XSy-ZY-hla" eventType="touchUpInside" id="Xki-L8-Xap"/>
-                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="settingsToMenuSeg" id="lf4-xB-O0T"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" identifier="settingsToMenuSeg" animates="NO" id="lf4-xB-O0T"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2641,7 +2641,7 @@
                                         <rect key="frame" x="436" y="587" width="153" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
-                                            <segue destination="iQa-d8-Vh0" kind="show" identifier="menuSegue" id="7C8-E9-oft"/>
+                                            <segue destination="iQa-d8-Vh0" kind="show" identifier="menuSegue" animates="NO" id="7C8-E9-oft"/>
                                         </connections>
                                     </button>
                                     <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6H1-VP-cCK">
@@ -2660,7 +2660,7 @@
                                         <rect key="frame" x="-3" y="5" width="100" height="580"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <connections>
-                                            <segue destination="Gp3-rY-qcn" kind="embed" identifier="benchSegue" id="JP8-mt-yTk"/>
+                                            <segue destination="Gp3-rY-qcn" kind="embed" identifier="benchSegue" animates="NO" id="JP8-mt-yTk"/>
                                         </connections>
                                     </containerView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TgK-ba-E8J">
@@ -2799,7 +2799,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="backArrow"/>
                                 <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" id="Xq5-II-Mit"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="Xq5-II-Mit"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2838,8 +2838,8 @@
                         <outlet property="timeOutsLeftDefense" destination="fmr-eI-Vap" id="Sat-9F-UYD"/>
                         <outlet property="timeoutButton" destination="6H1-VP-cCK" id="8JC-y4-Yih"/>
                         <outlet property="turnoverButton" destination="fo8-Oe-kHR" id="KqY-3f-tHM"/>
-                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" id="Kov-4w-Yr5"/>
-                        <segue destination="X2n-cM-7pe" kind="presentation" identifier="freethrowSegue" id="iIY-nF-rbF"/>
+                        <segue destination="LxQ-Ta-2eg" kind="presentation" identifier="shotchartSegue" animates="NO" id="Kov-4w-Yr5"/>
+                        <segue destination="X2n-cM-7pe" kind="presentation" identifier="freethrowSegue" animates="NO" id="iIY-nF-rbF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ia3-fH-KRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2973,28 +2973,28 @@
                                 <rect key="frame" x="461" y="676" width="91" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="gAR-gh-MKE"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="gAR-gh-MKE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn4-kI-c4m">
                                 <rect key="frame" x="554" y="680" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" id="vix-mb-8OF"/>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="vix-mb-8OF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDm-D5-D2M">
                                 <rect key="frame" x="8" y="680" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="JOl-Fb-97a" kind="show" id="xmA-tT-Tp1"/>
+                                    <segue destination="JOl-Fb-97a" kind="show" animates="NO" id="xmA-tT-Tp1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yz-Mq-ig2">
                                 <rect key="frame" x="787" y="680" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="xxa-Al-2YM" kind="show" id="cVI-Dz-1Rm"/>
+                                    <segue destination="xxa-Al-2YM" kind="show" animates="NO" id="cVI-Dz-1Rm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DhJ-Xj-nqw">
@@ -3004,7 +3004,7 @@
                                     <attributedString key="attributedTitle"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Whm-we-HJf" kind="show" id="IOu-Qq-iME"/>
+                                    <segue destination="Whm-we-HJf" kind="show" animates="NO" id="IOu-Qq-iME"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="izX-md-ug8">
@@ -3152,7 +3152,7 @@
                                         <rect key="frame" x="426" y="13" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
-                                            <segue destination="XMH-rb-sfj" kind="show" id="CXO-Ho-pcW"/>
+                                            <segue destination="XMH-rb-sfj" kind="show" animates="NO" id="CXO-Ho-pcW"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3185,21 +3185,21 @@
                                 <rect key="frame" x="20" y="84" width="235" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="REd-Wq-0Qv" kind="embed" id="PTS-DN-b9E"/>
+                                    <segue destination="REd-Wq-0Qv" kind="embed" animates="NO" id="PTS-DN-b9E"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdm-8T-IbD">
                                 <rect key="frame" x="259" y="84" width="235" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="j0f-6O-RZy" kind="embed" id="cLb-yX-BZu"/>
+                                    <segue destination="j0f-6O-RZy" kind="embed" animates="NO" id="cLb-yX-BZu"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bG-PW-Rm8">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="156"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="THY-ha-0ml" kind="embed" identifier="settingsSegue" id="w9n-Na-m35"/>
+                                    <segue destination="THY-ha-0ml" kind="embed" identifier="settingsSegue" animates="NO" id="w9n-Na-m35"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -3472,7 +3472,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="CaO-uT-V5D" kind="unwind" unwindAction="unwindToPlaybookListWithSender:" id="tno-gH-jmV"/>
+                                    <segue destination="CaO-uT-V5D" animates="NO" kind="unwind" unwindAction="unwindToPlaybookListWithSender:" id="tno-gH-jmV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3503,7 +3503,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="egC-Yf-5iu" kind="relationship" relationship="rootViewController" id="oba-54-3CG"/>
+                        <segue destination="egC-Yf-5iu" animates="NO" kind="relationship" relationship="rootViewController" id="oba-54-3CG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Opb-uX-PGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3619,7 +3619,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Eem-xT-LLQ" kind="unwind" unwindAction="unwindToGameListWithSender:" id="oLE-OY-dHP"/>
+                                            <segue destination="Eem-xT-LLQ" animates="NO" kind="unwind" unwindAction="unwindToGameListWithSender:" id="oLE-OY-dHP"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Opponent" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rGr-l3-gdl" customClass="DefaultUITextField" customModule="basketballApp" customModuleProvider="target">
@@ -3745,7 +3745,7 @@
                                 <rect key="frame" x="31" y="92" width="962" height="551"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="hMn-8z-1UG" kind="embed" id="Dai-O0-qbB"/>
+                                    <segue destination="hMn-8z-1UG" kind="embed" animates="NO" id="Dai-O0-qbB"/>
                                 </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scheduleBar" translatesAutoresizingMaskIntoConstraints="NO" id="rpI-0c-Pt9">
@@ -3761,7 +3761,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" identifier="gameView" id="EmT-VZ-Uam"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" identifier="gameView" animates="NO" id="EmT-VZ-Uam"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kig-ai-bat" userLabel="mainMenuButton">
@@ -3879,7 +3879,7 @@
                                 <rect key="frame" x="31" y="92" width="962" height="551"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="484-X1-sBO" kind="embed" id="3QD-1i-I38"/>
+                                    <segue destination="484-X1-sBO" kind="embed" animates="NO" id="3QD-1i-I38"/>
                                 </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="playbookBar" translatesAutoresizingMaskIntoConstraints="NO" id="nMD-CF-nUj">
@@ -3895,7 +3895,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="xxa-Al-2YM" kind="show" id="Uml-6R-ZPg"/>
+                                    <segue destination="xxa-Al-2YM" kind="show" animates="NO" id="Uml-6R-ZPg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbq-EC-6Zk" userLabel="performanceButton">
@@ -3906,7 +3906,7 @@
                                     <color key="titleColor" red="0.9880952381" green="1" blue="0.97619047619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="JOl-Fb-97a" kind="show" id="yYA-u0-ws7"/>
+                                    <segue destination="JOl-Fb-97a" kind="show" animates="NO" id="yYA-u0-ws7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IsQ-qI-Frp" userLabel="mainMenuButton">
@@ -3947,7 +3947,7 @@
                                 <rect key="frame" x="464" y="669" width="87" height="97"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="MrO-tU-Xrr"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="MrO-tU-Xrr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3969,7 +3969,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vUI-De-ElO" kind="relationship" relationship="rootViewController" id="sxC-bR-c4V"/>
+                        <segue destination="vUI-De-ElO" kind="relationship" relationship="rootViewController" animates="NO" id="sxC-bR-c4V"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tfk-Zc-yuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3981,7 +3981,7 @@
             <objects>
                 <splitViewController id="hMn-8z-1UG" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="2oo-7W-TNs" kind="relationship" relationship="masterViewController" id="445-f5-Gv3"/>
+                        <segue destination="2oo-7W-TNs" kind="relationship" relationship="masterViewController" animates="NO" id="445-f5-Gv3"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgO-U4-mhW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4324,7 +4324,7 @@
                     <connections>
                         <outlet property="logoutButton" destination="0Ex-GA-KJP" id="zmi-z7-8hB"/>
                         <outlet property="settingsButton" destination="F1o-t4-Orz" id="XRv-Wg-0Oe"/>
-                        <segue destination="7nf-nr-9D1" kind="show" identifier="logoutSegue" id="R7p-6i-deX"/>
+                        <segue destination="7nf-nr-9D1" kind="show" identifier="logoutSegue" animates="NO" id="R7p-6i-deX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ylr-ZX-pE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4363,7 +4363,7 @@
                     <size key="freeformSize" width="300" height="100"/>
                     <connections>
                         <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSeg" animates="NO" id="Ffz-Pn-jBy"/>
-                        <segue destination="E49-iy-Z1K" kind="unwind" identifier="unwindShotChart" unwindAction="unwindToVC1WithSegue:" id="Tqa-CK-cj3"/>
+                        <segue destination="E49-iy-Z1K" kind="unwind" identifier="unwindShotChart" animates="NO" unwindAction="unwindToVC1WithSegue:" id="Tqa-CK-cj3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H9d-Ag-vBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4399,7 +4399,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0016656561584077725" green="0.020178341614810889" blue="0.101542671319797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
-                                    <segue destination="wie-Xy-O0x" kind="show" id="hhv-Ks-6uJ"/>
+                                    <segue destination="wie-Xy-O0x" kind="show" animates="NO" id="hhv-Ks-6uJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ocz-mF-ta8">
@@ -4438,7 +4438,7 @@
                                 <rect key="frame" x="23" y="20" width="46" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="jzt-WF-VeB"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="jzt-WF-VeB"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="navbar" translatesAutoresizingMaskIntoConstraints="NO" id="DzB-o1-vwq">
@@ -4456,21 +4456,21 @@
                                     <attributedString key="attributedTitle"/>
                                 </state>
                                 <connections>
-                                    <segue destination="iQa-d8-Vh0" kind="show" id="SkN-dG-bKG"/>
+                                    <segue destination="iQa-d8-Vh0" kind="show" animates="NO" id="SkN-dG-bKG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYE-Bv-lgp">
                                 <rect key="frame" x="564" y="664" width="199" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="5be-5p-u9r" kind="show" id="j6g-zS-hft"/>
+                                    <segue destination="5be-5p-u9r" kind="show" animates="NO" id="j6g-zS-hft"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ig5-9z-kBv">
                                 <rect key="frame" x="460" y="664" width="96" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="jGW-SO-mMU" kind="show" id="RSv-7O-Du1"/>
+                                    <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="RSv-7O-Du1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pz-6P-wGQ">
