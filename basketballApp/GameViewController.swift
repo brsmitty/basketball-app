@@ -70,6 +70,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                     "fullTimeouts": 3,
                                     "oppHalfTimeouts": 2,
                                     "oppFullTimeouts": 3,
+                                    "oppFreeThrow": false,
                                     "opponent": [:] as [String: [String: Any]],
                                     "dribbles": [:] as [String: Int]]
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
@@ -1052,8 +1053,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             homeFouls.text = homeFoulsText
             if teamFouls >= 7 || shotFoul {
 //                gameState["fouledPlayer"] = player
-                selectHomePlayer(stat: .personalFoul, message: "Who committed the foul?")
                 gameState["oppFreeThrow"] = true
+                selectHomePlayer(stat: .personalFoul, message: "Who committed the foul?")
                 performSegue(withIdentifier: "freethrowSegue", sender: nil)
             }
 
@@ -1689,10 +1690,12 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         button.addTarget(self, action: #selector(cancelPlayerSelect), for: .touchUpInside)
         stack.addArrangedSubview(button)
 
-//      Alex Jacobs commented this out on 2/8 to seemingly fix the defensive foul text upside down bug
-//        if gameState["possession"] as? String ?? "" == "defense" {
-//            stack.transform = CGAffineTransform(rotationAngle: .pi)
-//        }
+        if gameState["possession"] as? String ?? "" == "defense" {
+            if !(gameState["oppFreeThrow"] as! Bool) {
+                print("flipping this bad boy!")
+                stack.transform = CGAffineTransform(rotationAngle: .pi)
+            }
+        }
 
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -1747,11 +1750,14 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 switch stat {
                 case .score2:
                     self.storeOpponentPoints(type: Statistic.score2, number: number, seconds: self.timeSeconds)
-                    self.switchToOffense()
+                    print("2 points!")
+                    //self.switchToOffense()
                 case .score3:
                     self.storeOpponentPoints(type: Statistic.score3, number: number, seconds: self.timeSeconds)
-                    self.switchToOffense()
+                    print("3 points omg")
+                    //self.switchToOffense()
                 case .freeThrow:
+                    print("free throw!")
                     self.storeOpponentPoints(type: Statistic.freeThrow, number: number, seconds: self.timeSeconds)
                 default: break
                 }
@@ -1767,7 +1773,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }))
         }
         if alert.actions.count > 0 {
+            //ALEX COMMENT ON 2/14
             present(alert, animated: true)
+            completion(999)
         } else {
             completion(999)
         }
