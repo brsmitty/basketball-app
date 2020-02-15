@@ -1696,6 +1696,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 stack.transform = CGAffineTransform(rotationAngle: .pi)
             }
         }
+        
+        gameState["oppFreeThrow"] = false
 
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
