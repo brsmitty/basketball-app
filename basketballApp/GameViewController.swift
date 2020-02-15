@@ -71,6 +71,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                     "oppHalfTimeouts": 2,
                                     "oppFullTimeouts": 3,
                                     "oppFreeThrow": false,
+                                    "oppFieldGoal": false,
                                     "opponent": [:] as [String: [String: Any]],
                                     "dribbles": [:] as [String: Int]]
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
@@ -141,8 +142,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else if let score = gameState["opponentScored"] as? Int {
                 gameState["opponentScored"] = nil
                 if score == 2 {
+                    gameState["oppFieldGoal"] = true
                     selectOpposingPlayer(stat: .score2)
                 } else if score == 3 {
+                    gameState["oppFieldGoal"] = true
                     selectOpposingPlayer(stat: .score3)
                 } else {
                     switchToOffense()
@@ -1752,12 +1755,18 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 switch stat {
                 case .score2:
                     self.storeOpponentPoints(type: Statistic.score2, number: number, seconds: self.timeSeconds)
-                    print("2 points!")
-                    //self.switchToOffense()
+                    if self.gameState["oppFieldGoal"] as! Bool {
+                        self.gameState["oppFieldGoal"] = true
+                        print("2 points!")
+                        self.switchToOffense()
+                    }
                 case .score3:
                     self.storeOpponentPoints(type: Statistic.score3, number: number, seconds: self.timeSeconds)
-                    print("3 points omg")
-                    //self.switchToOffense()
+                    if self.gameState["oppFieldGoal"] as! Bool {
+                        self.gameState["oppFieldGoal"] = true
+                        print("3 points omg")
+                        self.switchToOffense()
+                    }
                 case .freeThrow:
                     print("free throw!")
                     self.storeOpponentPoints(type: Statistic.freeThrow, number: number, seconds: self.timeSeconds)
