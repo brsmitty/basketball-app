@@ -174,12 +174,14 @@ class DBApi {
     //Attach a listener to a player stat
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         print("lISTENTOPLAYERSTAT \(UserDefaults.standard.string(forKey: "gid"))")
+        guard let gid = UserDefaults.standard.string(forKey: "gid") else { return }
+        
         FireRoot.players.document(pid)
-            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
+            .collection("stats").document(gid)
             .addSnapshotListener{
                 (snapshot, err) in
                 //print(snapshot?.data())
-                completion(snapshot!)
+                if let _ = snapshot { completion(snapshot!) }
         }
     }
     
