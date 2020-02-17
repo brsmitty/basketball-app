@@ -187,6 +187,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 handleFoul(player: active[index], userFoul: false, shotFoul: true)
             } else {
                 if let score = gameState["opponentScored"] as? Int {
+                    gameState["oppFieldGoal"] = true
+                    gameState["oppFreeThrow"] = true
                     gameState["opponentScored"] = nil
                     if score == 2 {
                         selectOpposingPlayer(stat: .score2)
@@ -1756,16 +1758,22 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 case .score2:
                     self.storeOpponentPoints(type: Statistic.score2, number: number, seconds: self.timeSeconds)
                     if self.gameState["oppFieldGoal"] as! Bool {
-                        self.gameState["oppFieldGoal"] = true
+                        self.gameState["oppFieldGoal"] = false
                         print("2 points!")
-                        self.switchToOffense()
+                        if !(self.gameState["oppFreeThrow"] as! Bool){
+                            print("field goal = true, free throw = false")
+                            self.switchToOffense()
+                        }
                     }
                 case .score3:
                     self.storeOpponentPoints(type: Statistic.score3, number: number, seconds: self.timeSeconds)
                     if self.gameState["oppFieldGoal"] as! Bool {
-                        self.gameState["oppFieldGoal"] = true
+                        self.gameState["oppFieldGoal"] = false
                         print("3 points omg")
-                        self.switchToOffense()
+                        if !(self.gameState["oppFreeThrow"] as! Bool){
+                            print("field goal = true, free throw = false")
+                            self.switchToOffense()
+                        }
                     }
                 case .freeThrow:
                     print("free throw!")
