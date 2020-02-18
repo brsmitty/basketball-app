@@ -70,7 +70,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                     "fullTimeouts": 3,
                                     "oppHalfTimeouts": 2,
                                     "oppFullTimeouts": 3,
-                                    "oppFreeThrow": false,
+                                    "oppFreeThrowScreen": false,
                                     "oppFieldGoal": false,
                                     "opponent": [:] as [String: [String: Any]],
                                     "dribbles": [:] as [String: Int]]
@@ -188,7 +188,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else {
                 if let score = gameState["opponentScored"] as? Int {
                     gameState["oppFieldGoal"] = true
-                    gameState["oppFreeThrow"] = true
+                    gameState["oppFreeThrowScreen"] = true
                     gameState["opponentScored"] = nil
                     if score == 2 {
                         selectOpposingPlayer(stat: .score2)
@@ -1059,6 +1059,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if teamFouls >= 7 || shotFoul {
 //                gameState["fouledPlayer"] = player
                 gameState["oppFreeThrow"] = true
+                gameState["oppFreeThrowScreen"] = true
                 selectHomePlayer(stat: .personalFoul, message: "Who committed the foul?")
                 performSegue(withIdentifier: "freethrowSegue", sender: nil)
             }
@@ -1697,13 +1698,13 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         stack.addArrangedSubview(button)
 
         if gameState["possession"] as? String ?? "" == "defense" {
-            if !(gameState["oppFreeThrow"] as! Bool) {
+            if !(gameState["oppFreeThrowScreen"] as! Bool) {
                 print("flipping this bad boy!")
                 stack.transform = CGAffineTransform(rotationAngle: .pi)
             }
         }
         
-        gameState["oppFreeThrow"] = false
+        gameState["oppFreeThrowScreen"] = false
 
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -1762,7 +1763,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if self.gameState["oppFieldGoal"] as! Bool {
                         self.gameState["oppFieldGoal"] = false
                         print("2 points!")
-                        if !(self.gameState["oppFreeThrow"] as! Bool){
+                        if !(self.gameState["oppFreeThrowScreen"] as! Bool){
                             print("field goal = true, free throw = false")
                             self.switchToOffense()
                         }
@@ -1772,7 +1773,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if self.gameState["oppFieldGoal"] as! Bool {
                         self.gameState["oppFieldGoal"] = false
                         print("3 points omg")
-                        if !(self.gameState["oppFreeThrow"] as! Bool){
+                        if !(self.gameState["oppFreeThrowScreen"] as! Bool){
                             print("field goal = true, free throw = false")
                             self.switchToOffense()
                         }
