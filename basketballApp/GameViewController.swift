@@ -125,7 +125,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
 
         let state = gameState["transitionState"] as! String
-        print("The game state is \(state)")
+        print("The game state is \(state) and the possession is \(gameState["possession"] as! String)")
         if (state == "init" ) { getRosterFromFirebase() }
         else if (state == "missedShot") {
             gameState["transitionState"] = "inProgress"
@@ -568,7 +568,6 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         var y = 0
         for player in gameState["bench"] as! [Player] {
-            print("Adding player to bench")
             let image = player.photo
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: 0, y: y, width: 100, height: benchPictureHeight)
@@ -1049,6 +1048,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     //foul detected, determine outcome and either change possession or record FT attempts/makes
     func handleFoul(player: Player, userFoul: Bool = false, shotFoul: Bool = false) {
+        print("user foul = \(userFoul), shotFoul = \(shotFoul)")
         if userFoul { // user's team committed a foul
             var teamFouls = gameState["teamFouls"] as? Int ?? 0
             teamFouls += 1
@@ -1073,6 +1073,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let awayFoulsText = String(format: "%02d", oppTeamFouls)
             awayFouls.text = awayFoulsText
             if oppTeamFouls >= 7 || shotFoul {
+                gameState["oppFreeThrow"] = false
                 gameState["fouledPlayer"] = player
                 performSegue(withIdentifier: "freethrowSegue", sender: nil)
             }
@@ -1750,6 +1751,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.switchToDefense()
                 }
                 self.storeOpponentRebound(number: number)
+                print("REBOUNDED BABY")
             } else if [.turnover].contains(stat) {
                 self.storeOpponentTurnover(number: number)
                 self.switchToOffense()
@@ -1783,21 +1785,21 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
 
-        let alert = UIAlertController(title: "Select a Player", message: nil, preferredStyle: .actionSheet)
-        alert.popoverPresentationController?.sourceView = addOppButton
-        for number in Array(opponent.keys) {
-            let num = Int(number) ?? 999
-            alert.addAction(UIAlertAction(title: "\(number)", style: .default, handler: { action in
-                completion(num)
-            }))
-        }
-        if alert.actions.count > 0 {
-            //ALEX COMMENT ON 2/14
-            present(alert, animated: true)
+        //COMMENTED OUT BY ALEX JACOBS 1/18 TO FIX BUGS AND NOT REALLY UTILIZED AT THE MOMENT
+        
+//        let alert = UIAlertController(title: "Select a Player", message: nil, preferredStyle: .actionSheet)
+//        alert.popoverPresentationController?.sourceView = addOppButton
+//        for number in Array(opponent.keys) {
+//            let num = Int(number) ?? 999
+//            alert.addAction(UIAlertAction(title: "\(number)", style: .default, handler: { action in
+//                completion(num)
+//            }))
+//        }
+//        if alert.actions.count > 0 {
+//            present(alert, animated: true)
+//        } else {
             completion(999)
-        } else {
-            completion(999)
-        }
+        //}
     }
 
     func buttonsEnabled(_ enabled: Bool) {

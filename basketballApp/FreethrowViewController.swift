@@ -37,14 +37,16 @@ class FreethrowViewController: UIViewController {
         
         super.viewDidLoad()
         UIView.setAnimationsEnabled(false)
-        
+        print("FREE THROW VIEW")
         shots = gameState["foulShots"] as? Int ?? 0
         isOpponent = gameState["oppFreeThrow"] as? Bool ?? false
         if !isOpponent,
             let player = gameState["fouledPlayer"] as? Player {
+            print("not opponent free throw")
             playerImage.image = player.photo
             shootingPlayer = player
         } else if !isOpponent {
+            print("opponent free throw")
             let playersAlert = UIAlertController(title: "Shooting", message: "", preferredStyle: .alert)
             var activePlayer: UIAlertAction
             for player in gameState["active"] as? [Player] ?? [] {
@@ -61,6 +63,7 @@ class FreethrowViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("free throw prepare segue")
         if segue.identifier == "gameviewSegue2" {
             if let gameView = segue.destination as? GameViewController {
                 self.gameState["transitionState"] = "freethrow"
