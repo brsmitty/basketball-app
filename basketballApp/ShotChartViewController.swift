@@ -16,13 +16,20 @@ class ShotChartViewController: UIViewController {
     var displayedSelection: Bool = false
     var shotMenu :  CircleAnimatedMenu? = nil
     
+    var defenseCourtTransform: CGAffineTransform?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.displayedSelection = false
+        defenseCourtTransform = chartView.transform.rotated(by: .pi)
     }
    
    override func viewWillAppear(_ animated: Bool) {
-      displayShots()
+    displayShots()
+    //if possession is defense flip the view to the opponent side
+    if (self.gameState["possession"] as! String == "defense") {
+        chartView.transform = defenseCourtTransform!
+    }
    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
