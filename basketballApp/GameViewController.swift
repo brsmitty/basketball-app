@@ -41,6 +41,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var bonus: Bool
     }
     var gameState: [String: Any] = ["began": false,
+                                    "oppTeamName": "Team2",
                                     "transitionState": "init",
                                     "possession": "",
                                     "currentlyPaused": false,
