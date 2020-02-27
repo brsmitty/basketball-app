@@ -108,7 +108,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var turnoverButton: UIButton!
     @IBOutlet weak var outOfBoundsButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var gameBoardImageView: UIImageView!
+    
     var offenseCourtTransform: CGAffineTransform?
     var defenseCourtTransform: CGAffineTransform?
     
@@ -266,6 +267,9 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         paintButton.backgroundColor = .clear
         paintButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleThreeSecondViolation(_:))))
         courtView.addSubview(paintButton)
+        
+        gameBoardImageView.isUserInteractionEnabled = true
+        gameBoardImageView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(handlePauseGameClock)))
 
         NSLayoutConstraint.activate([
             paintButton.centerXAnchor.constraint(equalTo: courtView.centerXAnchor, constant: 5),
@@ -593,6 +597,10 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.benchView.frame = CGRect(x: 0, y: 0, width: self.benchView.frame.width, height: 595)
             self.view.layoutIfNeeded()
         })
+    }
+    
+    @IBAction func pauseStartClock(_ sender: UITapGestureRecognizer) {
+  
     }
 
     @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
@@ -959,6 +967,18 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
         //wait for next tapped player
+    
+    @objc func handlePauseGameClock(_ touchHandler: UILongPressGestureRecognizer) {
+        guard gameState["began"] as? Bool == true else { return }
+        if status {
+            self.pushPlaySequence(event: "Game Paused!")
+            self.start()
+        }
+        else {
+            self.pushPlaySequence(event: "Game Un-Paused!")
+            self.stop()
+        }
+    }
 
     func handleRebound(){
         let reboundAlert = UIAlertController(title: "Rebound", message: "", preferredStyle: .alert)
