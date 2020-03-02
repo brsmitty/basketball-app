@@ -6,27 +6,29 @@
 //  Copyright © 2019 Aniki Zarif. All rights reserved.
 //
 // This files serves as the directory to the mostly used document paths.
-import FirebaseFirestore
+import Firebase
+
 
 struct FireRoot{
     
     static let uid = UserDefaults.standard.string(forKey: "uid")
     static let tid = UserDefaults.standard.string(forKey: "tid")
     static let env = "users"
+    //placeholder until all references are deleted
+    static let root = Database.database().reference()
+    static let db = Database.database().reference()
+    //Firebase -> users -> uid
+    static let user = db.child("users").child(uid!)
     
-    static let db = Firestore.firestore()
-    //Firestore -> users
-    static let root = db.collection("users")
+    //Firebase -> games
+    static let games = db.child("games")
     
-    //Firestore -> users -> uid
-    static let user = root.document(uid!)
+    //Firebase -> teams -> tid
+    static let teams = db.child("teams").child(tid!)
     
-    //Firestore -> users -> uid -> team -> tid
-    static let team = user.collection("team").document(tid!)
+    //Firebase -> players
+    static let players = db.child("players")
     
-    //Firestore -> users -> uid -> team -> tid -> players
-    static let players = team.collection("players")
-    
-    //Firestore -> users -> uid -> team -> tid -> games
-    static let games = team.collection("games")
+    //Firebase -> lineups
+    static let lineups = db.child("lineups")
 }

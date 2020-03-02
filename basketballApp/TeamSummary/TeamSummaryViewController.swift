@@ -326,7 +326,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         print(UserDefaults.standard.string(forKey: "gid"))
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
-            let statsDict = snapshot.data() ?? [:]
+            let statsDict = snapshot.dictionaryWithValues(forKeys: ["pid"])
             //Needs minutesPlayed and plusminus
             cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
             cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")

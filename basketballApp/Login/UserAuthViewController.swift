@@ -7,6 +7,7 @@
 //
 //  Updated on 10/19: changed to Firestore
 import UIKit
+import FirebaseFirestore
 import FirebaseAuth
 
 enum AlertTypes{
@@ -179,10 +180,16 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
                self.createAlert(with: "Sign In Failed", and: error.localizedDescription)
             }
             else {
-                let ref = FireRoot.root.document(user!.user.uid)
+                print("in else")
+                let ref = Firestore.firestore().collection("users").document(user!.user.uid)
+                print("made it past ref assignment")
+                //let ref = FireRoot.user.child(user!.user.uid)
                 var tid = ""
+                //ref.child(<#T##pathString: String##String#>)
                 ref.getDocument{(document,error) in
                     if let document = document, document.exists{
+                        print("uhhhh")
+                        //tid = ref.value(forKey: self.uid) as! String
                         tid = document.get("team_name") as! String
                         print("FFFFFFFFFFFFFF")
                         print(tid)
@@ -198,6 +205,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
         }
       }
     }
+    
    
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch(textField.tag){

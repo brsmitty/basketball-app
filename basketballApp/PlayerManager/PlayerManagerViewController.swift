@@ -33,7 +33,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    @IBOutlet weak var editButton: UIButton!
    @IBOutlet weak var addButton: UIButton!
    @IBOutlet weak var cancelButton: UIButton!
-   
+   //does something need to be added
    @IBOutlet weak var pointsCell: UILabel!
    @IBOutlet weak var twoPoint: UILabel!
    @IBOutlet weak var threePoint: UILabel!
@@ -370,13 +370,20 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
     let imageURL: URL = URL(fileURLWithPath: imagePath)
     
+    print("Image name = \(imageName)")
+    print("Image Path = \(imagePath)")
+    print("Image URL = \(imageURL)")
+    
     // Store the image
     try? UIImagePNGRepresentation(players[currentPath.row].photo!)?.write(to: imageURL)
     
-    //Reference to Firestore database
-    let ref = FireRoot.players.document(players[currentPath.row].playerId)
+    //Reference to Firebase database
+    let ref = FireRoot.players.child(players[currentPath.row].playerId).child("player_info")
     
-    let playerData : [String: Any] = ["user_id": uid,
+    print(ref)
+    dump(ref)
+    
+    let playerData : [String: Any] = ["team_id": tid,
                                       "fName": players[currentPath.row].firstName,
                                       "lName": players[currentPath.row].lastName,
                                       "height": players[currentPath.row].height,
@@ -384,7 +391,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                                       "rank": players[currentPath.row].rank,
                                       "position": players[currentPath.row].position,
                                       "image_name": imageName]
-    ref.updateData(playerData)
+    ref.updateChildValues(playerData)
    }
    
    // Stores a new player's info in firebase
@@ -399,15 +406,19 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     
       firstName = firstName.replacingOccurrences(of: " ", with: "_")
       lastName = lastName.replacingOccurrences(of: " ", with: "_")
+    //TODO: change this so that we can upload to firebase the data and not a local path
       let imageName = firstName + lastName + "image"
       let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(imageName).png"
       let imageURL: URL = URL(fileURLWithPath: imagePath)
+    
+    
       
       // Store the image
       try? UIImagePNGRepresentation(playerImage.image!)?.write(to: imageURL)
     
       //Initialize player data
-      let playerData : [String: Any] = ["fName": firstName,
+    let playerInfo : [String: Any] = ["team_id": tid,
+                                       "fName": firstName,
                                        "lName": lastName,
                                        "height": height,
                                        "weight": weight,
@@ -422,18 +433,24 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
         playerSeasonStats[key.rawValue] = 0
     }
     
-    //Add player to database
-    let docId = FireRoot.players.addDocument(data: playerData){
+    let newPlayer = FireRoot.players.childByAutoId()
+    let pid = newPlayer.key
+    let playerData : [String: Any] = ["playerId": pid,
+                                      "player_info": playerInfo,
+                                      "season_stats": playerSeasonStats]
+    newPlayer.setValue(playerData)
+    /*{
             err in
             if let err = err {
                 print("Error adding player: \(err)")
             }else{
                 print("Added new player")
             }
-    }
-    print("docId \(docId.documentID)")
+    }*/
+    //print("docId \(docId.documentID)")
     
     //Add seasonal stats of player to database
+    /*
     FireRoot.players.document(docId.documentID)
         .collection("stats").document("season_stats").setData(playerSeasonStats){
                 err in
@@ -443,6 +460,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
                     print("Added player season stats")
                 }
         }
+ */
     
     //Clearing all fields and add new player to the view
     defaultAllFields()
@@ -668,10 +686,13 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       return true
    }
    
+    //TODO: make this functional?
     //The delete player functionality in the app is not used. Making the following function is not used either.
+    /*
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            let pid = removePlayer(indexPath, tableView)
+            //let pid = removePlayer(indexPath, tableView)
+            let pid = 0
             FireRoot.root.document(uid)
                 .collection("teams").document(tid)
                 .collection("players").document(pid).delete(){
@@ -683,8 +704,10 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
             resetButtonState()
         }
     }
+ */
    
     //Not used
+    /*
    func removePlayer(_ indexPath:IndexPath, _ tableView:UITableView) -> String{
       let pid = players[indexPath.row].playerId
       players.remove(at: indexPath.row)
@@ -692,6 +715,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
       defaultAllFields()
       return pid
    }
+ */
    
    // MARK: UIImagePickerDelegate
    
