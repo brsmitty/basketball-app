@@ -971,11 +971,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func handlePauseGameClock(_ touchHandler: UILongPressGestureRecognizer) {
         guard gameState["began"] as? Bool == true else { return }
         if status {
-            self.pushPlaySequence(event: "Game Paused!")
+            self.pushPlaySequence(event: "Game Un-Paused!")
             self.start()
         }
         else {
-            self.pushPlaySequence(event: "Game Un-Paused!")
+            self.pushPlaySequence(event: "Game Paused!")
             self.stop()
         }
     }
