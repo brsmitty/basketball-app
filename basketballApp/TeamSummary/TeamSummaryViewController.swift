@@ -41,9 +41,38 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     
+    //Team2 string is hardcoded here
+    
+    /*
+     let opponentTeamNameController = UIAlertController(title: "Enter Opponent Team Name", message: "", preferredStyle: .alert)
+    
+    opponentTeamNameController.addTextField { (textField : UITextField!) -> Void in
+    textField.placeholder = "Opponent Team Name"
+    }
+    
+    let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+        let firstTextField = opponentTeamNameController.textFields![0] as UITextField
+        let secondTextField = opponentTeamNameController.textFields![1] as UITextField
+    })
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
+    
+    opponentTeamNameController.addTextField { (textField : UITextField!) -> Void in
+    textField.placeholder = "Enter First Name"
+    }
+    
+    opponentTeamNameController.addAction(saveAction)
+    opponentTeamNameController.addAction(cancelAction)
+    
+    self.present(opponentTeamNameController, animated: true, completion: nil)
+     */
+    
+    
+    
+    
     
     var opponentTeam: String = "Team2"
-    var teamName: String = UserDefaults.standard.string(forKey: "tid")!
+    var teamName: String =  UserDefaults.standard.string(forKey: "tid")!
     @IBOutlet weak var gameSummaryTitle: UILabel!
     
     @IBOutlet weak var gameChart: LineChartView!
@@ -102,6 +131,9 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
+        
+        self.gameSummaryTitle.isUserInteractionEnabled = true
+        self.gameSummaryTitle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChangeOpponentTeamName)))
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
@@ -123,6 +155,25 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
             subview.frame = bounds
         }
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func handleChangeOpponentTeamName(_: UITapGestureRecognizer) {
+        print ("hello world")
+        print (opponentTeam)
+        let ac = UIAlertController(title: "Enter new opponent team name", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Change Name", style: .default) { [unowned ac] _ in
+            let answer = ac.textFields![0]
+            self.opponentTeam = answer.text!
+        }
+        
+        ac.addAction(submitAction)
+        
+        present(ac, animated: true)
+        self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
+        print (opponentTeam)
+        // TODO: do stuff here
     }
     
     func addShotChartDots(pointList: [CGPoint], made: Bool){
