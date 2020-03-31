@@ -7,6 +7,7 @@
 //
 import UIKit
 import CircleAnimatedMenu
+import Device
 
 class ShotChartViewController: UIViewController {
     
@@ -36,8 +37,8 @@ class ShotChartViewController: UIViewController {
         if let touch = touches.first {
             shotLocation = touch.location(in: self.view)
             shotSelect(location: shotLocation)
-            print(shotLocation.x)
-            print(shotLocation.y)
+            print("x: \(shotLocation.x)")
+            print("y: \(shotLocation.y)")
         }
     }
     
@@ -58,8 +59,8 @@ class ShotChartViewController: UIViewController {
             ])
         self.shotMenu?.innerCircleColor = UIColor.clear
         self.shotMenu?.highlightedColor = UIColor.orange
-        self.shotMenu!.animated = false
-        self.shotMenu!.delegate = self
+        self.shotMenu?.animated = false
+        self.shotMenu?.delegate = self
         self.displayedSelection = true
         self.view.addSubview(self.shotMenu!)
     }
@@ -211,33 +212,31 @@ class ShotChartViewController: UIViewController {
         gameState["playSequence"] = playSequence
     }
     //Determines if a shot taken was a 3 pointer. TODO: These distances should be relative
-    func determineThreePoint(location: CGPoint) -> Bool{
-        var value = false
-        if(location.y > 594.5){
-            value = true
-        }
-        else{
-            if(location.x < 101.5 || location.x > 927.5){
-                value = true
+    func determineThreePoint(location: CGPoint) -> Bool {
+        var isThreePoint = false
+        
+        let screenWidth = Double(UIScreen.main.bounds.width)
+        let screenHeight = Double(UIScreen.main.bounds.height)
+        
+        let locationWidthPercentage = Double(location.x) / screenWidth
+        let locationHeightPercentage = Double(location.y) / screenHeight
+        
+        // If below bottom of curve, automatic three point
+        if(locationHeightPercentage > 0.7) { isThreePoint = true }
+        // If left or right of curve
+        else if locationWidthPercentage < 0.1 || locationWidthPercentage > 0.9 { isThreePoint = true }
+        else {
+            if(locationWidthPercentage < 0.5) {
+                let temp = 1.47 * location.x + 151.58
+                if(temp < location.y) { isThreePoint = true }
             }
             else{
-                if(location.x < 521){
-                    let temp = 1.47 * location.x + 151.58
-                    if(temp < location.y){
-                        value = true
-                    }
-                }
-                else{
-                    let temp = -1.64 * location.x + 1794.67
-                    if(temp < location.y){
-                        value = true
-                    }
-                }
+                let temp = -1.64 * location.x + 1794.67
+                if(temp < location.y) { isThreePoint = true }
             }
         }
-        return value
+        return isThreePoint
     }
-    
 }
 
 
