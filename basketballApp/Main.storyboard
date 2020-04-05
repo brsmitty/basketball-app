@@ -2332,6 +2332,18 @@
                                 <rect key="frame" x="468" y="620" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8oP-JP-y3M">
+                                <rect key="frame" x="281" y="450" width="200" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <state key="normal" title="Missed Final">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="finalShot:" destination="X2n-cM-7pe" eventType="touchDown" id="s0E-1H-yz3"/>
+                                </connections>
+                            </button>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AbY-2u-ob5">
                                 <rect key="frame" x="605" y="521" width="161" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2387,6 +2399,18 @@
                                     <segue destination="Gp3-rY-qcn" kind="embed" animates="NO" id="On0-Mz-bdU"/>
                                 </connections>
                             </containerView>
+                            <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EpX-0O-JS3">
+                                <rect key="frame" x="585" y="450" width="200" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <state key="normal" title="Made Final">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="finalShot:" destination="X2n-cM-7pe" eventType="touchDown" id="d5u-jP-bbm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4Jm-o5-vkw"/>
@@ -2397,6 +2421,8 @@
                         <outlet property="made1Button" destination="RzD-xd-hh1" id="f7A-0b-l5G"/>
                         <outlet property="made2Button" destination="NHX-ff-fL2" id="Cb8-Ec-6Fw"/>
                         <outlet property="made3Button" destination="AbY-2u-ob5" id="i8R-le-W4R"/>
+                        <outlet property="madeFinalButton" destination="EpX-0O-JS3" id="pmk-wX-2Yz"/>
+                        <outlet property="missedFinalButton" destination="8oP-JP-y3M" id="p1n-kY-84g"/>
                         <outlet property="playerImage" destination="zvb-GH-iiF" id="g48-Gq-eI0"/>
                         <segue destination="jGW-SO-mMU" kind="show" identifier="gameviewSegue2" animates="NO" id="jBy-OJ-BIB"/>
                     </connections>
@@ -3613,7 +3639,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JLz-X6-4FF">
-                                <rect key="frame" x="0.0" y="0.0" width="626" height="551"/>
+                                <rect key="frame" x="0.0" y="0.0" width="625" height="551"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubv-jm-E16">
@@ -3999,7 +4025,7 @@
             <objects>
                 <viewController id="Gp3-rY-qcn" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gK0-gT-G2k">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="312" height="731"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="W05-pH-FDa"/>
@@ -5304,13 +5330,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="rJb-1g-pbP"/>
         <segue reference="2w4-fN-nch"/>
-        <segue reference="JP8-mt-yTk"/>
-        <segue reference="j6g-zS-hft"/>
-        <segue reference="Xq5-II-Mit"/>
-        <segue reference="atr-rx-Imt"/>
+        <segue reference="On0-Mz-bdU"/>
         <segue reference="eEU-bC-Gvw"/>
         <segue reference="7C8-E9-oft"/>
-        <segue reference="oAY-0L-e2R"/>
+        <segue reference="jBy-OJ-BIB"/>
         <segue reference="Lnr-Ff-ZLn"/>
         <segue reference="xmA-tT-Tp1"/>
         <segue reference="hhv-Ks-6uJ"/>

@@ -20,6 +20,8 @@ class FreethrowViewController: UIViewController {
     @IBOutlet weak var made1Button: UIButton!
     @IBOutlet weak var made2Button: UIButton!
     @IBOutlet weak var made3Button: UIButton!
+    @IBOutlet weak var missedFinalButton: UIButton! //will press if last foul shot was missed
+    @IBOutlet weak var madeFinalButton: UIButton! //will press if last foul shot was made
     @IBOutlet weak var benchView: UIView!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,6 +29,12 @@ class FreethrowViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
+        //hide the Finalbuttons for now
+        missedFinalButton.isHidden = true
+        madeFinalButton.isHidden = true
+        missedFinalButton.tag = -1
+        
         made0Button.tag = 0
         made1Button.tag = 1
         //only display 2 and 3 point buttons if not and1
@@ -85,7 +93,29 @@ class FreethrowViewController: UIViewController {
         dismiss(animated: false)
     }
     
+    @IBAction func finalShot(_ sender: UIButton){
+        
+        //put the buttons back to normal display
+        made0Button.isHidden = true
+        made1Button.isHidden = true
+        made2Button.isHidden = true
+        made3Button.isHidden = true
+        missedFinalButton.isHidden = true
+        madeFinalButton.isHidden = true
+
+        goBack()
+    }
+    
     @IBAction func madeShots(_ sender: UIButton) {
+        
+        //display the final buttons, hide the others
+        missedFinalButton.isHidden = false
+        madeFinalButton.isHidden = false
+        
+        made0Button.isHidden = true
+        made1Button.isHidden = true
+        made2Button.isHidden = true
+        made3Button.isHidden = true
         
         if let player = shootingPlayer {
             
@@ -108,7 +138,7 @@ class FreethrowViewController: UIViewController {
             // not recording who on the opposing team took the free throws
         }
 //        self.performSegue(withIdentifier: "gameviewSegue2", sender: nil)
-        goBack()
+        
     }
     
 }
