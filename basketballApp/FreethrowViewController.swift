@@ -29,6 +29,12 @@ class FreethrowViewController: UIViewController {
     override func viewDidLoad() {
         made0Button.tag = 0
         made1Button.tag = 1
+        //only display 2 and 3 point buttons if not and1
+        if (gameState["and1Display"] as! Bool){
+            made2Button.isHidden = true
+            made3Button.isHidden = true
+        }
+        gameState["and1Display"] = false
         made2Button.tag = 2
         made3Button.tag = 3
         playerImage.layer.masksToBounds = false

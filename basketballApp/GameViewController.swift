@@ -72,6 +72,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                     "oppFullTimeouts": 3,
                                     "oppAnd1": false,
                                     "oppWasFouled" : false,
+                                    "and1Display" : false,
                                     "opponent": [:] as [String: [String: Any]],
                                     "dribbles": [:] as [String: Int]]
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
@@ -178,6 +179,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if (state == "shotMadeFoul") {
             /* if foul occured while taking a shot & shot was made */
             gameState["transitionState"] = "inProgress"
+            gameState["and1Display"] = true
             populateBench()
             populateActive()
             if gameState["possession"] as? String ?? "" == "offense" {
