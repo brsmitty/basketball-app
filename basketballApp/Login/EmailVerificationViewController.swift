@@ -61,7 +61,9 @@ class EmailVerificationViewController: UIViewController {
         let tid = String(format: "%f", NSDate().timeIntervalSince1970).replacingOccurrences(of: ".", with: "")
         
         //Adding user as document and, creating a team id from current time reference and adds team_id and team_name as fields to user id
-        let teamName = UserDefaults.standard.string(forKey: "team") ?? ""
+        //let teamName = UserDefaults.standard.string(forKey: "team") ?? ""
+        FireRoot.user.child(uid).setValue(["team": tid])
+        /*
         FireRoot.root.document(uid).setData(["team": tid, "team_name": teamName]){
             err in
             if let err = err{
@@ -70,6 +72,7 @@ class EmailVerificationViewController: UIViewController {
                 print("Added user and team name")
             }
         }
+ */
         storePersistentData(uid: uid, tid: tid)
     }
     

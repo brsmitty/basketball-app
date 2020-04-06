@@ -33,7 +33,7 @@ class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UI
         }
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
-            let statsDict = snapshot.data() ?? [:]
+            let statsDict = snapshot.dictionaryWithValues(forKeys: ["pid"])
             //Incomplete
             cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
             cell.charges.text = (statsDict[KPIKeys.charges.rawValue] as? NSNumber)?.stringValue

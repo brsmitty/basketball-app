@@ -104,6 +104,7 @@ class DBApi {
     func createGames() {
             
         var game_fields: [String: Any] = [:]
+        var game_info: [String: Any] = [:]
         //Initialize game fields
         for key in KPIKeys.allValues{
             game_fields[key.rawValue] = 0
@@ -111,10 +112,11 @@ class DBApi {
         //Additional game fields
         game_fields["score"] = 0
         game_fields["oppScore"] = 0
-        game_fields["title"] = ""
+        game_info["title"] = ""
         game_fields["timeScored"] = [] as [Double]
          
          //Creating a new game in the firebase
+        /*
          let game = FireRoot.games
              .addDocument(data: game_fields){
                  err in
@@ -124,13 +126,15 @@ class DBApi {
                      print("Added new game")
                  }
          }
-        
-        let gid = game.documentID
+ */
+        let game = FireRoot.games.childByAutoId()
+        let gid = game.key
         UserDefaults.standard.set(gid, forKey: "gid")
         
         //Setting the opponents stats and opponent ID to user defaults
         //Useful to update opponent's stats
         game_fields["oppName"] = ""
+        /*
         let oppId = FireRoot.games.document(gid).collection("opponent")
                     .addDocument(data: game_fields){
                        err in
@@ -140,9 +144,29 @@ class DBApi {
                            print("Added opponent")
                        }
                    }
-        UserDefaults.standard.set(oppId.documentID, forKey: "oppId")
-        
+ */
+        //TODO: add necessary fields to new game object
+        UserDefaults.standard.set(gid, forKey: "oppId")
+        var player_stats: [String: Any] = [:]
         //Setting the game under the player
+        let players = FireRoot.players
+        var numPlayers: Int = 0
+        players.observe(DataEventType.value, with: { indPlayer in
+            //let numPlayers = indPlayer.childrenCount
+            for plyr in indPlayer.children.allObjects as! [DataSnapshot] {
+                var playerGameStats: [String: Any] = [:]
+                for key in KPIKeys.allValues{
+                    playerGameStats[key.rawValue] = 0
+                }
+                //need to set value
+                player_stats = (["player_stats": playerGameStats])
+                numPlayers = numPlayers.advanced(by: 1)
+                
+                players.child(plyr.key).updateChildValues(player_stats)
+            }
+            
+        })
+        /*
         FireRoot.players.getDocuments(){
                 (querySnapshot, err) in
             if err != nil{
@@ -167,35 +191,37 @@ class DBApi {
                     }
                 }
         }
+ */
     }
     
     
     //MARK: Listen To Player Stats
     //Attach a listener to a player stat
-    func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
-        
-        let gid = UserDefaults.standard.string(forKey: "gid")
-        
-        //TO DO: Potential Bug fix for bug
-        /*guard gid != "" else {
-            // something went wrong finding the key-value
-            
-            return
-        }*/
-        
-        print("lISTENTOPLAYERSTAT \(UserDefaults.standard.string(forKey: "gid"))")
-        FireRoot.players.document(pid)
-            .collection("stats").document("gid")
+    func listenToPlayerStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
+        let gid = UserDefaults.standard.string(forKey: "gid")!
+        print("lISTENTOPLAYERSTAT \(String(describing: UserDefaults.standard.string(forKey: "gid")))")
+        FireRoot.games.child(gid).child("player_stats").child(pid).observe(DataEventType.value, with: { (snapshot) in
+            completion(snapshot)
+        })
+            /*
+            }
+            .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
             .addSnapshotListener{
                 (snapshot, err) in
                 //print(snapshot?.data())
                 completion(snapshot!)
         }
+ */
     }
     
     //MARK: Listen To Player Season Stats
     //Attach a listener to a player season stats
-    func listenToPlayerSeasonStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
+    func listenToPlayerSeasonStat(pid: String, completion: @escaping (DataSnapshot) -> Void){
+        print("lISTENTOPLAYERSTAT \(String(describing: UserDefaults.standard.string(forKey: "pid")))")
+        FireRoot.players.child(pid).child("season_stats").observe(DataEventType.value, with: { (snapshot) in
+            completion(snapshot)
+        })
+        /*
         FireRoot.players.document(pid)
             .collection("stats").document("season_stats")
             .addSnapshotListener{
@@ -205,28 +231,21 @@ class DBApi {
                 }
                 completion(snapshot!)
         }
+ */
     }
     
     //MARK: Listen To Game Score
     //Attach listener game score
-    func listenToGameScore(gid: String, side: String, completion: @escaping (DocumentSnapshot)->Void){
+    func listenToGameScore(gid: String, side: String, completion: @escaping (DataSnapshot)->Void){
+        
         if(side == "user"){
-            FireRoot.games.document(gid)
-                .addSnapshotListener{ (snapshot, err) in
-                    if err != nil{
-                        print("Problem getting score.")
-                    }
-                    completion(snapshot!)
-            }
+            FireRoot.games.child(gid).child("score").observe(DataEventType.value, with: { (snapshot) in
+                completion(snapshot)
+            })
         }else{
-            FireRoot.games.document(gid)
-                .collection("opponent").document(UserDefaults.standard.string(forKey: "oppId")!)
-                .addSnapshotListener{ (snapshot, err) in
-                    if err != nil{
-                        print("Problem getting score.")
-                    }
-                    completion(snapshot!)
-            }
+            FireRoot.games.child(gid).child("opp_score").observe(DataEventType.value, with: { (snapshot) in
+                completion(snapshot)
+            })
         }
     }
     
@@ -235,7 +254,18 @@ class DBApi {
     func getPlayers(completion: @escaping ([Player]) -> Void) {
         
         //Get players of user from the database
-        FireRoot.players.getDocuments(){
+        FireRoot.players.child(uid!).observe(DataEventType.value, with: { indPlayer in
+            //let numPlayers = indPlayer.childrenCount
+            var players = [Player]()
+            for plyr in indPlayer.children.allObjects as! [DataSnapshot] {
+                players.append(Player(dictionary: plyr.ref.dictionaryWithValues(forKeys: [self.uid!]), id: plyr.key))
+
+                completion(players)
+            }
+                
+        })
+        /*
+        getDocuments(){
                 (querySnapshot, err) in
             if err != nil {
                     print("Problem getting players from database")
@@ -247,6 +277,7 @@ class DBApi {
                     completion(players)
                 }
         }
+ */
     }
 
     //MARK: Storing Stats
@@ -256,289 +287,287 @@ class DBApi {
         //May need to do team stats
         let gid = UserDefaults.standard.string(forKey: "gid")!
         //Reference of player games stats
-        let refPlayer = FireRoot.players.document(pid)
-            .collection("stats").document(gid)
+        let refPlayer = FireRoot.games.child(gid).child("player_stats").child(pid)
         
         print("Seconds = \(seconds)")
         //Reference to player season stats
-        let refPlayerSeasons = FireRoot.players.document(pid)
-        .collection("stats").document("season_stats")
+        let refPlayerSeasons = FireRoot.players.child(pid).child("season_stats")
         
         //Reference to current game stats
-        let refGame = FireRoot.games.document(gid)
+        let refGame = FireRoot.games.child(gid)
         
         //Update the fields of the player stats during the game
         switch type.rawValue{
         case "2 point score":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "twoPtMade": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "twoPtMade": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "twoPtMade": FieldValue.increment(Int64(1))
             ])
             
         case "3 point score":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "threePtMade": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "threePtMade": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "threePtMade": FieldValue.increment(Int64(1))
             ])
 
         case "2 point missed FG" :
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "twoPtAtt": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "twoPtAtt": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "twoPtAtt": FieldValue.increment(Int64(1))
             ])
             
         case "3 point missed FG":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "threePtAtt": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "threePtAtt": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "threePtAtt": FieldValue.increment(Int64(1))
             ])
             
         case "free throw score":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "ftMade": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "ftMade": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "ftMade": FieldValue.increment(Int64(1))
             ])
             
         case "free throw attempt":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "ftAtt": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "ftAtt": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "ftAtt": FieldValue.increment(Int64(1))
            ])
             
         case "assist":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "assists": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "assists": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "assists": FieldValue.increment(Int64(1))
             ])
             
         case "turnover":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "turnovers": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "turnovers": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "turnovers": FieldValue.increment(Int64(1))
             ])
             
         case "offensive rebound":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "offRebound": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "offRebound": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "offRebound": FieldValue.increment(Int64(1))
             ])
             
         case "defensive rebound":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "defRebound": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "defRebound": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "defRebound": FieldValue.increment(Int64(1))
             ])
             
         case "steal":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "steals": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "steals": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "steals": FieldValue.increment(Int64(1))
             ])
             
         case "blocked shot":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "blocks": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "blocks": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "blocks": FieldValue.increment(Int64(1))
             ])
             
         case "deflection":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "deflections": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "deflections": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "deflections": FieldValue.increment(Int64(1))
             ])
             
         case "personal foul":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "personalFoul": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "personalFoul": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "personalFoul": FieldValue.increment(Int64(1))
             ])
             
         case "technical foul":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "techFoul": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "techFoul": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "techFoul": FieldValue.increment(Int64(1))
             ])
             
         case "charge taken":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "chargesTaken": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "chargesTaken": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "chargesTaken": FieldValue.increment(Int64(1))
             ])
             
         case "charge":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "charges": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "charges": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "charges": FieldValue.increment(Int64(1))
             ])
             
         case "substitution in":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "subIn": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "subIn": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "subIn": FieldValue.increment(Int64(1))
             ])
             
         case "substitution out":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "subOut": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "subOut": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "subOut": FieldValue.increment(Int64(1))
             ])
             
         case "jump ball win":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "jumpWon": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "jumpWon": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "jumpWon": FieldValue.increment(Int64(1))
             ])
             
         case "jump ball lost":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "jumpLost": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "jumpLost": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "jumpLost": FieldValue.increment(Int64(1))
             ])
             
         case "completed pass":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "pass": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "pass": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "pass": FieldValue.increment(Int64(1))
             ])
             
         case "3 second violation":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "3SecViolation": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "3SecViolation": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "3SecViolation": FieldValue.increment(Int64(1))
             ])
         case "flagrant foul":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "flagrantFoul": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "flagrantFoul": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "flagrantFoul": FieldValue.increment(Int64(1))
             ])
         case "dribble":
-            refPlayer.updateData([
+            refPlayer.updateChildValues([
                 "dribble": FieldValue.increment(Int64(1))
             ])
-            refPlayerSeasons.updateData([
+            refPlayerSeasons.updateChildValues([
                 "dribble": FieldValue.increment(Int64(1))
             ])
-            refGame.updateData([
+            refGame.updateChildValues([
                 "dribble": FieldValue.increment(Int64(1))
             ])
         default:
@@ -552,12 +581,12 @@ class DBApi {
     func adjustScore(type: Statistic, pid: String, seconds: Double, tid : String) {
         
         //Setting path to update the scores
-        let path : DocumentReference
+        let path : DatabaseReference
         if(tid == UserDefaults.standard.string(forKey: "gid")){
-            path = FireRoot.games.document(tid)
+            path = FireRoot.games.child(tid)
         }else{
-            path = FireRoot.games.document(UserDefaults.standard.string(forKey: "gid")!)
-                .collection("opponent").document(tid)
+            path = FireRoot.games.child(UserDefaults.standard.string(forKey: "gid")!)
+                .child("opp_score")
         }
         
         var points: Int
@@ -565,30 +594,28 @@ class DBApi {
         case .freeThrow:
             points = 1
             //Update the time scored
-            path.updateData(["timeScored": FieldValue.arrayUnion([seconds])])
+            path.updateChildValues(["timeScored": FieldValue.arrayUnion([seconds])])
         case .score2:
             points = 2
-            path.updateData(["timeScored": FieldValue.arrayUnion([seconds])])
+            path.updateChildValues(["timeScored": FieldValue.arrayUnion([seconds])])
         case .score3:
             points = 3
-            path.updateData(["timeScored": FieldValue.arrayUnion([seconds])])
+            path.updateChildValues(["timeScored": FieldValue.arrayUnion([seconds])])
         default: return
         }
         currentGameScore += points
         
         //Update the score in the database
-        path.updateData(["score" : FieldValue.increment(Int64(points))])
+        path.updateChildValues(["score" : FieldValue.increment(Int64(points))])
         
         if(tid == UserDefaults.standard.string(forKey: "gid")){
             //Update the players score for game
-            FireRoot.players.document(pid)
-                .collection("stats").document(UserDefaults.standard.string(forKey: "gid")!)
-                .updateData(["points": FieldValue.increment(Int64(points))])
+            FireRoot.games.child(UserDefaults.standard.string(forKey: "gid")!).child("player_stats").child(pid).updateChildValues(["points": FieldValue.increment(Int64(points))])
+            
         
             //Update the players score in season stats
-            FireRoot.players.document(pid)
-                .collection("stats").document("season_stats")
-                .updateData(["points": FieldValue.increment(Int64(points))])
+            FireRoot.players.child(pid).child("player_info").updateChildValues(["points": FieldValue.increment(Int64(points))])
+            
         }
     }
     
