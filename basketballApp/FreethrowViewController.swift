@@ -95,6 +95,11 @@ class FreethrowViewController: UIViewController {
     
     @IBAction func finalShot(_ sender: UIButton){
         
+        if sender.tag == -1 {
+            //missed final shot
+            gameState["missedFinalFT"] = true
+        }
+        
         //put the buttons back to normal display
         made0Button.isHidden = true
         made1Button.isHidden = true
@@ -107,15 +112,6 @@ class FreethrowViewController: UIViewController {
     }
     
     @IBAction func madeShots(_ sender: UIButton) {
-        
-        //display the final buttons, hide the others
-        missedFinalButton.isHidden = false
-        madeFinalButton.isHidden = false
-        
-        made0Button.isHidden = true
-        made1Button.isHidden = true
-        made2Button.isHidden = true
-        made3Button.isHidden = true
         
         if let player = shootingPlayer {
             
@@ -138,6 +134,24 @@ class FreethrowViewController: UIViewController {
             // not recording who on the opposing team took the free throws
         }
 //        self.performSegue(withIdentifier: "gameviewSegue2", sender: nil)
+        
+        //if the made2 button is hidden then we know its And1 and dont need to prompt,
+        //if made0 or made3 button was pressed we dont need to prompt for final shot outcome
+        if made2Button.isHidden || sender.tag == 0 || sender.tag == 3{
+            if sender.tag == 0 {
+                gameState["missedFinalFT"] = true
+            }
+            goBack()
+        }else{
+            //display the final buttons, hide the others
+            missedFinalButton.isHidden = false
+            madeFinalButton.isHidden = false
+            
+            made0Button.isHidden = true
+            made1Button.isHidden = true
+            made2Button.isHidden = true
+            made3Button.isHidden = true
+        }
         
     }
     

@@ -73,6 +73,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                     "oppAnd1": false,
                                     "oppWasFouled" : false,
                                     "and1Display" : false,
+                                    "missedFinalFT" : false, //if last foul shot was missed
                                     "opponent": [:] as [String: [String: Any]],
                                     "dribbles": [:] as [String: Int]]
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
@@ -156,10 +157,18 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             gameState["transitionState"] = "inProgress"
             populateBench()
             populateActive()
-            if(gameState["possession"] as! String == "offense"){
-                switchToDefense()
-            } else {
-                switchToOffense()
+            
+            //first check if final free throw was missed, if not do normal possession switch
+            if(gameState["missedFinalFT"] as! Bool == true){
+                //go to rebound logic
+                gameState["missedFinalFT"] = false
+                handleRebound()
+            }else{
+                if(gameState["possession"] as! String == "offense"){
+                    switchToDefense()
+                } else {
+                    switchToOffense()
+                }
             }
         } else if(state == "shotFoul"){
             /* if foul occured while taking a shot */
