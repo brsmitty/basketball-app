@@ -254,7 +254,8 @@ class DBApi {
     func getPlayers(completion: @escaping ([Player]) -> Void) {
         
         //Get players of user from the database
-        FireRoot.players.child(uid!).observe(DataEventType.value, with: { indPlayer in
+        print("howdy folks")
+        FireRoot.players.child("player_info").child(uid!).observe(DataEventType.value, with: { indPlayer in
             //let numPlayers = indPlayer.childrenCount
             var players = [Player]()
             for plyr in indPlayer.children.allObjects as! [DataSnapshot] {
