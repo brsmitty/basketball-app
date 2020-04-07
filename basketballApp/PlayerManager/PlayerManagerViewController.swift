@@ -384,6 +384,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     dump(ref)
     
     let playerData : [String: Any] = ["team_id": tid,
+                                      "user_id": uid,
                                       "fName": players[currentPath.row].firstName,
                                       "lName": players[currentPath.row].lastName,
                                       "height": players[currentPath.row].height,
@@ -418,6 +419,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
     
       //Initialize player data
     let playerInfo : [String: Any] = ["team_id": tid,
+                                      "user_id": uid,
                                        "fName": firstName,
                                        "lName": lastName,
                                        "height": height,

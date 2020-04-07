@@ -254,16 +254,24 @@ class DBApi {
     func getPlayers(completion: @escaping ([Player]) -> Void) {
         
         //Get players of user from the database
-        print("howdy folks")
-        FireRoot.players.child("player_info").child(uid!).observe(DataEventType.value, with: { indPlayer in
+        //.child("player_info").child(uid!)
+        var count = 1
+        FireRoot.players.observe(DataEventType.value, with: { indPlayer in
             //let numPlayers = indPlayer.childrenCount
-            var players = [Player]()
-            for plyr in indPlayer.children.allObjects as! [DataSnapshot] {
-                players.append(Player(dictionary: plyr.ref.dictionaryWithValues(forKeys: [self.uid!]), id: plyr.key))
+            print(count)
+            print(indPlayer.childSnapshot(forPath: "player_info/user_id").value as Any )
+            print(self.uid!)
+            if(indPlayer.childSnapshot(forPath: "player_info/user_id").value as? String == self.uid!) {
+                var players = [Player]()
+                for plyr in indPlayer.children.allObjects as! [DataSnapshot] {
+                    players.append(Player(dictionary: plyr.ref.dictionaryWithValues(forKeys: [self.uid!]), id: plyr.key))
 
-                completion(players)
-            }
+                    completion(players)
+                }
+            count = count.advanced(by: 1)
                 
+            }
+            
         })
         /*
         getDocuments(){
