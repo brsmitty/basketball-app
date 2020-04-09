@@ -160,6 +160,27 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             //first check if final free throw was missed, if not do normal possession switch
             if(gameState["missedFinalFT"] as! Bool == true){
+                /*
+                 This is an attempt to mitigate a bug. Without this, a bug occurs when the
+                 opponent misses their last free throw and the player gets a defensive rebound.
+                 It first prompts for blame on the foul, but then the rebound prompt goes over that,
+                 and as a result of choosing defensive for the rebound it overlays a second blur view
+                 asking for responsibility for the rebound. This causes the game to break and the only
+                 way to fix it is to start over. Additionally, without this line, the blame text for who
+                 committed the foul would be upside down whenever the opponent missed the last free throw.
+                 
+                 As a result of this mitigation the only issue is that it does not ask who committed the foul
+                 when the opponent misses their last foul shot. - Alex Jacobs 4/8
+                */
+                if(gameState["possession"] as! String == "defense"){
+                    //clear last blurview
+                    if let blurView = self.blurView {
+                        blurView.removeFromSuperview()
+                        self.blurView = nil
+                        buttonsEnabled(true)
+                    }
+                }
+                
                 //go to rebound logic
                 gameState["missedFinalFT"] = false
                 handleRebound()
@@ -856,6 +877,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 case 0, 1, 2, 3, 4:
                     if let stat = gameState["selectingHomePlayerForStat"] as? Statistic,
                         let blurView = self.blurView {
+                        print(stat)
                         buttonsEnabled(true)
 
                         let active = gameState["active"] as! [Player]
