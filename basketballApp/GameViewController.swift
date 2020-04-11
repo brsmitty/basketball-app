@@ -71,6 +71,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                     "fullTimeouts": 3,
                                     "oppHalfTimeouts": 2,
                                     "oppFullTimeouts": 3,
+                                    "oppAnd1": false,
+                                    "oppWasFouled" : false,
                                     "opponent": [:] as [String: [String: Any]],
                                     "dribbles": [:] as [String: Int]]
     var panStartPoint = CGPoint() //beginning point of any given pan gesture
@@ -183,6 +185,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let index = gameState["ballIndex"] as! Int
                 handleFoul(player: active[index], userFoul: false, shotFoul: true)
             } else {
+                gameState["oppAnd1"] = true;
                 if let score = gameState["opponentScored"] as? Int {
                     gameState["opponentScored"] = nil
                     if score == 2 {
@@ -1052,8 +1055,11 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let homeFoulsText = String(format: "%02d", teamFouls)
             homeFouls.text = homeFoulsText
             if teamFouls >= 7 || shotFoul {
-//                gameState["fouledPlayer"] = player
+                //set oppWasFouled to true so that the assignment text doesnt end up upside down
+                gameState["oppWasFouled"] = true
                 selectHomePlayer(stat: .personalFoul, message: "Who committed the foul?")
+                //put the variable back to false
+                gameState["oppWasFouled"] = false
                 gameState["oppFreeThrow"] = true
                 performSegue(withIdentifier: "freethrowSegue", sender: nil)
             }
@@ -1689,11 +1695,16 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(cancelPlayerSelect), for: .touchUpInside)
         stack.addArrangedSubview(button)
-
-//      Alex Jacobs commented this out on 2/8 to seemingly fix the defensive foul text upside down bug
-//        if gameState["possession"] as? String ?? "" == "defense" {
-//            stack.transform = CGAffineTransform(rotationAngle: .pi)
-//        }
+        
+        //only flip the assignment text if on defense
+        if gameState["possession"] as? String ?? "" == "defense" {
+            //dont flip if opponent foul shot
+            if !(gameState["oppWasFouled"] as! Bool){
+                stack.transform = CGAffineTransform(rotationAngle: .pi)
+            }else{
+                gameState["oppWasFouled"] = false
+            }
+        }
 
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -1748,10 +1759,20 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 switch stat {
                 case .score2:
                     self.storeOpponentPoints(type: Statistic.score2, number: number, seconds: self.timeSeconds)
-                    self.switchToOffense()
+                    //only switch possession if not And1, otherwise possession will switch later
+                    if !(self.gameState["oppAnd1"] as! Bool){
+                        self.switchToOffense()
+                    }else{
+                        self.gameState["oppAnd1"] = false
+                    }
                 case .score3:
                     self.storeOpponentPoints(type: Statistic.score3, number: number, seconds: self.timeSeconds)
-                    self.switchToOffense()
+                    //only switch possession if not And1, otherwise possession will switch later
+                    if !(self.gameState["oppAnd1"] as! Bool){
+                        self.switchToOffense()
+                    }else{
+                        self.gameState["oppAnd1"] = false
+                    }
                 case .freeThrow:
                     self.storeOpponentPoints(type: Statistic.freeThrow, number: number, seconds: self.timeSeconds)
                 default: break
@@ -1759,19 +1780,21 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
 
-        let alert = UIAlertController(title: "Select a Player", message: nil, preferredStyle: .actionSheet)
-        alert.popoverPresentationController?.sourceView = addOppButton
-        for number in Array(opponent.keys) {
-            let num = Int(number) ?? 999
-            alert.addAction(UIAlertAction(title: "\(number)", style: .default, handler: { action in
-                completion(num)
-            }))
-        }
-        if alert.actions.count > 0 {
-            present(alert, animated: true)
-        } else {
+        //COMMENT OUT BY ALEX JACOBS 2/18 - CAUSES BUGS AND NOT USEFUL AT THE MOMENT
+        
+//        let alert = UIAlertController(title: "Select a Player", message: nil, preferredStyle: .actionSheet)
+//        alert.popoverPresentationController?.sourceView = addOppButton
+//        for number in Array(opponent.keys) {
+//            let num = Int(number) ?? 999
+//            alert.addAction(UIAlertAction(title: "\(number)", style: .default, handler: { action in
+//                completion(num)
+//            }))
+//        }
+//        if alert.actions.count > 0 {
+//            present(alert, animated: true)
+//        } else {
             completion(999)
-        }
+        //}
     }
 
     func buttonsEnabled(_ enabled: Bool) {
