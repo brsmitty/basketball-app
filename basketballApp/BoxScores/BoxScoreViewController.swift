@@ -37,16 +37,16 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
             //Incomplete
-            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
-            cell.charges.text = (statsDict[KPIKeys.charges.rawValue] as? NSNumber)?.stringValue
+            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.charges.text = (statsDict[KPIKeys.charges.rawValue] as? NSNumber)?.stringValue ?? "0"
             cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
-            cell.defensiveRebounds.text = (statsDict[KPIKeys.defensiveRebounds.rawValue] as? NSNumber)?.stringValue
-            cell.blocks.text = (statsDict[KPIKeys.blocks.rawValue] as? NSNumber)?.stringValue
-            cell.fieldGoals.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
-            cell.freeThrows.text = (statsDict[KPIKeys.foulShotsMade.rawValue] as? NSNumber)?.stringValue
-            cell.offensiveRebounds.text = (statsDict[KPIKeys.offensiveRebounds.rawValue] as? NSNumber)?.stringValue
-            cell.personalFouls.text = (statsDict[KPIKeys.personalFouls.rawValue] as? NSNumber)?.stringValue
-            cell.steals.text = (statsDict[KPIKeys.steals.rawValue] as? NSNumber)?.stringValue
+            cell.defensiveRebounds.text = (statsDict[KPIKeys.defensiveRebounds.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.blocks.text = (statsDict[KPIKeys.blocks.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.fieldGoals.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.freeThrows.text = (statsDict[KPIKeys.foulShotsMade.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.offensiveRebounds.text = (statsDict[KPIKeys.offensiveRebounds.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.personalFouls.text = (statsDict[KPIKeys.personalFouls.rawValue] as? NSNumber)?.stringValue ?? "0"
+            cell.steals.text = (statsDict[KPIKeys.steals.rawValue] as? NSNumber)?.stringValue ?? "0"
             cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
         }
         return cell
