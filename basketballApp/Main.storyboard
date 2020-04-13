@@ -2954,7 +2954,7 @@
                 <swipeGestureRecognizer direction="right" id="QQB-sS-8FN" userLabel="Player 5 Swipe"/>
                 <tapGestureRecognizer id="E2c-Of-Xbs"/>
             </objects>
-            <point key="canvasLocation" x="1795.8984374999998" y="-1809.375"/>
+            <point key="canvasLocation" x="1870" y="-1705"/>
         </scene>
         <!--MainMenu-->
         <scene sceneID="iNb-wP-Eb9">
@@ -4480,6 +4480,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaK-nd-7aW">
                                 <rect key="frame" x="0.0" y="664" width="245" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="jJQ-nk-8lE"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jZ6-su-rzM">
                                 <rect key="frame" x="247" y="664" width="205" height="99"/>
@@ -5264,18 +5267,30 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29V-fp-C9y">
                                 <rect key="frame" x="460" y="677" width="91" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="jGW-SO-mMU" kind="show" id="emA-sg-FFr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JtE-RQ-zhy">
                                 <rect key="frame" x="553" y="681" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="5be-5p-u9r" kind="show" id="HKs-Ns-1BJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ba-au-bVa">
                                 <rect key="frame" x="7" y="681" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="JOl-Fb-97a" kind="show" id="wAw-LG-8ku"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fej-zh-q7s">
                                 <rect key="frame" x="786" y="681" width="225" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="xxa-Al-2YM" kind="show" id="RPl-rc-v4s"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5329,16 +5344,15 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rJb-1g-pbP"/>
-        <segue reference="iIY-nF-rbF"/>
-        <segue reference="2w4-fN-nch"/>
+        <segue reference="OAx-zM-kIN"/>
         <segue reference="JP8-mt-yTk"/>
-        <segue reference="eEU-bC-Gvw"/>
-        <segue reference="7C8-E9-oft"/>
-        <segue reference="jBy-OJ-BIB"/>
+        <segue reference="j6g-zS-hft"/>
+        <segue reference="SkN-dG-bKG"/>
+        <segue reference="RSv-7O-Du1"/>
         <segue reference="Lnr-Ff-ZLn"/>
-        <segue reference="xmA-tT-Tp1"/>
+        <segue reference="jJQ-nk-8lE"/>
         <segue reference="hhv-Ks-6uJ"/>
-        <segue reference="CXO-Ho-pcW"/>
+        <segue reference="qSa-7c-GpM"/>
         <segue reference="ghn-UH-XNA"/>
     </inferredMetricsTieBreakers>
 </document>
