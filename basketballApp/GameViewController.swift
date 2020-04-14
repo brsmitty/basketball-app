@@ -677,6 +677,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let playerSubbingOut = activePlayers[activeIndex]
                 activePlayers[activeIndex] = playerSubbingIn
                 pushPlaySequence(event: "\(playerSubbingIn.firstName) subbed in")
+                playerSubbingIn.startedPlaying()
 
                 let full = !activePlayers.contains(where: { $0 == nil })
                 //if full {
@@ -687,6 +688,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 if (playerSubbingOut != nil) {
                     benchPlayers[benchIndex] = playerSubbingOut!
                     pushPlaySequence(event: "\(playerSubbingOut!.firstName) subbed out")
+                    playerSubbingOut?.stoppedPlaying()
                 } else {
                     benchPlayers.remove(at: benchIndex)
                 }

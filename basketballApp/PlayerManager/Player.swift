@@ -210,4 +210,11 @@ class Player: NSObject {
     func updateShotLocation(shotLocation: [Double]){
         self.shotLocation?.append(shotLocation)
     }
+    
+    func startedPlaying() {
+        
+    }
+    func stoppedPlaying() {
+        
+    }
 }
