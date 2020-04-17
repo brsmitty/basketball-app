@@ -4428,7 +4428,7 @@
         <!--AdminSettingsMiddleView-->
         <scene sceneID="quy-ER-Xdh">
             <objects>
-                <viewController title="AdminSettingsMiddleView" id="xxa-Al-2YM" sceneMemberID="viewController">
+                <viewController title="AdminSettingsMiddleView" id="xxa-Al-2YM" customClass="AdminSettingsViewController" customModule="basketballApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v2T-XX-OYm">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4477,6 +4477,7 @@
                                 <rect key="frame" x="23" y="20" width="46" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
+                                    <action selector="goBack:" destination="xxa-Al-2YM" eventType="touchDown" id="g6J-Zt-Btp"/>
                                     <segue destination="jGW-SO-mMU" kind="show" animates="NO" id="jzt-WF-VeB"/>
                                 </connections>
                             </button>
@@ -5358,11 +5359,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rJb-1g-pbP"/>
-        <segue reference="OAx-zM-kIN"/>
+        <segue reference="2w4-fN-nch"/>
         <segue reference="JP8-mt-yTk"/>
         <segue reference="j6g-zS-hft"/>
         <segue reference="SkN-dG-bKG"/>
-        <segue reference="RSv-7O-Du1"/>
+        <segue reference="jzt-WF-VeB"/>
         <segue reference="Lnr-Ff-ZLn"/>
         <segue reference="jJQ-nk-8lE"/>
         <segue reference="hhv-Ks-6uJ"/>
