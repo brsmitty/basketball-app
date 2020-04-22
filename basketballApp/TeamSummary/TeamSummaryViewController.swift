@@ -99,7 +99,10 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.delegate = self
         loadPlayers()
         
-        setDefaultViewStyle(view: self.lineUpRankingView)
+        let lineUpRect = CGRect(x: 50, y:50, width: 100, height:100)
+        lineUpRankingView = UIView(frame:lineUpRect)
+        //lineUpRankingView.backgroundColor = [UIColor.blue]
+        //setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
