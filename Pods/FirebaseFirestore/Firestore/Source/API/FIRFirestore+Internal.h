@@ -19,17 +19,26 @@
 #include <memory>
 #include <string>
 
-#include "Firestore/core/src/firebase/firestore/api/firestore.h"
-#include "Firestore/core/src/firebase/firestore/auth/credentials_provider.h"
-#include "Firestore/core/src/firebase/firestore/util/async_queue.h"
+#include "Firestore/core/src/api/firestore.h"
+#include "Firestore/core/src/auth/credentials_provider.h"
+#include "Firestore/core/src/util/async_queue.h"
 
 @class FIRApp;
 @class FSTFirestoreClient;
 @class FSTUserDataConverter;
 
+namespace firebase {
+namespace firestore {
+namespace remote {
+class FirebaseMetadataProvider;
+}  // namespace remote
+}  // namespace firestore
+}  // namespace firebase
+
 namespace api = firebase::firestore::api;
 namespace auth = firebase::firestore::auth;
 namespace model = firebase::firestore::model;
+namespace remote = firebase::firestore::remote;
 namespace util = firebase::firestore::util;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -52,15 +61,14 @@ NS_ASSUME_NONNULL_BEGIN
                     persistenceKey:(std::string)persistenceKey
                credentialsProvider:(std::shared_ptr<auth::CredentialsProvider>)credentialsProvider
                        workerQueue:(std::shared_ptr<util::AsyncQueue>)workerQueue
+          firebaseMetadataProvider:
+              (std::unique_ptr<remote::FirebaseMetadataProvider>)firebaseMetadataProvider
                        firebaseApp:(FIRApp *)app
                   instanceRegistry:(nullable id<FSTFirestoreInstanceRegistry>)registry;
 @end
 
 /** Internal FIRFirestore API we don't want exposed in our public header files. */
 @interface FIRFirestore (Internal)
-
-/** Checks to see if logging is is globally enabled for the Firestore client. */
-+ (BOOL)isLoggingEnabled;
 
 + (FIRFirestore *)recoverFromFirestore:(std::shared_ptr<api::Firestore>)firestore;
 

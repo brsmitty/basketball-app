@@ -14,12 +14,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "GULReachabilityChecker+Internal.h"
-#import "Private/GULReachabilityChecker.h"
-#import "Private/GULReachabilityMessageCode.h"
+#import "GoogleUtilities/Reachability/GULReachabilityChecker+Internal.h"
+#import "GoogleUtilities/Reachability/Private/GULReachabilityChecker.h"
+#import "GoogleUtilities/Reachability/Private/GULReachabilityMessageCode.h"
 
-#import <GoogleUtilities/GULLogger.h>
-#import <GoogleUtilities/GULReachabilityChecker.h>
+#import "GoogleUtilities/Logger/Private/GULLogger.h"
+#import "GoogleUtilities/Reachability/Private/GULReachabilityChecker.h"
 
 static GULLoggerService kGULLoggerReachability = @"[GULReachability]";
 #if !TARGET_OS_WATCH

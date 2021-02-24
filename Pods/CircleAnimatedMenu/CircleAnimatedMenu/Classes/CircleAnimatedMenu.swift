@@ -317,7 +317,7 @@ import Foundation
         textLayer.alignmentMode = kCAAlignmentCenter
         textLayer.isWrapped = true
         textLayer.truncationMode = kCATruncationEnd
-//        textLayer.font = CTFontCreateWithName(titleFont.fontName, titleFont.pointSize,  nil)
+        textLayer.font = CTFontCreateWithName(titleFont.fontName as CFString, 0.0, nil)
         textLayer.fontSize = titleFont.pointSize
         textLayer.string = ""
         
