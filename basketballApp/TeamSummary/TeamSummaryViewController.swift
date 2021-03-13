@@ -318,9 +318,9 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
             fatalError("The deqeued cell is not an instance of GameSummaryPlayerViewCell")
         }
         
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
-        }
+        //if indexPath.row % 2 == 0 {
+        //    cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+        //}
         
         let player = players[indexPath.row]
         print(UserDefaults.standard.string(forKey: "gid"))
