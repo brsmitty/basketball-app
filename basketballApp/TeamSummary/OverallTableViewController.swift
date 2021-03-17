@@ -27,7 +27,15 @@ class OverallTableViewController: UITableViewController {
         super.viewDidLoad()
         
         usFTs.text = "22"
-        
+        let usFTnum = Int(usFTs.text!)
+        if usFTnum! > 3
+        {
+            usFTs.textColor = UIColor.red
+        }
+        if usFTnum! < 2
+        {
+            usFTs.textColor = UIColor.green
+        }
         usTOs.sizeToFit()
         oppTOs.sizeToFit()
         
