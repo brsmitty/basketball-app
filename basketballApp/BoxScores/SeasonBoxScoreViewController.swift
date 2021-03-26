@@ -28,9 +28,9 @@ class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UI
         }
         print("Boxscore CELL: \(cell)")
         let player = players[indexPath.row]
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
-        }
+//        if indexPath.row % 2 == 0 {
+//            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+//        }
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
