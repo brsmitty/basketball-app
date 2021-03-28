@@ -42,6 +42,7 @@ class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
 
     
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
         super.viewDidLoad()
         PlaybookTableView.delegate = self
         PlaybookTableView.dataSource = self
