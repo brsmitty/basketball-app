@@ -89,8 +89,12 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     // holds the database reference to firebase
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
+   
     
     override func viewDidLoad() {
+        //self.view.backgroundColor = ColorLiteral
+        self.view.backgroundColor = UIColor.black
+        
         super.viewDidLoad()
         
         UserDefaults.standard.setValue(false, forKey: "admin")
@@ -140,7 +144,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     private func setDefaultViewStyle(view: UIView){
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 10.0
-        view.layer.borderColor = TeamSummaryViewController.borderColor
+       // view.layer.border = TeamSummaryViewController.borderColor
     }
     
     private func setDefaultButtonStyle(button: UIButton){
@@ -202,16 +206,21 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         gameChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
         gameChart.xAxis.axisMinimum = 0
         gameChart.xAxis.axisMaximum = 40
+        
+        
         gameChart.xAxis.drawGridLinesEnabled = false
-        gameChart.leftAxis.drawGridLinesEnabled = false
-        gameChart.rightAxis.drawGridLinesEnabled = false
+        
+        //Change made to see grid
+        gameChart.leftAxis.drawGridLinesEnabled = true
+        gameChart.rightAxis.drawGridLinesEnabled = true
+   
         gameChart.legend.drawInside = true
         gameChart.legend.yOffset = 150
         gameChart.legend.xOffset = 200
         gameChart.data = data
         
-        //gameChart.layer.borderWidth = 1.0
-        //gameChart.layer.cornerRadius = 10.0
+//        gameChart.layer.borderWidth = 1.0
+//        gameChart.layer.cornerRadius = 10.0
         //gameChart.layer.borderColor = MiddleViewController.borderColor
         
     }

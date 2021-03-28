@@ -99,6 +99,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     var uid: String = ""
     var tid: String = ""
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
         super.viewDidLoad()
 
         // setup the tableView for the different players

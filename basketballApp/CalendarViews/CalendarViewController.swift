@@ -22,6 +22,7 @@ class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, J
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.black
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode   = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false

@@ -76,6 +76,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
 
     var shotChartBounds: CGRect = CGRect()
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
         super.viewDidLoad()
         // setup the tableView for the different players
         self.tableView.dataSource = self
