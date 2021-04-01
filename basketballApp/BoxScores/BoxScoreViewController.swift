@@ -28,6 +28,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? BoxScoreTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
+        //boxScoreTitle.textColor = UIColor.white
         cell.textLabel?.textColor = UIColor.white
 
         print("Boxscore CELL: \(cell)")
@@ -121,6 +122,8 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black
         tableView.backgroundColor = UIColor.clear
+
+        UILabel.appearance().textColor = UIColor.white
 
         super.viewDidLoad()
 
