@@ -12,7 +12,7 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     //MARK: Properties
-    static let LightGrayBackground = UIColor(displayP3Red: 245/255, green: 245/255, blue: 255/255, alpha: 0.5)
+    static let LightGrayBackground = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1)
     @IBOutlet weak var tableView: UITableView!
     
     var players = [Player]()
@@ -28,12 +28,32 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerKPITableViewCell", for: indexPath) as? BoxScoreTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
+        cell.textLabel?.textColor = UIColor.white
+
         print("Boxscore CELL: \(cell)")
         let player = players[indexPath.row]
 //        if indexPath.row % 2 == 0 {
-//            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
 //        }
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
+        cell.playerName.textColor = UIColor.white
+        cell.totalPoints.textColor = UIColor.white
+        cell.charges.textColor = UIColor.white
+        cell.threePointers.textColor = UIColor.white
+        cell.defensiveRebounds.textColor = UIColor.white
+        cell.blocks.textColor = UIColor.white
+        cell.fieldGoals.textColor = UIColor.white
+        cell.freeThrows.textColor = UIColor.white
+        cell.offensiveRebounds.textColor = UIColor.white
+        cell.personalFouls.textColor = UIColor.white
+        cell.steals.textColor = UIColor.white
+        cell.twoPointers.textColor = UIColor.white
+        cell.minutesPlayed.textColor = UIColor.white
+        cell.rebounds.textColor = UIColor.white
+        cell.turnovers.textColor = UIColor.white
+        cell.plusMinus.textColor = UIColor.white
+        cell.playerEffeciencyRating.textColor = UIColor.white
+
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
             //Incomplete
@@ -100,6 +120,8 @@ class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableVi
     var tid: String = ""
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black
+        tableView.backgroundColor = UIColor.clear
+
         super.viewDidLoad()
 
         // setup the tableView for the different players
