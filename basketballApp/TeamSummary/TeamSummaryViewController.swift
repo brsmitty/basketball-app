@@ -37,7 +37,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    static let borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5).cgColor
+    static let borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).cgColor
     
     
     
@@ -94,7 +94,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         //self.view.backgroundColor = ColorLiteral
         self.view.backgroundColor = UIColor.black
-        
+        self.UsVsOppsView.backgroundColor = UIColor.clear
         super.viewDidLoad()
         
         UserDefaults.standard.setValue(false, forKey: "admin")
@@ -150,6 +150,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     private func setDefaultButtonStyle(button: UIButton){
         button.layer.borderWidth = 1.0
         button.layer.cornerRadius = 10.0
+        //button.layer.borderColor = TeamSummaryViewController.borderColor
     }
     
     func updateGraph(){
@@ -323,6 +324,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     //MARK: Player Metrics
     //Puts up player stats in the current game
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.backgroundColor = UIColor.clear
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameSummaryPlayerMetricCell", for: indexPath) as? GameSummaryTableViewCell else {
             fatalError("The deqeued cell is not an instance of GameSummaryPlayerViewCell")
         }
