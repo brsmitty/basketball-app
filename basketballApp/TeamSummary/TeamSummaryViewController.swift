@@ -80,6 +80,9 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var UsVsOppsView: UIView!
     @IBOutlet weak var tableViewWrapper: UIView!
     @IBOutlet weak var lineUpRankingView: UIView!
+    @IBOutlet weak var lineupViewWrapper: UIView!
+
+    
     
     
     
@@ -93,8 +96,9 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         //self.view.backgroundColor = ColorLiteral
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.clear
         self.UsVsOppsView.backgroundColor = UIColor.clear
+        self.lineUpRankingView.backgroundColor = UIColor.red
         super.viewDidLoad()
         
         UserDefaults.standard.setValue(false, forKey: "admin")
@@ -106,6 +110,14 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
+        setDefaultViewStyle(view: self.lineupViewWrapper)
+
+
+        self.UsVsOppsView.backgroundColor = UIColor.clear
+        self.lineUpRankingView.backgroundColor = UIColor.clear
+        self.tableViewWrapper.backgroundColor = UIColor.clear
+
+
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
@@ -144,6 +156,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     private func setDefaultViewStyle(view: UIView){
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 10.0
+        view.backgroundColor = UIColor.clear
        // view.layer.border = TeamSummaryViewController.borderColor
     }
     
@@ -184,11 +197,11 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
 //        opplineInfo.append(ChartDataEntry(x: 25.5, y: 88.9))
         
         let ourTeamLine = LineChartDataSet(entries: lineInfo, label: self.teamName)
-        ourTeamLine.colors = [UIColor.blue]
+        ourTeamLine.colors = [UIColor.green]
         ourTeamLine.drawCirclesEnabled = false
         
         let oppTeamLine = LineChartDataSet(entries: opplineInfo, label: self.opponentTeam)
-        oppTeamLine.colors = [NSUIColor.red]
+        oppTeamLine.colors = [UIColor.red]
         oppTeamLine.drawCirclesEnabled = false
         
         let data = LineChartData()
@@ -243,7 +256,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
                 self.uid = uId
             }
         }
-      settingsView.isHidden = true
+      //settingsView.isHidden = true
         getGames()
     }
     

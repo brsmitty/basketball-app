@@ -107,9 +107,11 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         
     }
     private func setDefaultViewStyle(view: UIView){
-        view.layer.borderWidth = 1.0
+        view.layer.borderWidth = 0.0
         view.layer.cornerRadius = 10.0
         view.layer.borderColor = TeamSummaryViewController.borderColor
+        //view.layer.borderColor = CGColor
+        view.backgroundColor = UIColor.clear
     }
     
     private func setHeatMapTintColors(view: UIImageView){

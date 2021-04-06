@@ -37,8 +37,8 @@ class SeasonOverallTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        usFTs.sizeToFit()
-        oppOts.sizeToFit()
+        //usFTs.sizeToFit()
+        //oppOts.sizeToFit()
         usFTGoal = 80
         oppFTGoal = 80
         usFTs.text = "71"
@@ -64,8 +64,8 @@ class SeasonOverallTableViewController: UITableViewController {
         }
 
 
-        usTOs.sizeToFit()
-        oppTOs.sizeToFit()
+        //usTOs.sizeToFit()
+        //oppTOs.sizeToFit()
         usTOs.text = "7"
         oppTOs.text = "9"
         usTOGoal = 12
@@ -92,8 +92,8 @@ class SeasonOverallTableViewController: UITableViewController {
 
 
 
-        usFGpercent.sizeToFit()
-        oppFGpercent.sizeToFit()
+        //usFGpercent.sizeToFit()
+        //oppFGpercent.sizeToFit()
         usFGpercent.text = "71"
         oppFGpercent.text = "68"
         usFGpercentGoal = 55
@@ -119,8 +119,8 @@ class SeasonOverallTableViewController: UITableViewController {
         }
 
 
-        usOreb.sizeToFit()
-        oppOreb.sizeToFit()
+        //usOreb.sizeToFit()
+        //oppOreb.sizeToFit()
         usOreb.text = "12"
         oppOreb.text = "7"
         usOrebGoal = 10
