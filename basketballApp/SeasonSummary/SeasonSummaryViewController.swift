@@ -118,7 +118,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.image = view.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        view.tintColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: 1)
+        view.tintColor = UIColor(red: 255, green: 0, blue: 0.2, alpha: 1)
     }
     
     private func setAccuracyLabels(){
@@ -163,7 +163,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     }
     
     private func setHeatMapView(view: UIView){
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: 1)
+        view.backgroundColor = UIColor(red: 255, green: 0, blue: 0.2, alpha: 1)
     }
 
     
