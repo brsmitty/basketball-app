@@ -37,7 +37,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    static let borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5).cgColor
+    static let borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).cgColor
     
     
     
@@ -80,6 +80,9 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var UsVsOppsView: UIView!
     @IBOutlet weak var tableViewWrapper: UIView!
     @IBOutlet weak var lineUpRankingView: UIView!
+    @IBOutlet weak var lineupViewWrapper: UIView!
+
+    
     
     
     
@@ -89,8 +92,13 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     // holds the database reference to firebase
     var databaseHandle:DatabaseHandle?
     // holds the users unique user ID
+   
     
     override func viewDidLoad() {
+        //self.view.backgroundColor = ColorLiteral
+        self.view.backgroundColor = UIColor.clear
+        self.UsVsOppsView.backgroundColor = UIColor.clear
+        self.lineUpRankingView.backgroundColor = UIColor.red
         super.viewDidLoad()
         
         UserDefaults.standard.setValue(false, forKey: "admin")
@@ -102,6 +110,14 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         setDefaultViewStyle(view: self.lineUpRankingView)
         setDefaultViewStyle(view: self.UsVsOppsView)
         setDefaultViewStyle(view: self.tableViewWrapper)
+        setDefaultViewStyle(view: self.lineupViewWrapper)
+
+
+        self.UsVsOppsView.backgroundColor = UIColor.clear
+        self.lineUpRankingView.backgroundColor = UIColor.clear
+        self.tableViewWrapper.backgroundColor = UIColor.clear
+
+
         self.gameSummaryTitle.text = teamName + " vs " + opponentTeam
         
         updateGraph()
@@ -140,12 +156,14 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     private func setDefaultViewStyle(view: UIView){
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 10.0
-        view.layer.borderColor = TeamSummaryViewController.borderColor
+        view.backgroundColor = UIColor.clear
+       // view.layer.border = TeamSummaryViewController.borderColor
     }
     
     private func setDefaultButtonStyle(button: UIButton){
         button.layer.borderWidth = 1.0
         button.layer.cornerRadius = 10.0
+        //button.layer.borderColor = TeamSummaryViewController.borderColor
     }
     
     func updateGraph(){
@@ -179,11 +197,11 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
 //        opplineInfo.append(ChartDataEntry(x: 25.5, y: 88.9))
         
         let ourTeamLine = LineChartDataSet(entries: lineInfo, label: self.teamName)
-        ourTeamLine.colors = [UIColor.blue]
+        ourTeamLine.colors = [UIColor.green]
         ourTeamLine.drawCirclesEnabled = false
         
         let oppTeamLine = LineChartDataSet(entries: opplineInfo, label: self.opponentTeam)
-        oppTeamLine.colors = [NSUIColor.red]
+        oppTeamLine.colors = [UIColor.red]
         oppTeamLine.drawCirclesEnabled = false
         
         let data = LineChartData()
@@ -202,16 +220,21 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         gameChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
         gameChart.xAxis.axisMinimum = 0
         gameChart.xAxis.axisMaximum = 40
+        
+        
         gameChart.xAxis.drawGridLinesEnabled = false
-        gameChart.leftAxis.drawGridLinesEnabled = false
-        gameChart.rightAxis.drawGridLinesEnabled = false
+        
+        //Change made to see grid
+        gameChart.leftAxis.drawGridLinesEnabled = true
+        gameChart.rightAxis.drawGridLinesEnabled = true
+   
         gameChart.legend.drawInside = true
         gameChart.legend.yOffset = 150
         gameChart.legend.xOffset = 200
         gameChart.data = data
         
-        //gameChart.layer.borderWidth = 1.0
-        //gameChart.layer.cornerRadius = 10.0
+//        gameChart.layer.borderWidth = 1.0
+//        gameChart.layer.cornerRadius = 10.0
         //gameChart.layer.borderColor = MiddleViewController.borderColor
         
     }
@@ -233,7 +256,7 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
                 self.uid = uId
             }
         }
-      settingsView.isHidden = true
+      //settingsView.isHidden = true
         getGames()
     }
     
@@ -314,13 +337,14 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
     //MARK: Player Metrics
     //Puts up player stats in the current game
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.backgroundColor = UIColor.clear
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameSummaryPlayerMetricCell", for: indexPath) as? GameSummaryTableViewCell else {
             fatalError("The deqeued cell is not an instance of GameSummaryPlayerViewCell")
         }
         
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
-        }
+//        if indexPath.row % 2 == 0 {
+//            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+//        }
         
         let player = players[indexPath.row]
         print(UserDefaults.standard.string(forKey: "gid"))

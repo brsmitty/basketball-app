@@ -57,9 +57,9 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonPlayerMetricsCell", for: indexPath) as? SeasonPlayerMetricsTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player KPITableViewCell")
         }
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
-        }
+//        if indexPath.row % 2 == 0 {
+//            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+//        }
         let player = players[indexPath.row]
         print("Player \(player.playerId)")
         cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
@@ -76,6 +76,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
 
     var shotChartBounds: CGRect = CGRect()
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
         super.viewDidLoad()
         // setup the tableView for the different players
         self.tableView.dataSource = self
@@ -106,16 +107,18 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         
     }
     private func setDefaultViewStyle(view: UIView){
-        view.layer.borderWidth = 1.0
+        view.layer.borderWidth = 0.0
         view.layer.cornerRadius = 10.0
         view.layer.borderColor = TeamSummaryViewController.borderColor
+        //view.layer.borderColor = CGColor
+        view.backgroundColor = UIColor.clear
     }
     
     private func setHeatMapTintColors(view: UIImageView){
         view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.image = view.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        view.tintColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: 1)
+        view.tintColor = UIColor(red: 255, green: 0, blue: 0.2, alpha: 1)
     }
     
     private func setAccuracyLabels(){
@@ -160,7 +163,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     }
     
     private func setHeatMapView(view: UIView){
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0.2, alpha: 1)
+        view.backgroundColor = UIColor(red: 255, green: 0, blue: 0.2, alpha: 1)
     }
 
     

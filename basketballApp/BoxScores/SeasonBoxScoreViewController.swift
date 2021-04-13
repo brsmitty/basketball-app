@@ -26,11 +26,13 @@ class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UI
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeasonBoxScoreCell", for: indexPath) as? SeasonBoxScoreTableViewCell else {
             fatalError("The deqeued cell is not an instance of Player SeasonBoxScoreCell")
         }
+        cell.textLabel?.textColor = UIColor.white
+
         print("Boxscore CELL: \(cell)")
         let player = players[indexPath.row]
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = BoxScoreViewController.LightGrayBackground
-        }
+//        if indexPath.row % 2 == 0 {
+        cell.backgroundColor = BoxScoreViewController.LightGrayBackground
+//        }
         cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
         DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
@@ -97,6 +99,11 @@ class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UI
     var uid: String = ""
     var tid: String = ""
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
+        tableView.backgroundColor = UIColor.clear
+
+        UILabel.appearance().textColor = UIColor.white
+        
         super.viewDidLoad()
         
         // setup the tableView for the different players

@@ -21,24 +21,130 @@ class OverallTableViewController: UITableViewController {
     @IBOutlet weak var oppOreb: UILabel!
     
     @IBOutlet weak var usFTs: UILabel!
-    @IBOutlet weak var oppOts: UILabel!
+    //I think this is a misspelling but it breaks other stuff when I change it
+        @IBOutlet weak var oppOts: UILabel!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        usFTs.text = "22"
-        
-        usTOs.sizeToFit()
-        oppTOs.sizeToFit()
-        
-        usFGpercent.sizeToFit()
-        oppFGpercent.sizeToFit()
-        
-        usOreb.sizeToFit()
-        oppOreb.sizeToFit()
-        
-        usFTs.sizeToFit()
-        oppOts.sizeToFit()
+        var usTOGoal: Int!
+        var usFGpercentGoal: Int!
+        var usFTGoal: Int!
+        var usOrebGoal: Int!
+    
+        var oppTOGoal: Int!
+        var oppFGpercentGoal: Int!
+        var oppFTGoal: Int!
+        var oppOrebGoal: Int!
+
+
+        override func viewDidLoad() {
+            super.viewDidLoad()
+
+            usFTs.sizeToFit()
+            oppOts.sizeToFit()
+            usFTGoal = 80
+            oppFTGoal = 80
+            usFTs.text = "76"
+            oppOts.text = "88"
+            let usFTnum = Int(usFTs.text!)
+            if usFTnum! > usFTGoal
+            {
+                usFTs.textColor = UIColor.red
+            }
+            if usFTnum! < usFTGoal
+            {
+                usFTs.textColor = UIColor.green
+            }
+            
+            let oppFTnum = Int(oppOts.text!)
+            if oppFTnum! > oppFTGoal
+            {
+                oppOts.textColor = UIColor.red
+            }
+            if oppFTnum! < oppFTGoal
+            {
+                oppOts.textColor = UIColor.green
+            }
+
+
+            usTOs.sizeToFit()
+            oppTOs.sizeToFit()
+            usTOs.text = "10"
+            oppTOs.text = "12"
+            usTOGoal = 12
+            oppTOGoal = 12
+            let usTOnum = Int(usTOs.text!)
+            if usTOnum! > usTOGoal
+            {
+                usTOs.textColor = UIColor.red
+            }
+            if usTOnum! < usTOGoal
+            {
+                usTOs.textColor = UIColor.green
+            }
+            
+            let oppTOnum = Int(oppTOs.text!)
+            if oppTOnum! > oppTOGoal
+            {
+                oppTOs.textColor = UIColor.red
+            }
+            if oppTOnum! < oppTOGoal
+            {
+                oppTOs.textColor = UIColor.green
+            }
+
+
+
+            usFGpercent.sizeToFit()
+            oppFGpercent.sizeToFit()
+            usFGpercent.text = "61"
+            oppFGpercent.text = "63"
+            usFGpercentGoal = 55
+            oppFGpercentGoal = 55
+            let usFGpercentnum = Int(usFGpercent.text!)
+            if usFGpercentnum! > usFGpercentGoal
+            {
+                usFGpercent.textColor = UIColor.red
+            }
+            if usFGpercentnum! < usFGpercentGoal
+            {
+                usFGpercent.textColor = UIColor.green
+            }
+            
+            let oppFGpercentnum = Int(oppFGpercent.text!)
+            if oppFGpercentnum! > oppFGpercentGoal
+            {
+                oppFGpercent.textColor = UIColor.red
+            }
+            if oppFGpercentnum! < oppFGpercentGoal
+            {
+                oppFGpercent.textColor = UIColor.green
+            }
+
+
+            usOreb.sizeToFit()
+            oppOreb.sizeToFit()
+            usOreb.text = "12"
+            oppOreb.text = "6"
+            usOrebGoal = 10
+            oppOrebGoal = 10
+            let usOrebnum = Int(usOreb.text!)
+            if usOrebnum! > usOrebGoal
+            {
+                usOreb.textColor = UIColor.red
+            }
+            if usOrebnum! < usOrebGoal
+            {
+                usOreb.textColor = UIColor.green
+            }
+            
+            let oppOrebnum = Int(oppOreb.text!)
+            if oppOrebnum! > oppOrebGoal
+            {
+                oppOreb.textColor = UIColor.red
+            }
+            if oppOrebnum! < oppOrebGoal
+            {
+                oppOreb.textColor = UIColor.green
+            }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -56,7 +162,7 @@ class OverallTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 4
     }
 
     /*

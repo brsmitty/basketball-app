@@ -12,8 +12,6 @@ import FirebaseDatabase
 import FirebaseAuth
 
 
-
-
 class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
    
    var storedPlaybooks : [String] = []
@@ -42,6 +40,11 @@ class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
 
     
     override func viewDidLoad() {
+        
+        self.view.backgroundColor = UIColor.black
+        tableView.backgroundColor = UIColor.clear
+
+        UILabel.appearance().textColor = UIColor.white
         super.viewDidLoad()
         PlaybookTableView.delegate = self
         PlaybookTableView.dataSource = self

@@ -21,6 +21,7 @@ class ScheduleViewController: UIViewController {
     var uid: String = ""
     var tid: String = ""
    override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
         super.viewDidLoad()
       
         // Do any additional setup after loading the view.

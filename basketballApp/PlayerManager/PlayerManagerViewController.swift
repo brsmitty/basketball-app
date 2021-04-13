@@ -94,6 +94,7 @@ class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITa
    
    // MARK: Functions
    override func viewDidLoad() {
+      self.view.backgroundColor = UIColor.black
       super.viewDidLoad()
       
       // setup the tableView for the different players

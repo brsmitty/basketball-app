@@ -24,6 +24,7 @@ class EmailVerificationViewController: UIViewController {
    @IBOutlet var resendCodeButton: UIButton!
    
    override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
         super.viewDidLoad()
         emailVerification()
     }

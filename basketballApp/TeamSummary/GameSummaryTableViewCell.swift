@@ -18,6 +18,17 @@ class GameSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var threePointers: UILabel!
     @IBOutlet weak var plusMinus: UILabel!
     
+    @IBOutlet weak var turnoverPercent: UILabel!
+    @IBOutlet weak var effectiveFGPercent: UILabel!
+    @IBOutlet weak var offensiveReboundPercent: UILabel!
+    @IBOutlet weak var freeThrow: UILabel!
+    
+    @IBOutlet weak var player1: UILabel!
+    @IBOutlet weak var player2: UILabel!
+    @IBOutlet weak var player3: UILabel!
+    @IBOutlet weak var player4: UILabel!
+    @IBOutlet weak var player5: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

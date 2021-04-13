@@ -20,6 +20,8 @@ class PlaybookDetailViewController: UIViewController{
     var fileName : String?
    
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.black
+
       super.viewDidLoad()
       
       addButton.layer.cornerRadius = 5

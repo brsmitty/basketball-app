@@ -54,6 +54,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    @IBOutlet weak var addLineupButton: UIButton!
    
    override func viewDidLoad() {
+    self.view.backgroundColor = UIColor.black
       super.viewDidLoad()
       
       self.tableView.delegate = self
