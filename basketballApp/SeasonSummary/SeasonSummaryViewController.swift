@@ -62,13 +62,65 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
 //        }
         let player = players[indexPath.row]
         print("Player \(player.playerId)")
-        cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
+        cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
+        let OREB = Int.random(in: 2...15)
+        let OREBgoal = 10
+        
+        let TOP = Int.random(in: 2...15)
+        let TOPgoal = 10
+        
+        let EFG = Int.random(in: 54...78)
+        let EFGgoal = 60
+        
+        let FTP = Int.random(in: 50...100)
+        let FTPgoal = 75
+        
+        if(EFG<EFGgoal - 3)
+        {
+            cell.totalPoints.textColor = UIColor.red
+        }
+        if(EFG>EFGgoal + 5)
+        {
+            cell.totalPoints.textColor = UIColor.green
+        }
+        cell.totalPoints.text = String(EFG) + "%"
+        
+        if(FTP<FTPgoal - 5)
+        {
+            cell.threePointers.textColor = UIColor.red
+        }
+        if(FTP>FTPgoal + 5)
+        {
+            cell.threePointers.textColor = UIColor.green
+        }
+        cell.threePointers.text = String(FTP) + "%"
+        
+        if(OREB<OREBgoal - 1)
+        {
+            cell.twoPointers.textColor = UIColor.red
+        }
+        if(OREB>OREBgoal + 2)
+        {
+            cell.twoPointers.textColor = UIColor.green
+        }
+        cell.twoPointers.text = String(OREB) + "%"
+        
+        if(TOP<TOPgoal - 1)
+        {
+            cell.minutesPlayed.textColor = UIColor.red
+        }
+        if(TOP>TOPgoal + 2)
+        {
+            cell.minutesPlayed.textColor = UIColor.green
+        }
+        cell.minutesPlayed.text = String(TOP) + "%"
+        
         DBApi.sharedInstance.listenToPlayerSeasonStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
             //Needs minutesPlayed and plusminus
-            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
-            cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
-            cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+            //cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
+            //cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "1") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+            //cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
         }
         return cell
     }
@@ -163,7 +215,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     }
     
     private func setHeatMapView(view: UIView){
-        view.backgroundColor = UIColor(red: 255, green: 0, blue: 0.2, alpha: 1)
+        view.backgroundColor = UIColor(red: 120, green: 0, blue: 0.2, alpha: 1)
     }
 
     

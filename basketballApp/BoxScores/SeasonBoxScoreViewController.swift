@@ -112,7 +112,7 @@ class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UI
         
         // Do any additional setup after loading the view.
         loadPlayers()
-        self.boxScoreTitle.text = UserDefaults.standard.string(forKey: "tid")! + " vs " + self.opponentTeam
+        self.boxScoreTitle.text = "Season Stats"
     }
     
     

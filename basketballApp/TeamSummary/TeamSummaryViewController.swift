@@ -348,13 +348,70 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         
         let player = players[indexPath.row]
         print(UserDefaults.standard.string(forKey: "gid"))
-        cell.playerName.text = "-" + player.lastName + ", " + player.firstName.prefix(1) + "."
+        cell.playerName.text = player.lastName + ", " + player.firstName.prefix(1) + "."
+        
+        let OREB = Int.random(in: 2...15)
+        let OREBgoal = 10
+        
+        let TOP = Int.random(in: 2...15)
+        let TOPgoal = 10
+        
+        let EFG = Int.random(in: 54...78)
+        let EFGgoal = 60
+        
+        let FTP = Int.random(in: 50...100)
+        let FTPgoal = 75
+        
+        
+        if(OREB<OREBgoal - 1)
+        {
+            cell.totalPoints.textColor = UIColor.red
+        }
+        if(OREB>OREBgoal + 2)
+        {
+            cell.totalPoints.textColor = UIColor.green
+        }
+        cell.totalPoints.text = String(OREB) + "%"
+        
+        if(TOP<TOPgoal - 1)
+        {
+            cell.threePointers.textColor = UIColor.red
+        }
+        if(TOP>TOPgoal + 2)
+        {
+            cell.threePointers.textColor = UIColor.green
+        }
+        cell.threePointers.text = String(TOP) + "%"
+        
+        if(EFG<EFGgoal - 3)
+        {
+            cell.twoPointers.textColor = UIColor.red
+        }
+        if(EFG>EFGgoal + 5)
+        {
+            cell.twoPointers.textColor = UIColor.green
+        }
+        cell.twoPointers.text = String(EFG) + "%"
+        
+        if(FTP<FTPgoal - 5)
+        {
+            cell.plusMinus.textColor = UIColor.red
+        }
+        if(FTP>FTPgoal + 5)
+        {
+            cell.plusMinus.textColor = UIColor.green
+        }
+        cell.plusMinus.text = String(FTP) + "%"
+        
         DBApi.sharedInstance.listenToPlayerStat(pid: player.playerId){ snapshot in
             let statsDict = snapshot.data() ?? [:]
             //Needs minutesPlayed and plusminus
-            cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
-            cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
-            cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+            //cell.totalPoints.text = (statsDict[KPIKeys.points.rawValue] as? NSNumber)?.stringValue
+            cell.totalPoints.text = String(Int.random(in: 54...78))
+            cell.threePointers.text = String(Int.random(in: 2...8))
+            //cell.threePointers.text = ((statsDict[KPIKeys.threePointerstMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.threePointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
+            cell.twoPointers.text = String(Int.random(in: 10...15))
+            //cell.twoPointers.text = ((statsDict[KPIKeys.twoPointersMade.rawValue] as? NSNumber)?.stringValue ?? "0") + "-" + ((statsDict[KPIKeys.twoPointersAttempted.rawValue] as? NSNumber)?.stringValue ?? "0")
         }
         return cell
     }
