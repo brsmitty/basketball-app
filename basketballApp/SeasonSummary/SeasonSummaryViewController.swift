@@ -170,7 +170,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.image = view.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        view.tintColor = UIColor(red: 0.2, green: 0, blue: 0, alpha: 1)
+        view.tintColor = UIColor(red: 0, green: 0.2, blue: 0, alpha: 1)
     }
     
     private func setAccuracyLabels(){
@@ -197,7 +197,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         let random = randomPercent()
         let asFloat = CGFloat(random)
         label.text = String(random) + "%"
-        image.tintColor = UIColor(red: 0.8, green: 0, blue: 0, alpha: asFloat/100)
+        image.tintColor = UIColor(red: 0, green: 0.8, blue: 0, alpha: asFloat/100)
     }
     
     private func setLabel(view: UIView, set: Int){
@@ -207,7 +207,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
             }
         }
         let asFloat = CGFloat(set)
-        view.backgroundColor = UIColor(red: 0.8, green: 0, blue: 0, alpha: asFloat/100)
+        view.backgroundColor = UIColor(red: 0, green: 0.8, blue: 0, alpha: asFloat/100)
     }
     
     private func randomPercent() -> Int{
@@ -215,7 +215,7 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
     }
     
     private func setHeatMapView(view: UIView){
-        view.backgroundColor = UIColor(red: 120, green: 0, blue: 0, alpha: 1)
+        view.backgroundColor = UIColor(red: 0, green: 120, blue: 0, alpha: 1)
     }
 
     
