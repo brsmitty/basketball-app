@@ -9,7 +9,7 @@
 import XCTest
 @testable import basketballApp
 
-class middleViewUnitTests: XCTestCase {
+class TeamSummaryViewUnitTests: XCTestCase {
 
     var viewController: TeamSummaryViewController!
     

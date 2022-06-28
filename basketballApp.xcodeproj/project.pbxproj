@@ -58,7 +58,7 @@
 		3D182BD8226650BE0012DB2C /* newScheduleUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235F21B2E55800848C2D /* newScheduleUnitTests.swift */; };
 		3D182BD9226650BE0012DB2C /* shortChartViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD37A321B315F6005A1505 /* shortChartViewUnitTests.swift */; };
 		3D182BDB226650BE0012DB2C /* detailUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235D21B1A9A500848C2D /* detailUnitTests.swift */; };
-		3D182BDC226650BE0012DB2C /* middleViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */; };
+		3D182BDC226650BE0012DB2C /* TeamSummaryViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F817FB21B1C59F00D0BC0D /* TeamSummaryViewUnitTests.swift */; };
 		3D182BDD226650BE0012DB2C /* emailVerificationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */; };
 		3D182BDE226650BE0012DB2C /* passwordResetUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */; };
 		3D182BDF226650BE0012DB2C /* registerUserUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235721B0E5C600848C2D /* registerUserUnitTests.swift */; };
@@ -215,7 +215,7 @@
 		63C79FD821403292006726C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63C79FDA21403292006726C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63E879732146D21600B1A458 /* UserAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
-		63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewUnitTests.swift; sourceTree = "<group>"; };
+		63F817FB21B1C59F00D0BC0D /* TeamSummaryViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSummaryViewUnitTests.swift; sourceTree = "<group>"; };
 		83787F8BB75C9893C183EA6A /* Pods_basketballApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_basketballApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		972B1DCF235CF8FC001C915B /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		972B1DD1235CF98A001C915B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -342,7 +342,7 @@
 				98FD37A321B315F6005A1505 /* shortChartViewUnitTests.swift */,
 				98D39ABD21B2D484004ED224 /* gameViewUnitTests.swift */,
 				271F235D21B1A9A500848C2D /* detailUnitTests.swift */,
-				63F817FB21B1C59F00D0BC0D /* middleViewUnitTests.swift */,
+				63F817FB21B1C59F00D0BC0D /* TeamSummaryViewUnitTests.swift */,
 				271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */,
 				271F235921B0F1C000848C2D /* passwordResetUnitTests.swift */,
 				271F235721B0E5C600848C2D /* registerUserUnitTests.swift */,
@@ -855,7 +855,7 @@
 				3D182BD4226650BE0012DB2C /* playbookUnitTests.swift in Sources */,
 				3D182BA922664BB10012DB2C /* helper.swift in Sources */,
 				3D182BD2226650BE0012DB2C /* playbookViewControllerUnitTests.swift in Sources */,
-				3D182BDC226650BE0012DB2C /* middleViewUnitTests.swift in Sources */,
+				3D182BDC226650BE0012DB2C /* TeamSummaryViewUnitTests.swift in Sources */,
 				3D182BD7226650BE0012DB2C /* scheduleMasterUnitTests.swift in Sources */,
 				3D182BDE226650BE0012DB2C /* passwordResetUnitTests.swift in Sources */,
 				3D182BE0226650BE0012DB2C /* basketballAppUnitTests.swift in Sources */,
