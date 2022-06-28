@@ -50,4 +50,10 @@ class shortChartViewUnitTests: XCTestCase {
       XCTAssertTrue(viewController.determineThreePoint(location: shotLocation))
    }
 
+    func testThreePointShots5(){
+       var shotLocation: CGPoint = CGPoint.init()
+       shotLocation.x = 0
+       shotLocation.y = 0
+       XCTAssertTrue(viewController.determineThreePoint(location: shotLocation))
+    }
 }

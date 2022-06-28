@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E0B8B05286BB23A0055F4F2 /* lineupManageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC62E321790B8500DE6B08 /* lineupManageTests.swift */; };
+		0E0B8B06286BB23B0055F4F2 /* lineupManageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC62E321790B8500DE6B08 /* lineupManageTests.swift */; };
 		27123B592193C35600541774 /* BoxScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* BoxScoreViewController.swift */; };
 		27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B5A2193D56D00541774 /* BenchViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
@@ -848,6 +850,7 @@
 			files = (
 				3D182BE1226650C00012DB2C /* dbAPIUnitTests.swift in Sources */,
 				3D182BDD226650BE0012DB2C /* emailVerificationUnitTests.swift in Sources */,
+				0E0B8B05286BB23A0055F4F2 /* lineupManageTests.swift in Sources */,
 				3D182BD3226650BE0012DB2C /* playbookMasterUnitTests.swift in Sources */,
 				3D182BD4226650BE0012DB2C /* playbookUnitTests.swift in Sources */,
 				3D182BA922664BB10012DB2C /* helper.swift in Sources */,
@@ -880,6 +883,7 @@
 				3D182BC022664CFC0012DB2C /* DBApi.swift in Sources */,
 				3D182BCF22664E280012DB2C /* UIImageViewExtension.swift in Sources */,
 				3D182BC522664D310012DB2C /* ScheduleViewController.swift in Sources */,
+				0E0B8B06286BB23B0055F4F2 /* lineupManageTests.swift in Sources */,
 				3D182BC922664D550012DB2C /* PerformanceViewController.swift in Sources */,
 				3D182BC222664D170012DB2C /* Player.swift in Sources */,
 				3D182BBF22664CEE0012DB2C /* EmailVerificationViewController.swift in Sources */,

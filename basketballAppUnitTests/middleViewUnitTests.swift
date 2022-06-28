@@ -11,12 +11,12 @@ import XCTest
 
 class middleViewUnitTests: XCTestCase {
 
-    var viewController: MiddleViewController!
+    var viewController: TeamSummaryViewController!
     
     override func setUp() {
         super.setUp()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        viewController = (storyboard.instantiateViewController(withIdentifier: "MiddleView") as! MiddleViewController)
+        viewController = (storyboard.instantiateViewController(withIdentifier: "MiddleView") as! TeamSummaryViewController)
         let _ = viewController.view
     }
 
