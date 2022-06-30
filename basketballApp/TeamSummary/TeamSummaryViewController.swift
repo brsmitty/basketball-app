@@ -367,7 +367,8 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         {
             cell.totalPoints.textColor = UIColor.red
         }
-        if(OREB>OREBgoal + 2)
+        //if(OREB>OREBgoal + 2)
+        else
         {
             cell.totalPoints.textColor = UIColor.green
         }
@@ -377,7 +378,8 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         {
             cell.threePointers.textColor = UIColor.red
         }
-        if(TOP>TOPgoal + 2)
+        //if(TOP>TOPgoal + 2)
+        else
         {
             cell.threePointers.textColor = UIColor.green
         }
@@ -387,7 +389,8 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         {
             cell.twoPointers.textColor = UIColor.red
         }
-        if(EFG>EFGgoal + 5)
+        //if(EFG>EFGgoal + 5)
+        else
         {
             cell.twoPointers.textColor = UIColor.green
         }
@@ -397,7 +400,8 @@ class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableV
         {
             cell.plusMinus.textColor = UIColor.red
         }
-        if(FTP>FTPgoal + 5)
+        //if(FTP>FTPgoal + 5)
+        else
         {
             cell.plusMinus.textColor = UIColor.green
         }

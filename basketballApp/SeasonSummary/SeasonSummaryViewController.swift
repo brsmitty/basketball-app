@@ -79,7 +79,8 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         {
             cell.totalPoints.textColor = UIColor.red
         }
-        if(EFG>EFGgoal + 5)
+        //if(EFG>EFGgoal + 5)
+        else
         {
             cell.totalPoints.textColor = UIColor.green
         }
@@ -89,7 +90,8 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         {
             cell.threePointers.textColor = UIColor.red
         }
-        if(FTP>FTPgoal + 5)
+        //if(FTP>FTPgoal + 5)
+        else
         {
             cell.threePointers.textColor = UIColor.green
         }
@@ -99,7 +101,8 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         {
             cell.twoPointers.textColor = UIColor.red
         }
-        if(OREB>OREBgoal + 2)
+        //if(OREB>OREBgoal + 2)
+        else
         {
             cell.twoPointers.textColor = UIColor.green
         }
@@ -109,7 +112,8 @@ class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UIT
         {
             cell.minutesPlayed.textColor = UIColor.red
         }
-        if(TOP>TOPgoal + 2)
+        //if(TOP>TOPgoal + 2)
+        else
         {
             cell.minutesPlayed.textColor = UIColor.green
         }
