@@ -11,6 +11,12 @@
 		0E0B8B06286BB23B0055F4F2 /* lineupManageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC62E321790B8500DE6B08 /* lineupManageTests.swift */; };
 		0E0B8B0728735C6C0055F4F2 /* lineupUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46CC21766D8E00D565C4 /* lineupUITest.swift */; };
 		0E0B8B0828735C6D0055F4F2 /* lineupUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B46CC21766D8E00D565C4 /* lineupUITest.swift */; };
+		0E0B8B0A2874D51F0055F4F2 /* gestureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B3084217834E10010F3A6 /* gestureUITests.swift */; };
+		0E0B8B0C2874D52B0055F4F2 /* gestureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B3084217834E10010F3A6 /* gestureUITests.swift */; };
+		0E72BE792890B8DE00D40525 /* shotChartViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD37A321B315F6005A1505 /* shotChartViewUnitTests.swift */; };
+		0E72BE7A2890B8DE00D40525 /* shotChartViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD37A321B315F6005A1505 /* shotChartViewUnitTests.swift */; };
+		0E72BE7B2890BCDB00D40525 /* AdminSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C0B19C2447B01900315203 /* AdminSettingsViewController.swift */; };
+		0E72BE7C2890BCDC00D40525 /* AdminSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C0B19C2447B01900315203 /* AdminSettingsViewController.swift */; };
 		27123B592193C35600541774 /* BoxScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B582193C35600541774 /* BoxScoreViewController.swift */; };
 		27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27123B5A2193D56D00541774 /* BenchViewController.swift */; };
 		27185E1A2173EE1800B69950 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27185E192173EE1800B69950 /* PasswordResetViewController.swift */; };
@@ -57,7 +63,6 @@
 		3D182BD6226650BE0012DB2C /* scheduleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236321B3152200848C2D /* scheduleViewControllerTests.swift */; };
 		3D182BD7226650BE0012DB2C /* scheduleMasterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F236121B2E9D600848C2D /* scheduleMasterUnitTests.swift */; };
 		3D182BD8226650BE0012DB2C /* newScheduleUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235F21B2E55800848C2D /* newScheduleUnitTests.swift */; };
-		3D182BD9226650BE0012DB2C /* shotChartViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD37A321B315F6005A1505 /* shotChartViewUnitTests.swift */; };
 		3D182BDB226650BE0012DB2C /* detailUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235D21B1A9A500848C2D /* detailUnitTests.swift */; };
 		3D182BDC226650BE0012DB2C /* TeamSummaryViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F817FB21B1C59F00D0BC0D /* TeamSummaryViewUnitTests.swift */; };
 		3D182BDD226650BE0012DB2C /* emailVerificationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F235B21B0FD8A00848C2D /* emailVerificationUnitTests.swift */; };
@@ -108,7 +113,6 @@
 		987822E52191488600808AC4 /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987822E42191488600808AC4 /* TimerTest.swift */; };
 		98DD769921655F4F0010F5D0 /* PlaybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769821655F4F0010F5D0 /* PlaybookViewController.swift */; };
 		98DD769B2165C4330010F5D0 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD769A2165C4330010F5D0 /* PlaybookDetailViewController.swift */; };
-		C8C0B19D2447B01A00315203 /* AdminSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C0B19C2447B01900315203 /* AdminSettingsViewController.swift */; };
 		FCBD69C8234BDD820021E8FA /* FireRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBD69C7234BDD820021E8FA /* FireRoot.swift */; };
 /* End PBXBuildFile section */
 
@@ -850,20 +854,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D182BE1226650C00012DB2C /* dbAPIUnitTests.swift in Sources */,
+				0E0B8B0A2874D51F0055F4F2 /* gestureUITests.swift in Sources */,
 				3D182BDD226650BE0012DB2C /* emailVerificationUnitTests.swift in Sources */,
 				0E0B8B05286BB23A0055F4F2 /* lineupManageTests.swift in Sources */,
 				3D182BD3226650BE0012DB2C /* playbookMasterUnitTests.swift in Sources */,
 				3D182BD4226650BE0012DB2C /* playbookUnitTests.swift in Sources */,
 				3D182BA922664BB10012DB2C /* helper.swift in Sources */,
+				0E72BE7B2890BCDB00D40525 /* AdminSettingsViewController.swift in Sources */,
 				3D182BD2226650BE0012DB2C /* playbookViewControllerUnitTests.swift in Sources */,
 				3D182BDC226650BE0012DB2C /* TeamSummaryViewUnitTests.swift in Sources */,
 				3D182BD7226650BE0012DB2C /* scheduleMasterUnitTests.swift in Sources */,
+				0E72BE792890B8DE00D40525 /* shotChartViewUnitTests.swift in Sources */,
 				3D182BDE226650BE0012DB2C /* passwordResetUnitTests.swift in Sources */,
 				3D182BE0226650BE0012DB2C /* basketballAppUnitTests.swift in Sources */,
 				3D182BD6226650BE0012DB2C /* scheduleViewControllerTests.swift in Sources */,
 				0E0B8B0728735C6C0055F4F2 /* lineupUITest.swift in Sources */,
 				3D182BC322664D1A0012DB2C /* Player.swift in Sources */,
-				3D182BD9226650BE0012DB2C /* shotChartViewUnitTests.swift in Sources */,
 				3D182BDF226650BE0012DB2C /* registerUserUnitTests.swift in Sources */,
 				3D182BDB226650BE0012DB2C /* detailUnitTests.swift in Sources */,
 				3D182BD8226650BE0012DB2C /* newScheduleUnitTests.swift in Sources */,
@@ -882,12 +888,15 @@
 				3D182BC822664D4C0012DB2C /* GameViewController.swift in Sources */,
 				3D182BC722664D440012DB2C /* PlaybookMasterViewController.swift in Sources */,
 				3D182BC022664CFC0012DB2C /* DBApi.swift in Sources */,
+				0E72BE7C2890BCDC00D40525 /* AdminSettingsViewController.swift in Sources */,
 				3D182BCF22664E280012DB2C /* UIImageViewExtension.swift in Sources */,
+				0E72BE7A2890B8DE00D40525 /* shotChartViewUnitTests.swift in Sources */,
 				3D182BC522664D310012DB2C /* ScheduleViewController.swift in Sources */,
 				0E0B8B06286BB23B0055F4F2 /* lineupManageTests.swift in Sources */,
 				3D182BC922664D550012DB2C /* PerformanceViewController.swift in Sources */,
 				0E0B8B0828735C6D0055F4F2 /* lineupUITest.swift in Sources */,
 				3D182BC222664D170012DB2C /* Player.swift in Sources */,
+				0E0B8B0C2874D52B0055F4F2 /* gestureUITests.swift in Sources */,
 				3D182BBF22664CEE0012DB2C /* EmailVerificationViewController.swift in Sources */,
 				3D182BCE22664E180012DB2C /* BenchTableViewCell.swift in Sources */,
 				9770646A23832D92009487B2 /* GameSummaryTableViewCell.swift in Sources */,
@@ -947,7 +956,6 @@
 				6351C2C821A8913C00BF63F6 /* Action.swift in Sources */,
 				630E66EC21766973005EF4EB /* Game.swift in Sources */,
 				27123B5B2193D56D00541774 /* BenchViewController.swift in Sources */,
-				C8C0B19D2447B01A00315203 /* AdminSettingsViewController.swift in Sources */,
 				63C79FCF21403291006726C3 /* AppDelegate.swift in Sources */,
 				97398E2E237F239A0042B756 /* GameSummaryTableViewCell.swift in Sources */,
 				27A1D31021AE6A040023599C /* helper.swift in Sources */,

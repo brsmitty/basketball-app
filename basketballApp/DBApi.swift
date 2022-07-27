@@ -12,6 +12,9 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 
+/**
+ defined statistics
+ */
 enum Statistic: String {
     case score2 = "2 point score"
     case score3 = "3 point score"
@@ -41,7 +44,8 @@ enum Statistic: String {
     case dribble = "dribble"
 }
 
-//The keys of the performance indicators as they exist in the DB
+/**The keys of the performance indicators as they exist in the DB
+ */
 enum KPIKeys: String{
     case assists = "assists"
     case blocks = "blocks"
@@ -86,7 +90,8 @@ extension DBApi {
         return sorted.joined(separator: "&")
     }
 }
-
+ 
+/** defines API for the database*/
 class DBApi {
     static let sharedInstance = DBApi()
     let ref = Database.database().reference()
@@ -99,8 +104,10 @@ class DBApi {
     var currentGameScore: Int = 0
     
     //MARK: Create Games
-    //Create a new game by adding game ids for every player of the user
-    //For those of who are not playing then the stats of the player is 0
+    /**
+     Create a new game by adding game ids for every player of the user
+        - For those  who are not playing the stats of the player is 0
+     */
     func createGames() {
             
         var game_fields: [String: Any] = [:]
@@ -171,7 +178,7 @@ class DBApi {
     
     
     //MARK: Listen To Player Stats
-    //Attach a listener to a player stat
+    /**Attach a listener to a player stat*/
     func listenToPlayerStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         print("lISTENTOPLAYERSTAT \(UserDefaults.standard.string(forKey: "gid"))")
         guard let gid = UserDefaults.standard.string(forKey: "gid") else { return }
@@ -185,8 +192,7 @@ class DBApi {
         }
     }
     
-    //MARK: Listen To Player Season Stats
-    //Attach a listener to a player season stats
+    /**Attach a listener to a player season stats*/
     func listenToPlayerSeasonStat(pid: String, completion: @escaping (DocumentSnapshot) -> Void){
         FireRoot.players.document(pid)
             .collection("stats").document("season_stats")
@@ -199,8 +205,8 @@ class DBApi {
         }
     }
     
-    //MARK: Listen To Game Score
-    //Attach listener game score
+   
+    /**Attach listener game score*/
     func listenToGameScore(gid: String, side: String, completion: @escaping (DocumentSnapshot)->Void){
         if(side == "user"){
             FireRoot.games.document(gid)
@@ -222,8 +228,7 @@ class DBApi {
         }
     }
     
-    //MARK: Get Players
-    //Gets the players of the user, and passes it as an argument to a code block
+    /**Gets the players of the user, and passes it as an argument to a code block*/
     func getPlayers(completion: @escaping ([Player]) -> Void) {
         
         //Get players of user from the database
@@ -241,8 +246,8 @@ class DBApi {
         }
     }
 
-    //MARK: Storing Stats
-    //Storing stats into the database using pid
+    
+    /**Storing stats into the database using pid*/
     func storeStat(type: Statistic, pid: String, seconds: Double){
         
         //May need to do team stats
@@ -539,8 +544,8 @@ class DBApi {
         adjustScore(type: type, pid: pid, seconds: seconds, tid: gid)
     }
     
-    //MARK: Adjust Score
-    //updates the score of the current game
+    
+    /**updates the score of the current game*/
     func adjustScore(type: Statistic, pid: String, seconds: Double, tid : String) {
         
         //Setting path to update the scores
@@ -584,7 +589,6 @@ class DBApi {
         }
     }
     
-    //MARK: LEFT HERE FOR EXPANDABILITY
     /*
     //Subs players in and out and records the time they were subbed in and out in the lineup table (withing users and games)
     func switchLineup(to newLineupId: String, at gameTimeInSeconds: Int) {

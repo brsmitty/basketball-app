@@ -11,6 +11,11 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
+/**
+    functionality for settings page
+    - for getting timer label
+    - for saving
+ */
 class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource {
 
     @IBOutlet weak var timerLabel: UITextField!

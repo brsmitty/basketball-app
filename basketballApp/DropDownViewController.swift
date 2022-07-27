@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+/**
+ controls view for dropdown menu
+ */
 class DropDownViewController: UIViewController {
 
    @IBOutlet weak var logoutButton: UIButton!
@@ -22,6 +25,9 @@ class DropDownViewController: UIViewController {
     }
     
 
+    /**
+     provides logout feature
+     */
    @IBAction func logout(_ sender: UIButton) {
       let firebaseAuth = Auth.auth()
       do {

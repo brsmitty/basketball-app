@@ -8,6 +8,7 @@
 
 import UIKit
 
+/**defines a posession*/
 class Possession: NSObject {
     var actions: [Action]
     var removedActions: [Action]

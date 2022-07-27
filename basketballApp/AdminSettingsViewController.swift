@@ -7,7 +7,11 @@
 //
 
 import UIKit
-
+/**
+ Controls the admin settings view
+    - inherits from UIViewController
+    - defines back button
+ */
 class AdminSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -16,7 +20,9 @@ class AdminSettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    // for the back button on the admin settings page
+    /**
+     for the back button on the admin settings page
+     */
     @IBAction func goBack(_ sender: Any) {
         dismiss(animated: false, completion: nil)
     }

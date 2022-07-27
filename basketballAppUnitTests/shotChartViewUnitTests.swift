@@ -9,7 +9,7 @@
 import XCTest
 @testable import basketballApp
 
-class shortChartViewUnitTests: XCTestCase {
+class shotChartViewUnitTests: XCTestCase {
     var viewController: ShotChartViewController!
     
     override func setUp() {

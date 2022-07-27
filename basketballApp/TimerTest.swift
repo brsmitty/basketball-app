@@ -8,6 +8,14 @@
 
 import UIKit
 
+/**
+    Timer object, inherits from UIViewController
+ 
+    - start
+    - stop
+    - restart
+    - update counter
+ */
 class TimerTest: UIViewController {
     
     weak var timer: Timer?
