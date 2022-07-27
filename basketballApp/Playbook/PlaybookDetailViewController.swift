@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** more detailed controller of the playbook view*/
 class PlaybookDetailViewController: UIViewController{
     
     @IBOutlet weak var PlaybookName: UITextField!

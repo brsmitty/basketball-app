@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 
+/** controls functionality for resetting passwords*/
 class PasswordResetViewController: UIViewController, UITextFieldDelegate {
 
    @IBOutlet weak var emailField: LoginTextField!

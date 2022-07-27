@@ -13,6 +13,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import os.log
 
+/** handles logic for managing lineup*/
 class LineupManagerViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
    // MARK: Properties
@@ -138,7 +139,7 @@ class LineupManagerViewController: UIViewController, UINavigationControllerDeleg
    
    // MARK: Private Methods
    
-   // Creates a new lineup and stores their info in firebase
+   /** Creates a new lineup and stores their info in firebase*/
    func getLineups(){
       // Set up the references
         print("LINEUP HERe")

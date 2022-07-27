@@ -10,6 +10,9 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+/**
+ controls all functionality of the game view
+ */
 class GameViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 
@@ -348,8 +351,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    /** Get the user id and set it to the user id global variable*/
     func getUserId(){
-        // Get the user id and set it to the user id global variable
         Auth.auth().addStateDidChangeListener() { auth, user in
             if user != nil {
                 guard let uId = user?.uid else {return}
@@ -384,6 +387,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
     }
 
+    /** makes images rounded*/
     func roundImages(){
         imagePlayer1.layer.cornerRadius = imagePlayer1.frame.size.width/2
         imagePlayer1.clipsToBounds = true
@@ -402,6 +406,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
 
+    /** accesses database to get game roster*/
     func getRosterFromFirebase(){
         DBApi.sharedInstance.getPlayers { [weak self] players in
             guard let s = self else { return }
@@ -424,6 +429,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    /** creates player objects using data pulled from roster in database*/
     func createPlayerObjectsFromRoster(roster: [String: Any]){
         var i: Int = 0
         var players : [Player] = []
@@ -485,6 +491,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     //MARK: Update Upponent Functions
     //Only in-game not on database
+    /**add an opponent player to the game**/
     @objc func addOpponentPlayer() {
         let alert = UIAlertController(title: "Add Opponent Player", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
@@ -507,6 +514,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         present(alert, animated: true)
     }
 
+    /** insert the opponent player  given player number*/
     func insertOpponentPlayer(number: Int) {
         var opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         opp["\(number)"] = [
@@ -519,6 +527,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //updateOpponent()
     }
 
+    /** store the opponent's rebound given their player number*/
     func storeOpponentRebound(number: Int) {
         var opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         var oppPlayer = opp["\(number)"] ?? [:]
@@ -531,7 +540,8 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         pushPlaySequence(event: "#\(number) recorded a rebound")
     }
     
-    //Needs to store opponent stats 
+    //Needs to store opponent stats
+    /** store the opponent's points given the type of score, player number, and seconds*/
     func storeOpponentPoints(type: Statistic, number: Int, seconds: Double) {
         let opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         //let oppPlayer = opp["\(number)"] ?? [:]
@@ -554,6 +564,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         pushPlaySequence(event: "#\(number) recorded a point score")
     }
 
+    /** record opponent turnover given player number*/
     func storeOpponentTurnover(number: Int) {
         var opp = gameState["opponent"] as? [String: [String: Any]] ?? [:]
         var oppPlayer = opp["\(number)"] ?? [:]
@@ -591,6 +602,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return playSequence
     }
 
+    /** add players to bench*/
     func populateBench(){
         var i = 0
         for view in benchView.subviews {
@@ -625,6 +637,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    /** show the bench view*/
     @IBAction func showBench(_ sender: UIButton) {
         benchView.isHidden = false
         benchView.frame = CGRect(x: -self.benchWidth, y: 0, width: self.benchWidth, height: 595)
@@ -638,6 +651,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
     }
 
+    /** hide view of bench*/
     @IBAction func hideBench(_ sender: UITapGestureRecognizer) {
         if (sender.location(in: containerView).x > benchView.frame.width) {
             UIView.animate(withDuration: 0.3, animations: {
@@ -738,6 +752,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    /** displays offensive options*/
     func presentOffensiveOptions(index: Int){
         let offenseAlert = UIAlertController(title: "Not enough players on court", message: "", preferredStyle: .actionSheet)
         
@@ -771,6 +786,7 @@ class GameViewController: UIViewController, UITableViewDataSource, UITableViewDe
         present(offenseAlert, animated: false)
     }
 
+    /** handles logic for a jump ball*/
     func handleJumpball(index: Int){
         print("Possession: \(self.gameState["possession"] ?? "")")
         print("Arrow     : \(self.gameState["possessionArrow"] ?? "")")

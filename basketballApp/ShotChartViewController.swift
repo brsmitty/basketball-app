@@ -9,6 +9,14 @@ import UIKit
 import CircleAnimatedMenu
 import Device
 
+/**
+ controls view of shot chart
+    - handles fouls
+    - handles shots made
+    - handles cancelling a shot
+    - handles missed shots
+    - controls other ui functionality
+ */
 class ShotChartViewController: UIViewController {
     
     var gameState: [String: Any] = [:]
@@ -42,6 +50,7 @@ class ShotChartViewController: UIViewController {
         }
     }
     
+    /** conrtols functionality for selecting a shot*/
     @IBAction func shotSelect (location: CGPoint) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let resultVC = storyboard.instantiateViewController(withIdentifier: "shotPopover") as! ShotChartViewController
@@ -65,6 +74,7 @@ class ShotChartViewController: UIViewController {
         self.view.addSubview(self.shotMenu!)
     }
     
+    /** logic for going back to the previous state*/
     func goBack(){
         let parent = self.presentingViewController as! GameViewController
         parent.gameState = gameState
@@ -81,6 +91,7 @@ class ShotChartViewController: UIViewController {
         }
     }
     
+    /** handles logic for a foul*/
     func handleFoul(){
         if self.gameState["possession"] as! String == "offense" {
             let index = gameState["ballIndex"] as! Int
@@ -100,6 +111,10 @@ class ShotChartViewController: UIViewController {
         self.goBack()
     }
     
+    /**
+     handles logic for a shot that has been made
+        - param marks if shot is foul
+     */
     func madeShot(foul: Bool) {
         if (self.gameState["possession"] as! String == "offense") {
 
@@ -157,10 +172,12 @@ class ShotChartViewController: UIViewController {
         // self.performSegue(withIdentifier: "gameviewSeg", sender: self)
     }
     
+    /** handles logic for cancelling a shot*/
     func cancelShot() {
         self.goBack()
     }
     
+    /** handles logic for a missed shot*/
      func missedShot() {
         if (self.gameState["possession"] as! String == "offense") {
             let index = gameState["ballIndex"] as! Int
@@ -184,7 +201,9 @@ class ShotChartViewController: UIViewController {
         }
         self.goBack()
     }
-    //Displays the old shots taken on the shot chart. made shots are an o and missed are x TODO: These locations are off because of using absolute distances
+    
+    // TODO: These locations are off because of using absolute distances
+    /**Displays the old shots taken on the shot chart. made shots are an o and missed are x**/
     func displayShots() {
         let shots = gameState["shots"] as! [(x: CGFloat, y: CGFloat, made: Bool)]
         for shot in shots {
@@ -206,12 +225,14 @@ class ShotChartViewController: UIViewController {
         }
     }
     
+    /**handles logic for playing a sequence**/
     func pushPlaySequence(event: String) {
         var playSequence = gameState["playSequence"] as! [String]
         playSequence.append(event)
         gameState["playSequence"] = playSequence
     }
-    //Determines if a shot taken was a 3 pointer. TODO: These distances should be relative
+    // TODO: These distances should be relative
+    /** Determines if a shot taken was a 3 pointer.*/
     func determineThreePoint(location: CGPoint) -> Bool {
         var isThreePoint = false
         

@@ -14,6 +14,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseDatabase
 
+/** handles logic for managing players*/
 class PlayerManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
    // MARK: Properties

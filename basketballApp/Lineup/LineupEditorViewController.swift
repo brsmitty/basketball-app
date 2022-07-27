@@ -12,6 +12,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
+/** handles logic for editing lineup*/
 class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
    // MARK: Properties
@@ -309,7 +310,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       return isUsers
    }
    
-   // Creates the position picker
+   /** Creates the position picker*/
    func createPositionPicker(){
       let positionPickerOne = UIPickerView()
       positionPickerOne.delegate = self
@@ -333,7 +334,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionPickerFive.tag = 4
    }
    
-   // Creates the toolbar for the pickers
+   /** Creates the toolbar for the pickers*/
    func createToolbar(){
       let toolbar = UIToolbar()
       toolbar.sizeToFit()
@@ -349,7 +350,7 @@ class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPick
       positionFive.inputAccessoryView = toolbar
       
    }
-   // Dismisses keyboard
+   /** Dismisses keyboard */
    @objc func dismissKeyboard(){
       view.endEditing(true)
    }

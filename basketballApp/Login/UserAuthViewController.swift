@@ -14,6 +14,7 @@ enum AlertTypes{
    case None
 }
 
+/** controls view of user authentication screen*/
 class UserAuthViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!
@@ -118,6 +119,7 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       }
    }
     
+    /** checks if email has been validated*/
     @objc func checkEmailValidation(){
         Auth.auth().currentUser!.reload { (error) in
             if (Auth.auth().currentUser!.isEmailVerified){
@@ -160,12 +162,14 @@ class UserAuthViewController: UIViewController, UITextFieldDelegate {
       }
     }
    
+    /** creates the alert*/
    func createAlert(with title:String, and alert: String){
       let alert = UIAlertController(title: title, message: alert, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .default))
       self.present(alert, animated: true, completion: nil)
    }
     
+    /**handles logic when login button is clicked**/
     @IBAction func loginClicked(_ sender: Any) {
         guard
             let email = loginEmail.text,

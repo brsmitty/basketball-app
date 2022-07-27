@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** handles logic for freethrow view*/
 class FreethrowViewController: UIViewController {
     
     var gameState: [String: Any] = [:]
@@ -83,6 +84,7 @@ class FreethrowViewController: UIViewController {
         }
     }
     
+    /** go back to previous state*/
     func goBack(){
         gameState["transitionState"] = "freethrow"
         let parent = self.presentingViewController as! GameViewController
@@ -92,7 +94,7 @@ class FreethrowViewController: UIViewController {
         }
         dismiss(animated: false)
     }
-    
+    /** handles logic for the final shot*/
     @IBAction func finalShot(_ sender: UIButton){
         
         if sender.tag == -1 {
@@ -110,7 +112,9 @@ class FreethrowViewController: UIViewController {
 
         goBack()
     }
-    
+    /**
+        handles logic for shots made, interacts with database
+     */
     @IBAction func madeShots(_ sender: UIButton) {
         
         if let player = shootingPlayer {

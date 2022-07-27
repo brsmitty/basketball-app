@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** handles organization of items in dropdown table*/
 class DropDownTableViewCell: UITableViewCell {
    @IBOutlet weak var playerName: UILabel!
    @IBOutlet weak var playerImage: UIImageView!

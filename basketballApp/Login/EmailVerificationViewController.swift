@@ -11,6 +11,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+/** logic for sending email verifcation and adding a user to the database*/
 class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!
@@ -54,7 +55,7 @@ class EmailVerificationViewController: UIViewController {
    }
     
     //MARK: Create User
-    //Function putting user into database
+    /**Function putting user into database*/
     func createUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         print("Adding: " + uid)

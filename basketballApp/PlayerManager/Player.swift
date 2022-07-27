@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** player object*/
 class Player: NSObject {
    
    // MARK: Properties

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** controls playbook view*/
 class PlaybookMasterViewController: UIViewController {
 
     var uid: String = ""
