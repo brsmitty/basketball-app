@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles view of tables in season summary */
+
 class SeasonOverallTableViewController: UITableViewController {
     
     @IBOutlet weak var usTOs: UILabel!

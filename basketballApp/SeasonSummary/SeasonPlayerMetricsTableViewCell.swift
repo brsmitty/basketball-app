@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Show playable players */
+
 class SeasonPlayerMetricsTableViewCell: UITableViewCell {
     //MARK: Properties
     @IBOutlet weak var playerName: UILabel!

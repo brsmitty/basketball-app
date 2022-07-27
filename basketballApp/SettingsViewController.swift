@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 /**
-    functionality for settings page
+    Functionality for settings page
     - for getting timer label
     - for saving
  */

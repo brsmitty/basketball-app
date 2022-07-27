@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles labels for game summary table */
+
 class GameSummaryTableViewCell: UITableViewCell {
 
     //MARK: Properties

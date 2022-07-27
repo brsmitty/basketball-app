@@ -4,7 +4,6 @@
 //
 //  Created by Mike White on 9/21/18.
 //
-// What in the world?
 // MARK: WHOLE CLASS NEVER USED
 
 import UIKit
@@ -13,7 +12,8 @@ import FirebaseDatabase
 import FirebaseAuth
 import os.log
 
-/** handles logic for managing lineup*/
+/** Handles logic for managing lineup */
+
 class LineupManagerViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
    // MARK: Properties

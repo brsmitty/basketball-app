@@ -10,7 +10,9 @@ import UIKit
 import Firebase
 
 @UIApplicationMain
-/**handles launching, quitting and other meta functions for the application**/
+
+/** Handles launching, quitting and other meta functions for the application **/
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?

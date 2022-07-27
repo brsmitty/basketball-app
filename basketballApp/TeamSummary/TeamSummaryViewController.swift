@@ -13,6 +13,7 @@ import FirebaseDatabase
 import Charts
 import FirebaseFirestore
 
+/** Handles view of the team summary page */
 
 class TeamSummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

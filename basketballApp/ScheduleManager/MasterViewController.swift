@@ -5,13 +5,14 @@
 //  Created by Maggie Zhang on 9/27/18.
 //  Copyright © 2018 David Zucco. All rights reserved.
 //
-// This file is bullcrap
 
 import UIKit
 import EventKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+
+/** Handles all interactions with scheduling games*/
 
 class MasterViewController: UITableViewController{
     @IBOutlet var GameTableView: UITableView!

@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles view of the tables */
+
 class OverallTableViewController: UITableViewController {
     
     @IBOutlet weak var usTOs: UILabel!

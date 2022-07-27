@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Cell for the game title */
+
 class GameCell: UITableViewCell{
     
     @IBOutlet weak var GameDetail: UILabel!

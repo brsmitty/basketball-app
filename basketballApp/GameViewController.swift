@@ -10,9 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-/**
- controls all functionality of the game view
- */
+/** Controls all functionality of the game view */
 class GameViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 

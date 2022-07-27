@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
+/** Handles the view logic of the playbook */
 
 class PlaybookViewController: UITableViewController, PlaybookCellDelegate{
    

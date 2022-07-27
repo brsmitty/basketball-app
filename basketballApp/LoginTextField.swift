@@ -9,9 +9,8 @@
 import UIKit
 
 @IBDesignable
-/**
-    the login text field object, inherits from UITextField
- */
+
+/** The login text field object, inherits from UITextField */
 class LoginTextField: UITextField {
 
    override func layoutSubviews() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-/** handles logic for freethrow view*/
+/** Handles logic for freethrow view */
 class FreethrowViewController: UIViewController {
     
     var gameState: [String: Any] = [:]

@@ -11,7 +11,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-/** logic for sending email verifcation and adding a user to the database*/
+/** Logic for sending email verifcation and adding a user to the database */
+
 class EmailVerificationViewController: UIViewController {
 
    var emailVerificationTimer: Timer!

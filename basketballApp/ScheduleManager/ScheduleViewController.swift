@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles notifications of scheduled games */
+
 class ScheduleViewController: UIViewController {
 
    @IBOutlet var gameTimeButton: UIButton!

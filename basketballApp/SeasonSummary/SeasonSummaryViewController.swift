@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handle season summary view */
+
 class SeasonSummaryViewController: UIViewController , UITableViewDataSource, UITableViewDelegate  {
     
     //MARK:Properties

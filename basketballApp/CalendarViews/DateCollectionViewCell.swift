@@ -7,6 +7,8 @@
 import JTAppleCalendar
 import UIKit
 
+/** Holds data to view in calandar */
+
 class DateCellView: JTAppleCell {
     @IBOutlet var dateLabel: UILabel!
     

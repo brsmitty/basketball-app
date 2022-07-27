@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles view of all the pages in the bottom bar */
+
 class PerformanceViewController: UIViewController {
    
     var uid: String = ""

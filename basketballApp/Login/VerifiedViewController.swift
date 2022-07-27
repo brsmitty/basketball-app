@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles view when the user get verfies */
+
 class VerifiedViewController: UIViewController {
 
    var verifiedTimer: Timer!

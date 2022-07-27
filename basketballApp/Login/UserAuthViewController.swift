@@ -14,7 +14,8 @@ enum AlertTypes{
    case None
 }
 
-/** controls view of user authentication screen*/
+/** Controls view of user authentication screen */
+
 class UserAuthViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPass: UITextField!

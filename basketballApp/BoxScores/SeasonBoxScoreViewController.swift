@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handle box score view for season summary page */
+
 class SeasonBoxScoreViewController: UIViewController , UITableViewDataSource, UITableViewDelegate  {
 
     //MARK: Properties

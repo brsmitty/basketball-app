@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Holds variables for the playbook */
+
 class Playbook: NSObject {
     var title: String
     

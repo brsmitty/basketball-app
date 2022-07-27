@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIImageView{
-   /** creates animation for dribbling */
+   /** Creates animation for dribbling */
    func dribble(){
       
       let anim = CABasicAnimation(keyPath: "borderColor")

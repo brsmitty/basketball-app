@@ -8,7 +8,8 @@
 
 import UIKit
 
-/** organizes items in player table*/
+/** Organizes items in player table */
+
 class PlayerTableViewCell: UITableViewCell {
    
    // MARK: Properties

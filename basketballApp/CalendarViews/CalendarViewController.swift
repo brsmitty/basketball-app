@@ -9,6 +9,8 @@ import UIKit
 import JTAppleCalendar
 import FirebaseFirestore
 
+/** Set up view for calandar */
+
 class CalendarViewController: UIViewController, JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
 
     @IBOutlet var calendarView: JTAppleCalendarView!

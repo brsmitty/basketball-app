@@ -12,9 +12,7 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 
-/**
- defined statistics
- */
+/** Defined statistics */
 enum Statistic: String {
     case score2 = "2 point score"
     case score3 = "3 point score"

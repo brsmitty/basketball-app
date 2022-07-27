@@ -9,6 +9,8 @@
 import UIKit
 import JTAppleCalendar
 
+/** Header for the calandar */
+
 class DateHeader: JTAppleCollectionReusableView {
     @IBOutlet var monthTitle: UILabel!
 }

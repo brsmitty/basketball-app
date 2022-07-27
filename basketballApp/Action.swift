@@ -8,7 +8,7 @@
 
 import UIKit
 
-/** defines an action for the given players*/
+/** Defines an action for the given players */
 class Action: NSObject {
     var type: String
     var time: TimeInterval

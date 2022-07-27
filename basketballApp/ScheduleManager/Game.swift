@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Keeps track of the game title */
+
 class Game: NSObject {
     var title: String
     var detail: String

@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-/** creates the default text field*/
+/** Creates the default text field */
 class DefaultUITextField: UITextField {
 
    override func layoutSubviews() {

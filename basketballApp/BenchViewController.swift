@@ -8,7 +8,7 @@
 
 import UIKit
 
-/**controls view of bench**/
+/** Controls view of bench */
 class BenchViewController: UIViewController {
    
    

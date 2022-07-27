@@ -12,7 +12,8 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-/** handles logic for editing lineup*/
+/** Handles logic for editing lineup */
+
 class LineupEditorViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
    // MARK: Properties

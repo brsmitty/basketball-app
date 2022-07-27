@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles box score table view */
+
 class SeasonBoxScoreTableViewCell: UITableViewCell {
 
     

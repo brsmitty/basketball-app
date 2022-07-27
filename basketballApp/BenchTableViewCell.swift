@@ -8,7 +8,7 @@
 
 import UIKit
 
-/**organizes layout of bench table**/
+/** Organizes layout of bench table **/
 class BenchTableViewCell: UITableViewCell {
 
    // MARK: Properties

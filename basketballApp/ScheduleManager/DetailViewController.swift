@@ -10,6 +10,7 @@ import UIKit
 import EventKit
 import os.log
 
+/** Handles view of the details of game */
 
 class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var GameDetail: UITextField!

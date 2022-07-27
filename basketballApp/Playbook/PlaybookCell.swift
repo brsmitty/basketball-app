@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles the cell of the table for the playbook */
+
 protocol PlaybookCellDelegate{
     func viewPdf(titleText: String)
 }

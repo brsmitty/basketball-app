@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handles view for box score table */
+
 class BoxScoreTableViewCell: UITableViewCell {
 
     //MARK: Properties

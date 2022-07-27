@@ -10,6 +10,8 @@ import UIKit
 import EventKit
 import os.log
 
+/** Handles view of scheduled games */
+
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var addButton: UIButton!

@@ -8,7 +8,8 @@
 
 import UIKit
 
-/** organizes items in lineup table*/
+/** Organizes items in lineup table */
+
 class LineupTableViewCell: UITableViewCell {
    
    // MARK: Properties

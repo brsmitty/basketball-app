@@ -8,6 +8,8 @@
 
 import UIKit
 
+/** Handle view for box score */
+
 class BoxScoreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
